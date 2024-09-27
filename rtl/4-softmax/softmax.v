@@ -10,11 +10,14 @@ module softmax #(
   input                         sm_valid_i  ,
   output                        sm_ready_o  ,
 
-  input   [DATA_WIDTH_FLAT-1:0] data_i      ,
-  output  [DATA_WIDTH_FLAT-1:0] data_o
+  input   [DATA_WIDTH_FLAT-1:0] coef_i      ,
+  output  [DATA_WIDTH_FLAT-1:0] alpha_o
 );
   //* ========== wire declaration ===========
-  wire  [DATA_WIDTH-1:0]        data [0:NUM_OF_NODES-1];
+  wire  [DATA_WIDTH-1:0]        coef  [0:NUM_OF_NODES-1];
+
+  //* =========== reg declaration ===========
+  reg   [DATA_WIDTH-1:0]        alpha [0:NUM_OF_NODES-1];
 
   //* ========= internal declaration ========
   genvar i, j;
@@ -23,7 +26,7 @@ module softmax #(
   // -- deflatten input
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      assign data[NUM_OF_NODES-1-i] = data_i[DATA_WIDTH*(i+1)-1:DATA_WIDTH*i];
+      assign coef[NUM_OF_NODES-1-i] = coef_i[DATA_WIDTH*(i+1)-1:DATA_WIDTH*i];
     end
   endgenerate
 
@@ -32,7 +35,7 @@ module softmax #(
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
       for (j = 0; j < DATA_WIDTH; j = j + 1) begin
-        assign data_o[i*DATA_WIDTH+j] = data[i][j];
+        assign alpha_o[i*DATA_WIDTH+j] = alpha[i][j];
       end
     end
   endgenerate
