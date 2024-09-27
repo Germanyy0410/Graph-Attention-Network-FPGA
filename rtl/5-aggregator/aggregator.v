@@ -1,0 +1,6 @@
+module aggregator #(
+
+)(
+
+);
+endmodule
