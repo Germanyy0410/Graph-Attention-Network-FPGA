@@ -15,7 +15,7 @@ module softmax #(
 );
   //* ========== wire declaration ===========
   wire  [DATA_WIDTH-1:0]        coef  [0:NUM_OF_NODES-1];
-  wire   [DATA_WIDTH-1:0]        alpha [0:NUM_OF_NODES-1];
+  wire  [DATA_WIDTH-1:0]        alpha [0:NUM_OF_NODES-1];
 
   //* =========== reg declaration ===========
 
