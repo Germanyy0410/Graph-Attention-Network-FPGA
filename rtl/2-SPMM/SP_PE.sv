@@ -1,28 +1,28 @@
 module SP_PE #(
   //* ========== parameter ===========
-  parameter   DATA_WIDTH          = 8,
-  parameter   DOT_PRODUCT_SIZE    = 5,
+  parameter DATA_WIDTH          = 8,
+  parameter DOT_PRODUCT_SIZE    = 5,
+
   //* ========= localparams ==========
-  localparam  ARR_SIZE_WIDTH     = $clog2(DOT_PRODUCT_SIZE),
-  localparam  COL_IDX_WIDTH      = $clog2(DOT_PRODUCT_SIZE),
-  localparam  NODE_INFO_WIDTH    = $clog2(DOT_PRODUCT_SIZE) + 1,
-  // -- flattened params
-  localparam  COL_IDX_WIDTH_FLAT = DOT_PRODUCT_SIZE * COL_IDX_WIDTH,
-  localparam  DATA_WIDTH_FLAT    = DOT_PRODUCT_SIZE * DATA_WIDTH,
+  parameter ARR_SIZE_WIDTH      = $clog2(DOT_PRODUCT_SIZE),
+  parameter COL_IDX_WIDTH       = $clog2(DOT_PRODUCT_SIZE),
+  parameter NODE_INFO_WIDTH     = $clog2(DOT_PRODUCT_SIZE) + 1,
   // -- max value
-  localparam  MAX_VALUE          = {DATA_WIDTH{1'b1}}
+  parameter MAX_VALUE           = {DATA_WIDTH{1'b1}}
 )(
   input   clk,
   input   rst_n,
-
-  input                               pe_valid_i    ,
-  input   [COL_IDX_WIDTH_FLAT-1:0]    col_idx_i     ,
-  input   [DATA_WIDTH_FLAT-1:0]       value_i       ,
-  input   [NODE_INFO_WIDTH-1:0]       node_info_i   ,
-  input   [DATA_WIDTH_FLAT-1:0]       weight_i      ,
-
-  output                              pe_ready_o    ,
-  output  [DATA_WIDTH-1:0]            result_o
+  // -- inputs
+  input                           pe_valid_i                          ,
+  // -- -- H
+  input   [COL_IDX_WIDTH-1:0]     col_idx_i   [0:DOT_PRODUCT_SIZE-1]  ,
+  input   [DATA_WIDTH-1:0]        value_i     [0:DOT_PRODUCT_SIZE-1]  ,
+  input   [NODE_INFO_WIDTH-1:0]   node_info_i                         ,
+  // -- -- W
+  input   [DATA_WIDTH-1:0]        weight_i    [0:DOT_PRODUCT_SIZE-1]  ,
+  // -- outputs
+  output                          pe_ready_o                          ,
+  output  [DATA_WIDTH-1:0]        result_o
 );
   //* ========== wire declaration ===========
   // -- -- pe_valid
@@ -60,16 +60,10 @@ module SP_PE #(
   genvar a;
 
   //* ========= input assignment ==========
-  assign node_info = node_info_i;
   assign pe_valid  = pe_valid_i;
-  // -- flatten inputs
-  generate
-    for (a = 0; a < DOT_PRODUCT_SIZE; a = a + 1) begin
-      assign col_idx[DOT_PRODUCT_SIZE-1-a]  = col_idx_i[COL_IDX_WIDTH*(a+1)-1:COL_IDX_WIDTH*a];
-      assign value[DOT_PRODUCT_SIZE-1-a]    = value_i[DATA_WIDTH*(a+1)-1:DATA_WIDTH*a];
-      assign weight[DOT_PRODUCT_SIZE-1-a]   = weight_i[DATA_WIDTH*(a+1)-1:DATA_WIDTH*a];
-    end
-  endgenerate
+  assign col_idx   = col_idx_i;
+  assign value     = value_i;
+  assign node_info = node_info_i;
 
   //* ========= output assignment =========
   assign result_o   = result_reg;
@@ -85,7 +79,7 @@ module SP_PE #(
     product_check   = 0;
     sum_check       = 0;
 
-    if (pe_valid) begin          // receive data
+    if (pe_valid && ~products_enable_reg) begin          // receive data
       for (i = 0; i < DOT_PRODUCT_SIZE; i = i + 1) begin
         if (i < node_info[NODE_INFO_WIDTH-1:1]) begin
           product_check         = value[i] * weight[col_idx[i]];
@@ -99,7 +93,7 @@ module SP_PE #(
         for (i = 0; i < DOT_PRODUCT_SIZE / 2; i = i + 1) begin
           if (i < arr_size_reg) begin
             sum_check   = products_reg[2*i] + products_reg[2*i+1];
-            products[i] = (sum_check <= MAX_VALUE) ? sum_check : MAX_VALUE;
+            products[i] = (sum_check <= MAX_VALUE) ? sum_check : sum_check[8:1];
             arr_size    = (arr_size_reg >> 1);
           end
         end
@@ -131,7 +125,6 @@ module SP_PE #(
         end else begin
           products_reg[a] <= products[a];
         end
-
       end
     end
   endgenerate
@@ -161,7 +154,7 @@ module SP_PE #(
 
     if (DOT_PRODUCT_SIZE % 2 == 1) begin
       result_check  = products_reg[0] + products_reg[DOT_PRODUCT_SIZE-1];
-      result        = (result_check <= MAX_VALUE) ? result_check : MAX_VALUE;
+      result        = (result_check <= MAX_VALUE) ? result_check : result_check[8:1];
     end else begin
       result = products_reg[0];
     end

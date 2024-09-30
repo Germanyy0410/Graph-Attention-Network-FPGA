@@ -1,6 +1,0 @@
-module SPMM #(
-
-)(
-
-);
-endmodule
