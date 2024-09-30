@@ -64,6 +64,7 @@ module SP_PE #(
   assign col_idx   = col_idx_i;
   assign value     = value_i;
   assign node_info = node_info_i;
+  assign weight    = weight_i;
 
   //* ========= output assignment =========
   assign result_o   = result_reg;

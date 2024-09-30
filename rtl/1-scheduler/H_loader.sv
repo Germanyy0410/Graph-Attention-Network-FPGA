@@ -48,6 +48,9 @@ module H_loader #(
 
   //* =========== reg declaration ===========
   reg                             sched_ready_reg                                         ;
+  reg   [COL_IDX_WIDTH-1:0]       row_col_idx_reg   [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ;
+  reg   [VALUE_WIDTH-1:0]         row_value_reg     [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ;
+  reg   [ROW_INFO_WIDTH-1:0]      row_info_reg      [0:NUM_OF_ROWS-1]                     ;
 
   //* ========= internal declaration ========
   genvar i;
@@ -55,18 +58,16 @@ module H_loader #(
   genvar row_counter, col_counter;
 
   //* ========== input assignment ===========
-  assign col_idx   = col_idx_i;
-  assign value     = value_i;
-  assign node_info = node_info_i;
+  assign sched_valid  = sched_valid_i;
+  assign col_idx      = col_idx_i;
+  assign value        = value_i;
+  assign node_info    = node_info_i;
 
   //* ========== output assignment =========
   assign sched_ready_o = sched_ready_reg;
-
-  always @(posedge clk) begin
-    col_idx_o   <= col_idx;
-    value_o     <= value;
-    node_info_o <= node_info;
-  end
+  assign row_col_idx_o = row_col_idx_reg;
+  assign row_value_o   = row_value_reg;
+  assign row_info_o    = row_info_reg;
 
   //* =========== extract rows =============
   generate
@@ -83,6 +84,11 @@ module H_loader #(
     end
   endgenerate
 
+  always @(posedge clk) begin
+    row_col_idx_reg <= row_col_idx;
+    row_value_reg   <= row_value;
+    row_info_reg    <= row_info;
+  end
   //* ============ sched_ready ============
   assign sched_ready = sched_valid;
   always @(posedge clk) begin
