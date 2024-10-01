@@ -62,28 +62,23 @@ module SPMM #(
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       SPV #(
-        .DATA_WIDTH(DATA_WIDTH),
-        .DOT_PRODUCT_SIZE(DOT_PRODUCT_SIZE),
-        .H_NUM_OF_COLS(H_NUM_OF_COLS),
-        .H_NUM_OF_ROWS(H_NUM_OF_ROWS),
-
-        .COL_INDEX_SIZE(COL_INDEX_SIZE),
-        .VALUE_SIZE(VALUE_SIZE),
-        .NODE_INFO_SIZE(NODE_INFO_SIZE),
-
-        .W_NUM_OF_ROWS(W_NUM_OF_ROWS),
-        .W_NUM_OF_COLS(W_NUM_OF_COLS)
+        .DATA_WIDTH       (DATA_WIDTH       ),
+        .DOT_PRODUCT_SIZE (DOT_PRODUCT_SIZE ),
+        .H_NUM_OF_COLS    (H_NUM_OF_COLS    ),
+        .H_NUM_OF_ROWS    (H_NUM_OF_ROWS    ),
+        .COL_INDEX_SIZE   (COL_INDEX_SIZE   ),
+        .VALUE_SIZE       (VALUE_SIZE       ),
+        .NODE_INFO_SIZE   (NODE_INFO_SIZE   ),
+        .W_NUM_OF_ROWS    (W_NUM_OF_ROWS    ),
+        .W_NUM_OF_COLS    (W_NUM_OF_COLS    )
       ) u_SPV (
-        .clk(clk),
-        .rst_n(rst_n),
-
-        .row_col_idx_i(row_col_idx_i),
-        .row_value_i(row_value_i),
-        .row_info_i(row_info_i),
-
-        .weight_i(weight_T[i]),
-
-        .result_o(wh_T[i])
+        .clk              (clk              ),
+        .rst_n            (rst_n            ),
+        .row_col_idx_i    (row_col_idx_i    ),
+        .row_value_i      (row_value_i      ),
+        .row_info_i       (row_info_i       ),
+        .weight_i         (weight_T[i]      ),
+        .result_o         (wh_T[i]          )
       );
     end
   endgenerate

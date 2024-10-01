@@ -43,20 +43,18 @@ module SPV #(
   generate
     for (i = 0; i < DOT_PRODUCT_SIZE; i = i + 1) begin
       SP_PE #(
-        .DATA_WIDTH(DATA_WIDTH),
-        .DOT_PRODUCT_SIZE(DOT_PRODUCT_SIZE)
+        .DATA_WIDTH       (DATA_WIDTH       ),
+        .DOT_PRODUCT_SIZE (DOT_PRODUCT_SIZE )
       ) u_SP_PE (
-        .clk(clk),
-        .rst_n(rst_n),
-
-        .pe_valid_i(1'b1),
-        .col_idx_i(row_col_idx_i[i]),
-        .value_i(row_value_i[i]),
-        .node_info_i(row_info_i[i]),
-        .weight_i(weight_i),
-
-        .pe_ready_o(spv_ready[i]),
-        .result_o(result_o[i])
+        .clk              (clk              ),
+        .rst_n            (rst_n            ),
+        .pe_valid_i       (1'b1             ),
+        .col_idx_i        (row_col_idx_i[i] ),
+        .value_i          (row_value_i[i]   ),
+        .node_info_i      (row_info_i[i]    ),
+        .weight_i         (weight_i         ),
+        .pe_ready_o       (spv_ready[i]     ),
+        .result_o         (result_o[i]      )
       );
     end
   endgenerate

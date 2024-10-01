@@ -40,40 +40,40 @@ module scheduler #(
   wire  [ROW_INFO_WIDTH-1:0]    row_info_o      [0:H_NUM_OF_ROWS-1]                     ;
 
   H_loader #(
-    .DATA_WIDTH(DATA_WIDTH),
-    .NUM_OF_COLS(H_NUM_OF_COLS),
-    .NUM_OF_ROWS(H_NUM_OF_ROWS),
-    .COL_INDEX_SIZE(COL_INDEX_SIZE),
-    .VALUE_SIZE(VALUE_SIZE),
-    .NODE_INFO_SIZE(NODE_INFO_SIZE)
+    .DATA_WIDTH     (DATA_WIDTH     ),
+    .NUM_OF_COLS    (H_NUM_OF_COLS  ),
+    .NUM_OF_ROWS    (H_NUM_OF_ROWS  ),
+    .COL_INDEX_SIZE (COL_INDEX_SIZE ),
+    .VALUE_SIZE     (VALUE_SIZE     ),
+    .NODE_INFO_SIZE (NODE_INFO_SIZE )
   ) u_H_loader (
-    .clk(clk),
-    .rst_n(rst_n),
-    .h_valid_i(h_valid_i),
-    .col_idx_i(col_idx_i),
-    .value_i(value_i),
-    .node_info_i(node_info_i),
-    .row_col_idx_o(row_col_idx_o),
-    .row_value_o(row_value_o),
-    .row_info_o(row_info_o)
+    .clk            (clk            ),
+    .rst_n          (rst_n          ),
+    .h_valid_i      (h_valid_i      ),
+    .col_idx_i      (col_idx_i      ),
+    .value_i        (value_i        ),
+    .node_info_i    (node_info_i    ),
+    .row_col_idx_o  (row_col_idx_o  ),
+    .row_value_o    (row_value_o    ),
+    .row_info_o     (row_info_o     )
   );
 
   SPMM #(
-    .DATA_WIDTH(DATA_WIDTH),
-    .DOT_PRODUCT_SIZE(DOT_PRODUCT_SIZE),
-    .H_NUM_OF_COLS(H_NUM_OF_COLS),
-    .H_NUM_OF_ROWS(H_NUM_OF_ROWS),
-    .COL_INDEX_SIZE(COL_INDEX_SIZE),
-    .VALUE_SIZE(VALUE_SIZE),
-    .NODE_INFO_SIZE(NODE_INFO_SIZE),
-    .W_NUM_OF_ROWS(W_NUM_OF_ROWS),
-    .W_NUM_OF_COLS(W_NUM_OF_COLS)
+    .DATA_WIDTH       (DATA_WIDTH       ),
+    .DOT_PRODUCT_SIZE (DOT_PRODUCT_SIZE ),
+    .H_NUM_OF_COLS    (H_NUM_OF_COLS    ),
+    .H_NUM_OF_ROWS    (H_NUM_OF_ROWS    ),
+    .COL_INDEX_SIZE   (COL_INDEX_SIZE   ),
+    .VALUE_SIZE       (VALUE_SIZE       ),
+    .NODE_INFO_SIZE   (NODE_INFO_SIZE   ),
+    .W_NUM_OF_ROWS    (W_NUM_OF_ROWS    ),
+    .W_NUM_OF_COLS    (W_NUM_OF_COLS    )
   ) u_SPMM (
-    .clk(clk),
-    .rst_n(rst_n),
-    .row_col_idx_i(row_col_idx_o),
-    .row_value_i(row_value_o),
-    .row_info_i(row_info_o),
-    .weight_i(weight_i)
+    .clk              (clk              ),
+    .rst_n            (rst_n            ),
+    .row_col_idx_i    (row_col_idx_o    ),
+    .row_value_i      (row_value_o      ),
+    .row_info_i       (row_info_o       ),
+    .weight_i         (weight_i         )
   );
 endmodule
