@@ -29,25 +29,15 @@ module SPMM #(
   input   [VALUE_WIDTH-1:0]       row_value_i     [0:H_NUM_OF_ROWS-1] [0:H_NUM_OF_COLS-1]   ,
   input   [ROW_INFO_WIDTH-1:0]    row_info_i      [0:H_NUM_OF_ROWS-1]                       ,
   // -- -- W
-  input   [DATA_WIDTH-1:0]        weight_i        [0:W_NUM_OF_ROWS-1] [0:W_NUM_OF_COLS-1]   ,
+  input   [DATA_WIDTH-1:0]        weight_i        [0:W_NUM_OF_COLS-1] [0:W_NUM_OF_ROWS-1]   ,
   // -- outputs
   output  [DATA_WIDTH-1:0]        wh_o            [0:H_NUM_OF_ROWS-1] [0:W_NUM_OF_COLS-1]
 );
   //* ========== wire declaration ===========
-  wire    [DATA_WIDTH-1:0]        weight_T        [0:W_NUM_OF_COLS-1] [0:W_NUM_OF_ROWS-1]   ;
   wire    [DATA_WIDTH-1:0]        wh_T            [0:W_NUM_OF_COLS-1] [0:H_NUM_OF_ROWS-1]   ;
 
   //* ========= internal declaration ========
   genvar i, k;
-
-  //* ======= [weight transpose w^T] ========
-  generate
-    for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
-      for (k = 0; k < W_NUM_OF_ROWS; k = k + 1) begin
-        assign weight_T[i][k] = weight_i[k][i];
-      end
-    end
-  endgenerate
 
   //* =========== [(wh)^T -> wh] ============
   generate
@@ -77,7 +67,7 @@ module SPMM #(
         .row_col_idx_i    (row_col_idx_i    ),
         .row_value_i      (row_value_i      ),
         .row_info_i       (row_info_i       ),
-        .weight_i         (weight_T[i]      ),
+        .weight_i         (weight_i[i]      ),
         .result_o         (wh_T[i]          )
       );
     end

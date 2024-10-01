@@ -38,6 +38,7 @@ module scheduler #(
   wire  [COL_IDX_WIDTH-1:0]     row_col_idx_o   [0:H_NUM_OF_ROWS-1] [0:H_NUM_OF_COLS-1] ;
   wire  [VALUE_WIDTH-1:0]       row_value_o     [0:H_NUM_OF_ROWS-1] [0:H_NUM_OF_COLS-1] ;
   wire  [ROW_INFO_WIDTH-1:0]    row_info_o      [0:H_NUM_OF_ROWS-1]                     ;
+  wire  [DATA_WIDTH-1:0]        weight          [0:W_NUM_OF_COLS-1] [0:W_NUM_OF_ROWS-1] ;
 
   H_loader #(
     .DATA_WIDTH     (DATA_WIDTH     ),
@@ -58,6 +59,17 @@ module scheduler #(
     .row_info_o     (row_info_o     )
   );
 
+  W_loader #(
+    .DATA_WIDTH     (DATA_WIDTH     ),
+    .W_NUM_OF_COLS  (W_NUM_OF_COLS  ),
+    .W_NUM_OF_ROWS  (W_NUM_OF_ROWS  )
+  ) u_W_loader (
+    .clk            (clk            ),
+    .rst_n          (rst_n          ),
+    .weight_i       (weight_i       ),
+    .weight_o       (weight         )
+  );
+
   SPMM #(
     .DATA_WIDTH       (DATA_WIDTH       ),
     .DOT_PRODUCT_SIZE (DOT_PRODUCT_SIZE ),
@@ -74,6 +86,6 @@ module scheduler #(
     .row_col_idx_i    (row_col_idx_o    ),
     .row_value_i      (row_value_o      ),
     .row_info_i       (row_info_o       ),
-    .weight_i         (weight_i         )
+    .weight_i         (weight           )
   );
 endmodule
