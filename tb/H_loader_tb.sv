@@ -26,19 +26,17 @@ module H_loader_tb #(
   logic clk;
   logic rst_n;
 
-  logic                         sched_valid_i                                         ;
+  logic                         h_valid_i                                             ;
   logic [COL_IDX_WIDTH-1:0]     col_idx_i       [0:COL_INDEX_SIZE-1]                  ;
   logic [VALUE_WIDTH-1:0]       value_i         [0:VALUE_SIZE-1]                      ;
   logic [NODE_INFO_WIDTH-1:0]   node_info_i     [0:NODE_INFO_SIZE-1]                  ;
 
-  logic                         sched_ready_o                                         ;
+  logic                         h_ready_o                                             ;
   logic [COL_IDX_WIDTH-1:0]     row_col_idx_o   [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ;
   logic [VALUE_WIDTH-1:0]       row_value_o     [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ;
   logic [ROW_INFO_WIDTH-1:0]    row_info_o      [0:NUM_OF_ROWS-1]                     ;
 
-  H_loader dut (
-    .*
-  );
+  H_loader dut (.*);
 
   always #10 clk = ~clk;
 
@@ -50,15 +48,15 @@ module H_loader_tb #(
   end
 
   initial begin
-    sched_valid_i = 1'b0;
+    h_valid_i     = 1'b0;
     #20.10;
-    sched_valid_i = 1'b1;
+    h_valid_i     = 1'b1;
     col_idx_i     = { 8'd0, 8'd4, 8'd2, 8'd4, 8'd1, 8'd3, 8'd2, 8'd4 };
     value_i       = { 8'd2, 8'd9, 8'd7, 8'd8, 8'd6, 8'd5, 8'd3, 8'd1 };
     node_info_i   = { {3'd0, 3'd2, 1'd0}, {3'd2, 3'd2, 1'd0}, {3'd4, 3'd2, 1'd0}, {3'd6, 3'd1, 1'd0}, {3'd7, 3'd1, 1'd0} };
 
     #20.01;
-    sched_valid_i = 1'b0;
+    h_valid_i = 1'b0;
     #5000;
     $finish();
   end

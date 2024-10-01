@@ -24,30 +24,30 @@ module H_loader #(
   input   clk,
   input   rst_n,
 
-  input                           sched_valid_i                                         ,
+  input                           h_valid_i                                             ,
   input   [COL_IDX_WIDTH-1:0]     col_idx_i       [0:COL_INDEX_SIZE-1]                  ,
   input   [VALUE_WIDTH-1:0]       value_i         [0:VALUE_SIZE-1]                      ,
   input   [NODE_INFO_WIDTH-1:0]   node_info_i     [0:NODE_INFO_SIZE-1]                  ,
 
-  output                          sched_ready_o                                         ,
+  output                          h_ready_o                                             ,
   output  [COL_IDX_WIDTH-1:0]     row_col_idx_o   [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ,
   output  [VALUE_WIDTH-1:0]       row_value_o     [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ,
   output  [ROW_INFO_WIDTH-1:0]    row_info_o      [0:NUM_OF_ROWS-1]
 );
   //* ========== wire declaration ===========
   // -- input
-  wire                            sched_valid                                             ;
+  wire                            h_valid                                                 ;
   wire  [COL_IDX_WIDTH-1:0]       col_idx           [0:COL_INDEX_SIZE-1]                  ;
   wire  [VALUE_WIDTH-1:0]         value             [0:VALUE_SIZE-1]                      ;
   wire  [NODE_INFO_WIDTH-1:0]     node_info         [0:NODE_INFO_SIZE-1]                  ;
   // -- output
-  wire                            sched_ready                                             ;
+  wire                            h_ready                                                 ;
   wire  [COL_IDX_WIDTH-1:0]       row_col_idx       [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ;
   wire  [VALUE_WIDTH-1:0]         row_value         [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ;
   wire  [ROW_INFO_WIDTH-1:0]      row_info          [0:NUM_OF_ROWS-1]                     ;
 
   //* =========== reg declaration ===========
-  reg                             sched_ready_reg                                         ;
+  reg                             h_ready_reg                                             ;
   reg   [COL_IDX_WIDTH-1:0]       row_col_idx_reg   [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ;
   reg   [VALUE_WIDTH-1:0]         row_value_reg     [0:NUM_OF_ROWS-1] [0:NUM_OF_COLS-1]   ;
   reg   [ROW_INFO_WIDTH-1:0]      row_info_reg      [0:NUM_OF_ROWS-1]                     ;
@@ -58,16 +58,16 @@ module H_loader #(
   genvar row_counter, col_counter;
 
   //* ========== input assignment ===========
-  assign sched_valid  = sched_valid_i;
+  assign h_valid      = h_valid_i;
   assign col_idx      = col_idx_i;
   assign value        = value_i;
   assign node_info    = node_info_i;
 
   //* ========== output assignment =========
-  assign sched_ready_o = sched_ready_reg;
-  assign row_col_idx_o = row_col_idx_reg;
-  assign row_value_o   = row_value_reg;
-  assign row_info_o    = row_info_reg;
+  assign h_ready_o      = h_ready_reg;
+  assign row_col_idx_o  = row_col_idx_reg;
+  assign row_value_o    = row_value_reg;
+  assign row_info_o     = row_info_reg;
 
   //* =========== extract rows =============
   generate
@@ -84,18 +84,32 @@ module H_loader #(
     end
   endgenerate
 
-  always @(posedge clk) begin
-    row_col_idx_reg <= row_col_idx;
-    row_value_reg   <= row_value;
-    row_info_reg    <= row_info;
-  end
-  //* ============ sched_ready ============
-  assign sched_ready = sched_valid;
+  generate
+    for (row_counter = 0; row_counter < NUM_OF_ROWS; row_counter = row_counter + 1) begin
+      for (col_counter = 0; col_counter < NUM_OF_COLS; col_counter = col_counter + 1) begin
+        always @(posedge clk) begin
+          row_col_idx_reg[row_counter][col_counter] <= row_col_idx[row_counter][col_counter];
+          row_value_reg[row_counter][col_counter]   <= row_value[row_counter][col_counter];
+        end
+      end
+    end
+  endgenerate
+
+  generate
+    for (row_counter = 0; row_counter < NUM_OF_ROWS; row_counter = row_counter + 1) begin
+      always @(posedge clk) begin
+        row_info_reg[row_counter] <= row_info[row_counter];
+      end
+    end
+  endgenerate
+
+  //* ============ h_ready ============
+  assign h_ready = h_valid;
   always @(posedge clk) begin
     if (!rst_n) begin
-      sched_ready_reg <= 0;
+      h_ready_reg <= 0;
     end else begin
-      sched_ready_reg <= sched_ready;
+      h_ready_reg <= h_ready;
     end
   end
 endmodule

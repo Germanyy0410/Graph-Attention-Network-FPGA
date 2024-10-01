@@ -39,6 +39,7 @@ module SPV #(
   //* ========= internal declaration ========
   genvar i;
 
+  //* ============ instantiation ============
   generate
     for (i = 0; i < DOT_PRODUCT_SIZE; i = i + 1) begin
       SP_PE #(

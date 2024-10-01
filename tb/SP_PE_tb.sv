@@ -25,9 +25,7 @@ module SP_PE_tb #(
   logic                         pe_ready_o                          ;
   logic [DATA_WIDTH-1:0]        result_o                            ;
 
-  SP_PE dut (
-    .*
-  );
+  SP_PE dut (.*);
 
   always #10 clk = ~clk;
   initial begin

@@ -152,12 +152,13 @@ module SP_PE #(
   always @(*) begin
     result        = result_reg;
     result_check  = 0;
-
-    if (DOT_PRODUCT_SIZE % 2 == 1) begin
-      result_check  = products_reg[0] + products_reg[DOT_PRODUCT_SIZE-1];
-      result        = (result_check <= MAX_VALUE) ? result_check : result_check[8:1];
-    end else begin
-      result = products_reg[0];
+    if (pe_ready) begin
+      if (DOT_PRODUCT_SIZE % 2 == 1) begin
+        result_check  = products_reg[0] + products_reg[DOT_PRODUCT_SIZE-1];
+        result        = (result_check <= MAX_VALUE) ? result_check : result_check[8:1];
+      end else begin
+        result = products_reg[0];
+      end
     end
   end
 
