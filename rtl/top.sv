@@ -1,16 +1,16 @@
 module top #(
   //* ========== parameter ===========
   parameter DATA_WIDTH        = 8,
-  parameter DOT_PRODUCT_SIZE  = 5,
+  parameter DOT_PRODUCT_SIZE  = 1433,
   // -- H
   parameter H_NUM_OF_COLS     = DOT_PRODUCT_SIZE,
-  parameter H_NUM_OF_ROWS     = 5,
+  parameter H_NUM_OF_ROWS     = 20,
   parameter COL_INDEX_SIZE    = 8,
   parameter VALUE_SIZE        = 8,
-  parameter NODE_INFO_SIZE    = 5,
+  parameter NODE_INFO_SIZE    = H_NUM_OF_ROWS,
   // -- W
   parameter W_NUM_OF_ROWS     = DOT_PRODUCT_SIZE,
-  parameter W_NUM_OF_COLS     = 3,
+  parameter W_NUM_OF_COLS     = 1,
 
   //* ========= localparams ==========
   // -- inputs
@@ -18,10 +18,9 @@ module top #(
   parameter COL_IDX_WIDTH     = $clog2(H_NUM_OF_COLS),
   // -- -- value
   parameter VALUE_WIDTH       = DATA_WIDTH,
-  // -- -- node_info = [idx, row_len, flag]
-  parameter INDEX_WIDTH       = $clog2(COL_INDEX_SIZE),
+  // -- -- node_info = [row_len, flag]
   parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS),
-  parameter NODE_INFO_WIDTH   = INDEX_WIDTH + ROW_LEN_WIDTH + 1,
+  parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + 1,
   // -- outputs
   // -- -- row_info = [row_len, flag]
   parameter ROW_INFO_WIDTH    = ROW_LEN_WIDTH + 1

@@ -20,10 +20,9 @@ module top_tb #(
   parameter COL_IDX_WIDTH     = $clog2(H_NUM_OF_COLS),
   // -- -- value
   parameter VALUE_WIDTH       = DATA_WIDTH,
-  // -- -- node_info = [idx, row_len, flag]
-  parameter INDEX_WIDTH       = $clog2(COL_INDEX_SIZE),
+  // -- -- node_info = [row_len, flag]
   parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS),
-  parameter NODE_INFO_WIDTH   = INDEX_WIDTH + ROW_LEN_WIDTH + 1,
+  parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + 1,
   // -- outputs
   // -- -- row_info = [row_len, flag]
   parameter ROW_INFO_WIDTH    = ROW_LEN_WIDTH + 1
@@ -46,7 +45,7 @@ module top_tb #(
     clk       = 1'b1;
     rst_n     = 1'b0;
     h_valid_i = 1'b0;
-    #11.01;
+    #31.01;
     rst_n     = 1'b1;
 		#5000;
     $finish();
@@ -66,11 +65,11 @@ module top_tb #(
                     8'd6, 8'd5,
                     8'd3,
                     8'd1 };
-    node_info_i	= { {3'd0, 3'd2, 1'd0},
-                    {3'd2, 3'd2, 1'd0},
-                    {3'd4, 3'd2, 1'd0},
-                    {3'd6, 3'd1, 1'd0},
-                    {3'd7, 3'd1, 1'd0} };
+    node_info_i	= { {3'd2, 1'd0},
+                    {3'd2, 1'd0},
+                    {3'd2, 1'd0},
+                    {3'd1, 1'd0},
+                    {3'd1, 1'd0} };
 
     weight_i[0] = {8'd1, 8'd1, 8'd1};
     weight_i[1] = {8'd2, 8'd2, 8'd2};
