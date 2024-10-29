@@ -2,14 +2,12 @@ module SP_PE #(
   //* ========== parameter ===========
   parameter DATA_WIDTH          = 8,
   parameter DOT_PRODUCT_SIZE    = 1433,
-  parameter BRAM_ADDR_WIDTH     = 32,
+  parameter WEIGHT_ADDR_W       = 32,
 
   //* ========= localparams ==========
   parameter INDEX_WIDTH         = $clog2(DOT_PRODUCT_SIZE),
   parameter COL_IDX_WIDTH       = $clog2(DOT_PRODUCT_SIZE),
   parameter ROW_LEN_WIDTH       = $clog2(DOT_PRODUCT_SIZE),
-  parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + 1,
-  parameter FF_DATA_WIDTH       = COL_IDX_WIDTH + DATA_WIDTH,
   // -- max value
   parameter MAX_VALUE           = {DATA_WIDTH{1'b1}}
 )(
@@ -21,11 +19,10 @@ module SP_PE #(
 
   input   [COL_IDX_WIDTH-1:0]     col_idx_i               ,
   input   [DATA_WIDTH-1:0]        value_i                 ,
-  input   [ROW_LEN_WIDTH-1:0]     row_length_i            ,
+  input   [ROW_LEN_WIDTH:0]       row_length_i            ,
 
-  input   [DATA_WIDTH-1:0]        Weight_BRAM_dout        ,
-  output                          Weight_BRAM_enb         ,
-  output  [BRAM_ADDR_WIDTH-1:0]   Weight_BRAM_addrb       ,
+  input   [DATA_WIDTH-1:0]        weight_dout             ,
+  output  [WEIGHT_ADDR_W-1:0]     weight_addrb            ,
 
   output  [DATA_WIDTH-1:0]        result_o
 );
@@ -40,8 +37,8 @@ module SP_PE #(
   reg   [DATA_WIDTH-1:0]        products        ;
   reg   [DATA_WIDTH-1:0]        products_reg    ;
 
-  reg   [INDEX_WIDTH-1:0]       counter         ;
-  reg   [INDEX_WIDTH-1:0]       counter_reg     ;
+  reg   [INDEX_WIDTH:0]         counter         ;
+  reg   [INDEX_WIDTH:0]         counter_reg     ;
   //* ===========================================
 
 
@@ -53,6 +50,8 @@ module SP_PE #(
   wire  [COL_IDX_WIDTH-1:0]     col_idx         ;
   wire  [DATA_WIDTH-1:0]        value           ;
   wire                          node_flag       ;
+
+  wire                          pe_ready_next_en;
   //* ===========================================
 
   integer i;
@@ -64,24 +63,18 @@ module SP_PE #(
 
 
   //* =============== calculation ===============
-  assign Weight_BRAM_addrb  = col_idx_i;
-  assign Weight_BRAM_enb    = ((pe_valid_i && (counter_reg == 0)) || ((counter_reg > 0) && (counter_reg < row_length_i - 1))) ? 1'b1 : 1'b0;
-
-  assign product_check      = value_i * Weight_BRAM_dout;
-  assign sum_check          = result_reg + products_reg;
+  assign weight_addrb   = col_idx_i;
+  assign product_check  = value_i * weight_dout;
+  assign sum_check      = (counter_reg == 0) ? products : (result_reg + products);
 
   always @(*) begin
     products  = products_reg;
     result    = result_reg;
     counter   = counter_reg;
-    if ((pe_valid_i && (counter_reg == 0)) || ((counter_reg > 0) && (counter_reg < row_length_i - 1))) begin
+    if ((pe_valid_i && (counter_reg == 0)) || ((counter_reg > 0) && (counter_reg < row_length_i) && (row_length_i > 1)) || (counter_reg == 0 && row_length_i == 1)) begin
       products  = product_check;
       result    = (sum_check <= MAX_VALUE) ? sum_check : sum_check[8:1];
-      counter   = counter_reg + 1;
-    end else if (counter_reg == row_length_i - 1) begin
-      products  = 0;
-      result    = 0;
-      counter   = 0;
+      counter   = (counter_reg == row_length_i - 1) ? 0 : (counter_reg + 1);
     end
   end
 
@@ -102,9 +95,9 @@ module SP_PE #(
   //* ================ pe_ready =================
   always @(*) begin
     pe_ready = pe_ready_reg;
-    if (pe_ready_reg) begin
+    if (pe_ready_reg && (row_length_i > 1)) begin
       pe_ready = 1'b0;
-    end else if (counter_reg == row_length_i - 1) begin
+    end else if ((counter_reg == row_length_i - 1) || (row_length_i == 1)) begin
       pe_ready = 1'b1;
     end
   end
@@ -113,7 +106,11 @@ module SP_PE #(
     if (!rst_n) begin
       pe_ready_reg <= 0;
     end else begin
-      pe_ready_reg <= pe_ready;
+      if (row_length_i == 1 && pe_valid_i) begin
+        pe_ready_reg <= 1'b1;
+      end else begin
+        pe_ready_reg <= pe_ready;
+      end
     end
   end
   //* ===========================================

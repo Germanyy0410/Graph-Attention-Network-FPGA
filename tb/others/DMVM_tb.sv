@@ -21,7 +21,6 @@ module DMVM_tb #(
   // -- WH BRAM
   logic   [WH_BRAM_WIDTH-1:0]       WH_BRAM_din                               ;
   logic                             WH_BRAM_ena                               ;
-  logic                             WH_BRAM_wea                               ;
   logic   [BRAM_ADDR_WIDTH-1:0]     WH_BRAM_addra                             ;
   logic   [WH_BRAM_WIDTH-1:0]       WH_BRAM_dout                              ;
   logic                             WH_BRAM_enb                               ;
@@ -39,13 +38,15 @@ module DMVM_tb #(
     .NUM_OF_NODES(NUM_OF_NODES)
   ) dut (.*);
 
-  WH_BRAM_wrapper u_WH_BRAM (
-    .clka  (clk           ),
+  dual_read_BRAM #(
+    .DATA_WIDTH   (WH_WIDTH             ),
+    .DEPTH        (WH_DEPTH             ),
+    .CLK_LATENCY  (1                    )
+  ) u_WH_BRAM (
+    .clk   (clk           ),
     .dina  (WH_BRAM_din   ),
     .ena   (WH_BRAM_ena   ),
-    .wea   (WH_BRAM_wea   ),
     .addra (WH_BRAM_addra ),
-    .clkb  (clk           ),
     .doutb (WH_BRAM_dout  ),
     .enb   (WH_BRAM_enb   ),
     .addrb (WH_BRAM_addrb )
@@ -65,7 +66,6 @@ module DMVM_tb #(
 
   initial begin
     WH_BRAM_ena = 1'b1;
-    WH_BRAM_wea = 1'b1;
     a_i = {8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3};
 
     WH_BRAM_din = {8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd5, 1'd1};
@@ -100,7 +100,6 @@ module DMVM_tb #(
     WH_BRAM_addra = 32'd9;
     #20.01;
     WH_BRAM_ena = 1'b0;
-    WH_BRAM_wea = 1'b0;
   end
 
   initial begin

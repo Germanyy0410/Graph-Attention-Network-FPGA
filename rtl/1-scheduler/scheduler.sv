@@ -1,105 +1,117 @@
 module scheduler #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH        = 8                                     ,
+  parameter DATA_WIDTH          = 8                                     ,
   // -- H
-  parameter H_NUM_OF_ROWS     = 2708                                  ,
-  parameter H_NUM_OF_COLS     = 1433                                  ,
+  parameter H_NUM_OF_ROWS       = 2708                                  ,
+  parameter H_NUM_OF_COLS       = 1433                                  ,
   // -- W
-  parameter W_NUM_OF_ROWS     = 1433                                  ,
-  parameter W_NUM_OF_COLS     = 16                                    ,
+  parameter W_NUM_OF_ROWS       = 1433                                  ,
+  parameter W_NUM_OF_COLS       = 16                                    ,
   // -- BRAM
-  parameter BRAM_ADDR_WIDTH   = 32                                    ,
+  parameter COL_IDX_DEPTH       = 242101                                ,
+  parameter VALUE_DEPTH         = 242101                                ,
+  parameter NODE_INFO_DEPTH     = 13264                                 ,
+  parameter WEIGHT_DEPTH        = 1433 * 16                             ,
+  parameter WH_DEPTH            = 242101                                ,
+  parameter A_DEPTH             = 2 * 16                                ,
   // -- NUM_OF_NODES
-  parameter NUM_OF_NODES      = 168                                   ,
-  // -- a
-  parameter A_SIZE            = 32                                    ,
+  parameter NUM_OF_NODES        = 168                                   ,
+
   //* ========= localparams ==========
-  parameter H_INDEX_WIDTH     = $clog2(H_NUM_OF_ROWS)                 ,
-  // -- inputs
-  // -- -- col_idx
-  parameter COL_IDX_WIDTH     = $clog2(H_NUM_OF_COLS)                 ,
-  // -- -- value
-  parameter VALUE_WIDTH       = DATA_WIDTH                            ,
-  // -- -- node_info = [row_len, flag]
-  parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS)                 ,
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                  ,
-  parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1    ,
-  // -- -- WH_BRAM
-  parameter WH_BRAM_WIDTH     = DATA_WIDTH * 16 + NUM_NODE_WIDTH + 1
+  // -- col_idx
+  parameter COL_IDX_WIDTH       = $clog2(H_NUM_OF_COLS)                 ,
+  parameter COL_IDX_ADDR_W      = $clog2(COL_IDX_DEPTH)                 ,
+  // -- value
+  parameter VALUE_WIDTH         = DATA_WIDTH                            ,
+  parameter VALUE_ADDR_W        = $clog2(VALUE_DEPTH)                   ,
+  // -- node_info = [row_len, num_nodes, flag]
+  parameter ROW_LEN_WIDTH       = $clog2(H_NUM_OF_COLS)                 ,
+  parameter NUM_NODE_WIDTH      = $clog2(NUM_OF_NODES)                  ,
+  parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + 1 + NUM_NODE_WIDTH + 1,
+  parameter NODE_INFO_ADDR_W    = $clog2(NODE_INFO_DEPTH)               ,
+  // -- Weight
+  parameter WEIGHT_ADDR_W       = $clog2(WEIGHT_DEPTH)                  ,
+  parameter MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS)                 ,
+  // -- WH_BRAM
+  parameter WH_WIDTH            = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1  ,
+  parameter WH_ADDR_W           = $clog2(WH_DEPTH)                      ,
+  // -- a
+  parameter A_ADDR_W            = $clog2(A_DEPTH)                       ,
+  // -- softmax
+  parameter SOFTMAX_WIDTH       = NUM_OF_NODES * DATA_WIDTH             ,
+  parameter SOFTMAX_DEPTH       = NODE_INFO_DEPTH                       ,
+  parameter SOFTMAX_ADDR_W      = $clog2(SOFTMAX_DEPTH)                 ,
+
+  parameter NUM_NODES_W         = $clog2(NUM_OF_NODES)
 )(
   input clk,
   input rst_n,
 
   // -- H_col_idx BRAM
   input   [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_dout         ,
-  output                            H_col_idx_BRAM_enb          ,
-  output  [BRAM_ADDR_WIDTH-1:0]     H_col_idx_BRAM_addrb        ,
+  output  [COL_IDX_ADDR_W-1:0]      H_col_idx_BRAM_addrb        ,
   input                             H_col_idx_BRAM_load_done    ,
   // -- H_value BRAM
   input   [VALUE_WIDTH-1:0]         H_value_BRAM_dout           ,
-  output                            H_value_BRAM_enb            ,
-  output  [BRAM_ADDR_WIDTH-1:0]     H_value_BRAM_addrb          ,
+  output  [VALUE_ADDR_W-1:0]        H_value_BRAM_addrb          ,
   input                             H_value_BRAM_load_done      ,
   // -- H_node_info BRAM
   input   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout       ,
-  output                            H_node_info_BRAM_enb        ,
-  output  [BRAM_ADDR_WIDTH-1:0]     H_node_info_BRAM_addrb      ,
+  input   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout_nxt   ,
+  output  [NODE_INFO_ADDR_W-1:0]    H_node_info_BRAM_addrb      ,
   input                             H_node_info_BRAM_load_done  ,
   // -- Weight BRAM
   input   [DATA_WIDTH-1:0]          Weight_BRAM_dout            ,
-  output                            Weight_BRAM_enb             ,
-  output  [BRAM_ADDR_WIDTH-1:0]     Weight_BRAM_addrb           ,
+  output  [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addrb           ,
   input                             Weight_BRAM_load_done       ,
   // -- a BRAM
   input   [DATA_WIDTH-1:0]          a_BRAM_dout                 ,
-  output                            a_BRAM_enb                  ,
-  output  [BRAM_ADDR_WIDTH-1:0]     a_BRAM_addrb                ,
+  output  [A_ADDR_W-1:0]            a_BRAM_addrb                ,
   input                             a_BRAM_load_done            ,
   // -- WH BRAM
-  output  [WH_BRAM_WIDTH-1:0]       WH_BRAM_din                 ,
+  output  [WH_WIDTH-1:0]            WH_BRAM_din                 ,
   output                            WH_BRAM_ena                 ,
   output                            WH_BRAM_wea                 ,
-  output  [BRAM_ADDR_WIDTH-1:0]     WH_BRAM_addra               ,
-  input   [WH_BRAM_WIDTH-1:0]       WH_BRAM_dout                ,
-  output                            WH_BRAM_enb                 ,
-  output  [BRAM_ADDR_WIDTH-1:0]     WH_BRAM_addrb
+  output  [WH_ADDR_W-1:0]           WH_BRAM_addra               ,
+  input   [WH_WIDTH-1:0]            WH_BRAM_doutb               ,
+  input   [WH_WIDTH-1:0]            WH_BRAM_doutc               ,
+  output  [WH_ADDR_W-1:0]           WH_BRAM_addrb
 );
-  //* ========== wire declaration ===========
-  wire  [H_INDEX_WIDTH-1:0]     num_of_nodes                                                          ;
-  wire                          h_ready                                                               ;
+  //* ======== internal declaration =========
+  logic [NUM_NODES_W-1:0]         num_of_nodes                                ;
+  logic                           h_ready                                     ;
+
   // -- W_loader
-  wire  [DATA_WIDTH-1:0]        multi_weight_BRAM_dout      [0:W_NUM_OF_COLS-1]                       ;
-  wire                          multi_weight_BRAM_enb       [0:W_NUM_OF_COLS-1]                       ;
-  wire  [BRAM_ADDR_WIDTH-1:0]   multi_weight_BRAM_addrb     [0:W_NUM_OF_COLS-1]                       ;
-  wire                          w_ready                                                               ;
+  logic [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb   [0:W_NUM_OF_COLS-1]     ;
+  logic [DATA_WIDTH-1:0]          mult_weight_dout    [0:W_NUM_OF_COLS-1]     ;
+  logic                           w_ready                                     ;
+
   // -- a_loader
-  wire  [DATA_WIDTH-1:0]        a                           [0:A_SIZE-1]                              ;
-  wire                          a_ready                                                               ;
+  logic [DATA_WIDTH-1:0]          a                   [0:A_DEPTH-1]           ;
+  logic                           a_ready                                     ;
+
   // -- SPMM
-  wire                          spmm_valid                                                            ;
-  wire  [W_NUM_OF_COLS-1:0]     pe_ready                                                              ;
-  // -- coefficient
-  wire  [DATA_WIDTH-1:0]        coef                        [0:NUM_OF_NODES-1]                        ;
-  //* =======================================
+  logic                           spmm_valid                                  ;
+  logic [W_NUM_OF_COLS-1:0]       pe_ready                                    ;
 
-
-  //* =========== reg declaration ===========
-  reg [H_INDEX_WIDTH-1:0]   H_counter       ;
-  reg [H_INDEX_WIDTH-1:0]   H_counter_reg   ;
-
-  reg [COL_IDX_WIDTH-1:0]   W_counter       ;
-  reg [COL_IDX_WIDTH-1:0]   W_counter_reg   ;
+  // -- DMVM
+  logic                           dmvm_valid                                  ;
+  logic                           dmvm_valid_reg                              ;
+  logic                           dmvm_ready                                  ;
+  logic                           sm_BRAM_ena                                 ;
+  logic [SOFTMAX_ADDR_W-1:0]      sm_BRAM_addra                               ;
+  logic [SOFTMAX_WIDTH-1:0]       sm_BRAM_dout                                ;
+  logic [SOFTMAX_ADDR_W-1:0]      sm_BRAM_addrb                               ;
+  // -- softmax
+  logic [DATA_WIDTH-1:0]          coef                [0:NUM_OF_NODES-1]      ;
   //* =======================================
 
   genvar i;
-  assign spmm_valid = (H_col_idx_BRAM_load_done && H_value_BRAM_load_done && H_node_info_BRAM_load_done);
-
 
   W_loader #(
     .DATA_WIDTH       (DATA_WIDTH       ),
     .W_NUM_OF_COLS    (W_NUM_OF_COLS    ),
-    .W_NUM_OF_ROWS    (W_NUM_OF_ROWS    ),
-    .BRAM_ADDR_WIDTH  (BRAM_ADDR_WIDTH  )
+    .W_NUM_OF_ROWS    (W_NUM_OF_ROWS    )
   ) u_W_loader (
     .clk                      (clk                    ),
     .rst_n                    (rst_n                  ),
@@ -111,28 +123,29 @@ module scheduler #(
     .Weight_BRAM_enb          (Weight_BRAM_enb        ),
     .Weight_BRAM_addrb        (Weight_BRAM_addrb      ),
 
-    .multi_weight_BRAM_dout   (multi_weight_BRAM_dout ),
-    .multi_weight_BRAM_enb    (multi_weight_BRAM_enb  ),
-    .multi_weight_BRAM_addrb  (multi_weight_BRAM_addrb)
+    .mult_weight_addrb        (mult_weight_addrb      ),
+    .mult_weight_dout         (mult_weight_dout       )
   );
 
   a_loader #(
     .DATA_WIDTH       (DATA_WIDTH       ),
-    .BRAM_ADDR_WIDTH  (BRAM_ADDR_WIDTH  ),
-    .A_SIZE           (A_SIZE           )
+    .A_ADDR_W         (A_ADDR_W         ),
+    .A_DEPTH          (A_DEPTH          )
   ) u_a_loader (
-    .clk                      (clk                    ),
-    .rst_n                    (rst_n                  ),
+    .clk              (clk                    ),
+    .rst_n            (rst_n                  ),
 
-    .a_valid_i                (a_BRAM_load_done       ),
-    .a_ready_o                (a_ready                ),
+    .a_valid_i        (a_BRAM_load_done       ),
+    .a_ready_o        (a_ready                ),
 
-    .a_BRAM_dout              (a_BRAM_dout            ),
-    .a_BRAM_enb               (a_BRAM_enb             ),
-    .a_BRAM_addrb             (a_BRAM_addrb           ),
+    .a_BRAM_dout      (a_BRAM_dout            ),
+    .a_BRAM_enb       (a_BRAM_enb             ),
+    .a_BRAM_addrb     (a_BRAM_addrb           ),
 
-    .a_o                      (a                      )
+    .a_o              (a                      )
   );
+
+  assign spmm_valid = (H_col_idx_BRAM_load_done && H_value_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
 
   SPMM #(
     .DATA_WIDTH       (DATA_WIDTH       ),
@@ -143,28 +156,30 @@ module scheduler #(
 
     .W_NUM_OF_ROWS    (W_NUM_OF_ROWS    ),
     .W_NUM_OF_COLS    (W_NUM_OF_COLS    ),
-    .NUM_OF_NODES     (NUM_OF_NODES     ),
 
-    .WH_BRAM_WIDTH    (WH_BRAM_WIDTH    )
+    .COL_IDX_DEPTH    (COL_IDX_DEPTH    ),
+    .VALUE_DEPTH      (VALUE_DEPTH      ),
+    .NODE_INFO_DEPTH  (NODE_INFO_DEPTH  ),
+    .WEIGHT_DEPTH     (WEIGHT_DEPTH     ),
+    .WH_DEPTH         (WH_DEPTH         ),
+
+    .NUM_OF_NODES     (NUM_OF_NODES     )
   ) u_SPMM (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
 
     .H_col_idx_BRAM_dout        (H_col_idx_BRAM_dout        ),
-    .H_col_idx_BRAM_enb         (H_col_idx_BRAM_enb         ),
     .H_col_idx_BRAM_addrb       (H_col_idx_BRAM_addrb       ),
 
     .H_value_BRAM_dout          (H_value_BRAM_dout          ),
-    .H_value_BRAM_enb           (H_value_BRAM_enb           ),
     .H_value_BRAM_addrb         (H_value_BRAM_addrb         ),
 
     .H_node_info_BRAM_dout      (H_node_info_BRAM_dout      ),
-    .H_node_info_BRAM_enb       (H_node_info_BRAM_enb       ),
+    .H_node_info_BRAM_dout_nxt  (H_node_info_BRAM_dout_nxt  ),
     .H_node_info_BRAM_addrb     (H_node_info_BRAM_addrb     ),
 
-    .multi_weight_BRAM_dout     (multi_weight_BRAM_dout     ),
-    .multi_weight_BRAM_enb      (multi_weight_BRAM_enb      ),
-    .multi_weight_BRAM_addrb    (multi_weight_BRAM_addrb    ),
+    .mult_weight_addrb          (mult_weight_addrb          ),
+    .mult_weight_dout           (mult_weight_dout           ),
 
     .spmm_valid_i               (spmm_valid                 ),
     .pe_ready_o                 (pe_ready                   ),
@@ -175,23 +190,48 @@ module scheduler #(
     .WH_BRAM_addra              (WH_BRAM_addra              )
   );
 
+  assign dmvm_valid = (&pe_ready) ? 1'b1 : dmvm_valid_reg;
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      dmvm_valid_reg <= 1'b0;
+    end else begin
+      dmvm_valid_reg <= dmvm_valid;
+    end
+  end
+
   DMVM #(
-    .A_SIZE           (A_SIZE           ),
+    .A_DEPTH          (A_DEPTH          ),
     .DATA_WIDTH       (DATA_WIDTH       ),
-    .BRAM_ADDR_WIDTH  (BRAM_ADDR_WIDTH  ),
-    .NUM_OF_NODES     (H_NUM_OF_ROWS    )
+    .WH_ADDR_W        (WH_ADDR_W        ),
+    .NUM_OF_NODES     (NUM_OF_NODES     ),
+    .W_NUM_OF_COLS    (W_NUM_OF_COLS    )
   ) u_DMVM (
     .clk              (clk              ),
     .rst_n            (rst_n            ),
 
+    .dmvm_valid_i     (dmvm_valid_reg   ),
+    .dmvm_ready_o     (dmvm_ready       ),
+
     .a_valid_i        (a_BRAM_load_done ),
+    .a_i              (a                ),
 
-    .WH_BRAM_dout     (WH_BRAM_dout     ),
-    .WH_BRAM_enb      (WH_BRAM_enb      ),
-    .WH_BRAM_addrb    (WH_BRAM_addrb    ),
-
-    .a_i              (a                )
+    .WH_BRAM_doutb    (WH_BRAM_doutb    ),
+    .WH_BRAM_addrb    (WH_BRAM_addrb    )
   );
+
+//  BRAM #(
+//    .DATA_WIDTH   (SOFTMAX_WIDTH    ),
+//    .DEPTH        (SOFTMAX_DEPTH    ),
+//    .CLK_LATENCY  (1                )
+//  ) u_softmax_BRAM (
+//    .clk          (clk              ),
+//    .rst_n        (rst_n            ),
+//    .din          (coef             ),
+//    .ena          (sm_BRAM_ena      ),
+//    .addra        (sm_BRAM_addra    ),
+//    .addrb        (sm_BRAM_addrb    ),
+//    .dout         (sm_BRAM_dout     )
+//  );
 endmodule
 
 

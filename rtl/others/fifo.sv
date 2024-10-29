@@ -1,6 +1,8 @@
+`timescale 1ns / 1ps
+
 module fifo #(
-  parameter DATA_WIDTH = 8,
-  parameter FIFO_DEPTH = 1433
+  parameter DATA_WIDTH = 32,
+  parameter FIFO_DEPTH = 256
 ) (
   input                                 clk,
   input                                 rst_n,
@@ -11,11 +13,11 @@ module fifo #(
   input                                 wr_valid_i,
   input                                 rd_valid_i,
 
+  output                                almost_empty_o,
   output                                empty_o,
+  output                                almost_full_o,
   output                                full_o
 );
-  wire                                  almost_empty_o;
-  wire                                  almost_full_o;
 
   localparam ADDR_WIDTH = $clog2(FIFO_DEPTH);
   genvar addr;

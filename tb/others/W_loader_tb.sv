@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 module W_loader_tb #(
   //* ========== parameter ===========
   parameter DATA_WIDTH        = 8,
