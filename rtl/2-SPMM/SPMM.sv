@@ -4,7 +4,7 @@ module SPMM #(
   parameter DOT_PRODUCT_SIZE    = 1433,
   // -- H
   parameter H_NUM_OF_COLS       = 1433,
-  parameter H_NUM_OF_ROWS       = 2708,
+  parameter H_NUM_OF_ROWS       = 13264,
   // -- W
   parameter W_NUM_OF_ROWS       = 1433,
   parameter W_NUM_OF_COLS       = 16,
@@ -25,12 +25,13 @@ module SPMM #(
   parameter VALUE_WIDTH         = DATA_WIDTH,
   parameter VALUE_ADDR_W        = $clog2(VALUE_DEPTH),
   // -- row_info
-  parameter ROW_LEN_WIDTH       = $clog2(H_NUM_OF_COLS),
-  parameter NUM_NODE_WIDTH      = $clog2(NUM_OF_NODES),
-  parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + 1 + NUM_NODE_WIDTH + 1,
+  parameter ROW_LEN_WIDTH       = $clog2(H_NUM_OF_COLS) + 1,
+  parameter NUM_NODE_WIDTH      = $clog2(NUM_OF_NODES) + 1,
+  parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1,
   parameter NODE_INFO_ADDR_W    = $clog2(NODE_INFO_DEPTH),
   // -- WH_BRAM
   parameter WH_WIDTH            = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
+  parameter RESULT_WIDTH        = DATA_WIDTH * W_NUM_OF_COLS,
   parameter WH_ADDR_W           = $clog2(WH_DEPTH),
 
   parameter WH_COL_WIDTH        = $clog2(H_NUM_OF_ROWS),
@@ -70,22 +71,22 @@ module SPMM #(
   // -- current data from BRAM
   wire    [COL_IDX_WIDTH-1:0]     col_idx                                 ;
   wire    [VALUE_WIDTH-1:0]       value                                   ;
-  wire    [ROW_LEN_WIDTH:0]       row_length                              ;
+  wire    [ROW_LEN_WIDTH-1:0]     row_length                              ;
   wire                            source_node_flag                        ;
   wire    [NUM_NODE_WIDTH-1:0]    num_of_nodes                            ;
   // -- next data from BRAM
-  wire    [ROW_LEN_WIDTH:0]       row_length_nxt                          ;
+  wire    [ROW_LEN_WIDTH-1:0]     row_length_nxt                          ;
   wire                            source_node_flag_nxt                    ;
   wire    [NUM_NODE_WIDTH-1:0]    num_of_nodes_nxt                        ;
   // -- data from FF
-  wire    [ROW_LEN_WIDTH:0]       ff_row_length                           ;
+  wire    [ROW_LEN_WIDTH-1:0]     ff_row_length                           ;
   wire                            ff_source_node_flag                     ;
   wire    [NUM_NODE_WIDTH-1:0]    ff_num_of_nodes                         ;
-  reg     [ROW_LEN_WIDTH:0]       ff_row_length_reg                       ;
+  reg     [ROW_LEN_WIDTH-1:0]     ff_row_length_reg                       ;
   reg                             ff_source_node_flag_reg                 ;
   reg     [NUM_NODE_WIDTH-1:0]    ff_num_of_nodes_reg                     ;
 
-  wire    [ROW_LEN_WIDTH:0]       row_counter                             ;
+  wire    [ROW_LEN_WIDTH-1:0]     row_counter                             ;
 
   // -- FIFO
   wire    [NODE_INFO_WIDTH-1:0]   ff_data_i                               ;
@@ -96,6 +97,7 @@ module SPMM #(
   wire                            ff_rd_valid                             ;
   wire    [NODE_INFO_WIDTH-1:0]   ff_node_info                            ;
 
+  wire    [RESULT_WIDTH-1:0]      result_cat                              ;
   //* =======================================
 
 
@@ -154,7 +156,7 @@ module SPMM #(
   fifo #(
     .DATA_WIDTH (NODE_INFO_WIDTH  ),
     .FIFO_DEPTH (30               )
-  ) node_info_fifo (
+  ) node_info_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
 
@@ -171,10 +173,13 @@ module SPMM #(
 
 
   //* ====== assign result to WH BRAM =======
-  // assign WH_BRAM_din = { result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7], result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15], num_of_nodes, source_node_flag };
+  generate
+    for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
+      assign result_cat[DATA_WIDTH*(i+1)-1-:DATA_WIDTH] = result[W_NUM_OF_COLS-1-i];
+    end
+  endgenerate
 
-  assign WH_BRAM_din = { result[0], result[1], result[2], result[3], ff_num_of_nodes_reg, ff_source_node_flag_reg };
-
+  assign WH_BRAM_din = { result_cat, ff_num_of_nodes_reg, ff_source_node_flag_reg };
   assign WH_BRAM_ena    = (&pe_ready_o);
   assign WH_BRAM_wea    = (&pe_ready_o);
   assign WH_BRAM_addra  = WH_addr_reg;
@@ -221,7 +226,7 @@ module SPMM #(
   //* ======== Pop data into SP-PE ==========
   assign new_row_enable = ((row_counter_reg == 1 && row_length >= 2) || (row_length == 1)) && spmm_valid_q1;
 
-  assign row_counter    = (((row_counter_reg == row_length - 1 && row_length > 1) || (row_counter_reg == 0 && row_length_nxt == 1)) && spmm_valid_q1)
+  assign row_counter    = (((row_counter_reg == row_length - 1 && row_length > 1) || (row_counter_reg == 0 && row_length_nxt == 1)) && spmm_valid_q1) || (row_counter_reg == 0 && row_length == 1 && (spmm_valid_i ^ spmm_valid_q1))
                           ? 0
                           : ((((row_counter_reg < row_length - 1) && (row_length > 1)) || (row_length == 1 && row_length_nxt > 1)) && spmm_valid_i)
                             ? (row_counter_reg + 1)

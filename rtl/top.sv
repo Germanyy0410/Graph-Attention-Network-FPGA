@@ -1,39 +1,39 @@
 module top #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH        = 8                                     ,
+  parameter DATA_WIDTH        = 8                                                 ,
   // -- H
-  parameter H_NUM_OF_ROWS     = 2708                                  ,
-  parameter H_NUM_OF_COLS     = 1433                                  ,
+  parameter H_NUM_OF_ROWS     = 13264                                             ,
+  parameter H_NUM_OF_COLS     = 1433                                              ,
   // -- W
-  parameter W_NUM_OF_ROWS     = 1433                                  ,
-  parameter W_NUM_OF_COLS     = 16                                    ,
+  parameter W_NUM_OF_ROWS     = 1433                                              ,
+  parameter W_NUM_OF_COLS     = 16                                                ,
   // -- BRAM
-  parameter COL_IDX_DEPTH     = 242101                                ,
-  parameter VALUE_DEPTH       = 242101                                ,
-  parameter NODE_INFO_DEPTH   = 13264                                 ,
-  parameter WEIGHT_DEPTH      = 22928                                 ,
-  parameter WH_DEPTH          = 242101                                ,
-  parameter A_DEPTH           = 32                                    ,
+  parameter COL_IDX_DEPTH     = 242101                                            ,
+  parameter VALUE_DEPTH       = 242101                                            ,
+  parameter NODE_INFO_DEPTH   = 13264                                             ,
+  parameter WEIGHT_DEPTH      = 22928                                             ,
+  parameter WH_DEPTH          = 242101                                            ,
+  parameter A_DEPTH           = 32                                                ,
   // -- NUM_OF_NODES
-  parameter NUM_OF_NODES      = 168                                   ,
+  parameter NUM_OF_NODES      = 168                                               ,
 
   //* ========= localparams ==========
   // -- col_idx
-  parameter COL_IDX_WIDTH     = $clog2(H_NUM_OF_COLS)                 ,
-  parameter COL_IDX_ADDR_W    = $clog2(COL_IDX_DEPTH)                 ,
+  parameter COL_IDX_WIDTH     = $clog2(H_NUM_OF_COLS)                             ,
+  parameter COL_IDX_ADDR_W    = $clog2(COL_IDX_DEPTH)                             ,
   // -- value
-  parameter VALUE_WIDTH       = DATA_WIDTH                            ,
-  parameter VALUE_ADDR_W      = $clog2(VALUE_DEPTH)                   ,
+  parameter VALUE_WIDTH       = DATA_WIDTH                                        ,
+  parameter VALUE_ADDR_W      = $clog2(VALUE_DEPTH)                               ,
   // -- node_info = [row_len, num_nodes, flag]
-  parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS)                 ,
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                  ,
-  parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + 1 + NUM_NODE_WIDTH + 1,
-  parameter NODE_INFO_ADDR_W  = $clog2(NODE_INFO_DEPTH)               ,
+  parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS) + 1                         ,
+  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES) + 1                          ,
+  parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1                ,
+  parameter NODE_INFO_ADDR_W  = $clog2(NODE_INFO_DEPTH)                           ,
   // -- Weight
-  parameter WEIGHT_ADDR_W     = $clog2(WEIGHT_DEPTH)                  ,
+  parameter WEIGHT_ADDR_W     = $clog2(WEIGHT_DEPTH)                              ,
   // -- WH_BRAM
   parameter WH_WIDTH          = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1   ,
-  parameter WH_ADDR_W         = $clog2(WH_DEPTH)                      ,
+  parameter WH_ADDR_W         = $clog2(WH_DEPTH)                                  ,
   // -- a
   parameter A_ADDR_W          = $clog2(A_DEPTH)
 )(
@@ -113,18 +113,18 @@ module top #(
   );
 
   modified_BRAM #(
-    .DATA_WIDTH   (NODE_INFO_WIDTH          ),
-    .DEPTH        (NODE_INFO_DEPTH          ),
-    .CLK_LATENCY  (1                        )
-  ) u_H_node_info_BRAM (
-    .clk          (clk                      ),
-    .rst_n        (rst_n                    ),
-    .din          (H_node_info_BRAM_din     ),
-    .addra        (H_node_info_BRAM_addra   ),
-    .ena          (H_node_info_BRAM_ena     ),
-    .addrb        (H_node_info_BRAM_addrb   ),
-    .dout         (H_node_info_BRAM_dout    ),
-    .dout_nxt     (H_node_info_BRAM_dout_nxt)
+    .DATA_WIDTH   (NODE_INFO_WIDTH            ),
+    .DEPTH        (NODE_INFO_DEPTH            ),
+    .CLK_LATENCY  (1                          )
+    ) u_H_node_info_BRAM (
+    .clk          (clk                        ),
+    .rst_n        (rst_n                      ),
+    .din          (H_node_info_BRAM_din       ),
+    .addra        (H_node_info_BRAM_addra     ),
+    .ena          (H_node_info_BRAM_ena       ),
+    .addrb        (H_node_info_BRAM_addrb     ),
+    .dout         (H_node_info_BRAM_dout      ),
+    .dout_nxt     (H_node_info_BRAM_dout_nxt  )
   );
 
   BRAM #(

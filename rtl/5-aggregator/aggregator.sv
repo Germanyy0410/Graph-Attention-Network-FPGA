@@ -14,9 +14,8 @@ module aggregator #(
   input rst_n,
 
   // -- WH BRAM
-  input   [DATA_WIDTH-1:0]          WH_BRAM_dout                              ,
-  output                            WH_BRAM_enb                               ,
-  output  [BRAM_ADDR_WIDTH-1:0]     WH_BRAM_addrb                             ,
+  input   [DATA_WIDTH-1:0]          WH_BRAM_doutc                             ,
+  output  [BRAM_ADDR_WIDTH-1:0]     WH_BRAM_addrc                             ,
   input   [NUM_NODE_WIDTH-1:0]      num_of_nodes                              ,
   // -- alpha
   input   [DATA_WIDTH-1:0]          alpha_i         [0:NUM_OF_NODES-1]        ,

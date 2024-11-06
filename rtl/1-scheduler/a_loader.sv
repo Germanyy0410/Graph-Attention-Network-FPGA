@@ -1,7 +1,8 @@
 module a_loader #(
   parameter DATA_WIDTH        = 8,
   parameter A_ADDR_W          = 32,
-  parameter A_DEPTH           = 32
+  parameter A_DEPTH           = 32,
+  parameter INDEX_WIDTH       = $clog2(A_DEPTH)
 )(
   input clk,
   input rst_n,
@@ -19,6 +20,7 @@ module a_loader #(
   wire  [A_ADDR_W-1:0]          a_addr                      ;
   wire  [DATA_WIDTH-1:0]        a           [0:A_DEPTH-1]   ;
   wire                          rd_en                       ;
+  wire  [INDEX_WIDTH-1:0]       idx                         ;
   //* =======================================
 
 
@@ -27,6 +29,7 @@ module a_loader #(
   reg   [DATA_WIDTH-1:0]        a_reg       [0:A_DEPTH-1]   ;
   reg                           rd_en_q1                    ;
   reg                           rd_en_q2                    ;
+  reg   [INDEX_WIDTH-1:0]       idx_reg                     ;
   //* =======================================
 
   genvar i;
@@ -49,7 +52,7 @@ module a_loader #(
 
 
   //* ================ addr =================
-  assign a_addr = (a_valid_i) ? (a_addr_reg + 1) : a_addr_reg;
+  assign a_addr = (a_valid_i && a_addr_reg < A_DEPTH - 1) ? (a_addr_reg + 1) : a_addr_reg;
 
   always @(posedge clk) begin
     if (!rst_n) begin
@@ -68,11 +71,22 @@ module a_loader #(
 
 
   //* ================= a ===================
+
+  assign idx = (rd_en_q1 && (idx_reg < A_DEPTH - 1)) ? (idx_reg + 1) : idx_reg;
+
   generate
     for (i = 0; i < A_DEPTH; i = i + 1) begin
-      assign a[i] = (rd_en_q1 && (i == a_addr_reg - 1)) ? a_BRAM_dout : a_reg[i];
+      assign a[i] = (i == idx_reg) ? a_BRAM_dout : a_reg[i];
     end
   endgenerate
+
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      idx_reg <= 0;
+    end else begin
+      idx_reg <= idx;
+    end
+  end
 
   generate
     for (i = 0; i < A_DEPTH; i = i + 1) begin

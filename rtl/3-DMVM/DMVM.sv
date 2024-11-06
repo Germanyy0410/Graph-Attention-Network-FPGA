@@ -9,7 +9,7 @@ module DMVM #(
   //* ========= localparams ==========
   parameter HALF_A_SIZE       = A_DEPTH / 2                             ,
   parameter MAX_VALUE         = {DATA_WIDTH{1'b1}}                      ,
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                    ,
+  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES) + 1                ,
   parameter WH_WIDTH          = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1
 )(
   input clk,
@@ -24,7 +24,8 @@ module DMVM #(
   input   [WH_WIDTH-1:0]            WH_BRAM_doutb                             ,
   output  [WH_ADDR_W-1:0]           WH_BRAM_addrb                             ,
   // -- output
-  output  [DATA_WIDTH-1:0]          coef_o          [0:NUM_OF_NODES-1]
+  output  [DATA_WIDTH-1:0]          coef_o          [0:NUM_OF_NODES-1]        ,
+  output  [NUM_NODE_WIDTH-1:0]      num_of_nodes
 );
   //* ========== wire declaration ===========
   logic                         dmvm_valid_q1                                 ;
@@ -37,7 +38,6 @@ module DMVM #(
   logic [WH_ADDR_W-1:0]         WH_addr_reg                                   ;
   logic [DATA_WIDTH-1:0]        WH_arr              [0:HALF_A_SIZE-1]         ;
   logic                         source_node_flag                              ;
-  logic [NUM_NODE_WIDTH-1:0]    num_of_nodes                                  ;
 
   // -- product
   logic [DATA_WIDTH*2-1:0]      product_check       [0:HALF_A_SIZE-1]         ;
@@ -56,6 +56,8 @@ module DMVM #(
   // -- result
   logic [NUM_NODE_WIDTH-1:0]    idx                                           ;
   logic [NUM_NODE_WIDTH-1:0]    idx_reg                                       ;
+  logic                         result_done                                   ;
+  logic                         result_done_reg                               ;
   logic [DATA_WIDTH-1:0]        result              [0:NUM_OF_NODES-1]        ;
   logic [DATA_WIDTH-1:0]        result_reg          [0:NUM_OF_NODES-1]        ;
 
@@ -74,11 +76,14 @@ module DMVM #(
   genvar i;
   integer x;
 
-  //* ========== output assignment ==========
+  //* ============= skid input ==============
   always @(posedge clk) begin
     dmvm_valid_q1 <= dmvm_valid_i;
   end
+  //* =======================================
 
+
+  //* ========== output assignment ==========
   assign dmvm_ready_o = dmvm_ready_reg;
 
   generate
@@ -189,11 +194,12 @@ module DMVM #(
 
 
   //* ============== result =================
+  assign result_done = (product_size_reg == 2) ? 1'b1 : 1'b0;
   assign idx = ((idx_reg == num_of_nodes - 1) && (product_size_reg == 1)) ? 0 : ((product_size_reg == 1) ? (idx_reg + 1) : idx_reg);
 
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      assign result[i] = (i == idx_reg) ? product_reg[0] : result_reg[i];
+      assign result[i] = (i == idx_reg && result_done_reg) ? product_reg[0] : result_reg[i];
     end
   endgenerate
 
@@ -211,9 +217,11 @@ module DMVM #(
 
   always @(posedge clk) begin
     if (!rst_n) begin
-      idx_reg <= 0;
+      idx_reg         <= 0;
+      result_done_reg <= 0;
     end else begin
-      idx_reg <= idx;
+      idx_reg         <= idx;
+      result_done_reg <= result_done;
     end
   end
   //* =======================================
@@ -224,7 +232,7 @@ module DMVM #(
 
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      assign r_sum_check[i] = (i < HALF_A_SIZE) ? (result_reg[0] + result_reg[i]) : 0;
+      assign r_sum_check[i] = (i < num_of_nodes) ? (result_reg[0] + result_reg[i]) : 0;
       assign relu[i]        = sub_graph_done_reg
                               ? (r_sum_check[i] <= MAX_VALUE) ? r_sum_check[i] : MAX_VALUE
                               : relu_reg[i];
@@ -254,7 +262,7 @@ module DMVM #(
 
 
   //* ============ dmvm_ready ===============
-  assign dmvm_ready =  (dmvm_ready_reg == 1'b1) ? 1'b0 : ((sub_graph_done == 1'b1) ? 1'b1 : dmvm_ready_reg);
+  assign dmvm_ready = (dmvm_ready_reg == 1'b1) ? 1'b0 : ((sub_graph_done_reg == 1'b1) ? 1'b1 : dmvm_ready_reg);
 
   always @(posedge clk) begin
     if (!rst_n) begin

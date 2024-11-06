@@ -1,46 +1,46 @@
 module scheduler #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH          = 8                                     ,
+  parameter DATA_WIDTH          = 8                                                 ,
   // -- H
-  parameter H_NUM_OF_ROWS       = 2708                                  ,
-  parameter H_NUM_OF_COLS       = 1433                                  ,
+  parameter H_NUM_OF_ROWS       = 13264                                             ,
+  parameter H_NUM_OF_COLS       = 1433                                              ,
   // -- W
-  parameter W_NUM_OF_ROWS       = 1433                                  ,
-  parameter W_NUM_OF_COLS       = 16                                    ,
+  parameter W_NUM_OF_ROWS       = 1433                                              ,
+  parameter W_NUM_OF_COLS       = 16                                                ,
   // -- BRAM
-  parameter COL_IDX_DEPTH       = 242101                                ,
-  parameter VALUE_DEPTH         = 242101                                ,
-  parameter NODE_INFO_DEPTH     = 13264                                 ,
-  parameter WEIGHT_DEPTH        = 1433 * 16                             ,
-  parameter WH_DEPTH            = 242101                                ,
-  parameter A_DEPTH             = 2 * 16                                ,
+  parameter COL_IDX_DEPTH       = 242101                                            ,
+  parameter VALUE_DEPTH         = 242101                                            ,
+  parameter NODE_INFO_DEPTH     = 13264                                             ,
+  parameter WEIGHT_DEPTH        = 1433 * 16                                         ,
+  parameter WH_DEPTH            = 242101                                            ,
+  parameter A_DEPTH             = 2 * 16                                            ,
   // -- NUM_OF_NODES
-  parameter NUM_OF_NODES        = 168                                   ,
+  parameter NUM_OF_NODES        = 168                                               ,
 
   //* ========= localparams ==========
   // -- col_idx
-  parameter COL_IDX_WIDTH       = $clog2(H_NUM_OF_COLS)                 ,
-  parameter COL_IDX_ADDR_W      = $clog2(COL_IDX_DEPTH)                 ,
+  parameter COL_IDX_WIDTH       = $clog2(H_NUM_OF_COLS)                             ,
+  parameter COL_IDX_ADDR_W      = $clog2(COL_IDX_DEPTH)                             ,
   // -- value
-  parameter VALUE_WIDTH         = DATA_WIDTH                            ,
-  parameter VALUE_ADDR_W        = $clog2(VALUE_DEPTH)                   ,
+  parameter VALUE_WIDTH         = DATA_WIDTH                                        ,
+  parameter VALUE_ADDR_W        = $clog2(VALUE_DEPTH)                               ,
   // -- node_info = [row_len, num_nodes, flag]
-  parameter ROW_LEN_WIDTH       = $clog2(H_NUM_OF_COLS)                 ,
-  parameter NUM_NODE_WIDTH      = $clog2(NUM_OF_NODES)                  ,
-  parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + 1 + NUM_NODE_WIDTH + 1,
-  parameter NODE_INFO_ADDR_W    = $clog2(NODE_INFO_DEPTH)               ,
+  parameter ROW_LEN_WIDTH       = $clog2(H_NUM_OF_COLS) + 1                         ,
+  parameter NUM_NODE_WIDTH      = $clog2(NUM_OF_NODES) + 1                          ,
+  parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1                ,
+  parameter NODE_INFO_ADDR_W    = $clog2(NODE_INFO_DEPTH)                           ,
   // -- Weight
-  parameter WEIGHT_ADDR_W       = $clog2(WEIGHT_DEPTH)                  ,
-  parameter MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS)                 ,
+  parameter WEIGHT_ADDR_W       = $clog2(WEIGHT_DEPTH)                              ,
+  parameter MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS)                             ,
   // -- WH_BRAM
-  parameter WH_WIDTH            = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1  ,
-  parameter WH_ADDR_W           = $clog2(WH_DEPTH)                      ,
+  parameter WH_WIDTH            = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1   ,
+  parameter WH_ADDR_W           = $clog2(WH_DEPTH)                                  ,
   // -- a
-  parameter A_ADDR_W            = $clog2(A_DEPTH)                       ,
+  parameter A_ADDR_W            = $clog2(A_DEPTH)                                   ,
   // -- softmax
-  parameter SOFTMAX_WIDTH       = NUM_OF_NODES * DATA_WIDTH             ,
-  parameter SOFTMAX_DEPTH       = NODE_INFO_DEPTH                       ,
-  parameter SOFTMAX_ADDR_W      = $clog2(SOFTMAX_DEPTH)                 ,
+  parameter SOFTMAX_WIDTH       = NUM_OF_NODES * DATA_WIDTH + NUM_NODE_WIDTH        ,
+  parameter SOFTMAX_DEPTH       = NODE_INFO_DEPTH                                   ,
+  parameter SOFTMAX_ADDR_W      = $clog2(SOFTMAX_DEPTH)                             ,
 
   parameter NUM_NODES_W         = $clog2(NUM_OF_NODES)
 )(
@@ -104,6 +104,12 @@ module scheduler #(
   logic [SOFTMAX_ADDR_W-1:0]      sm_BRAM_addrb                               ;
   // -- softmax
   logic [DATA_WIDTH-1:0]          coef                [0:NUM_OF_NODES-1]      ;
+  logic [SOFTMAX_WIDTH-1:0]       coef_data_i                                 ;
+  logic [SOFTMAX_WIDTH-1:0]       coef_data_o                                 ;
+  logic                           coef_wr_valid                               ;
+  logic                           coef_rd_valid                               ;
+  logic                           coef_empty                                  ;
+  logic                           coef_full                                   ;
   //* =======================================
 
   genvar i;
@@ -146,7 +152,7 @@ module scheduler #(
   );
 
   assign spmm_valid = (H_col_idx_BRAM_load_done && H_value_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
-
+  (* dont_touch = "yes" *)
   SPMM #(
     .DATA_WIDTH       (DATA_WIDTH       ),
     .DOT_PRODUCT_SIZE (H_NUM_OF_COLS    ),
@@ -216,22 +222,31 @@ module scheduler #(
     .a_i              (a                ),
 
     .WH_BRAM_doutb    (WH_BRAM_doutb    ),
-    .WH_BRAM_addrb    (WH_BRAM_addrb    )
+    .WH_BRAM_addrb    (WH_BRAM_addrb    ),
+
+    .coef_o           (coef             ),
+    .num_of_nodes     (num_of_nodes     )
   );
 
-//  BRAM #(
-//    .DATA_WIDTH   (SOFTMAX_WIDTH    ),
-//    .DEPTH        (SOFTMAX_DEPTH    ),
-//    .CLK_LATENCY  (1                )
-//  ) u_softmax_BRAM (
-//    .clk          (clk              ),
-//    .rst_n        (rst_n            ),
-//    .din          (coef             ),
-//    .ena          (sm_BRAM_ena      ),
-//    .addra        (sm_BRAM_addra    ),
-//    .addrb        (sm_BRAM_addrb    ),
-//    .dout         (sm_BRAM_dout     )
-//  );
+  assign coef_data_i    = 0;
+  assign coef_wr_valid  = dmvm_ready;
+
+  fifo #(
+    .DATA_WIDTH (SOFTMAX_WIDTH  ),
+    .FIFO_DEPTH (SOFTMAX_DEPTH  )
+  ) u_softmax_FIFO (
+    .clk        (clk                    ),
+    .rst_n      (rst_n                  ),
+
+    .data_i     (coef_data_i            ),
+    .data_o     (coef_data_o            ),
+
+    .wr_valid_i (coef_wr_valid          ),
+    .rd_valid_i (coef_rd_valid          ),
+
+    .empty_o    (coef_empty             ),
+    .full_o     (coef_full              )
+  );
 endmodule
 
 
