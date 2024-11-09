@@ -19,7 +19,7 @@ module SP_PE #(
 
   input   [COL_IDX_WIDTH-1:0]     col_idx_i               ,
   input   [DATA_WIDTH-1:0]        value_i                 ,
-  input   [ROW_LEN_WIDTH:0]       row_length_i            ,
+  input   [ROW_LEN_WIDTH-1:0]     row_length_i            ,
 
   input   [DATA_WIDTH-1:0]        weight_dout             ,
   output  [WEIGHT_ADDR_W-1:0]     weight_addrb            ,

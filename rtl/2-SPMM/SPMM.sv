@@ -25,8 +25,8 @@ module SPMM #(
   parameter VALUE_WIDTH         = DATA_WIDTH,
   parameter VALUE_ADDR_W        = $clog2(VALUE_DEPTH),
   // -- row_info
-  parameter ROW_LEN_WIDTH       = $clog2(H_NUM_OF_COLS) + 1,
-  parameter NUM_NODE_WIDTH      = $clog2(NUM_OF_NODES) + 1,
+  parameter ROW_LEN_WIDTH       = $clog2(H_NUM_OF_COLS),
+  parameter NUM_NODE_WIDTH      = $clog2(NUM_OF_NODES),
   parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1,
   parameter NODE_INFO_ADDR_W    = $clog2(NODE_INFO_DEPTH),
   // -- WH_BRAM
@@ -168,7 +168,6 @@ module SPMM #(
 
         .weight_addrb       (mult_weight_addrb[i]       ),
         .weight_dout        (mult_weight_dout[i]        ),
-
         .result_o           (result[i]                  )
       );
     end
@@ -176,7 +175,7 @@ module SPMM #(
 
   fifo #(
     .DATA_WIDTH (NODE_INFO_WIDTH  ),
-    .FIFO_DEPTH (30               )
+    .FIFO_DEPTH (300              )
   ) node_info_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),

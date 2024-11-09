@@ -5,15 +5,15 @@ module top_tb #(
   parameter DATA_WIDTH        = 8,
   // -- H
   parameter H_NUM_OF_ROWS			= 100,
-  parameter H_NUM_OF_COLS			= 8,
+  parameter H_NUM_OF_COLS			= 10,
   // -- W
-  parameter W_NUM_OF_ROWS			= 8,
+  parameter W_NUM_OF_ROWS			= 10,
   parameter W_NUM_OF_COLS			= 16,
   // -- BRAM
-  parameter COL_IDX_DEPTH			= 400,
-  parameter VALUE_DEPTH			= 400,
+  parameter COL_IDX_DEPTH			= 500,
+  parameter VALUE_DEPTH			= 500,
   parameter NODE_INFO_DEPTH			= 100,
-  parameter WEIGHT_DEPTH			= 128,
+  parameter WEIGHT_DEPTH			= 160,
   parameter WH_DEPTH			= 100,
   parameter A_DEPTH			= 32,
   // -- NUM_OF_NODES
@@ -27,8 +27,8 @@ module top_tb #(
   parameter VALUE_WIDTH       = DATA_WIDTH                            ,
   parameter VALUE_ADDR_W      = $clog2(VALUE_DEPTH)                   ,
   // -- node_info = [row_len, num_nodes, flag]
-  parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS) + 1             ,
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES) + 1              ,
+  parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS)                 ,
+  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                  ,
   parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + 1 + NUM_NODE_WIDTH + 1,
   parameter NODE_INFO_ADDR_W  = $clog2(NODE_INFO_DEPTH)               ,
   // -- Weight

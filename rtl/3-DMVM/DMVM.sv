@@ -9,7 +9,7 @@ module DMVM #(
   //* ========= localparams ==========
   parameter HALF_A_SIZE       = A_DEPTH / 2                             ,
   parameter MAX_VALUE         = {DATA_WIDTH{1'b1}}                      ,
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES) + 1                ,
+  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                    ,
   parameter WH_WIDTH          = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1
 )(
   input clk,
