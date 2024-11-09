@@ -233,7 +233,7 @@ module scheduler #(
 
   fifo #(
     .DATA_WIDTH (SOFTMAX_WIDTH  ),
-    .FIFO_DEPTH (SOFTMAX_DEPTH  )
+    .FIFO_DEPTH (100            )
   ) u_softmax_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),

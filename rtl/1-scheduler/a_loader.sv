@@ -44,7 +44,7 @@ module a_loader #(
   assign a_BRAM_enb   = rd_en ? 1'b1 : 1'b0;
   assign a_ready_o    = (a_addr_reg == A_DEPTH + 1) ? 1'b1 : 1'b0;
   generate
-    for (i = 0; i < 31; i = i + 1) begin
+    for (i = 0; i < 32; i = i + 1) begin
       assign a_o[i] = a_reg[i];
     end
   endgenerate

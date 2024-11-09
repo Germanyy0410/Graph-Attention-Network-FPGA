@@ -90,8 +90,8 @@ module W_loader #(
   //* ====== Generate mul-weight BRAM =======
   assign addr = (w_valid_i && addr_reg < W_NUM_OF_COLS * W_NUM_OF_ROWS) ? (addr_reg + 1) : addr_reg;
   assign col_idx = (~w_valid_q1) ? col_idx_reg : ((col_idx_reg == W_NUM_OF_COLS - 1) ? 0 : (col_idx_reg + 1));
-  assign row_idx = (w_valid_q1 && col_idx_reg == W_NUM_OF_ROWS - 1)
-                    ? ((row_idx_reg == W_NUM_OF_COLS - 1)
+  assign row_idx = (w_valid_q1 && col_idx_reg == W_NUM_OF_COLS - 1)
+                    ? ((row_idx_reg == W_NUM_OF_ROWS - 1)
                         ? 0
                         : (row_idx_reg + 1))
                     : row_idx_reg;
