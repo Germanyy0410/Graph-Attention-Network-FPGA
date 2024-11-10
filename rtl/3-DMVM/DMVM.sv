@@ -10,6 +10,7 @@ module DMVM #(
   parameter HALF_A_SIZE       = A_DEPTH / 2                             ,
   parameter MAX_VALUE         = {DATA_WIDTH{1'b1}}                      ,
   parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                    ,
+  parameter PRODUCT_WIDTH     = $clog2(HALF_A_SIZE)                     ,
   parameter WH_WIDTH          = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1
 )(
   input clk,
@@ -45,8 +46,8 @@ module DMVM #(
   logic [DATA_WIDTH-1:0]        product_reg         [0:HALF_A_SIZE-1]         ;
   logic                         product_done                                  ;
   logic                         product_done_reg                              ;
-  logic [NUM_NODE_WIDTH:0]      product_size                                  ;
-  logic [NUM_NODE_WIDTH:0]      product_size_reg                              ;
+  logic [PRODUCT_WIDTH:0]       product_size                                  ;
+  logic [PRODUCT_WIDTH:0]       product_size_reg                              ;
 
   // -- sum
   logic                         sum_done                                      ;
