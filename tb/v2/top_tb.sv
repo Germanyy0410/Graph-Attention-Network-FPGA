@@ -10,8 +10,8 @@ module top_tb #(
   parameter W_NUM_OF_ROWS			= 10,
   parameter W_NUM_OF_COLS			= 16,
   // -- BRAM
-  parameter COL_IDX_DEPTH			= 502,
-  parameter VALUE_DEPTH			= 502,
+  parameter COL_IDX_DEPTH			= 500,
+  parameter VALUE_DEPTH			= 500,
   parameter NODE_INFO_DEPTH			= 100,
   parameter WEIGHT_DEPTH			= 160,
   parameter WH_DEPTH			= 100,
@@ -103,7 +103,7 @@ module top_tb #(
   integer node_info_file, a_file, weight_file, col_idx_file, value_file;
   integer nd_r, w_r, a_r, value_r, col_idx_r;
 
-	localparam string ROOT_PATH = "/home/hwanzar/capstone241/graph-attention-network-fpga";
+	localparam string ROOT_PATH = "D:/VLSI/Capstone";
 
   ////////////////////////////////////////////
   always #10 clk = ~clk;
