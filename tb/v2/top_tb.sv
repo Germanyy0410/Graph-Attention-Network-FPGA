@@ -1,4 +1,46 @@
 `timescale 1ns / 1ps
+// `include "checker.sv"
+class OutputComparator;
+  bit ready_signal;
+  int golden_output[];
+  int dut_output[];
+  int pass_checker;
+  int total_checker;
+  int N;
+
+  function new(int size);
+    N = size;
+    pass_checker = 0;
+    total_checker = 0;
+  endfunction
+
+  task compare_output();
+      for (int i = 0; i < N; i++) begin
+        #0.01;
+        if (golden_output[i] === dut_output[i]) begin
+          pass_checker++;
+        end
+        else begin
+          $display("ERROR: error at index [%0d], GOLDEN: %0d \t\t DUT: %0d", i, golden_output[i], dut_output[i]);
+        end
+        total_checker++;
+      end
+  endtask
+
+  function void update_inputs(bit ready, int golden[], int dut[]);
+    ready_signal = ready;
+    golden_output = golden;
+    dut_output = dut;
+  endfunction
+  function void monitor_checker();
+    $display("Total Checks: %0d, Passed: %0d", total_checker, pass_checker);
+    if (total_checker === pass_checker) begin
+      $display("TEST PASSED");
+    end else begin
+      $display("TEST FAILED");
+    end
+  endfunction
+endclass
 
 module top_tb #(
   //* ========== parameter ===========
@@ -10,8 +52,8 @@ module top_tb #(
   parameter W_NUM_OF_ROWS			= 10,
   parameter W_NUM_OF_COLS			= 16,
   // -- BRAM
-  parameter COL_IDX_DEPTH			= 502,
-  parameter VALUE_DEPTH			= 502,
+  parameter COL_IDX_DEPTH			= 500,
+  parameter VALUE_DEPTH			= 500,
   parameter NODE_INFO_DEPTH			= 100,
   parameter WEIGHT_DEPTH			= 160,
   parameter WH_DEPTH			= 100,
@@ -101,11 +143,20 @@ module top_tb #(
 
 
   integer node_info_file, a_file, weight_file, col_idx_file, value_file;
-  integer nd_r, w_r, a_r, value_r, col_idx_r;
+  integer nd_r, w_r, a_r, value_r, col_idx_r, wh_r;
 
 	localparam string ROOT_PATH = "d:/VLSI/Capstone";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone";
+  bit ready_signal;
+  int  golden_input[100][16];
+  int   dut_output[100][16];
+  string line;
+  int WH_output_file, line_count, wh_o;
+  string file_path;
+  string output_file_path;
+  OutputComparator comparer;
 
-  ////////////////////////////////////////////
+  //////C///////////////////////////////////
   always #10 clk = ~clk;
   initial begin
     clk       = 1'b1;
@@ -115,6 +166,55 @@ module top_tb #(
   end
   ////////////////////////////////////////////
 
+
+    int i=0;
+  initial begin
+    //compare
+    comparer = new(16);
+
+    output_file_path = $sformatf("%s/tb/outputs/WH.txt", ROOT_PATH);
+    WH_output_file = $fopen(output_file_path, "r");
+    if(WH_output_file == 0) begin
+      $display("FATAL");
+      $finish;
+    end
+    for (int i = 0; i < NODE_INFO_DEPTH; i++) begin
+      for (int j = 0; j < 16; j++) begin
+        wh_r = $fscanf(WH_output_file, "%d\n", wh_o);
+        if (wh_r != 1) begin
+          $display("Error or end of file");
+          break;
+        end
+       // $display("HOHO %d", wh_o);
+        golden_input[i][j] = wh_o;
+      end
+    end
+
+
+      #0.01;
+      for(int i = 0; i < NODE_INFO_DEPTH; i++) begin
+        wait(dut.u_scheduler.u_SPMM.pe_ready_o == {16{1'b1}});
+        for(int j = 0; j < 16;j++) begin
+          dut_output[i][j] = dut.u_scheduler.u_SPMM.result[j];
+        end
+        $display("-----------------------------------COMPARATOR--------------------------------");
+        $display("Time %t", $time);
+        $display("INFO: [Golden] \t%p", golden_input[i]);
+        $display("INFO: [DUT] \t%p", dut_output[i]);
+        comparer.update_inputs(dut.u_scheduler.u_SPMM.pe_ready_o, golden_input[i], dut_output[i]);
+        comparer.compare_output();
+        $display("-----------------------------------------------------------------------------");
+        #20.02;
+      end
+    //BUG HERE: dut cannot change.
+
+
+    #200;
+    comparer.monitor_checker();
+  end
+
+  initial begin
+  end
   // ---------------- Input ----------------
 	initial begin
 		H_col_idx_BRAM_ena = 1'b1;
@@ -129,16 +229,15 @@ module top_tb #(
 	end
 
 
-  string file_path;
 	initial begin
     H_node_info_BRAM_ena = 1'b1;
 		H_node_info_BRAM_load_done = 1'b0;
 		file_path = $sformatf("%s/tb/inputs/node_info.txt", ROOT_PATH);
-		$display(file_path);
+		//$display(file_path);
 
     node_info_file = $fopen(file_path, "r");
 
-    $display("Nodefile %d", node_info_file);
+    //$display("Nodefile %d", node_info_file);
     if (node_info_file == 0) begin
       $display("ERROR: file open failed");
       $finish;
@@ -166,13 +265,14 @@ module top_tb #(
 		file_path = $sformatf("%s/tb/inputs/weight.txt", ROOT_PATH);
 
     weight_file = $fopen(file_path, "r");
-    $display("Weight file %d", weight_file);
+    //$display("Weight file %d", weight_file);
     if (weight_file == 0) begin
       $display("ERROR: file open failed");
       $finish;
     end
     for (int k = 0; k < WEIGHT_DEPTH; k++) begin
       w_r = $fscanf(weight_file, "%d\n", Weight_BRAM_din);  // Read a binary number from the file
+      //$display(Weight_BRAM_din);
       if (w_r != 1) begin
         $display("Error or end of file");
         break;
@@ -253,7 +353,7 @@ module top_tb #(
 		for (int j = 0; j < COL_IDX_DEPTH; j++) begin
 			col_idx_r = $fscanf(col_idx_file, "%d\n", H_col_idx_BRAM_din);  // Read a binary number from the file
 			if (col_idx_r != 1) begin
-				$display("Error or end of file aaaasa");
+				$display("Error or end of file");
 				break;
 			end
 			H_col_idx_BRAM_addra = j;
@@ -265,10 +365,6 @@ module top_tb #(
 		$fclose(col_idx_file);
 	end
 
-  initial begin
-    #1000000;
-    $finish;
-  end
 endmodule
 
 
