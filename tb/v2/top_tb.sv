@@ -15,23 +15,30 @@ class OutputComparator;
   endfunction
 
   task compare_output();
-    forever begin
-      wait(ready_signal); 
       for (int i = 0; i < N; i++) begin
         #0.01;  
         if (golden_output[i] === dut_output[i]) begin
           pass_checker++;
         end
+        else begin
+          $display("ERROR: error at index [%0d], GOLDEN: %0d \t\t DUT: %0d", i, golden_output[i], dut_output[i]);
+        end
         total_checker++;
       end
-    //$display("Total Checks: %0d, Passed: %0d", total_checker, pass_checker);
-    end
   endtask
 
   function void update_inputs(bit ready, int golden[], int dut[]);
     ready_signal = ready;
     golden_output = golden;
     dut_output = dut;
+  endfunction
+  function void monitor_checker();
+    $display("Total Checks: %0d, Passed: %0d", total_checker, pass_checker);
+    if (total_checker === pass_checker) begin
+      $display("TEST PASSED");
+    end else begin
+      $display("TEST FAILED");
+    end
   endfunction
 endclass
 
@@ -138,11 +145,11 @@ module top_tb #(
   integer node_info_file, a_file, weight_file, col_idx_file, value_file;
   integer nd_r, w_r, a_r, value_r, col_idx_r, wh_r;
   
-//	localparam string ROOT_PATH = "/home/hwanzar/capstone241/graph-attention-network-fpga";
+	//localparam string ROOT_PATH = "/home/hwanzar/capstone241/graph-attention-network-fpga";
 	localparam string ROOT_PATH = "/home/hwanzar/capstone241/graph-attention-network-fpga";
   bit ready_signal;
   int  golden_input[100][16];
-  int   dut_output[16];
+  int   dut_output[100][16];
   string line;
   int WH_output_file, line_count, wh_o;
   string file_path;
@@ -185,26 +192,25 @@ module top_tb #(
 
 
       #0.01;
-      wait(dut.u_scheduler.u_SPMM.pe_ready_o == {16{1'b1}});
-      for(int i = 0; i < 16;i++) begin
-        dut_output[i] = dut.u_scheduler.u_SPMM.result[i];
-      end 
-    //BUG HERE: dut cannot change.
-      for (int i = 0; i < NODE_INFO_DEPTH; i++) begin
-        #40;
-        $display("INFO: Golden %p", golden_input[i]);
-        $display("INFO: DUT %p", dut_output);
+      for(int i = 0; i < NODE_INFO_DEPTH; i++) begin
+        wait(dut.u_scheduler.u_SPMM.pe_ready_o == {16{1'b1}});
+        for(int j = 0; j < 16;j++) begin
+          dut_output[i][j] = dut.u_scheduler.u_SPMM.result[j];
+        end 
+        $display("-----------------------------------COMPARATOR--------------------------------");
+        $display("Time %t", $time);
+        $display("INFO: [Golden] \t%p", golden_input[i]);
+        $display("INFO: [DUT] \t%p", dut_output[i]);
+        comparer.update_inputs(dut.u_scheduler.u_SPMM.pe_ready_o, golden_input[i], dut_output[i]);
+        comparer.compare_output();
+        $display("-----------------------------------------------------------------------------");
+        #20.02;
       end
+    //BUG HERE: dut cannot change.
 
-
-    // compare check
-    comparer.compare_output();
-    fork
-      $display("HEHE");
-      $display("%p", golden_input);
-      $display("");
-    join_none
+    
     #200;
+    comparer.monitor_checker();
   end
 
   initial begin
