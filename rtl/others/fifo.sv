@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 module fifo #(
   parameter DATA_WIDTH = 32,
   parameter FIFO_DEPTH = 256

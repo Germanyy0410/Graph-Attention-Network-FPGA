@@ -20,11 +20,11 @@ module dual_read_BRAM #(
   input   [DATA_ADDR_W-1:0]       addrc         ,
   output  [DATA_WIDTH-1:0]        doutc
 );
-  reg [DATA_WIDTH-1:0]    memory      [0:DEPTH-1]       ;
-  reg [DATA_WIDTH-1:0]    data_b                        ;
-  reg [DATA_WIDTH-1:0]    data_b_q1                     ;
-  reg [DATA_WIDTH-1:0]    data_c                        ;
-  reg [DATA_WIDTH-1:0]    data_c_q1                     ;
+  logic [DATA_WIDTH-1:0]    memory      [0:DEPTH-1]       ;
+  logic [DATA_WIDTH-1:0]    data_b                        ;
+  logic [DATA_WIDTH-1:0]    data_b_q1                     ;
+  logic [DATA_WIDTH-1:0]    data_c                        ;
+  logic [DATA_WIDTH-1:0]    data_c_q1                     ;
 
   generate
     if (CLK_LATENCY == 1) begin

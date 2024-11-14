@@ -1,5 +1,5 @@
 module softmax #(
-  parameter DATA_WIDTH = 8,
+  parameter DATA_WIDTH = 128,
   parameter MAX_NODES      = 168,
   parameter NODE_WIDTH    =  $clog2(MAX_NODES)
 )(
@@ -9,9 +9,9 @@ module softmax #(
   input sm_valid_i,
   output sm_ready_o,
 
-  input   [DATA_WIDTH-1:0]  coef_i      [0:MAX_NODES-1],  
+  input   [DATA_WIDTH-1:0]  coef_i      [0:MAX_NODES-1],
   input  [NODE_WIDTH-1:0] num_of_nodes,
-  output  [12-1:0]  alpha_o [0:MAX_NODES-1]    
+  output  [12-1:0]  alpha_o [0:MAX_NODES-1]
   );
 
   reg sm_ready_reg;
@@ -23,8 +23,8 @@ module softmax #(
 
   reg [DATA_WIDTH-1:0] exp_calc [0:MAX_NODES-1];
   reg [DATA_WIDTH-1:0] exp_calc_reg [0:MAX_NODES-1];
-  
-  
+
+
   reg [NODE_WIDTH-1:0] arr_size_reg;
   reg [NODE_WIDTH-1:0] arr_size;
   reg done_exp_reg;
@@ -39,7 +39,7 @@ module softmax #(
   reg sum_done_reg;
   reg sum_done;
 
-  reg [NODE_WIDTH-1:0] i_idx_cnt;  
+  reg [NODE_WIDTH-1:0] i_idx_cnt;
   reg [NODE_WIDTH-1:0] i_idx_cnt_reg;
   reg [NODE_WIDTH-1:0] o_idx_cnt;
   reg [NODE_WIDTH-1:0] o_idx_cnt_reg;
@@ -55,7 +55,7 @@ module softmax #(
 
   // index use-in
   localparam WOI = 1; // WIDTH OUTPUT INTEGER
-  localparam WOF = 11; // WIDTH OUTPUT FRACTION
+  localparam WOF = 127; // WIDTH OUTPUT FRACTION
   integer i;
 
 /* COMBINATIONAL LOGIC */
@@ -137,14 +137,14 @@ module softmax #(
       end
       else begin
         i_idx_cnt = 0;
-      end 
+      end
       if (delay_cnt_reg < WOI + WOF + 3) begin
         delay_cnt = delay_cnt_reg + 1;
       end
       else begin
         output_control = 1;
         delay_cnt = 0;
-      end 
+      end
       in = exp_calc_reg[i_idx_cnt_reg];
     end else if (~sum_done_reg) begin
       i_idx_cnt = 0;
@@ -165,7 +165,7 @@ module softmax #(
     end
     if (output_control_reg == 1 && o_idx_cnt_reg < num_of_nodes && !sm_ready_reg)  begin
       alpha[o_idx_cnt_reg] = out_reg;
-      o_idx_cnt = o_idx_cnt_reg + 1; 
+      o_idx_cnt = o_idx_cnt_reg + 1;
     end
     else if (o_idx_cnt_reg >= num_of_nodes) begin
       o_idx_cnt = 0;
@@ -179,7 +179,7 @@ module softmax #(
   //     in = exp_calc_reg[i_idx_cnt_reg];
   //   end
   // end
-  genvar x; 
+  genvar x;
   generate
     for(x = 0; x < MAX_NODES; x = x + 1) begin
       assign alpha_o[x] = alpha_reg[x];
@@ -201,7 +201,7 @@ module softmax #(
     if(!rst_n) begin
       output_control_reg <= 0;
     end
-    else begin 
+    else begin
       output_control_reg <= output_control;
     end
   end
@@ -223,8 +223,8 @@ module softmax #(
     end
   end
 
-  
- 
+
+
 
   //sum_exp_reg//done_exp_reg
   always @(posedge clk) begin
@@ -246,16 +246,16 @@ module softmax #(
     end else begin
       i_idx_cnt_reg <= i_idx_cnt;
     end
-  end 
+  end
 
   always @(posedge clk) begin
     if(!rst_n) begin
       o_idx_cnt_reg <= 0;
     end else begin
       o_idx_cnt_reg <= o_idx_cnt;
-    end 
+    end
   end
-  
+
   always @(posedge clk) begin
     if(!rst_n) begin
       delay_cnt_reg <= 0;
@@ -263,8 +263,8 @@ module softmax #(
       delay_cnt_reg <= delay_cnt;
     end
   end
-  
-  
+
+
   generate
     for(x = 0; x < MAX_NODES; x = x + 1) begin
       always @(posedge clk) begin
@@ -276,12 +276,12 @@ module softmax #(
       end
     end
   endgenerate
-  
-   
+
+
   always @(posedge clk) begin
     if (!rst_n) begin
       in_reg <= 0;
-    end else begin 
+    end else begin
       in_reg <= in;
     end
   end
@@ -293,24 +293,24 @@ module softmax #(
       out_reg <= out;
     end
   end
-  generate 
-    for (x = 0; x < MAX_NODES; x = x + 1) begin 
+  generate
+    for (x = 0; x < MAX_NODES; x = x + 1) begin
       always @(posedge clk) begin
         if (!rst_n) begin
           alpha_reg[x] <= 0;
         end else begin
           alpha_reg[x] <= alpha[x];
-        end  
+        end
       end
-    end 
+    end
   endgenerate
 /* SEQUENTIAL LOGIC */
-   
+  (* dont_touch = "yes" *)
   // DIVIDER PIPELINE
   fxp_div_pipe #(
-      .WIIA(8),
+      .WIIA(128),
       .WIFA(0),
-      .WIIB(8),
+      .WIIB(128),
       .WIFB(0),
       .WOI(WOI),
       .WOF(WOF),

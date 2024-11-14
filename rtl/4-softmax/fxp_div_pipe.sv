@@ -12,8 +12,7 @@ module fxp_zoom #(
     parameter WIF  = 8,
     parameter WOI  = 8,
     parameter WOF  = 8,
-    parameter ROUND= 1
-)(
+    parameter ROUND= 1)(
     input  wire [WII+WIF-1:0] in,
     output wire [WOI+WOF-1:0] out,
     output reg                overflow
@@ -93,12 +92,12 @@ endmodule
 //--------------------------------------------------------------------------------------------------------
 
 module fxp_div_pipe #(
-    parameter WIIA = 8,
-    parameter WIFA = 8,
-    parameter WIIB = 8,
-    parameter WIFB = 8,
-    parameter WOI  = 8,
-    parameter WOF  = 8,
+    parameter WIIA = 128,
+    parameter WIFA = 0,
+    parameter WIIB = 128,
+    parameter WIFB = 0,
+    parameter WOI  = 1,
+    parameter WOF  = 127,
     parameter ROUND= 1
 )(
     input  wire                 rstn,
@@ -196,7 +195,7 @@ always @ (posedge clk or negedge rstn)
         end
     end else begin
         for(ii=0; ii<WOI+WOF; ii=ii+1) begin
-            
+
             res  [ii+1] <= res[ii];
             divdp[ii+1] <= divdp[ii];
             divrp[ii+1] <= divrp[ii];

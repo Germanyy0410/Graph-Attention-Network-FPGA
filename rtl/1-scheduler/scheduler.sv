@@ -225,7 +225,7 @@ module scheduler #(
     .WH_BRAM_addrb    (WH_BRAM_addrb    ),
 
     .coef_o           (coef             ),
-    .num_of_nodes     (num_of_nodes     )
+    .num_of_nodes_o   (num_of_nodes     )
   );
 
   assign coef_data_i    = 0;

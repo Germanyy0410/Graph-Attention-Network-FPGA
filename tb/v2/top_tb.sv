@@ -10,8 +10,8 @@ module top_tb #(
   parameter W_NUM_OF_ROWS			= 10,
   parameter W_NUM_OF_COLS			= 16,
   // -- BRAM
-  parameter COL_IDX_DEPTH			= 500,
-  parameter VALUE_DEPTH			= 500,
+  parameter COL_IDX_DEPTH			= 502,
+  parameter VALUE_DEPTH			= 502,
   parameter NODE_INFO_DEPTH			= 100,
   parameter WEIGHT_DEPTH			= 160,
   parameter WH_DEPTH			= 100,
@@ -103,7 +103,7 @@ module top_tb #(
   integer node_info_file, a_file, weight_file, col_idx_file, value_file;
   integer nd_r, w_r, a_r, value_r, col_idx_r;
 
-	localparam string ROOT_PATH = "D:/VLSI/Capstone";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone";
 
   ////////////////////////////////////////////
   always #10 clk = ~clk;
@@ -173,7 +173,6 @@ module top_tb #(
     end
     for (int k = 0; k < WEIGHT_DEPTH; k++) begin
       w_r = $fscanf(weight_file, "%d\n", Weight_BRAM_din);  // Read a binary number from the file
-      $display(Weight_BRAM_din);
       if (w_r != 1) begin
         $display("Error or end of file");
         break;
@@ -265,6 +264,11 @@ module top_tb #(
 		H_col_idx_BRAM_load_done = 1'b1;
 		$fclose(col_idx_file);
 	end
+
+  initial begin
+    #1000000;
+    $finish;
+  end
 endmodule
 
 

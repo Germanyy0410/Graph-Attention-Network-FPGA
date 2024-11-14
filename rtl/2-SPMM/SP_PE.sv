@@ -8,8 +8,9 @@ module SP_PE #(
   parameter INDEX_WIDTH         = $clog2(DOT_PRODUCT_SIZE),
   parameter COL_IDX_WIDTH       = $clog2(DOT_PRODUCT_SIZE),
   parameter ROW_LEN_WIDTH       = $clog2(DOT_PRODUCT_SIZE),
-  // -- max value
-  parameter MAX_VALUE           = {DATA_WIDTH{1'b1}}
+  // -- boundary value
+  parameter signed MIN_VALUE    = 9'b1_1000_0001          ,
+  parameter signed MAX_VALUE    = 9'b0_0111_1111
 )(
   input                           clk                     ,
   input                           rst_n                   ,
@@ -28,30 +29,22 @@ module SP_PE #(
 );
   //* ============= reg declaration =============
   // -- [pe_ready] logic
-  reg                           pe_ready        ;
-  reg                           pe_ready_reg    ;
+  logic                               pe_ready            ;
+  logic                               pe_ready_reg        ;
   // -- [result] logic
-  reg   [DATA_WIDTH-1:0]        result          ;
-  reg   [DATA_WIDTH-1:0]        result_reg      ;
+  logic signed  [DATA_WIDTH-1:0]      result              ;
+  logic signed  [DATA_WIDTH-1:0]      result_reg          ;
 
-  reg   [DATA_WIDTH-1:0]        products        ;
-  reg   [DATA_WIDTH-1:0]        products_reg    ;
+  logic signed  [DATA_WIDTH-1:0]      products            ;
+  logic signed  [DATA_WIDTH-1:0]      products_reg        ;
 
-  reg   [INDEX_WIDTH:0]         counter         ;
-  reg   [INDEX_WIDTH:0]         counter_reg     ;
-  //* ===========================================
+  logic         [INDEX_WIDTH:0]       counter             ;
+  logic         [INDEX_WIDTH:0]       counter_reg         ;
 
-
-  //* ============ wire declaration =============
-  // -- check overflow
-  wire  [DATA_WIDTH*2-1:0]      product_check   ;
-  wire  [DATA_WIDTH:0]          sum_check       ;
-  // -- H
-  wire  [COL_IDX_WIDTH-1:0]     col_idx         ;
-  wire  [DATA_WIDTH-1:0]        value           ;
-  wire                          node_flag       ;
-
-  wire                          pe_ready_next_en;
+  logic                               calculation_enable  ;
+  logic signed  [DATA_WIDTH*2-1:0]    product_check       ;
+  logic signed  [DATA_WIDTH:0]        sum_check           ;
+  logic                               sum_overflow        ;
   //* ===========================================
 
   integer i;
@@ -63,17 +56,22 @@ module SP_PE #(
 
 
   //* =============== calculation ===============
-  assign weight_addrb   = col_idx_i;
-  assign product_check  = value_i * weight_dout;
-  assign sum_check      = (counter_reg == 0) ? products : (result_reg + products);
+  assign weight_addrb       = col_idx_i;
+  assign product_check      = $signed(value_i) * $signed(weight_dout);
+
+  assign sum_check          = (counter_reg != 0) ? ($signed(result_reg) + $signed(products)) : products;
+  assign sum_overflow       = (sum_check > MAX_VALUE || sum_check < MIN_VALUE);
+
+  assign calculation_enable = ((counter_reg == 0 && (pe_valid_i || row_length_i == 1)) || (counter_reg > 0 && counter_reg < row_length_i && row_length_i > 1));
 
   always @(*) begin
     products  = products_reg;
     result    = result_reg;
     counter   = counter_reg;
-    if ((pe_valid_i && (counter_reg == 0)) || ((counter_reg > 0) && (counter_reg < row_length_i) && (row_length_i > 1)) || (counter_reg == 0 && row_length_i == 1)) begin
-      products  = product_check;
-      result    = (sum_check <= MAX_VALUE) ? sum_check : sum_check[8:1];
+
+    if (calculation_enable) begin
+      products  = product_check >> 7;
+      result    = sum_overflow ? sum_check[8:1] : sum_check[7:0];
       counter   = (counter_reg == row_length_i - 1) ? 0 : (counter_reg + 1);
     end
   end

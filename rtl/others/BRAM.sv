@@ -17,9 +17,9 @@ module BRAM #(
   input   [DATA_ADDR_W-1:0]       addrb         ,
   output  [DATA_WIDTH-1:0]        dout
 );
-  reg [DATA_WIDTH-1:0]    memory      [0:DEPTH-1]       ;
-  reg [DATA_WIDTH-1:0]    data                          ;
-  reg [DATA_WIDTH-1:0]    data_q1                       ;
+  logic [DATA_WIDTH-1:0]    memory      [0:DEPTH-1]       ;
+  logic [DATA_WIDTH-1:0]    data                          ;
+  logic [DATA_WIDTH-1:0]    data_q1                       ;
 
   generate
     if (CLK_LATENCY == 0) begin

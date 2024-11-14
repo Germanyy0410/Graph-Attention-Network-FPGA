@@ -18,11 +18,11 @@ module modified_BRAM #(
   output  [DATA_WIDTH-1:0]        dout          ,
   output  [DATA_WIDTH-1:0]        dout_nxt
 );
-  reg [DATA_WIDTH-1:0]    memory      [0:DEPTH-1]       ;
-  reg [DATA_WIDTH-1:0]    data                          ;
-  reg [DATA_WIDTH-1:0]    data_q1                       ;
-  reg [DATA_WIDTH-1:0]    data_nxt                      ;
-  reg [DATA_WIDTH-1:0]    data_nxt_q1                   ;
+  logic [DATA_WIDTH-1:0]    memory      [0:DEPTH-1]   ;
+  logic [DATA_WIDTH-1:0]    data                      ;
+  logic [DATA_WIDTH-1:0]    data_q1                   ;
+  logic [DATA_WIDTH-1:0]    data_nxt                  ;
+  logic [DATA_WIDTH-1:0]    data_nxt_q1               ;
 
   generate
     if (CLK_LATENCY == 0) begin
