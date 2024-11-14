@@ -15,16 +15,16 @@ class OutputComparator;
   endfunction
 
   task compare_output();
-      for (int i = 0; i < N; i++) begin
-        #0.01;
-        if (golden_output[i] === dut_output[i]) begin
-          pass_checker++;
-        end
-        else begin
-          $display("ERROR: error at index [%0d], GOLDEN: %0d \t\t DUT: %0d", i, golden_output[i], dut_output[i]);
-        end
-        total_checker++;
+    for (int i = 0; i < N; i++) begin
+      #0.01;
+      if (golden_output[i] === dut_output[i]) begin
+        pass_checker++;
       end
+      else begin
+        $display("ERROR: error at index [%0d], GOLDEN: %0d \t\t DUT: %0d", i, golden_output[i], dut_output[i]);
+      end
+      total_checker++;
+    end
   endtask
 
   function void update_inputs(bit ready, int golden[], int dut[]);
@@ -146,10 +146,10 @@ module top_tb #(
   integer nd_r, w_r, a_r, value_r, col_idx_r, wh_r;
 
 	localparam string ROOT_PATH = "d:/VLSI/Capstone";
-	localparam string ROOT_PATH = "d:/VLSI/Capstone";
+
   bit ready_signal;
-  int  golden_input[100][16];
-  int   dut_output[100][16];
+  int  golden_input[NODE_INFO_DEPTH][16];
+  int   dut_output[NODE_INFO_DEPTH][16];
   string line;
   int WH_output_file, line_count, wh_o;
   string file_path;
