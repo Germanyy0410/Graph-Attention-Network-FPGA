@@ -272,7 +272,7 @@ module DMVM #(
         end
 
         if (sub_graph_done_reg) begin
-          if (r_sum_check[i] < ZERO) begin
+          if ($signed(r_sum_check[i]) < ZERO) begin
             relu[i] = 0;
           end else begin
             relu[i] = r_sum_check[i] >> (DMVM_DATA_WIDTH - DATA_WIDTH);

@@ -1,17 +1,14 @@
 module SP_PE #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH          = 8,
-  parameter WH_DATA_WIDTH       = 12,
-  parameter DOT_PRODUCT_SIZE    = 1433,
-  parameter WEIGHT_ADDR_W       = 32,
+  parameter DATA_WIDTH          = 8                         ,
+  parameter WH_DATA_WIDTH       = 12                        ,
+  parameter DOT_PRODUCT_SIZE    = 1433                      ,
+  parameter WEIGHT_ADDR_W       = 32                        ,
 
   //* ========= localparams ==========
-  parameter INDEX_WIDTH         = $clog2(DOT_PRODUCT_SIZE),
-  parameter COL_IDX_WIDTH       = $clog2(DOT_PRODUCT_SIZE),
-  parameter ROW_LEN_WIDTH       = $clog2(DOT_PRODUCT_SIZE),
-  // -- boundary value
-  parameter signed MIN_VALUE    = 9'b1_1000_0001          ,
-  parameter signed MAX_VALUE    = 9'b0_0111_1111
+  parameter INDEX_WIDTH         = $clog2(DOT_PRODUCT_SIZE)  ,
+  parameter COL_IDX_WIDTH       = $clog2(DOT_PRODUCT_SIZE)  ,
+  parameter ROW_LEN_WIDTH       = $clog2(DOT_PRODUCT_SIZE)
 )(
   input                           clk                     ,
   input                           rst_n                   ,
@@ -43,9 +40,6 @@ module SP_PE #(
   logic         [INDEX_WIDTH:0]       counter_reg         ;
 
   logic                               calculation_enable  ;
-  logic signed  [WH_DATA_WIDTH*2-1:0] product_check       ;
-  logic signed  [WH_DATA_WIDTH:0]     sum_check           ;
-  logic                               sum_overflow        ;
   //* ===========================================
 
   integer i;
@@ -58,11 +52,6 @@ module SP_PE #(
 
   //* =============== calculation ===============
   assign weight_addrb       = col_idx_i;
-
-  assign product_check      = $signed(value_i) * $signed(weight_dout);
-  assign sum_check          = (counter_reg != 0) ? ($signed(result_reg) + $signed(products)) : products;
-  assign sum_overflow       = (sum_check > MAX_VALUE || sum_check < MIN_VALUE);
-
   assign calculation_enable = ((counter_reg == 0 && (pe_valid_i || row_length_i == 1)) || (counter_reg > 0 && counter_reg < row_length_i && row_length_i > 1));
 
   always @(*) begin
@@ -71,8 +60,6 @@ module SP_PE #(
     counter   = counter_reg;
 
     if (calculation_enable) begin
-      // products  = product_check >> 7;
-      // result    = sum_overflow ? sum_check[8:1] : sum_check[7:0];
       products  = $signed(value_i) * $signed(weight_dout);
       result    = (counter_reg != 0) ? ($signed(result_reg) + $signed(products)) : products;
       counter   = (counter_reg == row_length_i - 1) ? 0 : (counter_reg + 1);
