@@ -92,12 +92,12 @@ endmodule
 //--------------------------------------------------------------------------------------------------------
 
 module fxp_div_pipe #(
-    parameter WIIA = 128,
+    parameter WIIA = 256,
     parameter WIFA = 0,
-    parameter WIIB = 128,
+    parameter WIIB = 256,
     parameter WIFB = 0,
     parameter WOI  = 1,
-    parameter WOF  = 127,
+    parameter WOF  = 255,
     parameter ROUND= 1
 )(
     input  wire                 rstn,

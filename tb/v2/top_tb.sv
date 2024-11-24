@@ -52,8 +52,8 @@ module top_tb #(
   parameter W_NUM_OF_ROWS			= 10,
   parameter W_NUM_OF_COLS			= 16,
   // -- BRAM
-  parameter COL_IDX_DEPTH			= 500,
-  parameter VALUE_DEPTH			= 500,
+  parameter COL_IDX_DEPTH			= 499,
+  parameter VALUE_DEPTH			= 499,
   parameter NODE_INFO_DEPTH			= 100,
   parameter WEIGHT_DEPTH			= 160,
   parameter WH_DEPTH			= 100,
@@ -75,8 +75,9 @@ module top_tb #(
   parameter NODE_INFO_ADDR_W  = $clog2(NODE_INFO_DEPTH)               ,
   // -- Weight
   parameter WEIGHT_ADDR_W     = $clog2(WEIGHT_DEPTH)                  ,
+  parameter WH_DATA_WIDTH     = 12                                    ,
   // -- WH_BRAM
-  parameter WH_WIDTH          = DATA_WIDTH * 5 + NUM_NODE_WIDTH + 1   ,
+  parameter WH_WIDTH          = WH_DATA_WIDTH * 5 + NUM_NODE_WIDTH + 1,
   parameter WH_ADDR_W         = $clog2(WH_DEPTH)                      ,
   // -- a
   parameter A_ADDR_W          = $clog2(A_DEPTH)
@@ -148,8 +149,8 @@ module top_tb #(
 	localparam string ROOT_PATH = "d:/VLSI/Capstone";
 
   bit ready_signal;
-  int  golden_input[NODE_INFO_DEPTH][16];
-  int   dut_output[NODE_INFO_DEPTH][16];
+  logic signed [WH_DATA_WIDTH-1:0]  golden_input[NODE_INFO_DEPTH][16];
+  logic signed [WH_DATA_WIDTH-1:0]   dut_output[NODE_INFO_DEPTH][16];
   string line;
   int WH_output_file, line_count, wh_o;
   string file_path;
@@ -190,7 +191,6 @@ module top_tb #(
       end
     end
 
-
       #0.01;
       for(int i = 0; i < NODE_INFO_DEPTH; i++) begin
         wait(dut.u_scheduler.u_SPMM.pe_ready_o == {16{1'b1}});
@@ -198,7 +198,7 @@ module top_tb #(
           dut_output[i][j] = dut.u_scheduler.u_SPMM.result[j];
         end
         $display("-----------------------------------COMPARATOR--------------------------------");
-        $display("Time %t", $time);
+        $display("Time %0tps", $time);
         $display("INFO: [Golden] \t%p", golden_input[i]);
         $display("INFO: [DUT] \t%p", dut_output[i]);
         comparer.update_inputs(dut.u_scheduler.u_SPMM.pe_ready_o, golden_input[i], dut_output[i]);

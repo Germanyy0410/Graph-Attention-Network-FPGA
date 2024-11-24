@@ -10,11 +10,13 @@ module DMVM #(
   parameter HALF_A_SIZE       = A_DEPTH / 2                                       ,
   parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                              ,
   parameter PRODUCT_WIDTH     = $clog2(HALF_A_SIZE)                               ,
-  parameter WH_WIDTH          = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1   ,
+  // -- WH
+  parameter WH_DATA_WIDTH     = 12                                                ,
+  parameter WH_WIDTH          = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
+  // -- DMVM
+  parameter DMVM_DATA_WIDTH   = 20                                                ,
   // -- boundary value
-  parameter signed MIN_VALUE  = 9'b1_1000_0001                                    ,
-  parameter signed MAX_VALUE  = 9'b0_0111_1111                                    ,
-  parameter signed ZERO       = 9'b0_0000_0000
+  parameter signed ZERO       = 20'b0000_0000_0000_0000_0000
 )(
   input                             clk                                       ,
   input                             rst_n                                     ,
@@ -40,13 +42,12 @@ module DMVM #(
   // -- WH array
   logic         [WH_ADDR_W-1:0]         WH_addr                                       ;
   logic         [WH_ADDR_W-1:0]         WH_addr_reg                                   ;
-  logic         [DATA_WIDTH-1:0]        WH_arr              [0:HALF_A_SIZE-1]         ;
+  logic         [WH_DATA_WIDTH-1:0]     WH_arr              [0:HALF_A_SIZE-1]         ;
   logic                                 source_node_flag                              ;
 
   // -- product
-  logic signed  [DATA_WIDTH*2-1:0]      product_check       [0:HALF_A_SIZE-1]         ;
-  logic signed  [DATA_WIDTH-1:0]        product             [0:HALF_A_SIZE-1]         ;
-  logic signed  [DATA_WIDTH-1:0]        product_reg         [0:HALF_A_SIZE-1]         ;
+  logic signed  [DMVM_DATA_WIDTH-1:0]   product             [0:HALF_A_SIZE-1]         ;
+  logic signed  [DMVM_DATA_WIDTH-1:0]   product_reg         [0:HALF_A_SIZE-1]         ;
   logic                                 product_done                                  ;
   logic                                 product_done_reg                              ;
   logic         [PRODUCT_WIDTH:0]       product_size                                  ;
@@ -54,21 +55,19 @@ module DMVM #(
 
   // -- sum
   logic                                 sum_done                                      ;
-  logic signed  [DATA_WIDTH:0]          sum_check           [0:HALF_A_SIZE-1]         ;
-  logic signed  [DATA_WIDTH:0]          sum_check_reg       [0:HALF_A_SIZE-1]         ;
 
   // -- result
   logic         [NUM_NODE_WIDTH-1:0]    idx                                           ;
   logic         [NUM_NODE_WIDTH-1:0]    idx_reg                                       ;
   logic                                 result_done                                   ;
   logic                                 result_done_reg                               ;
-  logic signed  [DATA_WIDTH-1:0]        result              [0:NUM_OF_NODES-1]        ;
-  logic signed  [DATA_WIDTH-1:0]        result_reg          [0:NUM_OF_NODES-1]        ;
+  logic signed  [DMVM_DATA_WIDTH-1:0]   result              [0:NUM_OF_NODES-1]        ;
+  logic signed  [DMVM_DATA_WIDTH-1:0]   result_reg          [0:NUM_OF_NODES-1]        ;
 
   // -- Relu
   logic                                 sub_graph_done                                ;
   logic                                 sub_graph_done_reg                            ;
-  logic signed  [DATA_WIDTH:0]          r_sum_check         [0:NUM_OF_NODES-1]        ;
+  logic signed  [DMVM_DATA_WIDTH-1:0]   r_sum_check         [0:NUM_OF_NODES-1]        ;
   logic signed  [DATA_WIDTH-1:0]        relu                [0:NUM_OF_NODES-1]        ;
   logic signed  [DATA_WIDTH-1:0]        relu_reg            [0:NUM_OF_NODES-1]        ;
   logic         [NUM_NODE_WIDTH-1:0]    num_of_nodes                                  ;
@@ -121,7 +120,7 @@ module DMVM #(
 
   generate
     for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
-      assign WH_arr[i] = WH_BRAM_doutb[WH_WIDTH-1-i*DATA_WIDTH : WH_WIDTH-(i+1)*DATA_WIDTH];
+      assign WH_arr[i] = WH_BRAM_doutb[WH_WIDTH-1-i*WH_DATA_WIDTH : WH_WIDTH-(i+1)*WH_DATA_WIDTH];
     end
   endgenerate
   //* =======================================
@@ -160,35 +159,24 @@ module DMVM #(
 
 
   //* ========== Sum Of Product =============
-  generate
-    for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
-      assign product_check[i] = (source_node_flag)  ? ($signed(a_1[i]) * $signed(WH_arr[i]))
-                                                    : ($signed(a_2[i]) * $signed(WH_arr[i]));
-    end
-  endgenerate
-
   always @(*) begin
     product_done = product_done_reg;
     product_size = product_size_reg;
-    sum_check    = sum_check_reg;
-
     for (x = 0; x < HALF_A_SIZE; x = x + 1) begin
       product[x]    = product_reg[x];
-      sum_check[x]  = sum_check_reg[x];
     end
 
     if (~product_done_reg && dmvm_valid_q1) begin
       for (x = 0; x < HALF_A_SIZE; x = x + 1) begin
-        product[x] = product_check[x] >> 7;
+        product[x] = (source_node_flag) ? ($signed(a_1[x]) * $signed(WH_arr[x])) : ($signed(a_2[x]) * $signed(WH_arr[x]));
       end
       product_done = 1'b1;
     end else if (product_done_reg && dmvm_valid_q1) begin
       if (product_size_reg > 1) begin
         for (x = 0; x < HALF_A_SIZE / 2; x = x + 1) begin
-          sum_check[x]  = $signed(product_reg[2*x]) + $signed(product_reg[2*x+1]);
-          product[x]    = (sum_check[x] > MAX_VALUE || sum_check[x] < MIN_VALUE) ? sum_check[x][8:1] : sum_check[x][7:0];
+          product[x] = $signed(product_reg[2*x]) + $signed(product_reg[2*x+1]);
         end
-        product_size = product_size_reg / 2;
+        product_size = product_size_reg >> 1;
       end else if (product_size_reg == 1) begin
         product_size = HALF_A_SIZE;
         product_done = 1'b0;
@@ -210,11 +198,9 @@ module DMVM #(
     for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
       always @(posedge clk) begin
         if (!rst_n) begin
-          product_reg[i]    <= 0;
-          sum_check_reg[i]  <= 0;
+          product_reg[i] <= 0;
         end else begin
-          product_reg[i]    <= product[i];
-          sum_check_reg[i]  <= sum_check[i];
+          product_reg[i] <= product[i];
         end
       end
     end
@@ -224,9 +210,15 @@ module DMVM #(
 
   //* ============== result =================
   assign result_done = (product_size_reg == 2) ? 1'b1 : 1'b0;
-  assign idx = ((idx_reg == num_of_nodes - 1) && (product_size_reg == 1)) ? 0
-                                                                          : ((product_size_reg == 1)  ? (idx_reg + 1)
-                                                                                                      : idx_reg);
+
+  always @(*) begin
+    idx = idx_reg;
+    if ((idx_reg == num_of_nodes - 1) && (product_size_reg == 1)) begin
+      idx = 0;
+    end else if (product_size_reg == 1) begin
+      idx = idx_reg + 1;
+    end
+  end
 
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
@@ -259,7 +251,14 @@ module DMVM #(
 
 
   //* ========== ReLU activation ============
-  assign sub_graph_done = (sub_graph_done_reg) ? 1'b0 : (((idx_reg == num_of_nodes - 1) && (product_size_reg == 1)) ? 1'b1 : sub_graph_done_reg);
+  always @(*) begin
+    sub_graph_done = sub_graph_done_reg;
+    if (sub_graph_done_reg) begin
+      sub_graph_done = 1'b0;
+    end else if ((idx_reg == num_of_nodes - 1) && (product_size_reg == 1)) begin
+      sub_graph_done = 1'b1;
+    end
+  end
 
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
@@ -273,12 +272,10 @@ module DMVM #(
         end
 
         if (sub_graph_done_reg) begin
-          if (r_sum_check[i] > MAX_VALUE) begin
-            relu[i] = r_sum_check[i][8:1];
-          end else if (r_sum_check[i] < ZERO) begin
+          if (r_sum_check[i] < ZERO) begin
             relu[i] = 0;
           end else begin
-            relu[i] = r_sum_check[i][7:0];
+            relu[i] = r_sum_check[i] >> (DMVM_DATA_WIDTH - DATA_WIDTH);
           end
         end
       end
@@ -308,7 +305,14 @@ module DMVM #(
 
 
   //* ============ dmvm_ready ===============
-  assign dmvm_ready = (dmvm_ready_reg == 1'b1) ? 1'b0 : ((sub_graph_done_reg == 1'b1) ? 1'b1 : dmvm_ready_reg);
+  always @(*) begin
+    dmvm_ready = dmvm_ready_reg;
+    if (dmvm_ready_reg == 1'b1) begin
+      dmvm_ready = 1'b0;
+    end else if (sub_graph_done_reg == 1'b1) begin
+      dmvm_ready = 1'b1;
+    end
+  end
 
   always @(posedge clk) begin
     if (!rst_n) begin

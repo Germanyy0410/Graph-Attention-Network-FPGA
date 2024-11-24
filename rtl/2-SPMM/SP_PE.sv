@@ -1,6 +1,7 @@
 module SP_PE #(
   //* ========== parameter ===========
   parameter DATA_WIDTH          = 8,
+  parameter WH_DATA_WIDTH       = 12,
   parameter DOT_PRODUCT_SIZE    = 1433,
   parameter WEIGHT_ADDR_W       = 32,
 
@@ -25,25 +26,25 @@ module SP_PE #(
   input   [DATA_WIDTH-1:0]        weight_dout             ,
   output  [WEIGHT_ADDR_W-1:0]     weight_addrb            ,
 
-  output  [DATA_WIDTH-1:0]        result_o
+  output  [WH_DATA_WIDTH-1:0]     result_o
 );
   //* ============= reg declaration =============
   // -- [pe_ready] logic
   logic                               pe_ready            ;
   logic                               pe_ready_reg        ;
   // -- [result] logic
-  logic signed  [DATA_WIDTH-1:0]      result              ;
-  logic signed  [DATA_WIDTH-1:0]      result_reg          ;
+  logic signed  [WH_DATA_WIDTH-1:0]   result              ;
+  logic signed  [WH_DATA_WIDTH-1:0]   result_reg          ;
 
-  logic signed  [DATA_WIDTH-1:0]      products            ;
-  logic signed  [DATA_WIDTH-1:0]      products_reg        ;
+  logic signed  [WH_DATA_WIDTH-1:0]   products            ;
+  logic signed  [WH_DATA_WIDTH-1:0]   products_reg        ;
 
   logic         [INDEX_WIDTH:0]       counter             ;
   logic         [INDEX_WIDTH:0]       counter_reg         ;
 
   logic                               calculation_enable  ;
-  logic signed  [DATA_WIDTH*2-1:0]    product_check       ;
-  logic signed  [DATA_WIDTH:0]        sum_check           ;
+  logic signed  [WH_DATA_WIDTH*2-1:0] product_check       ;
+  logic signed  [WH_DATA_WIDTH:0]     sum_check           ;
   logic                               sum_overflow        ;
   //* ===========================================
 
@@ -57,8 +58,8 @@ module SP_PE #(
 
   //* =============== calculation ===============
   assign weight_addrb       = col_idx_i;
-  assign product_check      = $signed(value_i) * $signed(weight_dout);
 
+  assign product_check      = $signed(value_i) * $signed(weight_dout);
   assign sum_check          = (counter_reg != 0) ? ($signed(result_reg) + $signed(products)) : products;
   assign sum_overflow       = (sum_check > MAX_VALUE || sum_check < MIN_VALUE);
 
@@ -70,8 +71,10 @@ module SP_PE #(
     counter   = counter_reg;
 
     if (calculation_enable) begin
-      products  = product_check >> 7;
-      result    = sum_overflow ? sum_check[8:1] : sum_check[7:0];
+      // products  = product_check >> 7;
+      // result    = sum_overflow ? sum_check[8:1] : sum_check[7:0];
+      products  = $signed(value_i) * $signed(weight_dout);
+      result    = (counter_reg != 0) ? ($signed(result_reg) + $signed(products)) : products;
       counter   = (counter_reg == row_length_i - 1) ? 0 : (counter_reg + 1);
     end
   end

@@ -12,7 +12,7 @@ module scheduler #(
   parameter VALUE_DEPTH         = 242101                                            ,
   parameter NODE_INFO_DEPTH     = 13264                                             ,
   parameter WEIGHT_DEPTH        = 1433 * 16                                         ,
-  parameter WH_DEPTH            = 242101                                            ,
+  parameter WH_DEPTH            = 13264                                             ,
   parameter A_DEPTH             = 2 * 16                                            ,
   // -- NUM_OF_NODES
   parameter NUM_OF_NODES        = 168                                               ,
@@ -33,19 +33,21 @@ module scheduler #(
   parameter WEIGHT_ADDR_W       = $clog2(WEIGHT_DEPTH)                              ,
   parameter MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS)                             ,
   // -- WH_BRAM
-  parameter WH_WIDTH            = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1   ,
+  parameter WH_DATA_WIDTH       = 12                                                ,
+  parameter WH_WIDTH            = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
   parameter WH_ADDR_W           = $clog2(WH_DEPTH)                                  ,
   // -- a
   parameter A_ADDR_W            = $clog2(A_DEPTH)                                   ,
   // -- softmax
   parameter SOFTMAX_WIDTH       = NUM_OF_NODES * DATA_WIDTH + NUM_NODE_WIDTH        ,
-  parameter SOFTMAX_DEPTH       = NODE_INFO_DEPTH                                   ,
+  parameter SOFTMAX_DEPTH       = 2708                                              ,
   parameter SOFTMAX_ADDR_W      = $clog2(SOFTMAX_DEPTH)                             ,
 
-  parameter NUM_NODES_W         = $clog2(NUM_OF_NODES)
+  parameter NUM_NODES_W         = $clog2(NUM_OF_NODES)                              ,
+  parameter COEF_W              = DATA_WIDTH * NUM_OF_NODES
 )(
-  input clk,
-  input rst_n,
+  input                             clk                         ,
+  input                             rst_n                       ,
 
   // -- H_col_idx BRAM
   input   [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_dout         ,
@@ -77,6 +79,16 @@ module scheduler #(
   input   [WH_WIDTH-1:0]            WH_BRAM_doutc               ,
   output  [WH_ADDR_W-1:0]           WH_BRAM_addrb
 );
+  typedef struct packed {
+    bit [DATA_WIDTH-1:0]      coef_1          ;
+    bit [DATA_WIDTH-1:0]      coef_2          ;
+    bit [DATA_WIDTH-1:0]      coef_3          ;
+    bit [DATA_WIDTH-1:0]      coef_4          ;
+    bit [DATA_WIDTH-1:0]      coef_5          ;
+    bit [DATA_WIDTH-1:0]      coef_6          ;
+    bit [NUM_NODE_WIDTH-1:0]  num_of_nodes    ;
+  } coef_t;
+
   //* ======== internal declaration =========
   logic [NUM_NODES_W-1:0]         num_of_nodes                                ;
   logic                           h_ready                                     ;
@@ -98,18 +110,33 @@ module scheduler #(
   logic                           dmvm_valid                                  ;
   logic                           dmvm_valid_reg                              ;
   logic                           dmvm_ready                                  ;
-  logic                           sm_BRAM_ena                                 ;
-  logic [SOFTMAX_ADDR_W-1:0]      sm_BRAM_addra                               ;
-  logic [SOFTMAX_WIDTH-1:0]       sm_BRAM_dout                                ;
-  logic [SOFTMAX_ADDR_W-1:0]      sm_BRAM_addrb                               ;
-  // -- softmax
   logic [DATA_WIDTH-1:0]          coef                [0:NUM_OF_NODES-1]      ;
-  logic [SOFTMAX_WIDTH-1:0]       coef_data_i                                 ;
-  logic [SOFTMAX_WIDTH-1:0]       coef_data_o                                 ;
-  logic                           coef_wr_valid                               ;
-  logic                           coef_rd_valid                               ;
-  logic                           coef_empty                                  ;
-  logic                           coef_full                                   ;
+  logic [COEF_W-1:0]              coef_cat                                    ;
+
+  // -- softmax
+  logic [SOFTMAX_WIDTH-1:0]       softmax_BRAM_din                            ;
+  logic                           softmax_BRAM_ena                            ;
+  logic [SOFTMAX_ADDR_W-1:0]      softmax_BRAM_addra                          ;
+  logic [SOFTMAX_WIDTH-1:0]       softmax_BRAM_dout                           ;
+  logic [SOFTMAX_ADDR_W-1:0]      softmax_BRAM_addrb                          ;
+
+  logic                           first_sm;
+  logic                           first_sm_reg;
+
+  logic [SOFTMAX_ADDR_W-1:0]      sm_addra                                    ;
+  logic [SOFTMAX_ADDR_W-1:0]      sm_addra_reg                                ;
+  coef_t                          sm_data_i                                   ;
+  coef_t                          sm_data_o                                   ;
+  logic [SOFTMAX_ADDR_W-1:0]      sm_addrb                                    ;
+  logic [SOFTMAX_ADDR_W-1:0]      sm_addrb_reg                                ;
+
+  logic                           sm_valid                                    ;
+  logic                           sm_valid_reg                                ;
+  logic                           sm_ready                                    ;
+  logic                           sm_pre_ready                                ;
+  logic                           sm_ready                                    ;
+  logic [NUM_NODE_WIDTH-1:0]      sm_num_of_nodes                             ;
+  logic [DATA_WIDTH-1:0]          sm_coef             [0:NUM_OF_NODES-1]      ;
   //* =======================================
 
   genvar i;
@@ -151,6 +178,7 @@ module scheduler #(
     .a_o              (a                      )
   );
 
+  //* ========================== SPMM ==========================
   assign spmm_valid = (H_col_idx_BRAM_load_done && H_value_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
   (* dont_touch = "yes" *)
   SPMM #(
@@ -195,7 +223,10 @@ module scheduler #(
     .WH_BRAM_wea                (WH_BRAM_wea                ),
     .WH_BRAM_addra              (WH_BRAM_addra              )
   );
+  //* ==========================================================
 
+
+  //* ========================== DMVM ==========================
   assign dmvm_valid = (&pe_ready) ? 1'b1 : dmvm_valid_reg;
   always @(posedge clk) begin
     if (!rst_n) begin
@@ -228,25 +259,116 @@ module scheduler #(
     .num_of_nodes_o   (num_of_nodes     )
   );
 
-  assign coef_data_i    = 0;
-  assign coef_wr_valid  = dmvm_ready;
+  generate
+    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
+      assign coef_cat[DATA_WIDTH*(i+1)-1-:DATA_WIDTH] = coef[NUM_OF_NODES-1-i];
+    end
+  endgenerate
+  //* ==========================================================
 
-  fifo #(
-    .DATA_WIDTH (SOFTMAX_WIDTH  ),
-    .FIFO_DEPTH (100            )
-  ) u_softmax_FIFO (
-    .clk        (clk                    ),
-    .rst_n      (rst_n                  ),
 
-    .data_i     (coef_data_i            ),
-    .data_o     (coef_data_o            ),
-
-    .wr_valid_i (coef_wr_valid          ),
-    .rd_valid_i (coef_rd_valid          ),
-
-    .empty_o    (coef_empty             ),
-    .full_o     (coef_full              )
+  //* ======================== Softmax =========================
+  BRAM #(
+    .DATA_WIDTH   (SOFTMAX_WIDTH    ),
+    .DEPTH        (SOFTMAX_DEPTH    ),
+    .CLK_LATENCY  (1                )
+  ) u_softmax_BRAM (
+    .clk          (clk                  ),
+    .rst_n        (rst_n                ),
+    .din          (softmax_BRAM_din     ),
+    .addra        (softmax_BRAM_addra   ),
+    .ena          (softmax_BRAM_ena     ),
+    .addrb        (softmax_BRAM_addrb   ),
+    .dout         (softmax_BRAM_dout    )
   );
+
+  // -- BRAM addr logic
+  always @(*) begin
+    sm_addra = sm_addra_reg;
+    sm_addrb = sm_addrb_reg;
+
+    if (dmvm_ready) begin
+      if (sm_addra_reg < 19) begin
+        sm_addra = sm_addra_reg + 1;
+      end else begin
+        sm_addra = 0;
+      end
+    end
+
+    if (sm_pre_ready) begin
+      if (sm_addrb_reg < 19) begin
+        sm_addrb = sm_addrb_reg + 1;
+      end else begin
+        sm_addrb = 0;
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      sm_addra_reg <= 0;
+      sm_addrb_reg <= 0;
+    end else begin
+      sm_addra_reg <= sm_addra;
+      sm_addrb_reg <= sm_addrb;
+    end
+  end
+
+  // -- Write to BRAM
+  assign sm_data_i          = { coef_cat, num_of_nodes };
+  assign softmax_BRAM_din   = sm_data_i;
+  assign softmax_BRAM_ena   = dmvm_ready;
+  assign softmax_BRAM_addra = sm_addra_reg;
+
+  // -- Read from BRAM
+  assign softmax_BRAM_addrb = sm_addrb_reg;
+  assign sm_num_of_nodes    = softmax_BRAM_dout[NUM_NODES_W-1:0];
+  generate
+    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
+      assign sm_coef[i] = softmax_BRAM_dout[SOFTMAX_WIDTH-1-i*DATA_WIDTH : SOFTMAX_WIDTH-(i+1)*DATA_WIDTH];
+    end
+  endgenerate
+
+  // -- sm_valid
+  assign first_sm = (sm_valid_reg == 1'b1) ? 1'b0 : first_sm_reg;
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      first_sm_reg <= 1'b1;
+    end else begin
+      first_sm_reg <= first_sm;
+    end
+  end
+  always @(*) begin
+    if (sm_valid_reg) begin
+      sm_valid = 1'b0;
+    end else if ((softmax_BRAM_addra > 0) && (softmax_BRAM_addra > softmax_BRAM_addrb) && ~sm_valid_reg && ((sm_ready && softmax_BRAM_addrb >= 0) || (softmax_BRAM_addrb == 0 && first_sm_reg))) begin
+      sm_valid = 1'b1;
+    end else begin
+      sm_valid = sm_valid_reg;
+    end
+  end
+
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      sm_valid_reg <= 1'b0;
+    end else begin
+      sm_valid_reg <= sm_valid;
+    end
+  end
+
+  softmax #(
+    .DATA_WIDTH     (DATA_WIDTH       ),
+    .MAX_NODES      (NUM_OF_NODES     )
+  ) u_softmax (
+    .clk            (clk              ),
+    .rst_n          (rst_n            ),
+    .sm_valid_i     (sm_valid_reg     ),
+    .sm_pre_ready_o (sm_pre_ready     ),
+    .sm_ready_o     (sm_ready         ),
+    .coef_i         (sm_coef          ),
+    .num_of_nodes   (sm_num_of_nodes  )
+  );
+  //* ==========================================================
 endmodule
 
 

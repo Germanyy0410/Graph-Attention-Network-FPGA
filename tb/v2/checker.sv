@@ -4,7 +4,7 @@ class OutputComparator;
   int dut_output[];
   int pass_checker;
   int total_checker;
-  int N;  
+  int N;
 
   function new(int size);
     N = size;
@@ -14,10 +14,10 @@ class OutputComparator;
 
   task compare_output();
     forever begin
-      wait(ready_signal); 
+      wait(ready_signal);
       for (int i = 0; i < N; i++) begin
-        #0.01;  
-        if (golden_output[i] === dut_output[i]) begin
+        #0.01;
+        if ($signed(golden_output[i]) === $signed(dut_output[i])) begin
           pass_checker++;
         end
         total_checker++;

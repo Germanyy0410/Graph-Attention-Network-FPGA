@@ -12,7 +12,7 @@ module top #(
   parameter VALUE_DEPTH       = 242101                                            ,
   parameter NODE_INFO_DEPTH   = 13264                                             ,
   parameter WEIGHT_DEPTH      = 22928                                             ,
-  parameter WH_DEPTH          = 242101                                            ,
+  parameter WH_DEPTH          = 13264                                             ,
   parameter A_DEPTH           = 32                                                ,
   // -- NUM_OF_NODES
   parameter NUM_OF_NODES      = 168                                               ,
@@ -32,7 +32,8 @@ module top #(
   // -- Weight
   parameter WEIGHT_ADDR_W     = $clog2(WEIGHT_DEPTH)                              ,
   // -- WH_BRAM
-  parameter WH_WIDTH          = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1   ,
+  parameter WH_DATA_WIDTH     = 12                                                ,
+  parameter WH_WIDTH          = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
   parameter WH_ADDR_W         = $clog2(WH_DEPTH)                                  ,
   // -- a
   parameter A_ADDR_W          = $clog2(A_DEPTH)
@@ -64,25 +65,26 @@ module top #(
   output  [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addrb           ,
   input                             Weight_BRAM_load_done       ,
 
-  output  [WH_WIDTH-1:0]            WH_BRAM_din                 ,
-  output                            WH_BRAM_ena                 ,
-  output  [WH_ADDR_W-1:0]           WH_BRAM_addra               ,
-  output  [WH_ADDR_W-1:0]           WH_BRAM_addrb               ,
-
   input   [DATA_WIDTH-1:0]          a_BRAM_din                  ,
   input                             a_BRAM_ena                  ,
   input   [A_ADDR_W-1:0]            a_BRAM_addra                ,
   output  [A_ADDR_W-1:0]            a_BRAM_addrb                ,
   input                             a_BRAM_load_done
 );
-  wire    [VALUE_WIDTH-1:0]         H_value_BRAM_dout           ;
-  wire    [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_dout         ;
-  wire    [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout       ;
-  wire    [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout_nxt   ;
-  wire    [DATA_WIDTH-1:0]          Weight_BRAM_dout            ;
-  wire    [WH_WIDTH-1:0]            WH_BRAM_doutb               ;
-  wire    [WH_WIDTH-1:0]            WH_BRAM_doutc               ;
-  wire    [DATA_WIDTH-1:0]          a_BRAM_dout                 ;
+  logic   [VALUE_WIDTH-1:0]         H_value_BRAM_dout           ;
+  logic   [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_dout         ;
+  logic   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout       ;
+  logic   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout_nxt   ;
+  logic   [DATA_WIDTH-1:0]          Weight_BRAM_dout            ;
+  logic   [DATA_WIDTH-1:0]          a_BRAM_dout                 ;
+
+  logic   [WH_WIDTH-1:0]            WH_BRAM_din                 ;
+  logic                             WH_BRAM_ena                 ;
+  logic   [WH_ADDR_W-1:0]           WH_BRAM_addra               ;
+  logic   [WH_ADDR_W-1:0]           WH_BRAM_addrb               ;
+  logic   [WH_WIDTH-1:0]            WH_BRAM_doutb               ;
+  logic   [WH_ADDR_W-1:0]           WH_BRAM_addrc               ;
+  logic   [WH_WIDTH-1:0]            WH_BRAM_doutc               ;
 
   BRAM #(
     .DATA_WIDTH   (COL_IDX_WIDTH        ),

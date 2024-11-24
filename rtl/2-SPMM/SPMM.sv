@@ -30,8 +30,9 @@ module SPMM #(
   parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1,
   parameter NODE_INFO_ADDR_W    = $clog2(NODE_INFO_DEPTH),
   // -- WH_BRAM
-  parameter WH_WIDTH            = DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
-  parameter RESULT_WIDTH        = DATA_WIDTH * W_NUM_OF_COLS,
+  parameter WH_DATA_WIDTH       = 12,
+  parameter WH_WIDTH            = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
+  parameter RESULT_WIDTH        = WH_DATA_WIDTH * W_NUM_OF_COLS,
   parameter WH_ADDR_W           = $clog2(WH_DEPTH),
 
   parameter WH_COL_WIDTH        = $clog2(H_NUM_OF_ROWS),
@@ -71,22 +72,22 @@ module SPMM #(
   } node_info_t;
 
   typedef struct packed {
-    bit [DATA_WIDTH-1:0]      result_1          ;
-    bit [DATA_WIDTH-1:0]      result_2          ;
-    bit [DATA_WIDTH-1:0]      result_3          ;
-    bit [DATA_WIDTH-1:0]      result_4          ;
-    bit [DATA_WIDTH-1:0]      result_5          ;
-    bit [DATA_WIDTH-1:0]      result_6          ;
-    bit [DATA_WIDTH-1:0]      result_7          ;
-    bit [DATA_WIDTH-1:0]      result_8          ;
-    bit [DATA_WIDTH-1:0]      result_9          ;
-    bit [DATA_WIDTH-1:0]      result_10         ;
-    bit [DATA_WIDTH-1:0]      result_11         ;
-    bit [DATA_WIDTH-1:0]      result_12         ;
-    bit [DATA_WIDTH-1:0]      result_13         ;
-    bit [DATA_WIDTH-1:0]      result_14         ;
-    bit [DATA_WIDTH-1:0]      result_15         ;
-    bit [DATA_WIDTH-1:0]      result_16         ;
+    bit [WH_DATA_WIDTH-1:0]   result_1          ;
+    bit [WH_DATA_WIDTH-1:0]   result_2          ;
+    bit [WH_DATA_WIDTH-1:0]   result_3          ;
+    bit [WH_DATA_WIDTH-1:0]   result_4          ;
+    bit [WH_DATA_WIDTH-1:0]   result_5          ;
+    bit [WH_DATA_WIDTH-1:0]   result_6          ;
+    bit [WH_DATA_WIDTH-1:0]   result_7          ;
+    bit [WH_DATA_WIDTH-1:0]   result_8          ;
+    bit [WH_DATA_WIDTH-1:0]   result_9          ;
+    bit [WH_DATA_WIDTH-1:0]   result_10         ;
+    bit [WH_DATA_WIDTH-1:0]   result_11         ;
+    bit [WH_DATA_WIDTH-1:0]   result_12         ;
+    bit [WH_DATA_WIDTH-1:0]   result_13         ;
+    bit [WH_DATA_WIDTH-1:0]   result_14         ;
+    bit [WH_DATA_WIDTH-1:0]   result_15         ;
+    bit [WH_DATA_WIDTH-1:0]   result_16         ;
     bit [NUM_NODE_WIDTH-1:0]  num_of_nodes      ;
     bit                       source_node_flag  ;
   } WH_t;
@@ -139,7 +140,7 @@ module SPMM #(
 
   // -- SP-PE results
   logic [RESULT_WIDTH-1:0]      result_cat                              ;
-  logic [DATA_WIDTH-1:0]        result          [0:W_NUM_OF_COLS-1]     ;
+  logic [WH_DATA_WIDTH-1:0]     result          [0:W_NUM_OF_COLS-1]     ;
   WH_t                          WH_data_i                               ;
   logic [WH_ADDR_W-1:0]         WH_addr                                 ;
   logic [WH_ADDR_W-1:0]         WH_addr_reg                             ;
@@ -153,6 +154,7 @@ module SPMM #(
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       SP_PE #(
         .DATA_WIDTH       (DATA_WIDTH         ),
+        .WH_DATA_WIDTH    (WH_DATA_WIDTH      ),
         .DOT_PRODUCT_SIZE (DOT_PRODUCT_SIZE   ),
         .WEIGHT_ADDR_W    (MULT_WEIGHT_ADDR_W )
       ) u_SP_PE (
@@ -195,7 +197,7 @@ module SPMM #(
   //* ====== assign result to WH BRAM =======
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
-      assign result_cat[DATA_WIDTH*(i+1)-1-:DATA_WIDTH] = result[W_NUM_OF_COLS-1-i];
+      assign result_cat[WH_DATA_WIDTH*(i+1)-1-:WH_DATA_WIDTH] = result[W_NUM_OF_COLS-1-i];
     end
   endgenerate
   assign WH_data_i      = { result_cat, ff_num_of_nodes_reg, ff_source_node_flag_reg };
