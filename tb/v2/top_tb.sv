@@ -157,7 +157,7 @@ module top_tb #(
   string output_file_path;
   OutputComparator comparer;
 
-  //////C///////////////////////////////////
+  ////////////////////////////////////////////
   always #10 clk = ~clk;
   initial begin
     clk       = 1'b1;
@@ -168,7 +168,7 @@ module top_tb #(
   ////////////////////////////////////////////
 
 
-    int i=0;
+  int i=0;
   initial begin
     //compare
     comparer = new(16);

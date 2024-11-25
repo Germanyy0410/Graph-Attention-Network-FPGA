@@ -4,8 +4,8 @@ module a_loader #(
   parameter A_DEPTH           = 32,
   parameter INDEX_WIDTH       = $clog2(A_DEPTH)
 )(
-  input clk,
-  input rst_n,
+  input                             clk                           ,
+  input                             rst_n                         ,
 
   input                             a_valid_i                     ,
   output                            a_ready_o                     ,

@@ -1,6 +1,7 @@
 module SPMM #(
   //* ========== parameter ===========
   parameter DATA_WIDTH          = 8,
+  parameter WH_DATA_WIDTH       = 12,
   parameter DOT_PRODUCT_SIZE    = 1433,
   // -- H
   parameter H_NUM_OF_COLS       = 1433,
@@ -30,7 +31,6 @@ module SPMM #(
   parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1,
   parameter NODE_INFO_ADDR_W    = $clog2(NODE_INFO_DEPTH),
   // -- WH_BRAM
-  parameter WH_DATA_WIDTH       = 12,
   parameter WH_WIDTH            = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
   parameter RESULT_WIDTH        = WH_DATA_WIDTH * W_NUM_OF_COLS,
   parameter WH_ADDR_W           = $clog2(WH_DEPTH),
@@ -177,7 +177,7 @@ module SPMM #(
 
   fifo #(
     .DATA_WIDTH (NODE_INFO_WIDTH  ),
-    .FIFO_DEPTH (300              )
+    .FIFO_DEPTH (NODE_INFO_DEPTH  )
   ) node_info_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
@@ -280,6 +280,7 @@ module SPMM #(
   // -- fifo
   assign ff_wr_valid  = new_row_enable;
   assign ff_rd_valid  = (&pe_ready_o || data_addr_reg == 1) && !ff_empty;
+
   // -- -- data_o
   assign ff_node_info                                             = (ff_rd_valid) ? ff_data_o : ff_node_info_reg;
   assign { ff_row_length, ff_num_of_nodes, ff_source_node_flag }  = ff_node_info;

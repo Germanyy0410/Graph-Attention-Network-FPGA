@@ -10,8 +10,8 @@ module W_loader #(
   parameter W_ROW_WIDTH         = $clog2(W_NUM_OF_ROWS),
   parameter W_COL_WIDTH         = $clog2(W_NUM_OF_COLS)
 )(
-  input clk,
-  input rst_n,
+  input                             clk                                                 ,
+  input                             rst_n                                               ,
 
   input                             w_valid_i                                           ,
   output                            w_ready_o                                           ,

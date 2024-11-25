@@ -1,16 +1,19 @@
 module softmax #(
-  parameter DATA_WIDTH        = 8                         ,
-  parameter SM_DATA_WIDTH     = 103                       ,
-  parameter SM_SUM_DATA_WIDTH = 103                       ,
+  //* ========== parameter ===========
+  parameter DATA_WIDTH        = 8,
+  parameter SM_DATA_WIDTH     = 103,
+  parameter SM_SUM_DATA_WIDTH = 103,
+  parameter MAX_NODES         = 168,
 
-  parameter OUT_DATA_WIDTH    = 32                        ,
-  parameter WOI               = 1                         ,
-  parameter WOF               = OUT_DATA_WIDTH - WOI      ,
-  parameter DL_DATA_WIDTH     = $clog2(WOI + WOF + 3) + 1 ,
-
-  parameter MAX_NODES         = 168                       ,
-  parameter NODE_WIDTH        = $clog2(MAX_NODES)         ,
-
+  //* ========= localparams ==========
+  parameter OUT_DATA_WIDTH    = 32,
+  parameter WOI               = 1,
+  parameter WOF               = OUT_DATA_WIDTH - WOI,
+  // -- delay
+  parameter DL_DATA_WIDTH     = $clog2(WOI + WOF + 3) + 1,
+  // -- node width
+  parameter NODE_WIDTH        = $clog2(MAX_NODES),
+  // -- ReLU
   parameter ZERO              = 8'b0000_0000
 )(
   input                           clk                             ,
@@ -92,8 +95,8 @@ module softmax #(
     if(sm_valid_i && ~exp_done_reg) begin
       for(i = 0; i < MAX_NODES; i = i + 1) begin
         if (i < num_of_nodes) begin
-          exp[i]      = (coef_i[i] == ZERO) ? 0 : (1 << coef_i[i]);
-          exp_calc[i] = (coef_i[i] == ZERO) ? 0 : (1 << coef_i[i]);
+          exp[i]      = (coef_i[i] == ZERO) ? 1 : (1 << coef_i[i]);
+          exp_calc[i] = (coef_i[i] == ZERO) ? 1 : (1 << coef_i[i]);
         end
       end
       arr_size = num_of_nodes;

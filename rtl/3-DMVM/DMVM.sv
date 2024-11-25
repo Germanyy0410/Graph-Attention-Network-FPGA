@@ -1,20 +1,20 @@
 module DMVM #(
   //* ========== parameter ===========
-  parameter A_DEPTH           = 32                                                ,
-  parameter DATA_WIDTH        = 8                                                 ,
-  parameter WH_ADDR_W         = 32                                                ,
-  parameter NUM_OF_NODES      = 168                                               ,
-  parameter W_NUM_OF_COLS     = 16                                                ,
+  parameter DATA_WIDTH        = 8,
+  parameter WH_DATA_WIDTH     = 12,
+  parameter DMVM_DATA_WIDTH   = 20,
+
+  parameter A_DEPTH           = 32,
+  parameter WH_ADDR_W         = 32,
+  parameter NUM_OF_NODES      = 168,
+  parameter W_NUM_OF_COLS     = 16,
 
   //* ========= localparams ==========
-  parameter HALF_A_SIZE       = A_DEPTH / 2                                       ,
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                              ,
-  parameter PRODUCT_WIDTH     = $clog2(HALF_A_SIZE)                               ,
+  parameter HALF_A_SIZE       = A_DEPTH / 2,
+  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES),
+  parameter PRODUCT_WIDTH     = $clog2(HALF_A_SIZE),
   // -- WH
-  parameter WH_DATA_WIDTH     = 12                                                ,
   parameter WH_WIDTH          = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
-  // -- DMVM
-  parameter DMVM_DATA_WIDTH   = 20                                                ,
   // -- boundary value
   parameter signed ZERO       = 20'b0000_0000_0000_0000_0000
 )(

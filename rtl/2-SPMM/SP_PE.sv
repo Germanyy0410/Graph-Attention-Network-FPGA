@@ -1,9 +1,9 @@
 module SP_PE #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH          = 8                         ,
-  parameter WH_DATA_WIDTH       = 12                        ,
-  parameter DOT_PRODUCT_SIZE    = 1433                      ,
-  parameter WEIGHT_ADDR_W       = 32                        ,
+  parameter DATA_WIDTH          = 8,
+  parameter WH_DATA_WIDTH       = 12,
+  parameter DOT_PRODUCT_SIZE    = 1433,
+  parameter WEIGHT_ADDR_W       = 32,
 
   //* ========= localparams ==========
   parameter INDEX_WIDTH         = $clog2(DOT_PRODUCT_SIZE)  ,

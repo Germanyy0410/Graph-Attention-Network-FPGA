@@ -1,40 +1,43 @@
 module top #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH        = 8                                                 ,
+  parameter DATA_WIDTH        = 8,
+  parameter WH_DATA_WIDTH     = 12,
+  parameter DMVM_DATA_WIDTH   = 20,
+  parameter SM_DATA_WIDTH     = 103,
+  parameter SM_SUM_DATA_WIDTH = 103,
   // -- H
-  parameter H_NUM_OF_ROWS     = 13264                                             ,
-  parameter H_NUM_OF_COLS     = 1433                                              ,
+  parameter H_NUM_OF_ROWS     = 13264,
+  parameter H_NUM_OF_COLS     = 1433,
   // -- W
-  parameter W_NUM_OF_ROWS     = 1433                                              ,
-  parameter W_NUM_OF_COLS     = 16                                                ,
+  parameter W_NUM_OF_ROWS     = 1433,
+  parameter W_NUM_OF_COLS     = 16,
   // -- BRAM
-  parameter COL_IDX_DEPTH     = 242101                                            ,
-  parameter VALUE_DEPTH       = 242101                                            ,
-  parameter NODE_INFO_DEPTH   = 13264                                             ,
-  parameter WEIGHT_DEPTH      = 22928                                             ,
-  parameter WH_DEPTH          = 13264                                             ,
-  parameter A_DEPTH           = 32                                                ,
+  parameter COL_IDX_DEPTH     = 242101,
+  parameter VALUE_DEPTH       = 242101,
+  parameter NODE_INFO_DEPTH   = 13264,
+  parameter WEIGHT_DEPTH      = 22928,
+  parameter WH_DEPTH          = 13264,
+  parameter A_DEPTH           = 32,
   // -- NUM_OF_NODES
-  parameter NUM_OF_NODES      = 168                                               ,
+  parameter NUM_OF_NODES      = 168,
 
   //* ========= localparams ==========
   // -- col_idx
-  parameter COL_IDX_WIDTH     = $clog2(H_NUM_OF_COLS)                             ,
-  parameter COL_IDX_ADDR_W    = $clog2(COL_IDX_DEPTH)                             ,
+  parameter COL_IDX_WIDTH     = $clog2(H_NUM_OF_COLS),
+  parameter COL_IDX_ADDR_W    = $clog2(COL_IDX_DEPTH),
   // -- value
-  parameter VALUE_WIDTH       = DATA_WIDTH                                        ,
-  parameter VALUE_ADDR_W      = $clog2(VALUE_DEPTH)                               ,
+  parameter VALUE_WIDTH       = DATA_WIDTH,
+  parameter VALUE_ADDR_W      = $clog2(VALUE_DEPTH),
   // -- node_info = [row_len, num_nodes, flag]
-  parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS)                             ,
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                              ,
-  parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1                ,
-  parameter NODE_INFO_ADDR_W  = $clog2(NODE_INFO_DEPTH)                           ,
+  parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS),
+  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES),
+  parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1,
+  parameter NODE_INFO_ADDR_W  = $clog2(NODE_INFO_DEPTH),
   // -- Weight
-  parameter WEIGHT_ADDR_W     = $clog2(WEIGHT_DEPTH)                              ,
+  parameter WEIGHT_ADDR_W     = $clog2(WEIGHT_DEPTH),
   // -- WH_BRAM
-  parameter WH_DATA_WIDTH     = 12                                                ,
   parameter WH_WIDTH          = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
-  parameter WH_ADDR_W         = $clog2(WH_DEPTH)                                  ,
+  parameter WH_ADDR_W         = $clog2(WH_DEPTH),
   // -- a
   parameter A_ADDR_W          = $clog2(A_DEPTH)
 )(
@@ -86,6 +89,8 @@ module top #(
   logic   [WH_ADDR_W-1:0]           WH_BRAM_addrc               ;
   logic   [WH_WIDTH-1:0]            WH_BRAM_doutc               ;
 
+
+  //* ========================== BRAM ==========================
   BRAM #(
     .DATA_WIDTH   (COL_IDX_WIDTH        ),
     .DEPTH        (COL_IDX_DEPTH        ),
@@ -172,24 +177,31 @@ module top #(
     .addrb        (a_BRAM_addrb         ),
     .dout         (a_BRAM_dout          )
   );
+  //* ==========================================================
 
+
+  //* ======================== scheduler =======================
   scheduler #(
-    .DATA_WIDTH       (DATA_WIDTH       ),
+    .DATA_WIDTH         (DATA_WIDTH         ),
+    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
 
-    .H_NUM_OF_COLS    (H_NUM_OF_COLS    ),
-    .H_NUM_OF_ROWS    (H_NUM_OF_ROWS    ),
+    .H_NUM_OF_COLS      (H_NUM_OF_COLS      ),
+    .H_NUM_OF_ROWS      (H_NUM_OF_ROWS      ),
 
-    .W_NUM_OF_ROWS    (W_NUM_OF_ROWS    ),
-    .W_NUM_OF_COLS    (W_NUM_OF_COLS    ),
+    .W_NUM_OF_ROWS      (W_NUM_OF_ROWS      ),
+    .W_NUM_OF_COLS      (W_NUM_OF_COLS      ),
 
-    .COL_IDX_DEPTH    (COL_IDX_DEPTH    ),
-    .VALUE_DEPTH      (VALUE_DEPTH      ),
-    .NODE_INFO_DEPTH  (NODE_INFO_DEPTH  ),
-    .WEIGHT_DEPTH     (WEIGHT_DEPTH     ),
-    .WH_DEPTH         (WH_DEPTH         ),
-    .A_DEPTH          (A_DEPTH          ),
+    .COL_IDX_DEPTH      (COL_IDX_DEPTH      ),
+    .VALUE_DEPTH        (VALUE_DEPTH        ),
+    .NODE_INFO_DEPTH    (NODE_INFO_DEPTH    ),
+    .WEIGHT_DEPTH       (WEIGHT_DEPTH       ),
+    .WH_DEPTH           (WH_DEPTH           ),
+    .A_DEPTH            (A_DEPTH            ),
 
-    .NUM_OF_NODES     (NUM_OF_NODES     )
+    .NUM_OF_NODES       (NUM_OF_NODES       )
   ) u_scheduler (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
@@ -223,4 +235,5 @@ module top #(
     .WH_BRAM_doutc              (WH_BRAM_doutc              ),
     .WH_BRAM_addrb              (WH_BRAM_addrb              )
   );
+  //* ==========================================================
 endmodule
