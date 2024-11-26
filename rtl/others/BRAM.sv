@@ -1,8 +1,8 @@
 module BRAM #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH      = 8             ,
-  parameter DEPTH           = 242101        ,
-  parameter CLK_LATENCY     = 1             ,
+  parameter DATA_WIDTH      = 201,
+  parameter DEPTH           = 120,
+  parameter CLK_LATENCY     = 1,
 
   //* ========= localparams ==========
   parameter DATA_ADDR_W     = $clog2(DEPTH)

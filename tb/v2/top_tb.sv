@@ -193,15 +193,15 @@ module top_tb #(
 
       #0.01;
       for(int i = 0; i < NODE_INFO_DEPTH; i++) begin
-        wait(dut.u_scheduler.u_SPMM.pe_ready_o == {16{1'b1}});
+        wait(dut.u_SPMM.pe_ready_o == {16{1'b1}});
         for(int j = 0; j < 16;j++) begin
-          dut_output[i][j] = dut.u_scheduler.u_SPMM.result[j];
+          dut_output[i][j] = dut.u_SPMM.result[j];
         end
         $display("-----------------------------------COMPARATOR--------------------------------");
         $display("Time %0tps", $time);
         $display("INFO: [Golden] \t%p", golden_input[i]);
         $display("INFO: [DUT] \t%p", dut_output[i]);
-        comparer.update_inputs(dut.u_scheduler.u_SPMM.pe_ready_o, golden_input[i], dut_output[i]);
+        comparer.update_inputs(dut.u_SPMM.pe_ready_o, golden_input[i], dut_output[i]);
         comparer.compare_output();
         $display("-----------------------------------------------------------------------------");
         #20.02;

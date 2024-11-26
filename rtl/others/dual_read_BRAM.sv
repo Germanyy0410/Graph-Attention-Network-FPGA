@@ -1,6 +1,6 @@
 module dual_read_BRAM #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH      = 20            ,
+  parameter DATA_WIDTH      = 201           ,
   parameter DEPTH           = 13264         ,
   parameter CLK_LATENCY     = 1             ,
 

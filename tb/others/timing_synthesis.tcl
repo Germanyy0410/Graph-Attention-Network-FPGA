@@ -1,3 +1,4 @@
+reset_run synth_1
 launch_runs synth_1 -jobs 8
 wait_on_runs synth_1
 open_run synth_1 -name synth_1

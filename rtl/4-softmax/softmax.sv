@@ -16,38 +16,44 @@ module softmax #(
   // -- ReLU
   parameter ZERO              = 8'b0000_0000
 )(
-  input                           clk                             ,
-  input                           rst_n                           ,
+  input                           clk                                   ,
+  input                           rst_n                                 ,
 
-  input                           sm_valid_i                      ,
-  output                          sm_ready_o                      ,
-  output                          sm_pre_ready_o                  ,
+  input                           sm_valid_i                            ,
+  output                          sm_ready_o                            ,
+  output                          sm_pre_ready_o                        ,
 
-  input   [DATA_WIDTH-1:0]        coef_i        [0:MAX_NODES-1]   ,
-  input   [NODE_WIDTH-1:0]        num_of_nodes                    ,
-  output  [OUT_DATA_WIDTH-1:0]    alpha_o       [0:MAX_NODES-1]
+  input   [DATA_WIDTH-1:0]        coef_i              [0:MAX_NODES-1]   ,
+  input   [NODE_WIDTH-1:0]        num_of_nodes                          ,
+
+  output  [OUT_DATA_WIDTH-1:0]    alpha_o             [0:MAX_NODES-1]   ,
+  output  [NODE_WIDTH-1:0]        sm_num_of_nodes_o
 );
-  logic                           sm_ready_reg                    ;
   logic                           sm_ready                        ;
+  logic                           sm_ready_reg                    ;
+  logic [NODE_WIDTH-1:0]          sm_num_of_nodes                 ;
+  logic [NODE_WIDTH-1:0]          sm_num_of_nodes_reg             ;
 
   logic [OUT_DATA_WIDTH-1:0]      alpha         [0:MAX_NODES-1]   ;
   logic [OUT_DATA_WIDTH-1:0]      alpha_reg     [0:MAX_NODES-1]   ;
-  logic [SM_DATA_WIDTH-1:0]       exp_reg       [0:MAX_NODES-1]   ;
   logic [SM_DATA_WIDTH-1:0]       exp           [0:MAX_NODES-1]   ;
+  logic [SM_DATA_WIDTH-1:0]       exp_reg       [0:MAX_NODES-1]   ;
 
   logic [SM_DATA_WIDTH-1:0]       exp_calc      [0:MAX_NODES-1]   ;
   logic [SM_DATA_WIDTH-1:0]       exp_calc_reg  [0:MAX_NODES-1]   ;
 
-  logic [NODE_WIDTH-1:0]          arr_size_reg                    ;
   logic [NODE_WIDTH-1:0]          arr_size                        ;
-  logic                           exp_done_reg                    ;
+  logic [NODE_WIDTH-1:0]          arr_size_reg                    ;
   logic                           exp_done                        ;
+  logic                           exp_done_reg                    ;
 
   logic [SM_SUM_DATA_WIDTH-1:0]   sum_result                      ;
   logic [SM_SUM_DATA_WIDTH-1:0]   sum_result_reg                  ;
+  logic [SM_SUM_DATA_WIDTH-1:0]   sum_extra                       ;
+  logic [SM_SUM_DATA_WIDTH-1:0]   sum_extra_reg                   ;
 
-  logic                           sum_done_reg                    ;
   logic                           sum_done                        ;
+  logic                           sum_done_reg                    ;
 
   // -- [division] IN
   logic [SM_DATA_WIDTH-1:0]       in                              ;
@@ -77,16 +83,18 @@ module softmax #(
     end
   endgenerate
 
-  assign sm_ready_o     = sm_ready_reg;
-  assign sm_pre_ready_o = sm_ready;
+  assign sm_ready_o         = sm_ready_reg;
+  assign sm_pre_ready_o     = sm_ready;
+  assign sm_num_of_nodes_o  = sm_num_of_nodes_reg;
   //* ==============================================================
 
 
   //* ======================== exp(x) & sum ========================
   always @(*) begin
-    exp_done = exp_done_reg;
-    arr_size = arr_size_reg;
-    sum_done = sum_done_reg;
+    exp_done  = exp_done_reg;
+    arr_size  = arr_size_reg;
+    sum_extra = sum_extra_reg;
+
     for(i = 0; i < MAX_NODES; i = i + 1) begin
       exp[i]      = exp_reg[i];
       exp_calc[i] = exp_calc_reg[i];
@@ -99,12 +107,14 @@ module softmax #(
           exp_calc[i] = (coef_i[i] == ZERO) ? 1 : (1 << coef_i[i]);
         end
       end
-      arr_size = num_of_nodes;
-      exp_done = 1;
+      arr_size  = num_of_nodes;
+      exp_done  = 1;
+      sum_extra = 0;
     end else if (exp_done_reg) begin
       if(arr_size_reg > 1) begin
         for(i = 0; i < MAX_NODES/2; i = i + 1) begin
           if(i < arr_size_reg) begin
+            sum_extra = (arr_size_reg[0] == 1'b1) ? (exp_reg[arr_size_reg-1] + sum_extra_reg) : sum_extra_reg;
             exp[i]    = exp_reg[2*i] + exp_reg[2*i+1];
             arr_size  = arr_size_reg >> 1;
           end
@@ -154,18 +164,20 @@ module softmax #(
   always @(*) begin
     sum_result = sum_result_reg;
     if (num_of_nodes % 2 == 1 && delay_cnt_reg == 0) begin
-      sum_result = exp_reg[0] + exp_reg[num_of_nodes-1];
+      sum_result = exp_reg[0] + exp_reg[num_of_nodes-1] + sum_extra_reg;
     end else if (delay_cnt_reg == 0) begin
-      sum_result = exp_reg[0];
+      sum_result = exp_reg[0] + sum_extra_reg;
     end
   end
 
   always @(posedge clk) begin
     if(!rst_n) begin
       sum_done_reg    <= 0;
+      sum_extra_reg   <= 0;
       sum_result_reg  <= 0;
     end else begin
       sum_done_reg    <= sum_done;
+      sum_extra_reg   <= sum_extra;
       sum_result_reg  <= sum_result;
     end
   end
@@ -266,6 +278,10 @@ module softmax #(
     end
     if ((output_control_reg == 1) && (o_idx_cnt_reg < num_of_nodes) && (~sm_ready_reg)) begin
       alpha[o_idx_cnt_reg]  = out_reg;
+    end else if (sm_valid_i) begin
+      for (int i = 0; i < MAX_NODES; i = i + 1) begin
+        alpha[i] = 0;
+      end
     end
   end
 
@@ -298,6 +314,19 @@ module softmax #(
       sm_ready_reg <= 0;
     end else begin
       sm_ready_reg <= sm_ready;
+    end
+  end
+  //* ==============================================================
+
+
+  //* ====================== sm_num_of_nodes =======================
+  assign sm_num_of_nodes = (sm_ready) ? num_of_nodes : sm_num_of_nodes_reg;
+
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      sm_num_of_nodes_reg <= 0;
+    end else begin
+      sm_num_of_nodes_reg <= sm_num_of_nodes;
     end
   end
   //* ==============================================================

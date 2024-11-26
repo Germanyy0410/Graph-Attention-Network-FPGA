@@ -1,6 +1,6 @@
 module fifo #(
-  parameter DATA_WIDTH = 32,
-  parameter FIFO_DEPTH = 256
+  parameter DATA_WIDTH = 2025,
+  parameter FIFO_DEPTH = 20
 ) (
   input                                 clk,
   input                                 rst_n,

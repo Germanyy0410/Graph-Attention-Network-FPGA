@@ -177,7 +177,7 @@ module SPMM #(
 
   fifo #(
     .DATA_WIDTH (NODE_INFO_WIDTH  ),
-    .FIFO_DEPTH (NODE_INFO_DEPTH  )
+    .FIFO_DEPTH (300              )
   ) node_info_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
