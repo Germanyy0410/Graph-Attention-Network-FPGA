@@ -1,23 +1,7 @@
-module DMVM #(
-  //* ========== parameter ===========
-  parameter DATA_WIDTH        = 8,
-  parameter WH_DATA_WIDTH     = 12,
-  parameter DMVM_DATA_WIDTH   = 20,
+`include "./../others/params_pkg.sv"
 
-  parameter A_DEPTH           = 32,
-  parameter WH_ADDR_W         = 32,
-  parameter NUM_OF_NODES      = 168,
-  parameter W_NUM_OF_COLS     = 16,
-
-  //* ========= localparams ==========
-  parameter HALF_A_SIZE       = A_DEPTH / 2,
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES),
-  parameter PRODUCT_WIDTH     = $clog2(HALF_A_SIZE),
-  // -- WH
-  parameter WH_WIDTH          = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
-  // -- boundary value
-  parameter signed ZERO       = 20'b0000_0000_0000_0000_0000
-)(
+module DMVM import params_pkg::*;
+(
   input                             clk                                       ,
   input                             rst_n                                     ,
 
@@ -27,8 +11,8 @@ module DMVM #(
   input                             a_valid_i                                 ,
   input   [DATA_WIDTH-1:0]          a_i             [0:A_DEPTH-1]             ,
   // -- WH BRAM
-  input   [WH_WIDTH-1:0]            WH_BRAM_doutb                             ,
-  output  [WH_ADDR_W-1:0]           WH_BRAM_addrb                             ,
+  input   [WH_WIDTH-1:0]            WH_BRAM_dout                              ,
+  output  [WH_1_ADDR_W-1:0]         WH_BRAM_addrb                             ,
   // -- output
   output  [DATA_WIDTH-1:0]          coef_o          [0:NUM_OF_NODES-1]        ,
   output  [NUM_NODE_WIDTH-1:0]      num_of_nodes_o
@@ -40,8 +24,8 @@ module DMVM #(
   logic         [DATA_WIDTH-1:0]        a_2                 [0:HALF_A_SIZE-1]         ;
 
   // -- WH array
-  logic         [WH_ADDR_W-1:0]         WH_addr                                       ;
-  logic         [WH_ADDR_W-1:0]         WH_addr_reg                                   ;
+  logic         [WH_1_ADDR_W-1:0]       WH_addr                                       ;
+  logic         [WH_1_ADDR_W-1:0]       WH_addr_reg                                   ;
   logic         [WH_DATA_WIDTH-1:0]     WH_arr              [0:HALF_A_SIZE-1]         ;
   logic                                 source_node_flag                              ;
 
@@ -50,8 +34,8 @@ module DMVM #(
   logic signed  [DMVM_DATA_WIDTH-1:0]   product_reg         [0:HALF_A_SIZE-1]         ;
   logic                                 product_done                                  ;
   logic                                 product_done_reg                              ;
-  logic         [PRODUCT_WIDTH:0]       product_size                                  ;
-  logic         [PRODUCT_WIDTH:0]       product_size_reg                              ;
+  logic         [DMVM_PRODUCT_WIDTH:0]  product_size                                  ;
+  logic         [DMVM_PRODUCT_WIDTH:0]  product_size_reg                              ;
 
   // -- sum
   logic                                 sum_done                                      ;
@@ -115,12 +99,12 @@ module DMVM #(
 
 
   //* ======= get WH data from BRAM =========
-  assign source_node_flag = WH_BRAM_doutb[0];
-  assign num_of_nodes     = WH_BRAM_doutb[NUM_NODE_WIDTH:1];
+  assign source_node_flag = WH_BRAM_dout[0];
+  assign num_of_nodes     = WH_BRAM_dout[NUM_NODE_WIDTH:1];
 
   generate
     for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
-      assign WH_arr[i] = WH_BRAM_doutb[WH_WIDTH-1-i*WH_DATA_WIDTH : WH_WIDTH-(i+1)*WH_DATA_WIDTH];
+      assign WH_arr[i] = WH_BRAM_dout[WH_WIDTH-1-i*WH_DATA_WIDTH : WH_WIDTH-(i+1)*WH_DATA_WIDTH];
     end
   endgenerate
   //* =======================================
@@ -146,7 +130,7 @@ module DMVM #(
   //* =========== WH_BRAM_addrb =============
   assign WH_BRAM_addrb  = WH_addr_reg;
 
-  assign WH_addr = (product_size_reg == 2 && dmvm_valid_i) ? (WH_addr_reg + 1) : WH_addr_reg;
+  assign WH_addr = ((product_size_reg == 2 || product_size_reg == 3) && dmvm_valid_i) ? ((WH_addr_reg < WH_1_DEPTH - 1) ? (WH_addr_reg + 1) : 0) : WH_addr_reg;
 
   always @(posedge clk) begin
     if (!rst_n) begin
@@ -209,7 +193,7 @@ module DMVM #(
 
 
   //* ============== result =================
-  assign result_done = (product_size_reg == 2) ? 1'b1 : 1'b0;
+  assign result_done = (product_size_reg == 2 || product_size_reg == 3) ? 1'b1 : 1'b0;
 
   always @(*) begin
     idx = idx_reg;
@@ -222,7 +206,7 @@ module DMVM #(
 
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      assign result[i] = (i == idx_reg && result_done_reg) ? product_reg[0] : result_reg[i];
+      assign result[i] = (i == idx_reg && result_done_reg) ? (product_reg[0] + product_reg[2]) : result_reg[i];
     end
   endgenerate
 

@@ -1,15 +1,7 @@
-module W_loader #(
-  //* ========== parameter ===========
-  parameter DATA_WIDTH          = 8,
-  parameter W_NUM_OF_ROWS       = 1433,
-  parameter W_NUM_OF_COLS       = 16,
+`include "./../others/params_pkg.sv"
 
-  parameter WEIGHT_ADDR_W       = $clog2(W_NUM_OF_ROWS * W_NUM_OF_COLS),
-  parameter MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS),
-
-  parameter W_ROW_WIDTH         = $clog2(W_NUM_OF_ROWS),
-  parameter W_COL_WIDTH         = $clog2(W_NUM_OF_COLS)
-)(
+module W_loader import params_pkg::*;
+(
   input                             clk                                                 ,
   input                             rst_n                                               ,
 

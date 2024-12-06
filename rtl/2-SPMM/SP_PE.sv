@@ -1,29 +1,21 @@
-module SP_PE #(
-  //* ========== parameter ===========
-  parameter DATA_WIDTH          = 8,
-  parameter WH_DATA_WIDTH       = 12,
-  parameter DOT_PRODUCT_SIZE    = 1433,
-  parameter WEIGHT_ADDR_W       = 32,
+`include "./../others/params_pkg.sv"
 
-  //* ========= localparams ==========
-  parameter INDEX_WIDTH         = $clog2(DOT_PRODUCT_SIZE)  ,
-  parameter COL_IDX_WIDTH       = $clog2(DOT_PRODUCT_SIZE)  ,
-  parameter ROW_LEN_WIDTH       = $clog2(DOT_PRODUCT_SIZE)
-)(
-  input                           clk                     ,
-  input                           rst_n                   ,
+module SP_PE import params_pkg::*;
+(
+  input                             clk                     ,
+  input                             rst_n                   ,
 
-  input                           pe_valid_i              ,
-  output                          pe_ready_o              ,
+  input                             pe_valid_i              ,
+  output                            pe_ready_o              ,
 
-  input   [COL_IDX_WIDTH-1:0]     col_idx_i               ,
-  input   [DATA_WIDTH-1:0]        value_i                 ,
-  input   [ROW_LEN_WIDTH-1:0]     row_length_i            ,
+  input   [COL_IDX_WIDTH-1:0]       col_idx_i               ,
+  input   [DATA_WIDTH-1:0]          value_i                 ,
+  input   [ROW_LEN_WIDTH-1:0]       row_length_i            ,
 
-  input   [DATA_WIDTH-1:0]        weight_dout             ,
-  output  [WEIGHT_ADDR_W-1:0]     weight_addrb            ,
+  input   [DATA_WIDTH-1:0]          weight_dout             ,
+  output  [MULT_WEIGHT_ADDR_W-1:0]  weight_addrb            ,
 
-  output  [WH_DATA_WIDTH-1:0]     result_o
+  output  [WH_DATA_WIDTH-1:0]       result_o
 );
   //* ============= reg declaration =============
   // -- [pe_ready] logic
@@ -36,8 +28,8 @@ module SP_PE #(
   logic signed  [WH_DATA_WIDTH-1:0]   products            ;
   logic signed  [WH_DATA_WIDTH-1:0]   products_reg        ;
 
-  logic         [INDEX_WIDTH:0]       counter             ;
-  logic         [INDEX_WIDTH:0]       counter_reg         ;
+  logic         [ROW_LEN_WIDTH:0]     counter             ;
+  logic         [ROW_LEN_WIDTH:0]     counter_reg         ;
 
   logic                               calculation_enable  ;
   //* ===========================================

@@ -1,9 +1,7 @@
-module a_loader #(
-  parameter DATA_WIDTH        = 8,
-  parameter A_ADDR_W          = 32,
-  parameter A_DEPTH           = 32,
-  parameter INDEX_WIDTH       = $clog2(A_DEPTH)
-)(
+`include "./../others/params_pkg.sv"
+
+module a_loader import params_pkg::*;
+(
   input                             clk                           ,
   input                             rst_n                         ,
 
@@ -16,6 +14,9 @@ module a_loader #(
 
   output  [DATA_WIDTH-1:0]          a_o             [0:A_DEPTH-1]
 );
+  parameter INDEX_WIDTH       = $clog2(A_DEPTH);
+
+
   //* ========== wire declaration ===========
   wire  [A_ADDR_W-1:0]          a_addr                      ;
   wire  [DATA_WIDTH-1:0]        a           [0:A_DEPTH-1]   ;
@@ -44,7 +45,7 @@ module a_loader #(
   assign a_BRAM_enb   = rd_en ? 1'b1 : 1'b0;
   assign a_ready_o    = (a_addr_reg == A_DEPTH + 1) ? 1'b1 : 1'b0;
   generate
-    for (i = 0; i < 32; i = i + 1) begin
+    for (i = 0; i < A_DEPTH; i = i + 1) begin
       assign a_o[i] = a_reg[i];
     end
   endgenerate

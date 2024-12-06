@@ -1,58 +1,7 @@
-module top #(
-  //* ========== parameter ===========
-  parameter DATA_WIDTH        = 8,
-  parameter WH_DATA_WIDTH     = 12,
-  parameter DMVM_DATA_WIDTH   = 20,
-  parameter SM_DATA_WIDTH     = 103,
-  parameter SM_SUM_DATA_WIDTH = 103,
-  parameter SM_OUT_DATA_WIDTH = 32,
-  // -- H
-  parameter H_NUM_OF_ROWS     = 13264,
-  parameter H_NUM_OF_COLS     = 1433,
-  // -- W
-  parameter W_NUM_OF_ROWS     = 1433,
-  parameter W_NUM_OF_COLS     = 16,
-  // -- BRAM
-  parameter COL_IDX_DEPTH     = 242101,
-  parameter VALUE_DEPTH       = 242101,
-  parameter NODE_INFO_DEPTH   = 13264,
-  parameter WEIGHT_DEPTH      = 22928,
-  parameter WH_DEPTH          = 13264,
-  parameter A_DEPTH           = 32,
-  // -- NUM_OF_NODES
-  parameter NUM_OF_NODES      = 168,
+`include "./others/params_pkg.sv"
 
-  //* ========= localparams ==========
-  // -- col_idx
-  parameter COL_IDX_WIDTH     = $clog2(H_NUM_OF_COLS),
-  parameter COL_IDX_ADDR_W    = $clog2(COL_IDX_DEPTH),
-  // -- value
-  parameter VALUE_WIDTH       = DATA_WIDTH,
-  parameter VALUE_ADDR_W      = $clog2(VALUE_DEPTH),
-  // -- node_info = [row_len, num_nodes, flag]
-  parameter ROW_LEN_WIDTH     = $clog2(H_NUM_OF_COLS),
-  parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES),
-  parameter NODE_INFO_WIDTH   = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1,
-  parameter NODE_INFO_ADDR_W  = $clog2(NODE_INFO_DEPTH),
-  // -- Weight
-  parameter WEIGHT_ADDR_W     = $clog2(WEIGHT_DEPTH),
-  // -- WH_BRAM
-  parameter WH_WIDTH          = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
-  parameter WH_ADDR_W         = $clog2(WH_DEPTH),
-  // -- a
-  parameter A_ADDR_W          = $clog2(A_DEPTH),
-  // -- Softmax
-  parameter SOFTMAX_WIDTH     = NUM_OF_NODES * DATA_WIDTH + NUM_NODE_WIDTH,
-  parameter SOFTMAX_DEPTH     = 2708,
-  parameter SOFTMAX_ADDR_W    = $clog2(SOFTMAX_DEPTH),
-  // -- DMVM
-  parameter COEF_W            = DATA_WIDTH * NUM_OF_NODES,
-  parameter ALPHA_W           = SM_OUT_DATA_WIDTH * NUM_OF_NODES,
-  // -- Aggregator
-  parameter AGGR_WIDTH        = NUM_OF_NODES * SM_OUT_DATA_WIDTH + NUM_NODE_WIDTH,
-  parameter AGGR_DEPTH        = 2708,
-  parameter AGGR_ADDR_W       = $clog2(AGGR_DEPTH)
-)(
+module top import params_pkg::*;
+(
   input                             clk                         ,
   input                             rst_n                       ,
 
@@ -93,13 +42,17 @@ module top #(
   logic   [DATA_WIDTH-1:0]          Weight_BRAM_dout            ;
   logic   [DATA_WIDTH-1:0]          a_BRAM_dout                 ;
 
-  logic   [WH_WIDTH-1:0]            WH_BRAM_din                 ;
-  logic                             WH_BRAM_ena                 ;
-  logic   [WH_ADDR_W-1:0]           WH_BRAM_addra               ;
-  logic   [WH_ADDR_W-1:0]           WH_BRAM_addrb               ;
-  logic   [WH_WIDTH-1:0]            WH_BRAM_doutb               ;
-  logic   [WH_ADDR_W-1:0]           WH_BRAM_addrc               ;
-  logic   [WH_WIDTH-1:0]            WH_BRAM_doutc               ;
+  logic   [WH_WIDTH-1:0]            WH_1_BRAM_din               ;
+  logic                             WH_1_BRAM_ena               ;
+  logic   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addra             ;
+  logic   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addrb             ;
+  logic   [WH_WIDTH-1:0]            WH_1_BRAM_dout              ;
+
+  logic   [WH_WIDTH-1:0]            WH_2_BRAM_din               ;
+  logic                             WH_2_BRAM_ena               ;
+  logic   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addra             ;
+  logic   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addrb             ;
+  logic   [WH_WIDTH-1:0]            WH_2_BRAM_dout              ;
 
   logic   [SOFTMAX_WIDTH-1:0]       softmax_FIFO_din            ;
   logic   [SOFTMAX_WIDTH-1:0]       softmax_FIFO_dout           ;
@@ -122,26 +75,6 @@ module top #(
   logic   [AGGR_ADDR_W-1:0]         aggr_BRAM_addrb             ;
 
   genvar i;
-
-  typedef struct packed {
-    bit [DATA_WIDTH-1:0]      coef_1;
-    bit [DATA_WIDTH-1:0]      coef_2;
-    bit [DATA_WIDTH-1:0]      coef_3;
-    bit [DATA_WIDTH-1:0]      coef_4;
-    bit [DATA_WIDTH-1:0]      coef_5;
-    bit [DATA_WIDTH-1:0]      coef_6;
-    bit [NUM_NODE_WIDTH-1:0]  num_of_nodes;
-  } coef_t;
-
-  typedef struct packed {
-    bit [SM_OUT_DATA_WIDTH-1:0]   aggr_1;
-    bit [SM_OUT_DATA_WIDTH-1:0]   aggr_2;
-    bit [SM_OUT_DATA_WIDTH-1:0]   aggr_3;
-    bit [SM_OUT_DATA_WIDTH-1:0]   aggr_4;
-    bit [SM_OUT_DATA_WIDTH-1:0]   aggr_5;
-    bit [SM_OUT_DATA_WIDTH-1:0]   aggr_6;
-    bit [NUM_NODE_WIDTH-1:0]      num_of_nodes;
-  } aggr_t;
 
   //* ========================= MEMORY =========================
   (* dont_touch = "yes" *)
@@ -206,20 +139,33 @@ module top #(
   );
 
   (* dont_touch = "yes" *)
-  dual_read_BRAM #(
+  BRAM #(
     .DATA_WIDTH   (WH_WIDTH             ),
-    .DEPTH        (WH_DEPTH             ),
+    .DEPTH        (WH_1_DEPTH           ),
     .CLK_LATENCY  (1                    )
-  ) u_WH_BRAM (
+  ) u_WH_1_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
-    .din          (WH_BRAM_din          ),
-    .addra        (WH_BRAM_addra        ),
-    .ena          (WH_BRAM_ena          ),
-    .addrb        (WH_BRAM_addrb        ),
-    .doutb        (WH_BRAM_doutb        ),
-    .addrc        (WH_BRAM_addrc        ),
-    .doutc        (WH_BRAM_doutc        )
+    .din          (WH_1_BRAM_din        ),
+    .addra        (WH_1_BRAM_addra      ),
+    .ena          (WH_1_BRAM_ena        ),
+    .addrb        (WH_1_BRAM_addrb      ),
+    .dout         (WH_1_BRAM_dout       )
+  );
+
+  (* dont_touch = "yes" *)
+  BRAM #(
+    .DATA_WIDTH   (WH_WIDTH             ),
+    .DEPTH        (WH_2_DEPTH           ),
+    .CLK_LATENCY  (1                    )
+  ) u_WH_2_BRAM (
+    .clk          (clk                  ),
+    .rst_n        (rst_n                ),
+    .din          (WH_2_BRAM_din        ),
+    .addra        (WH_2_BRAM_addra      ),
+    .ena          (WH_2_BRAM_ena        ),
+    .addrb        (WH_2_BRAM_addrb      ),
+    .dout         (WH_2_BRAM_dout       )
   );
 
   (* dont_touch = "yes" *)
@@ -255,7 +201,7 @@ module top #(
   (* dont_touch = "yes" *)
   fifo #(
     .DATA_WIDTH (AGGR_WIDTH             ),
-    .FIFO_DEPTH (2                      )
+    .FIFO_DEPTH (20                     )
   ) u_aggregator_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
@@ -278,13 +224,7 @@ module top #(
   logic [DATA_WIDTH-1:0]          a                   [0:A_DEPTH-1]       ;
   logic                           a_ready                                 ;
 
-  scheduler #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .W_NUM_OF_ROWS      (W_NUM_OF_ROWS      ),
-    .W_NUM_OF_COLS      (W_NUM_OF_COLS      ),
-    .WEIGHT_DEPTH       (WEIGHT_DEPTH       ),
-    .A_DEPTH            (A_DEPTH            )
-  ) u_scheduler (
+  scheduler u_scheduler (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
 
@@ -311,25 +251,7 @@ module top #(
   assign spmm_valid = (H_col_idx_BRAM_load_done && H_value_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
 
   (* dont_touch = "yes" *)
-  SPMM #(
-    .DATA_WIDTH       (DATA_WIDTH       ),
-    .WH_DATA_WIDTH    (WH_DATA_WIDTH    ),
-    .DOT_PRODUCT_SIZE (H_NUM_OF_COLS    ),
-
-    .H_NUM_OF_COLS    (H_NUM_OF_COLS    ),
-    .H_NUM_OF_ROWS    (H_NUM_OF_ROWS    ),
-
-    .W_NUM_OF_ROWS    (W_NUM_OF_ROWS    ),
-    .W_NUM_OF_COLS    (W_NUM_OF_COLS    ),
-
-    .COL_IDX_DEPTH    (COL_IDX_DEPTH    ),
-    .VALUE_DEPTH      (VALUE_DEPTH      ),
-    .NODE_INFO_DEPTH  (NODE_INFO_DEPTH  ),
-    .WEIGHT_DEPTH     (WEIGHT_DEPTH     ),
-    .WH_DEPTH         (WH_DEPTH         ),
-
-    .NUM_OF_NODES     (NUM_OF_NODES     )
-  ) u_SPMM (
+  SPMM u_SPMM (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
 
@@ -349,10 +271,13 @@ module top #(
     .spmm_valid_i               (spmm_valid                 ),
     .pe_ready_o                 (pe_ready                   ),
 
-    .WH_BRAM_din                (WH_BRAM_din                ),
-    .WH_BRAM_ena                (WH_BRAM_ena                ),
-    .WH_BRAM_wea                (WH_BRAM_wea                ),
-    .WH_BRAM_addra              (WH_BRAM_addra              )
+    .WH_1_BRAM_din              (WH_1_BRAM_din              ),
+    .WH_1_BRAM_ena              (WH_1_BRAM_ena              ),
+    .WH_1_BRAM_addra            (WH_1_BRAM_addra            ),
+
+    .WH_2_BRAM_din              (WH_2_BRAM_din              ),
+    .WH_2_BRAM_ena              (WH_2_BRAM_ena              ),
+    .WH_2_BRAM_addra            (WH_2_BRAM_addra            )
   );
   //* ==========================================================
 
@@ -375,16 +300,7 @@ module top #(
   end
 
   (* dont_touch = "yes" *)
-  DMVM #(
-    .DATA_WIDTH       (DATA_WIDTH       ),
-    .WH_DATA_WIDTH    (WH_DATA_WIDTH    ),
-    .DMVM_DATA_WIDTH  (DMVM_DATA_WIDTH  ),
-
-    .A_DEPTH          (A_DEPTH          ),
-    .WH_ADDR_W        (WH_ADDR_W        ),
-    .NUM_OF_NODES     (NUM_OF_NODES     ),
-    .W_NUM_OF_COLS    (W_NUM_OF_COLS    )
-  ) u_DMVM (
+  DMVM u_DMVM (
     .clk              (clk              ),
     .rst_n            (rst_n            ),
 
@@ -394,8 +310,8 @@ module top #(
     .a_valid_i        (a_BRAM_load_done ),
     .a_i              (a                ),
 
-    .WH_BRAM_doutb    (WH_BRAM_doutb    ),
-    .WH_BRAM_addrb    (WH_BRAM_addrb    ),
+    .WH_BRAM_dout     (WH_1_BRAM_dout   ),
+    .WH_BRAM_addrb    (WH_1_BRAM_addrb  ),
 
     .coef_o           (coef             ),
     .num_of_nodes_o   (num_of_nodes     )
@@ -489,13 +405,7 @@ module top #(
   end
 
   (* dont_touch = "yes" *)
-  softmax #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .OUT_DATA_WIDTH     (SM_OUT_DATA_WIDTH  ),
-    .MAX_NODES          (NUM_OF_NODES       )
-  ) u_softmax (
+  softmax u_softmax (
     .clk            (clk                    ),
     .rst_n          (rst_n                  ),
     .sm_valid_i     (sm_valid_reg           ),
@@ -524,6 +434,7 @@ module top #(
   logic                           aggr_valid                                  ;
   logic                           aggr_valid_reg                              ;
   logic                           aggr_ready                                  ;
+  logic                           aggr_pre_ready                              ;
   logic [SM_OUT_DATA_WIDTH-1:0]   aggr_alpha          [0:NUM_OF_NODES-1]      ;
   logic [SM_OUT_DATA_WIDTH-1:0]   aggr_alpha_reg      [0:NUM_OF_NODES-1]      ;
   logic [NUM_NODE_WIDTH-1:0]      aggr_num_of_nodes_i                         ;
@@ -589,12 +500,7 @@ module top #(
     end
   end
 
-  aggregator #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .ALPHA_DATA_WIDTH   (SM_OUT_DATA_WIDTH  ),
-    .NUM_OF_NODES       (NUM_OF_NODES       )
-  ) u_aggregator (
+  aggregator u_aggregator (
     .clk              (clk                      ),
     .rst_n            (rst_n                    ),
 
@@ -602,8 +508,8 @@ module top #(
     .aggr_ready_o     (aggr_ready               ),
     .aggr_pre_ready_o (aggr_pre_ready           ),
 
-    .WH_BRAM_doutc    (WH_BRAM_doutc            ),
-    .WH_BRAM_addrc    (WH_BRAM_addrc            ),
+    .WH_BRAM_doutb    (WH_2_BRAM_dout           ),
+    .WH_BRAM_addrb    (WH_2_BRAM_addrb          ),
     .num_of_nodes     (aggr_num_of_nodes_i_reg  ),
 
     .alpha_i          (aggr_alpha_reg           )

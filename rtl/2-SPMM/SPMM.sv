@@ -1,45 +1,7 @@
-module SPMM #(
-  //* ========== parameter ===========
-  parameter DATA_WIDTH          = 8,
-  parameter WH_DATA_WIDTH       = 12,
-  parameter DOT_PRODUCT_SIZE    = 1433,
-  // -- H
-  parameter H_NUM_OF_COLS       = 1433,
-  parameter H_NUM_OF_ROWS       = 13264,
-  // -- W
-  parameter W_NUM_OF_ROWS       = 1433,
-  parameter W_NUM_OF_COLS       = 16,
-  // -- BRAM
-  parameter COL_IDX_DEPTH       = 242101,
-  parameter VALUE_DEPTH         = 242101,
-  parameter NODE_INFO_DEPTH     = 13264,
-  parameter WEIGHT_DEPTH        = 1433 * 16,
-  parameter WH_DEPTH            = 242101,
-// -- NUM_OF_NODES
-  parameter NUM_OF_NODES        = 168,
+`include "./../others/params_pkg.sv"
 
-  //* ========= localparams ==========
-  // -- col_idx
-  parameter COL_IDX_WIDTH       = $clog2(H_NUM_OF_COLS),
-  parameter COL_IDX_ADDR_W      = $clog2(COL_IDX_DEPTH),
-  // -- value
-  parameter VALUE_WIDTH         = DATA_WIDTH,
-  parameter VALUE_ADDR_W        = $clog2(VALUE_DEPTH),
-  // -- row_info
-  parameter ROW_LEN_WIDTH       = $clog2(H_NUM_OF_COLS),
-  parameter NUM_NODE_WIDTH      = $clog2(NUM_OF_NODES),
-  parameter NODE_INFO_WIDTH     = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1,
-  parameter NODE_INFO_ADDR_W    = $clog2(NODE_INFO_DEPTH),
-  // -- WH_BRAM
-  parameter WH_WIDTH            = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1,
-  parameter RESULT_WIDTH        = WH_DATA_WIDTH * W_NUM_OF_COLS,
-  parameter WH_ADDR_W           = $clog2(WH_DEPTH),
-
-  parameter WH_COL_WIDTH        = $clog2(H_NUM_OF_ROWS),
-  parameter WH_ROW_WIDTH        = $clog2(W_NUM_OF_COLS),
-
-  parameter MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS)
-)(
+module SPMM import params_pkg::*;
+(
   input                             clk                                                   ,
   input                             rst_n                                                 ,
 
@@ -59,38 +21,14 @@ module SPMM #(
   input   [DATA_WIDTH-1:0]          mult_weight_dout              [0:W_NUM_OF_COLS-1]     ,
   output  [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb             [0:W_NUM_OF_COLS-1]     ,
   // -- WH
-  output  [WH_WIDTH-1:0]            WH_BRAM_din                                           ,
-  output                            WH_BRAM_ena                                           ,
-  output                            WH_BRAM_wea                                           ,
-  output  [WH_ADDR_W-1:0]           WH_BRAM_addra
+  output  [WH_WIDTH-1:0]            WH_1_BRAM_din                                         ,
+  output                            WH_1_BRAM_ena                                         ,
+  output  [WH_1_ADDR_W-1:0]         WH_1_BRAM_addra                                       ,
+
+  output  [WH_WIDTH-1:0]            WH_2_BRAM_din                                         ,
+  output                            WH_2_BRAM_ena                                         ,
+  output  [WH_2_ADDR_W-1:0]         WH_2_BRAM_addra
 );
-
-  typedef struct packed {
-    bit [ROW_LEN_WIDTH-1:0]   row_length        ;
-    bit [NUM_NODE_WIDTH-1:0]  num_of_nodes      ;
-    bit                       source_node_flag  ;
-  } node_info_t;
-
-  typedef struct packed {
-    bit [WH_DATA_WIDTH-1:0]   result_1          ;
-    bit [WH_DATA_WIDTH-1:0]   result_2          ;
-    bit [WH_DATA_WIDTH-1:0]   result_3          ;
-    bit [WH_DATA_WIDTH-1:0]   result_4          ;
-    bit [WH_DATA_WIDTH-1:0]   result_5          ;
-    bit [WH_DATA_WIDTH-1:0]   result_6          ;
-    bit [WH_DATA_WIDTH-1:0]   result_7          ;
-    bit [WH_DATA_WIDTH-1:0]   result_8          ;
-    bit [WH_DATA_WIDTH-1:0]   result_9          ;
-    bit [WH_DATA_WIDTH-1:0]   result_10         ;
-    bit [WH_DATA_WIDTH-1:0]   result_11         ;
-    bit [WH_DATA_WIDTH-1:0]   result_12         ;
-    bit [WH_DATA_WIDTH-1:0]   result_13         ;
-    bit [WH_DATA_WIDTH-1:0]   result_14         ;
-    bit [WH_DATA_WIDTH-1:0]   result_15         ;
-    bit [WH_DATA_WIDTH-1:0]   result_16         ;
-    bit [NUM_NODE_WIDTH-1:0]  num_of_nodes      ;
-    bit                       source_node_flag  ;
-  } WH_t;
 
   //* ======== internal declaration =========
   logic                         new_row_enable                          ;
@@ -139,11 +77,13 @@ module SPMM #(
   logic                         spmm_valid_q1                           ;
 
   // -- SP-PE results
-  logic [RESULT_WIDTH-1:0]      result_cat                              ;
+  logic [WH_RESULT_WIDTH-1:0]   result_cat                              ;
   logic [WH_DATA_WIDTH-1:0]     result          [0:W_NUM_OF_COLS-1]     ;
   WH_t                          WH_data_i                               ;
-  logic [WH_ADDR_W-1:0]         WH_addr                                 ;
-  logic [WH_ADDR_W-1:0]         WH_addr_reg                             ;
+  logic [WH_1_ADDR_W-1:0]       WH_1_addr                               ;
+  logic [WH_1_ADDR_W-1:0]       WH_1_addr_reg                           ;
+  logic [WH_2_ADDR_W-1:0]       WH_2_addr                               ;
+  logic [WH_2_ADDR_W-1:0]       WH_2_addr_reg                           ;
   //* =======================================
 
   genvar i, k;
@@ -152,12 +92,7 @@ module SPMM #(
   //* ============ instantiation ============
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
-      SP_PE #(
-        .DATA_WIDTH       (DATA_WIDTH         ),
-        .WH_DATA_WIDTH    (WH_DATA_WIDTH      ),
-        .DOT_PRODUCT_SIZE (DOT_PRODUCT_SIZE   ),
-        .WEIGHT_ADDR_W    (MULT_WEIGHT_ADDR_W )
-      ) u_SP_PE (
+      SP_PE u_SP_PE (
         .clk                (clk                        ),
         .rst_n              (rst_n                      ),
 
@@ -200,19 +135,27 @@ module SPMM #(
       assign result_cat[WH_DATA_WIDTH*(i+1)-1-:WH_DATA_WIDTH] = result[W_NUM_OF_COLS-1-i];
     end
   endgenerate
-  assign WH_data_i      = { result_cat, ff_num_of_nodes_reg, ff_source_node_flag_reg };
-  assign WH_BRAM_din    = WH_data_i;
-  assign WH_BRAM_ena    = (&pe_ready_o);
-  assign WH_BRAM_wea    = (&pe_ready_o);
-  assign WH_BRAM_addra  = WH_addr_reg;
 
-  assign WH_addr = (&pe_ready_o) ? (WH_addr_reg + 1) : WH_addr_reg;
+  assign WH_data_i        = { result_cat, ff_num_of_nodes_reg, ff_source_node_flag_reg };
+
+  assign WH_1_BRAM_din    = WH_data_i;
+  assign WH_1_BRAM_ena    = (&pe_ready_o);
+  assign WH_1_BRAM_addra  = WH_1_addr_reg;
+
+  assign WH_2_BRAM_din    = WH_data_i;
+  assign WH_2_BRAM_ena    = (&pe_ready_o);
+  assign WH_2_BRAM_addra  = WH_2_addr_reg;
+
+  assign WH_1_addr = (&pe_ready_o) ? ((WH_1_addr_reg < WH_1_DEPTH - 1) ? (WH_1_addr_reg + 1) : 0) : WH_1_addr_reg;
+  assign WH_2_addr = (&pe_ready_o) ? (WH_2_addr_reg + 1) : WH_2_addr_reg;
 
   always @(posedge clk) begin
     if (!rst_n) begin
-      WH_addr_reg <= 0;
+      WH_1_addr_reg <= 0;
+      WH_2_addr_reg <= 0;
     end else begin
-      WH_addr_reg <= WH_addr;
+      WH_1_addr_reg <= WH_1_addr;
+      WH_2_addr_reg <= WH_2_addr;
     end
   end
   //* =======================================

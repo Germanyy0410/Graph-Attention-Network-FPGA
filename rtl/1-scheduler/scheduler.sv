@@ -1,18 +1,7 @@
-module scheduler #(
-  //* ========== parameter ===========
-  parameter DATA_WIDTH          = 8,
-  // -- W
-  parameter W_NUM_OF_ROWS       = 1433,
-  parameter W_NUM_OF_COLS       = 16,
-  // -- BRAM
-  parameter WEIGHT_DEPTH        = 22928,
-  parameter A_DEPTH             = 2 * 16,
+`include "./../others/params_pkg.sv"
 
-  //* ========= localparams ==========
-  parameter WEIGHT_ADDR_W       = $clog2(WEIGHT_DEPTH),
-  parameter MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS),
-  parameter A_ADDR_W            = $clog2(A_DEPTH)
-)(
+module scheduler import params_pkg::*;
+(
   input                             clk                                       ,
   input                             rst_n                                     ,
 
@@ -34,11 +23,7 @@ module scheduler #(
 
 
   //* ======================== W_loader ========================
-  W_loader #(
-    .DATA_WIDTH       (DATA_WIDTH       ),
-    .W_NUM_OF_COLS    (W_NUM_OF_COLS    ),
-    .W_NUM_OF_ROWS    (W_NUM_OF_ROWS    )
-  ) u_W_loader (
+  W_loader u_W_loader (
     .clk                      (clk                    ),
     .rst_n                    (rst_n                  ),
 
@@ -56,11 +41,7 @@ module scheduler #(
 
 
   //* ======================== a_loader ========================
-  a_loader #(
-    .DATA_WIDTH       (DATA_WIDTH       ),
-    .A_ADDR_W         (A_ADDR_W         ),
-    .A_DEPTH          (A_DEPTH          )
-  ) u_a_loader (
+  a_loader u_a_loader (
     .clk              (clk                    ),
     .rst_n            (rst_n                  ),
 
