@@ -6,19 +6,19 @@ module scheduler import params_pkg::*;
   input                             rst_n                                     ,
 
   // -- Weight BRAM
-  input   [DATA_WIDTH-1:0]          Weight_BRAM_dout                          ,
-  output  [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addrb                         ,
-  input                             Weight_BRAM_load_done                     ,
-  input   [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb   [0:W_NUM_OF_COLS-1]   ,
-  output  [DATA_WIDTH-1:0]          mult_weight_dout    [0:W_NUM_OF_COLS-1]   ,
-  output                            w_ready_o                                 ,
+  input   [DATA_WIDTH-1:0]                              Weight_BRAM_dout      ,
+  output  [WEIGHT_ADDR_W-1:0]                           Weight_BRAM_addrb     ,
+  input                                                 Weight_BRAM_load_done ,
+  input   [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb     ,
+  output  [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout      ,
+  output                                                w_ready_o             ,
 
   // -- a BRAM
-  input   [DATA_WIDTH-1:0]          a_BRAM_dout                               ,
-  output  [A_ADDR_W-1:0]            a_BRAM_addrb                              ,
-  input                             a_BRAM_load_done                          ,
-  output  [DATA_WIDTH-1:0]          a                   [0:A_DEPTH-1]         ,
-  output                            a_ready_o
+  input   [DATA_WIDTH-1:0]                              a_BRAM_dout           ,
+  output  [A_ADDR_W-1:0]                                a_BRAM_addrb          ,
+  input                                                 a_BRAM_load_done      ,
+  output  [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a                     ,
+  output                                                a_ready_o
 );
 
 

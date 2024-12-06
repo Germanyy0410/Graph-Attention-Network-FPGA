@@ -2,88 +2,88 @@
 
 module SPMM import params_pkg::*;
 (
-  input                             clk                                                   ,
-  input                             rst_n                                                 ,
+  input                                                 clk                       ,
+  input                                                 rst_n                     ,
 
-  input                             spmm_valid_i                                          ,
-  output  [W_NUM_OF_COLS-1:0]       pe_ready_o                                            ,
+  input                                                 spmm_valid_i              ,
+  output  [W_NUM_OF_COLS-1:0]                           pe_ready_o                ,
   // -- H_col_idx BRAM
-  input   [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_dout                                   ,
-  output  [COL_IDX_ADDR_W-1:0]      H_col_idx_BRAM_addrb                                  ,
+  input   [COL_IDX_WIDTH-1:0]                           H_col_idx_BRAM_dout       ,
+  output  [COL_IDX_ADDR_W-1:0]                          H_col_idx_BRAM_addrb      ,
   // -- H_value BRAM
-  input   [VALUE_WIDTH-1:0]         H_value_BRAM_dout                                     ,
-  output  [VALUE_ADDR_W-1:0]        H_value_BRAM_addrb                                    ,
+  input   [VALUE_WIDTH-1:0]                             H_value_BRAM_dout         ,
+  output  [VALUE_ADDR_W-1:0]                            H_value_BRAM_addrb        ,
   // -- H_node_info BRAM
-  input   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout                                 ,
-  input   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout_nxt                             ,
-  output  [NODE_INFO_ADDR_W-1:0]    H_node_info_BRAM_addrb                                ,
+  input   [NODE_INFO_WIDTH-1:0]                         H_node_info_BRAM_dout     ,
+  input   [NODE_INFO_WIDTH-1:0]                         H_node_info_BRAM_dout_nxt ,
+  output  [NODE_INFO_ADDR_W-1:0]                        H_node_info_BRAM_addrb    ,
   // -- Weight
-  input   [DATA_WIDTH-1:0]          mult_weight_dout              [0:W_NUM_OF_COLS-1]     ,
-  output  [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb             [0:W_NUM_OF_COLS-1]     ,
+  input   [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout          ,
+  output  [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb         ,
   // -- WH
-  output  [WH_WIDTH-1:0]            WH_1_BRAM_din                                         ,
-  output                            WH_1_BRAM_ena                                         ,
-  output  [WH_1_ADDR_W-1:0]         WH_1_BRAM_addra                                       ,
+  output  [WH_WIDTH-1:0]                                WH_1_BRAM_din             ,
+  output                                                WH_1_BRAM_ena             ,
+  output  [WH_1_ADDR_W-1:0]                             WH_1_BRAM_addra           ,
 
-  output  [WH_WIDTH-1:0]            WH_2_BRAM_din                                         ,
-  output                            WH_2_BRAM_ena                                         ,
-  output  [WH_2_ADDR_W-1:0]         WH_2_BRAM_addra
+  output  [WH_WIDTH-1:0]                                WH_2_BRAM_din             ,
+  output                                                WH_2_BRAM_ena             ,
+  output  [WH_2_ADDR_W-1:0]                             WH_2_BRAM_addra
 );
 
   //* ======== internal declaration =========
-  logic                         new_row_enable                          ;
-  logic [ROW_LEN_WIDTH-1:0]     row_counter                             ;
-  logic [ROW_LEN_WIDTH-1:0]     row_counter_reg                         ;
+  logic                                           new_row_enable            ;
+  logic [ROW_LEN_WIDTH-1:0]                       row_counter               ;
+  logic [ROW_LEN_WIDTH-1:0]                       row_counter_reg           ;
 
   // -- Address for H_BRAM
-  logic [COL_IDX_ADDR_W-1:0]    data_addr                               ;
-  logic [COL_IDX_ADDR_W-1:0]    data_addr_reg                           ;
-  logic [NODE_INFO_ADDR_W-1:0]  node_info_addr                          ;
-  logic [NODE_INFO_ADDR_W-1:0]  node_info_addr_reg                      ;
+  logic [COL_IDX_ADDR_W-1:0]                      data_addr                 ;
+  logic [COL_IDX_ADDR_W-1:0]                      data_addr_reg             ;
+  logic [NODE_INFO_ADDR_W-1:0]                    node_info_addr            ;
+  logic [NODE_INFO_ADDR_W-1:0]                    node_info_addr_reg        ;
 
   // -- current data from BRAM
-  logic [COL_IDX_WIDTH-1:0]     col_idx                                 ;
-  logic [VALUE_WIDTH-1:0]       value                                   ;
-  logic [ROW_LEN_WIDTH-1:0]     row_length                              ;
-  logic                         source_node_flag                        ;
-  logic [NUM_NODE_WIDTH-1:0]    num_of_nodes                            ;
+  logic [COL_IDX_WIDTH-1:0]                       col_idx                   ;
+  logic [VALUE_WIDTH-1:0]                         value                     ;
+  logic [ROW_LEN_WIDTH-1:0]                       row_length                ;
+  logic                                           source_node_flag          ;
+  logic [NUM_NODE_WIDTH-1:0]                      num_of_nodes              ;
 
   // -- next data from BRAM
-  logic [ROW_LEN_WIDTH-1:0]     row_length_nxt                          ;
-  logic                         source_node_flag_nxt                    ;
-  logic [NUM_NODE_WIDTH-1:0]    num_of_nodes_nxt                        ;
+  logic [ROW_LEN_WIDTH-1:0]                       row_length_nxt            ;
+  logic                                           source_node_flag_nxt      ;
+  logic [NUM_NODE_WIDTH-1:0]                      num_of_nodes_nxt          ;
 
   // -- FIFO
-  node_info_t                   ff_data_i                               ;
-  node_info_t                   ff_data_o                               ;
-  logic                         ff_empty                                ;
-  logic                         ff_full                                 ;
-  logic                         ff_wr_valid                             ;
-  logic                         ff_rd_valid                             ;
-  node_info_t                   ff_node_info                            ;
-  node_info_t                   ff_node_info_reg                        ;
+  node_info_t                                     ff_data_i                 ;
+  node_info_t                                     ff_data_o                 ;
+  logic                                           ff_empty                  ;
+  logic                                           ff_full                   ;
+  logic                                           ff_wr_valid               ;
+  logic                                           ff_rd_valid               ;
+  node_info_t                                     ff_node_info              ;
+  node_info_t                                     ff_node_info_reg          ;
 
   // -- data from FIFO
-  logic [ROW_LEN_WIDTH-1:0]     ff_row_length                           ;
-  logic [ROW_LEN_WIDTH-1:0]     ff_row_length_reg                       ;
-  logic                         ff_source_node_flag                     ;
-  logic                         ff_source_node_flag_reg                 ;
-  logic [NUM_NODE_WIDTH-1:0]    ff_num_of_nodes                         ;
-  logic [NUM_NODE_WIDTH-1:0]    ff_num_of_nodes_reg                     ;
+  logic [ROW_LEN_WIDTH-1:0]                       ff_row_length             ;
+  logic [ROW_LEN_WIDTH-1:0]                       ff_row_length_reg         ;
+  logic                                           ff_source_node_flag       ;
+  logic                                           ff_source_node_flag_reg   ;
+  logic [NUM_NODE_WIDTH-1:0]                      ff_num_of_nodes           ;
+  logic [NUM_NODE_WIDTH-1:0]                      ff_num_of_nodes_reg       ;
 
   // -- SP-PE valid signal
-  logic                         pe_valid                                ;
-  logic                         pe_valid_reg                            ;
-  logic                         spmm_valid_q1                           ;
+  logic                                           pe_valid                  ;
+  logic                                           pe_valid_reg              ;
+  logic                                           spmm_valid_q1             ;
 
   // -- SP-PE results
-  logic [WH_RESULT_WIDTH-1:0]   result_cat                              ;
-  logic [WH_DATA_WIDTH-1:0]     result          [0:W_NUM_OF_COLS-1]     ;
-  WH_t                          WH_data_i                               ;
-  logic [WH_1_ADDR_W-1:0]       WH_1_addr                               ;
-  logic [WH_1_ADDR_W-1:0]       WH_1_addr_reg                           ;
-  logic [WH_2_ADDR_W-1:0]       WH_2_addr                               ;
-  logic [WH_2_ADDR_W-1:0]       WH_2_addr_reg                           ;
+  logic [WH_RESULT_WIDTH-1:0]                     result_cat                ;
+  logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0]   result                    ;
+  WH_t                                            WH_data_i                 ;
+  logic [WH_1_ADDR_W-1:0]                         WH_1_addr                 ;
+  logic [WH_1_ADDR_W-1:0]                         WH_1_addr_reg             ;
+  logic [WH_2_ADDR_W-1:0]                         WH_2_addr                 ;
+  logic [WH_2_ADDR_W-1:0]                         WH_2_addr_reg             ;
   //* =======================================
 
   genvar i, k;

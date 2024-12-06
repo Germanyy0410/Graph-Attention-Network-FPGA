@@ -2,62 +2,62 @@
 
 module softmax import params_pkg::*;
 (
-  input                           clk                                     ,
-  input                           rst_n                                   ,
+  input                                               clk               ,
+  input                                               rst_n             ,
 
-  input                           sm_valid_i                              ,
-  output                          sm_ready_o                              ,
-  output                          sm_pre_ready_o                          ,
+  input                                               sm_valid_i        ,
+  output                                              sm_ready_o        ,
+  output                                              sm_pre_ready_o    ,
 
-  input   [DATA_WIDTH-1:0]        coef_i              [0:NUM_OF_NODES-1]  ,
-  input   [NUM_NODE_WIDTH-1:0]    num_of_nodes                            ,
+  input   [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]         coef_i            ,
+  input   [NUM_NODE_WIDTH-1:0]                        num_of_nodes      ,
 
-  output  [ALPHA_DATA_WIDTH-1:0]  alpha_o             [0:NUM_OF_NODES-1]  ,
-  output  [NUM_NODE_WIDTH-1:0]    sm_num_of_nodes_o
+  output  [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha_o           ,
+  output  [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_o
 );
-  logic                           sm_ready                          ;
-  logic                           sm_ready_reg                      ;
-  logic [NUM_NODE_WIDTH-1:0]      sm_num_of_nodes                   ;
-  logic [NUM_NODE_WIDTH-1:0]      sm_num_of_nodes_reg               ;
+  logic                                             sm_ready              ;
+  logic                                             sm_ready_reg          ;
+  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes       ;
+  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_reg   ;
 
-  logic [ALPHA_DATA_WIDTH-1:0]    alpha         [0:NUM_OF_NODES-1]  ;
-  logic [ALPHA_DATA_WIDTH-1:0]    alpha_reg     [0:NUM_OF_NODES-1]  ;
-  logic [SM_DATA_WIDTH-1:0]       exp           [0:NUM_OF_NODES-1]  ;
-  logic [SM_DATA_WIDTH-1:0]       exp_reg       [0:NUM_OF_NODES-1]  ;
+  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha                 ;
+  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha_reg             ;
+  logic [NUM_OF_NODES-1:0] [SM_DATA_WIDTH-1:0]      exp                   ;
+  logic [NUM_OF_NODES-1:0] [SM_DATA_WIDTH-1:0]      exp_reg               ;
 
-  logic [SM_DATA_WIDTH-1:0]       exp_calc      [0:NUM_OF_NODES-1]  ;
-  logic [SM_DATA_WIDTH-1:0]       exp_calc_reg  [0:NUM_OF_NODES-1]  ;
+  logic [NUM_OF_NODES-1:0] [SM_DATA_WIDTH-1:0]      exp_calc              ;
+  logic [NUM_OF_NODES-1:0] [SM_DATA_WIDTH-1:0]      exp_calc_reg          ;
 
-  logic [NUM_NODE_WIDTH-1:0]      arr_size                          ;
-  logic [NUM_NODE_WIDTH-1:0]      arr_size_reg                      ;
-  logic                           exp_done                          ;
-  logic                           exp_done_reg                      ;
+  logic [NUM_NODE_WIDTH-1:0]                        arr_size              ;
+  logic [NUM_NODE_WIDTH-1:0]                        arr_size_reg          ;
+  logic                                             exp_done              ;
+  logic                                             exp_done_reg          ;
 
-  logic [SM_SUM_DATA_WIDTH-1:0]   sum_result                        ;
-  logic [SM_SUM_DATA_WIDTH-1:0]   sum_result_reg                    ;
-  logic [SM_SUM_DATA_WIDTH-1:0]   sum_extra                         ;
-  logic [SM_SUM_DATA_WIDTH-1:0]   sum_extra_reg                     ;
+  logic [SM_SUM_DATA_WIDTH-1:0]                     sum_result            ;
+  logic [SM_SUM_DATA_WIDTH-1:0]                     sum_result_reg        ;
+  logic [SM_SUM_DATA_WIDTH-1:0]                     sum_extra             ;
+  logic [SM_SUM_DATA_WIDTH-1:0]                     sum_extra_reg         ;
 
-  logic                           sum_done                          ;
-  logic                           sum_done_reg                      ;
+  logic                                             sum_done              ;
+  logic                                             sum_done_reg          ;
 
   // -- [division] IN
-  logic [SM_DATA_WIDTH-1:0]       in                                ;
-  logic [SM_DATA_WIDTH-1:0]       in_reg                            ;
-  logic [NUM_NODE_WIDTH-1:0]      i_idx_cnt                         ;
-  logic [NUM_NODE_WIDTH-1:0]      i_idx_cnt_reg                     ;
+  logic [SM_DATA_WIDTH-1:0]                         in                    ;
+  logic [SM_DATA_WIDTH-1:0]                         in_reg                ;
+  logic [NUM_NODE_WIDTH-1:0]                        i_idx_cnt             ;
+  logic [NUM_NODE_WIDTH-1:0]                        i_idx_cnt_reg         ;
 
   // -- [division] delay
-  logic [DL_DATA_WIDTH-1:0]       delay_cnt                         ;
-  logic [DL_DATA_WIDTH-1:0]       delay_cnt_reg                     ;
+  logic [DL_DATA_WIDTH-1:0]                         delay_cnt             ;
+  logic [DL_DATA_WIDTH-1:0]                         delay_cnt_reg         ;
 
   // -- [division] OUT
-  logic [NUM_NODE_WIDTH-1:0]      o_idx_cnt                         ;
-  logic [NUM_NODE_WIDTH-1:0]      o_idx_cnt_reg                     ;
-  logic                           output_control                    ;
-  logic                           output_control_reg                ;
-  logic [ALPHA_DATA_WIDTH-1:0]    out                               ;
-  logic [ALPHA_DATA_WIDTH-1:0]    out_reg                           ;
+  logic [NUM_NODE_WIDTH-1:0]                        o_idx_cnt             ;
+  logic [NUM_NODE_WIDTH-1:0]                        o_idx_cnt_reg         ;
+  logic                                             output_control        ;
+  logic                                             output_control_reg    ;
+  logic [ALPHA_DATA_WIDTH-1:0]                      out                   ;
+  logic [ALPHA_DATA_WIDTH-1:0]                      out_reg               ;
 
   integer i;
   genvar x;
@@ -115,25 +115,15 @@ module softmax import params_pkg::*;
     if(!rst_n) begin
       arr_size_reg    <= NUM_OF_NODES;
       exp_done_reg    <= 0;
+      exp_reg         <= '0;
+      exp_calc_reg    <= '0;
     end else begin
       arr_size_reg    <= arr_size;
       exp_done_reg    <= exp_done;
+      exp_reg         <= exp;
+      exp_calc_reg    <= exp_calc;
     end
   end
-
-  generate
-    for(x = 0; x < NUM_OF_NODES; x = x + 1) begin
-      always @(posedge clk) begin
-        if(!rst_n) begin
-          exp_reg[x]      <= 0;
-          exp_calc_reg[x] <= 0;
-        end else begin
-          exp_reg[x]      <= exp[x];
-          exp_calc_reg[x] <= exp_calc[x];
-        end
-      end
-    end
-  endgenerate
   //* ==============================================================
 
 
@@ -271,17 +261,13 @@ module softmax import params_pkg::*;
     end
   end
 
-  generate
-    for (x = 0; x < NUM_OF_NODES; x = x + 1) begin
-      always @(posedge clk) begin
-        if (!rst_n) begin
-          alpha_reg[x] <= 0;
-        end else begin
-          alpha_reg[x] <= alpha[x];
-        end
-      end
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      alpha_reg <= '0;
+    end else begin
+      alpha_reg <= alpha;
     end
-  endgenerate
+  end
   //* ==============================================================
 
 

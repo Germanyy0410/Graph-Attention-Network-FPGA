@@ -218,11 +218,11 @@ module top import params_pkg::*;
   //* ======================== scheduler =======================
   localparam MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS);
 
-  logic [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb   [0:W_NUM_OF_COLS-1] ;
-  logic [DATA_WIDTH-1:0]          mult_weight_dout    [0:W_NUM_OF_COLS-1] ;
-  logic                           w_ready                                 ;
-  logic [DATA_WIDTH-1:0]          a                   [0:A_DEPTH-1]       ;
-  logic                           a_ready                                 ;
+  logic [0:W_NUM_OF_COLS-1] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb   ;
+  logic [0:W_NUM_OF_COLS-1] [DATA_WIDTH-1:0]          mult_weight_dout    ;
+  logic                                               w_ready             ;
+  logic [0:A_DEPTH-1] [DATA_WIDTH-1:0]                a                   ;
+  logic                                               a_ready             ;
 
   scheduler u_scheduler (
     .clk                        (clk                        ),
@@ -283,12 +283,12 @@ module top import params_pkg::*;
 
 
   //* ========================== DMVM ==========================
-  logic                           dmvm_valid                                  ;
-  logic                           dmvm_valid_reg                              ;
-  logic                           dmvm_ready                                  ;
-  logic [DATA_WIDTH-1:0]          coef                [0:NUM_OF_NODES-1]      ;
-  logic [COEF_W-1:0]              coef_cat                                    ;
-  logic [NUM_NODE_WIDTH-1:0]      num_of_nodes                                ;
+  logic                                       dmvm_valid      ;
+  logic                                       dmvm_valid_reg  ;
+  logic                                       dmvm_ready      ;
+  logic [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]   coef            ;
+  logic [COEF_W-1:0]                          coef_cat        ;
+  logic [NUM_NODE_WIDTH-1:0]                  num_of_nodes    ;
 
   assign dmvm_valid = (&pe_ready) ? 1'b1 : dmvm_valid_reg;
   always @(posedge clk) begin
@@ -327,22 +327,22 @@ module top import params_pkg::*;
 
   //* ======================== Softmax =========================
   // -- BRAM logic
-  coef_t                          sm_data_i                                   ;
+  coef_t                                            sm_data_i               ;
   // -- 1st data available
-  logic                           first_sm;
-  logic                           first_sm_reg;
+  logic                                             first_sm                ;
+  logic                                             first_sm_reg            ;
   // -- I/O
-  logic                           sm_valid                                    ;
-  logic                           sm_valid_reg                                ;
-  logic                           sm_pre_ready                                ;
-  logic                           sm_ready                                    ;
-  logic [NUM_NODE_WIDTH-1:0]      sm_num_of_nodes_i                           ;
-  logic [NUM_NODE_WIDTH-1:0]      sm_num_of_nodes_i_reg                       ;
-  logic [DATA_WIDTH-1:0]          sm_coef             [0:NUM_OF_NODES-1]      ;
-  logic [DATA_WIDTH-1:0]          sm_coef_reg         [0:NUM_OF_NODES-1]      ;
-  logic [ALPHA_DATA_WIDTH-1:0]   alpha               [0:NUM_OF_NODES-1]      ;
-  logic [ALPHA_W-1:0]             alpha_cat                                   ;
-  logic [NUM_NODE_WIDTH-1:0]      sm_num_of_nodes_o                           ;
+  logic                                             sm_valid                ;
+  logic                                             sm_valid_reg            ;
+  logic                                             sm_pre_ready            ;
+  logic                                             sm_ready                ;
+  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_i       ;
+  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_i_reg   ;
+  logic [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]         sm_coef                 ;
+  logic [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]         sm_coef_reg             ;
+  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha                   ;
+  logic [ALPHA_W-1:0]                               alpha_cat               ;
+  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_o       ;
 
   assign sm_data_i              = { coef_cat, num_of_nodes };
   assign softmax_FIFO_din       = sm_data_i;
@@ -356,22 +356,12 @@ module top import params_pkg::*;
     end
   endgenerate
 
-  generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      always @(posedge clk) begin
-        if (!rst_n) begin
-          sm_coef_reg[i] <= 0;
-        end else begin
-          sm_coef_reg[i] <= sm_coef[i];
-        end
-      end
-    end
-  endgenerate
-
   always @(posedge clk) begin
     if (!rst_n) begin
+      sm_coef_reg           <= '0;
       sm_num_of_nodes_i_reg <= 0;
     end else begin
+      sm_coef_reg           <= sm_coef;
       sm_num_of_nodes_i_reg <= sm_num_of_nodes_i;
     end
   end
@@ -426,19 +416,19 @@ module top import params_pkg::*;
 
   //* ======================= Aggregator =======================
   // -- BRAM logic
-  aggr_t                          aggr_data_i                                 ;
+  aggr_t                                            aggr_data_i             ;
   // -- 1st data available
-  logic                           first_aggr                                  ;
-  logic                           first_aggr_reg                              ;
+  logic                                             first_aggr              ;
+  logic                                             first_aggr_reg          ;
 
-  logic                           aggr_valid                                  ;
-  logic                           aggr_valid_reg                              ;
-  logic                           aggr_ready                                  ;
-  logic                           aggr_pre_ready                              ;
-  logic [ALPHA_DATA_WIDTH-1:0]    aggr_alpha          [0:NUM_OF_NODES-1]      ;
-  logic [ALPHA_DATA_WIDTH-1:0]    aggr_alpha_reg      [0:NUM_OF_NODES-1]      ;
-  logic [NUM_NODE_WIDTH-1:0]      aggr_num_of_nodes_i                         ;
-  logic [NUM_NODE_WIDTH-1:0]      aggr_num_of_nodes_i_reg                     ;
+  logic                                             aggr_valid              ;
+  logic                                             aggr_valid_reg          ;
+  logic                                             aggr_ready              ;
+  logic                                             aggr_pre_ready          ;
+  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   aggr_alpha              ;
+  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   aggr_alpha_reg          ;
+  logic [NUM_NODE_WIDTH-1:0]                        aggr_num_of_nodes_i     ;
+  logic [NUM_NODE_WIDTH-1:0]                        aggr_num_of_nodes_i_reg ;
 
   assign aggr_data_i            = { alpha_cat, sm_num_of_nodes_o };
   assign aggr_FIFO_din          = aggr_data_i;
@@ -452,22 +442,12 @@ module top import params_pkg::*;
     end
   endgenerate
 
-  generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      always @(posedge clk) begin
-        if (!rst_n) begin
-          aggr_alpha_reg[i] <= 0;
-        end else begin
-          aggr_alpha_reg[i] <= aggr_alpha[i];
-        end
-      end
-    end
-  endgenerate
-
   always @(posedge clk) begin
     if (!rst_n) begin
+      aggr_alpha_reg          <= '0;
       aggr_num_of_nodes_i_reg <= 0;
     end else begin
+      aggr_alpha_reg          <= aggr_alpha;
       aggr_num_of_nodes_i_reg <= aggr_num_of_nodes_i;
     end
   end

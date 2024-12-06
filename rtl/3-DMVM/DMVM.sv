@@ -2,66 +2,66 @@
 
 module DMVM import params_pkg::*;
 (
-  input                             clk                                       ,
-  input                             rst_n                                     ,
+  input                                         clk             ,
+  input                                         rst_n           ,
 
-  input                             dmvm_valid_i                              ,
-  output                            dmvm_ready_o                              ,
+  input                                         dmvm_valid_i    ,
+  output                                        dmvm_ready_o    ,
   // -- a
-  input                             a_valid_i                                 ,
-  input   [DATA_WIDTH-1:0]          a_i             [0:A_DEPTH-1]             ,
+  input                                         a_valid_i       ,
+  input   [A_DEPTH-1:0] [DATA_WIDTH-1:0]        a_i             ,
   // -- WH BRAM
-  input   [WH_WIDTH-1:0]            WH_BRAM_dout                              ,
-  output  [WH_1_ADDR_W-1:0]         WH_BRAM_addrb                             ,
+  input   [WH_WIDTH-1:0]                        WH_BRAM_dout    ,
+  output  [WH_1_ADDR_W-1:0]                     WH_BRAM_addrb   ,
   // -- output
-  output  [DATA_WIDTH-1:0]          coef_o          [0:NUM_OF_NODES-1]        ,
-  output  [NUM_NODE_WIDTH-1:0]      num_of_nodes_o
+  output  [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]   coef_o          ,
+  output  [NUM_NODE_WIDTH-1:0]                  num_of_nodes_o
 );
   //* ========== wire declaration ===========
-  logic                                 dmvm_valid_q1                                 ;
+  logic                                                   dmvm_valid_q1       ;
   // -- Weight vector a1 & a2
-  logic         [DATA_WIDTH-1:0]        a_1                 [0:HALF_A_SIZE-1]         ;
-  logic         [DATA_WIDTH-1:0]        a_2                 [0:HALF_A_SIZE-1]         ;
+  logic         [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]        a_1                 ;
+  logic         [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]        a_2                 ;
 
   // -- WH array
-  logic         [WH_1_ADDR_W-1:0]       WH_addr                                       ;
-  logic         [WH_1_ADDR_W-1:0]       WH_addr_reg                                   ;
-  logic         [WH_DATA_WIDTH-1:0]     WH_arr              [0:HALF_A_SIZE-1]         ;
-  logic                                 source_node_flag                              ;
+  logic         [WH_1_ADDR_W-1:0]                         WH_addr             ;
+  logic         [WH_1_ADDR_W-1:0]                         WH_addr_reg         ;
+  logic         [HALF_A_SIZE-1:0] [WH_DATA_WIDTH-1:0]     WH_arr              ;
+  logic                                                   source_node_flag    ;
 
   // -- product
-  logic signed  [DMVM_DATA_WIDTH-1:0]   product             [0:HALF_A_SIZE-1]         ;
-  logic signed  [DMVM_DATA_WIDTH-1:0]   product_reg         [0:HALF_A_SIZE-1]         ;
-  logic                                 product_done                                  ;
-  logic                                 product_done_reg                              ;
-  logic         [DMVM_PRODUCT_WIDTH:0]  product_size                                  ;
-  logic         [DMVM_PRODUCT_WIDTH:0]  product_size_reg                              ;
+  logic signed  [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]   product             ;
+  logic signed  [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]   product_reg         ;
+  logic                                                   product_done        ;
+  logic                                                   product_done_reg    ;
+  logic         [DMVM_PRODUCT_WIDTH:0]                    product_size        ;
+  logic         [DMVM_PRODUCT_WIDTH:0]                    product_size_reg    ;
 
   // -- sum
-  logic                                 sum_done                                      ;
+  logic                                                   sum_done            ;
 
   // -- result
-  logic         [NUM_NODE_WIDTH-1:0]    idx                                           ;
-  logic         [NUM_NODE_WIDTH-1:0]    idx_reg                                       ;
-  logic                                 result_done                                   ;
-  logic                                 result_done_reg                               ;
-  logic signed  [DMVM_DATA_WIDTH-1:0]   result              [0:NUM_OF_NODES-1]        ;
-  logic signed  [DMVM_DATA_WIDTH-1:0]   result_reg          [0:NUM_OF_NODES-1]        ;
+  logic         [NUM_NODE_WIDTH-1:0]                      idx                 ;
+  logic         [NUM_NODE_WIDTH-1:0]                      idx_reg             ;
+  logic                                                   result_done         ;
+  logic                                                   result_done_reg     ;
+  logic signed  [NUM_OF_NODES-1:0] [DMVM_DATA_WIDTH-1:0]  result              ;
+  logic signed  [NUM_OF_NODES-1:0] [DMVM_DATA_WIDTH-1:0]  result_reg          ;
 
   // -- Relu
-  logic                                 sub_graph_done                                ;
-  logic                                 sub_graph_done_reg                            ;
-  logic signed  [DMVM_DATA_WIDTH-1:0]   r_sum_check         [0:NUM_OF_NODES-1]        ;
-  logic signed  [DATA_WIDTH-1:0]        relu                [0:NUM_OF_NODES-1]        ;
-  logic signed  [DATA_WIDTH-1:0]        relu_reg            [0:NUM_OF_NODES-1]        ;
-  logic         [NUM_NODE_WIDTH-1:0]    num_of_nodes                                  ;
-  logic         [NUM_NODE_WIDTH-1:0]    num_of_nodes_q1                               ;
-  logic         [NUM_NODE_WIDTH-1:0]    num_of_nodes_fn                               ;
-  logic         [NUM_NODE_WIDTH-1:0]    num_of_nodes_fn_reg                           ;
+  logic                                                   sub_graph_done      ;
+  logic                                                   sub_graph_done_reg  ;
+  logic signed  [NUM_OF_NODES-1:0] [DMVM_DATA_WIDTH-1:0]  r_sum_check         ;
+  logic signed  [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]       relu                ;
+  logic signed  [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]       relu_reg            ;
+  logic         [NUM_NODE_WIDTH-1:0]                      num_of_nodes        ;
+  logic         [NUM_NODE_WIDTH-1:0]                      num_of_nodes_q1     ;
+  logic         [NUM_NODE_WIDTH-1:0]                      num_of_nodes_fn     ;
+  logic         [NUM_NODE_WIDTH-1:0]                      num_of_nodes_fn_reg ;
 
   // -- output
-  logic                                 dmvm_ready                                    ;
-  logic                                 dmvm_ready_reg                                ;
+  logic                                                   dmvm_ready          ;
+  logic                                                   dmvm_ready_reg      ;
   //* =======================================
 
   genvar i;
@@ -147,7 +147,7 @@ module DMVM import params_pkg::*;
     product_done = product_done_reg;
     product_size = product_size_reg;
     for (x = 0; x < HALF_A_SIZE; x = x + 1) begin
-      product[x]    = product_reg[x];
+      product[x] = product_reg[x];
     end
 
     if (~product_done_reg && dmvm_valid_q1) begin
@@ -172,23 +172,13 @@ module DMVM import params_pkg::*;
     if (!rst_n) begin
       product_done_reg <= 0;
       product_size_reg <= HALF_A_SIZE;
+      product_reg      <= '0;
     end else begin
       product_done_reg <= product_done;
       product_size_reg <= product_size;
+      product_reg      <= product;
     end
   end
-
-  generate
-    for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
-      always @(posedge clk) begin
-        if (!rst_n) begin
-          product_reg[i] <= 0;
-        end else begin
-          product_reg[i] <= product[i];
-        end
-      end
-    end
-  endgenerate
   //* =======================================
 
 
@@ -210,25 +200,15 @@ module DMVM import params_pkg::*;
     end
   endgenerate
 
-  generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      always @(posedge clk) begin
-        if (!rst_n) begin
-          result_reg[i] <= 0;
-        end else begin
-          result_reg[i] <= result[i];
-        end
-      end
-    end
-  endgenerate
-
   always @(posedge clk) begin
     if (!rst_n) begin
       idx_reg         <= 0;
       result_done_reg <= 0;
+      result_reg      <= '0;
     end else begin
       idx_reg         <= idx;
       result_done_reg <= result_done;
+      result_reg      <= result;
     end
   end
   //* =======================================
@@ -268,23 +248,13 @@ module DMVM import params_pkg::*;
 
   always @(posedge clk) begin
     if (!rst_n) begin
-      sub_graph_done_reg <= 0;
+      relu_reg            <= '0;
+      sub_graph_done_reg  <= 0;
     end else begin
-      sub_graph_done_reg <= sub_graph_done;
+      relu_reg            <= relu;
+      sub_graph_done_reg  <= sub_graph_done;
     end
   end
-
-  generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      always @(posedge clk) begin
-        if (!rst_n) begin
-          relu_reg[i] <= 0;
-        end else begin
-          relu_reg[i] <= relu[i];
-        end
-      end
-    end
-  endgenerate
   //* =======================================
 
 

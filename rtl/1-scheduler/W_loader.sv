@@ -2,39 +2,35 @@
 
 module W_loader import params_pkg::*;
 (
-  input                             clk                                                 ,
-  input                             rst_n                                               ,
+  input                                                 clk               ,
+  input                                                 rst_n             ,
 
-  input                             w_valid_i                                           ,
-  output                            w_ready_o                                           ,
+  input                                                 w_valid_i         ,
+  output                                                w_ready_o         ,
 
-  input   [DATA_WIDTH-1:0]          Weight_BRAM_dout                                    ,
-  output                            Weight_BRAM_enb                                     ,
-  output  [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addrb                                   ,
+  input   [DATA_WIDTH-1:0]                              Weight_BRAM_dout  ,
+  output                                                Weight_BRAM_enb   ,
+  output  [WEIGHT_ADDR_W-1:0]                           Weight_BRAM_addrb ,
 
-  output  [DATA_WIDTH-1:0]          mult_weight_dout              [0:W_NUM_OF_COLS-1]   ,
-  input   [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb             [0:W_NUM_OF_COLS-1]
+  output  [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout  ,
+  input   [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb
 );
 
-  //* ========== wire declaration ===========
-  wire [WEIGHT_ADDR_W:0]        addr                                                    ;
-  wire                          w_ready                                                 ;
+  logic [WEIGHT_ADDR_W:0]                             addr                ;
+  logic                                               w_ready             ;
 
-  wire [DATA_WIDTH-1:0]         mult_weight_din               [0:W_NUM_OF_COLS-1]       ;
-  wire [MULT_WEIGHT_ADDR_W-1:0] mult_weight_addra             [0:W_NUM_OF_COLS-1]       ;
-  wire                          mult_weight_ena               [0:W_NUM_OF_COLS-1]       ;
-  //* =======================================
+  logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_din     ;
+  logic [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addra   ;
+  logic [W_NUM_OF_COLS-1:0]                           mult_weight_ena     ;
 
-
-  //* =========== reg declaration ===========
-  reg                         w_ready_reg                                             ;
-  reg [WEIGHT_ADDR_W-1:0]     addr_reg                                                ;
-  reg [W_ROW_WIDTH-1:0]       row_idx                                                 ;
-  reg [W_ROW_WIDTH-1:0]       row_idx_reg                                             ;
-  reg [W_COL_WIDTH-1:0]       col_idx                                                 ;
-  reg [W_COL_WIDTH-1:0]       col_idx_reg                                             ;
-  reg                         w_valid_q1                                              ;
-  reg                         w_valid_q2                                              ;
+  logic                                               w_ready_reg         ;
+  logic [WEIGHT_ADDR_W-1:0]                           addr_reg            ;
+  logic [W_ROW_WIDTH-1:0]                             row_idx             ;
+  logic [W_ROW_WIDTH-1:0]                             row_idx_reg         ;
+  logic [W_COL_WIDTH-1:0]                             col_idx             ;
+  logic [W_COL_WIDTH-1:0]                             col_idx_reg         ;
+  logic                                               w_valid_q1          ;
+  logic                                               w_valid_q2          ;
   //* =======================================
 
 

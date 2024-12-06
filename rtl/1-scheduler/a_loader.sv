@@ -2,35 +2,35 @@
 
 module a_loader import params_pkg::*;
 (
-  input                             clk                           ,
-  input                             rst_n                         ,
+  input                                   clk           ,
+  input                                   rst_n         ,
 
-  input                             a_valid_i                     ,
-  output                            a_ready_o                     ,
+  input                                   a_valid_i     ,
+  output                                  a_ready_o     ,
 
-  input   [DATA_WIDTH-1:0]          a_BRAM_dout                   ,
-  output                            a_BRAM_enb                    ,
-  output  [A_ADDR_W-1:0]            a_BRAM_addrb                  ,
+  input   [DATA_WIDTH-1:0]                a_BRAM_dout   ,
+  output                                  a_BRAM_enb    ,
+  output  [A_ADDR_W-1:0]                  a_BRAM_addrb  ,
 
-  output  [DATA_WIDTH-1:0]          a_o             [0:A_DEPTH-1]
+  output  [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a_o
 );
   parameter INDEX_WIDTH       = $clog2(A_DEPTH);
 
 
   //* ========== wire declaration ===========
-  wire  [A_ADDR_W-1:0]          a_addr                      ;
-  wire  [DATA_WIDTH-1:0]        a           [0:A_DEPTH-1]   ;
-  wire                          rd_en                       ;
-  wire  [INDEX_WIDTH-1:0]       idx                         ;
+  wire  [A_ADDR_W-1:0]                  a_addr      ;
+  wire  [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a           ;
+  wire                                  rd_en       ;
+  wire  [INDEX_WIDTH-1:0]               idx         ;
   //* =======================================
 
 
   //* =========== reg declaration ===========
-  reg   [A_ADDR_W-1:0]          a_addr_reg                  ;
-  reg   [DATA_WIDTH-1:0]        a_reg       [0:A_DEPTH-1]   ;
-  reg                           rd_en_q1                    ;
-  reg                           rd_en_q2                    ;
-  reg   [INDEX_WIDTH-1:0]       idx_reg                     ;
+  reg   [A_ADDR_W-1:0]                  a_addr_reg  ;
+  reg   [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a_reg       ;
+  reg                                   rd_en_q1    ;
+  reg                                   rd_en_q2    ;
+  reg   [INDEX_WIDTH-1:0]               idx_reg     ;
   //* =======================================
 
   genvar i;
