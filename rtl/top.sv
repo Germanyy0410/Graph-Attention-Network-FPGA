@@ -1,4 +1,4 @@
-`include "./others/params_pkg.sv"
+`include "./others/pkgs/params_pkg.sv"
 
 module top import params_pkg::*;
 (
@@ -340,7 +340,7 @@ module top import params_pkg::*;
   logic [NUM_NODE_WIDTH-1:0]      sm_num_of_nodes_i_reg                       ;
   logic [DATA_WIDTH-1:0]          sm_coef             [0:NUM_OF_NODES-1]      ;
   logic [DATA_WIDTH-1:0]          sm_coef_reg         [0:NUM_OF_NODES-1]      ;
-  logic [SM_OUT_DATA_WIDTH-1:0]   alpha               [0:NUM_OF_NODES-1]      ;
+  logic [ALPHA_DATA_WIDTH-1:0]   alpha               [0:NUM_OF_NODES-1]      ;
   logic [ALPHA_W-1:0]             alpha_cat                                   ;
   logic [NUM_NODE_WIDTH-1:0]      sm_num_of_nodes_o                           ;
 
@@ -418,7 +418,7 @@ module top import params_pkg::*;
 
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      assign alpha_cat[SM_OUT_DATA_WIDTH*(i+1)-1-:SM_OUT_DATA_WIDTH] = alpha[NUM_OF_NODES-1-i];
+      assign alpha_cat[ALPHA_DATA_WIDTH*(i+1)-1-:ALPHA_DATA_WIDTH] = alpha[NUM_OF_NODES-1-i];
     end
   endgenerate
   //* ==========================================================
@@ -435,8 +435,8 @@ module top import params_pkg::*;
   logic                           aggr_valid_reg                              ;
   logic                           aggr_ready                                  ;
   logic                           aggr_pre_ready                              ;
-  logic [SM_OUT_DATA_WIDTH-1:0]   aggr_alpha          [0:NUM_OF_NODES-1]      ;
-  logic [SM_OUT_DATA_WIDTH-1:0]   aggr_alpha_reg      [0:NUM_OF_NODES-1]      ;
+  logic [ALPHA_DATA_WIDTH-1:0]    aggr_alpha          [0:NUM_OF_NODES-1]      ;
+  logic [ALPHA_DATA_WIDTH-1:0]    aggr_alpha_reg      [0:NUM_OF_NODES-1]      ;
   logic [NUM_NODE_WIDTH-1:0]      aggr_num_of_nodes_i                         ;
   logic [NUM_NODE_WIDTH-1:0]      aggr_num_of_nodes_i_reg                     ;
 
@@ -448,7 +448,7 @@ module top import params_pkg::*;
   assign aggr_num_of_nodes_i  = aggr_FIFO_rd_valid ? (aggr_BRAM_dout[NUM_NODE_WIDTH-1:0]) : aggr_num_of_nodes_i_reg;
   generate
     for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      assign aggr_alpha[i] = aggr_FIFO_rd_valid ? (aggr_BRAM_dout[AGGR_WIDTH-1-i*SM_OUT_DATA_WIDTH : AGGR_WIDTH-(i+1)*SM_OUT_DATA_WIDTH]) : aggr_alpha_reg[i];
+      assign aggr_alpha[i] = aggr_FIFO_rd_valid ? (aggr_BRAM_dout[AGGR_WIDTH-1-i*ALPHA_DATA_WIDTH : AGGR_WIDTH-(i+1)*ALPHA_DATA_WIDTH]) : aggr_alpha_reg[i];
     end
   endgenerate
 

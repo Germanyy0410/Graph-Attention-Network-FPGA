@@ -1,4 +1,4 @@
-`include "./../others/params_pkg.sv"
+`include "./../others/pkgs/params_pkg.sv"
 
 module SP_PE import params_pkg::*;
 (

@@ -1,4 +1,4 @@
-`include "./../others/params_pkg.sv"
+`include "./../others/pkgs/params_pkg.sv"
 
 module softmax import params_pkg::*;
 (
