@@ -76,154 +76,19 @@ module top import params_pkg::*;
 
   genvar i;
 
-  //* ========================= MEMORY =========================
-  (* dont_touch = "yes" *)
-  BRAM #(
-    .DATA_WIDTH   (COL_IDX_WIDTH        ),
-    .DEPTH        (COL_IDX_DEPTH        ),
-    .CLK_LATENCY  (1                    )
-  ) u_H_col_idx_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (H_col_idx_BRAM_din   ),
-    .addra        (H_col_idx_BRAM_addra ),
-    .ena          (H_col_idx_BRAM_ena   ),
-    .addrb        (H_col_idx_BRAM_addrb ),
-    .dout         (H_col_idx_BRAM_dout  )
-  );
-
-  (* dont_touch = "yes" *)
-  BRAM #(
-    .DATA_WIDTH   (VALUE_WIDTH          ),
-    .DEPTH        (VALUE_DEPTH          ),
-    .CLK_LATENCY  (1                    )
-  ) u_H_value_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (H_value_BRAM_din     ),
-    .addra        (H_value_BRAM_addra   ),
-    .ena          (H_value_BRAM_ena     ),
-    .addrb        (H_value_BRAM_addrb   ),
-    .dout         (H_value_BRAM_dout    )
-  );
-
-  (* dont_touch = "yes" *)
-  modified_BRAM #(
-    .DATA_WIDTH   (NODE_INFO_WIDTH            ),
-    .DEPTH        (NODE_INFO_DEPTH            ),
-    .CLK_LATENCY  (1                          )
-  ) u_H_node_info_BRAM (
-    .clk          (clk                        ),
-    .rst_n        (rst_n                      ),
-    .din          (H_node_info_BRAM_din       ),
-    .addra        (H_node_info_BRAM_addra     ),
-    .ena          (H_node_info_BRAM_ena       ),
-    .addrb        (H_node_info_BRAM_addrb     ),
-    .dout         (H_node_info_BRAM_dout      ),
-    .dout_nxt     (H_node_info_BRAM_dout_nxt  )
-  );
-
-  (* dont_touch = "yes" *)
-  BRAM #(
-    .DATA_WIDTH   (DATA_WIDTH           ),
-    .DEPTH        (WEIGHT_DEPTH         ),
-    .CLK_LATENCY  (1                    )
-  ) u_Weight_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (Weight_BRAM_din      ),
-    .addra        (Weight_BRAM_addra    ),
-    .ena          (Weight_BRAM_ena      ),
-    .addrb        (Weight_BRAM_addrb    ),
-    .dout         (Weight_BRAM_dout     )
-  );
-
-  (* dont_touch = "yes" *)
-  BRAM #(
-    .DATA_WIDTH   (WH_WIDTH             ),
-    .DEPTH        (WH_1_DEPTH           ),
-    .CLK_LATENCY  (1                    )
-  ) u_WH_1_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (WH_1_BRAM_din        ),
-    .addra        (WH_1_BRAM_addra      ),
-    .ena          (WH_1_BRAM_ena        ),
-    .addrb        (WH_1_BRAM_addrb      ),
-    .dout         (WH_1_BRAM_dout       )
-  );
-
-  (* dont_touch = "yes" *)
-  BRAM #(
-    .DATA_WIDTH   (WH_WIDTH             ),
-    .DEPTH        (WH_2_DEPTH           ),
-    .CLK_LATENCY  (1                    )
-  ) u_WH_2_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (WH_2_BRAM_din        ),
-    .addra        (WH_2_BRAM_addra      ),
-    .ena          (WH_2_BRAM_ena        ),
-    .addrb        (WH_2_BRAM_addrb      ),
-    .dout         (WH_2_BRAM_dout       )
-  );
-
-  (* dont_touch = "yes" *)
-  BRAM #(
-    .DATA_WIDTH   (DATA_WIDTH           ),
-    .DEPTH        (A_DEPTH              ),
-    .CLK_LATENCY  (1                    )
-  ) u_a_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (a_BRAM_din           ),
-    .addra        (a_BRAM_addra         ),
-    .ena          (a_BRAM_ena           ),
-    .addrb        (a_BRAM_addrb         ),
-    .dout         (a_BRAM_dout          )
-  );
-
-  (* dont_touch = "yes" *)
-  fifo #(
-    .DATA_WIDTH (SOFTMAX_WIDTH          ),
-    .FIFO_DEPTH (20                     )
-  ) u_softmax_FIFO (
-    .clk        (clk                    ),
-    .rst_n      (rst_n                  ),
-    .data_i     (softmax_FIFO_din       ),
-    .data_o     (softmax_FIFO_dout      ),
-    .wr_valid_i (softmax_FIFO_wr_valid  ),
-    .rd_valid_i (softmax_FIFO_rd_valid  ),
-    .empty_o    (softmax_FIFO_empty     ),
-    .full_o     (softmax_FIFO_full      )
-  );
-
-  (* dont_touch = "yes" *)
-  fifo #(
-    .DATA_WIDTH (AGGR_WIDTH             ),
-    .FIFO_DEPTH (20                     )
-  ) u_aggregator_FIFO (
-    .clk        (clk                    ),
-    .rst_n      (rst_n                  ),
-    .data_i     (aggr_FIFO_din          ),
-    .data_o     (aggr_FIFO_dout         ),
-    .wr_valid_i (aggr_FIFO_wr_valid     ),
-    .rd_valid_i (aggr_FIFO_rd_valid     ),
-    .empty_o    (aggr_FIFO_empty        ),
-    .full_o     (aggr_FIFO_full         )
-  );
+  //* ==================== Memory Controller ===================
+  mmr_ctrl u_mmr_ctrl (.*);
   //* ==========================================================
 
 
   //* ======================== scheduler =======================
-  localparam MULT_WEIGHT_ADDR_W  = $clog2(W_NUM_OF_ROWS);
-
   logic [0:W_NUM_OF_COLS-1] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb   ;
   logic [0:W_NUM_OF_COLS-1] [DATA_WIDTH-1:0]          mult_weight_dout    ;
   logic                                               w_ready             ;
   logic [0:A_DEPTH-1] [DATA_WIDTH-1:0]                a                   ;
   logic                                               a_ready             ;
 
+  (* dont_touch = "yes" *)
   scheduler u_scheduler (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
@@ -245,8 +110,8 @@ module top import params_pkg::*;
 
 
   //* ========================== SPMM ==========================
-  logic                           spmm_valid  ;
-  logic [W_NUM_OF_COLS-1:0]       pe_ready    ;
+  logic                       spmm_valid  ;
+  logic [W_NUM_OF_COLS-1:0]   pe_ready    ;
 
   assign spmm_valid = (H_col_idx_BRAM_load_done && H_value_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
 
