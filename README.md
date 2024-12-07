@@ -1,3 +1,5 @@
+# Accelerating Graph Attention Network on FPGA
+
 <strong><div align="center">
 HO CHI MINH CITY  
 UNIVERSITY OF TECHNOLOGY  
@@ -16,7 +18,6 @@ FACULTY OF COMPUTER SCIENCE AND ENGINEERING
 
 </div>
 
-# Accelerating Graph Attention Network on FPGA
 
 ## Overview
 
