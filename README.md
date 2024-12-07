@@ -10,7 +10,7 @@ FACULTY OF COMPUTER SCIENCE AND ENGINEERING
 <br /></strong>
 <br />
 
-**Capstone Project - Semester 241**  
+**CAPSTONE PROJECT - SEMESTER 241**  
 <br/>
 <br/>
 
@@ -46,10 +46,4 @@ This project explores hardware acceleration techniques for **Graph Attention Net
 - **Dang Hoang Gia** - 2153312  
 - **Nguyen Duc Bao Huy** - 2152089  
 
-## Acknowledgments
 
-We extend our gratitude to the Faculty of Computer Science and Engineering at Ho Chi Minh City University of Technology for providing the resources and guidance necessary for this project.
-
----
-
-**HO CHI MINH CITY - December 2024**
