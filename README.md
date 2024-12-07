@@ -1,23 +1,17 @@
-# Accelerating Graph Attention Network on FPGA
-
 <strong><div align="center">
 HO CHI MINH CITY  
 UNIVERSITY OF TECHNOLOGY  
-<br />
 FACULTY OF COMPUTER SCIENCE AND ENGINEERING  
-<br />
 <br />
 
 [![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HCMUT_official_logo.png/238px-HCMUT_official_logo.png)](https://hcmut.edu.vn/)  
 <br /></strong>
-<br />
 
 **CAPSTONE PROJECT - SEMESTER 241**  
 <br/>
-<br/>
-
 </div>
 
+# Accelerating Graph Attention Network on FPGA
 
 ## Overview
 
