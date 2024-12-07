@@ -17,7 +17,7 @@ module mult_12_bit #(
     if (MULT_MODE == 1) begin : OPTIMIZED
       assign p_o = p_reg;
 
-      always @(*) begin
+      always_comb begin
           if (en_i) begin
             p = (b_i[11]  ? {a_i, 11'b0}  : 0) +
                 (b_i[10]  ? {a_i, 10'b0}  : 0) +
@@ -36,7 +36,7 @@ module mult_12_bit #(
           end
       end
 
-      always @(posedge clk) begin
+      always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
           p_reg <= 0;
         end else begin
@@ -46,7 +46,7 @@ module mult_12_bit #(
     end else if (MULT_MODE == 0) begin : NORMAL
       assign p_o = p_reg;
 
-      always @(*) begin
+      always_comb begin
         if (en_i) begin
           p = a_i * b_i;
         end else begin
@@ -54,7 +54,7 @@ module mult_12_bit #(
         end
       end
 
-      always @(posedge clk) begin
+      always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
           p_reg <= 0;
         end else begin

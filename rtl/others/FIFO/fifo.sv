@@ -53,7 +53,7 @@ module fifo #(
   // ------------------ Flip-flop logic ------------------
   generate
     for (addr = 0; addr < FIFO_DEPTH; addr = addr + 1) begin
-      always @(posedge clk) begin
+      always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
           buffer[addr] <= {DATA_WIDTH{1'b0}};
         end
@@ -64,7 +64,7 @@ module fifo #(
     end
   endgenerate
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       wr_addr <= 1'b0;
     end
@@ -73,7 +73,7 @@ module fifo #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       rd_addr <= 0;
     end

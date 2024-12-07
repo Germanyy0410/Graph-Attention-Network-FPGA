@@ -14,14 +14,11 @@ module a_loader import params_pkg::*;
 
   output  [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a_o
 );
-  parameter INDEX_WIDTH       = $clog2(A_DEPTH);
-
-
   //* ========== wire declaration ===========
   wire  [A_ADDR_W-1:0]                  a_addr      ;
   wire  [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a           ;
   wire                                  rd_en       ;
-  wire  [INDEX_WIDTH-1:0]               idx         ;
+  wire  [A_INDEX_WIDTH-1:0]             idx         ;
   //* =======================================
 
 
@@ -30,7 +27,7 @@ module a_loader import params_pkg::*;
   reg   [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a_reg       ;
   reg                                   rd_en_q1    ;
   reg                                   rd_en_q2    ;
-  reg   [INDEX_WIDTH-1:0]               idx_reg     ;
+  reg   [A_INDEX_WIDTH-1:0]             idx_reg     ;
   //* =======================================
 
   genvar i;
@@ -55,7 +52,7 @@ module a_loader import params_pkg::*;
   //* ================ addr =================
   assign a_addr = (a_valid_i && a_addr_reg < A_DEPTH - 1) ? (a_addr_reg + 1) : a_addr_reg;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       a_addr_reg <= 0;
     end else begin
@@ -65,14 +62,13 @@ module a_loader import params_pkg::*;
   //* =======================================
 
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     rd_en_q1 <= rd_en;
     rd_en_q2 <= rd_en_q1;
   end
 
 
   //* ================= a ===================
-
   assign idx = (rd_en_q1 && (idx_reg < A_DEPTH - 1)) ? (idx_reg + 1) : idx_reg;
 
   generate
@@ -81,24 +77,14 @@ module a_loader import params_pkg::*;
     end
   endgenerate
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       idx_reg <= 0;
+      a_reg   <= '0;
     end else begin
       idx_reg <= idx;
+      a_reg   <= a;
     end
   end
-
-  generate
-    for (i = 0; i < A_DEPTH; i = i + 1) begin
-      always @(posedge clk) begin
-        if (!rst_n) begin
-          a_reg[i] <= 0;
-        end else begin
-          a_reg[i] <= a[i];
-        end
-      end
-    end
-  endgenerate
   //* =======================================
 endmodule

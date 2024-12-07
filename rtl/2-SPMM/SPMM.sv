@@ -149,7 +149,7 @@ module SPMM import params_pkg::*;
   assign WH_1_addr = (&pe_ready_o) ? ((WH_1_addr_reg < WH_1_DEPTH - 1) ? (WH_1_addr_reg + 1) : 0) : WH_1_addr_reg;
   assign WH_2_addr = (&pe_ready_o) ? (WH_2_addr_reg + 1) : WH_2_addr_reg;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       WH_1_addr_reg <= 0;
       WH_2_addr_reg <= 0;
@@ -162,7 +162,7 @@ module SPMM import params_pkg::*;
 
 
   //* ======== pe_valid for SP-PE ===========
-  always @(*) begin
+  always_comb begin
     pe_valid = pe_valid_reg;
 
     if (spmm_valid_q1) begin
@@ -174,7 +174,7 @@ module SPMM import params_pkg::*;
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       pe_valid_reg <= 1'b0;
     end else begin
@@ -182,7 +182,7 @@ module SPMM import params_pkg::*;
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     spmm_valid_q1 <= spmm_valid_i;
   end
   //* =======================================
@@ -229,7 +229,7 @@ module SPMM import params_pkg::*;
   assign { ff_row_length, ff_num_of_nodes, ff_source_node_flag }  = ff_node_info;
   assign { ff_row_length_reg, ff_num_of_nodes_reg, ff_source_node_flag_reg } = ff_node_info_reg;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       row_counter_reg     <= 0;
       data_addr_reg       <= 0;

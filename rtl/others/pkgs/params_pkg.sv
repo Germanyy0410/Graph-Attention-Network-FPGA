@@ -8,6 +8,13 @@ package params_pkg;
   parameter SM_SUM_DATA_WIDTH     = 103;
   parameter ALPHA_DATA_WIDTH      = 32;
 
+  parameter H_NUM_SPARSE_DATA     = 242101;
+  parameter TOTAL_NODES           = 13264;
+  parameter NUM_FEATURE_IN        = 1433;
+  parameter NUM_FEATURE_OUT       = 16;
+  parameter NUM_SUBGRAPHS         = 2708;
+  parameter MAX_NODES             = 168;
+
   // -- [H]
   parameter H_NUM_OF_ROWS         = 100;
   parameter H_NUM_OF_COLS         = 5;
@@ -59,6 +66,7 @@ package params_pkg;
   // -- [a]
   localparam A_ADDR_W             = $clog2(A_DEPTH);
   localparam HALF_A_SIZE          = A_DEPTH / 2;
+  localparam A_INDEX_WIDTH        = $clog2(A_DEPTH);
 
   // -- [DMVM]
   localparam DMVM_PRODUCT_WIDTH   = $clog2(HALF_A_SIZE);

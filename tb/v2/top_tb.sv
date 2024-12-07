@@ -43,8 +43,6 @@ class OutputComparator;
   endfunction
 endclass
 
-`include "./../../rtl/others/params_pkg.sv"
-
 module top_tb import params_pkg::*;
   ();
 
@@ -88,7 +86,6 @@ module top_tb import params_pkg::*;
 
   top dut (.*);
 
-
   integer node_info_file, a_file, weight_file, col_idx_file, value_file;
   integer nd_r, w_r, a_r, value_r, col_idx_r, wh_r;
 
@@ -110,6 +107,8 @@ module top_tb import params_pkg::*;
     rst_n = 1'b0;
     #31.01;
     rst_n = 1'b1;
+    #50000;
+    $finish();
   end
   ////////////////////////////////////////////
 

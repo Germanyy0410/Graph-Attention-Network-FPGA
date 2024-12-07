@@ -37,7 +37,7 @@ module modified_BRAM #(
     end
   endgenerate
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (ena) begin
       memory[addra] <= din;
     end

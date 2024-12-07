@@ -40,7 +40,7 @@ module mult_8_bit #(
                           (b_unsigned[1] ? {a_unsigned, 1'b0} : 0) +
                           (b_unsigned[0] ? {a_unsigned, 0'b0} : 0);
       assign p = ((b_i[7] ^ a_i[7])) ? (~p_unsigned + 1) : p_unsigned;
-      always @(posedge clk) begin
+      always_ff @(posedge clk or negedge rst_n) begin
         p_reg <= p;
       end
     end
@@ -53,7 +53,7 @@ module mult_8_bit #(
 
       assign p_o = p_reg;
       assign p   = $signed(a_i) * $signed(b_i);
-      always @(posedge clk) begin
+      always_ff @(posedge clk or negedge rst_n) begin
         p_reg <= p;
       end
     end

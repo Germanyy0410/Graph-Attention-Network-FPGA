@@ -46,7 +46,7 @@ module SP_PE import params_pkg::*;
   assign weight_addrb       = col_idx_i;
   assign calculation_enable = ((counter_reg == 0 && (pe_valid_i || row_length_i == 1)) || (counter_reg > 0 && counter_reg < row_length_i && row_length_i > 1));
 
-  always @(*) begin
+  always_comb begin
     products  = products_reg;
     result    = result_reg;
     counter   = counter_reg;
@@ -58,7 +58,7 @@ module SP_PE import params_pkg::*;
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       products_reg  <= 0;
       counter_reg   <= 0;
@@ -73,7 +73,7 @@ module SP_PE import params_pkg::*;
 
 
   //* ================ pe_ready =================
-  always @(*) begin
+  always_comb begin
     pe_ready = pe_ready_reg;
     if (pe_ready_reg && (row_length_i > 1)) begin
       pe_ready = 1'b0;
@@ -82,7 +82,7 @@ module SP_PE import params_pkg::*;
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       pe_ready_reg <= 0;
     end else begin

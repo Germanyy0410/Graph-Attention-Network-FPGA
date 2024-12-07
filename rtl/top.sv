@@ -82,10 +82,10 @@ module top import params_pkg::*;
 
 
   //* ======================== scheduler =======================
-  logic [0:W_NUM_OF_COLS-1] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb   ;
-  logic [0:W_NUM_OF_COLS-1] [DATA_WIDTH-1:0]          mult_weight_dout    ;
+  logic [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb   ;
+  logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout    ;
   logic                                               w_ready             ;
-  logic [0:A_DEPTH-1] [DATA_WIDTH-1:0]                a                   ;
+  logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a                   ;
   logic                                               a_ready             ;
 
   (* dont_touch = "yes" *)
@@ -156,7 +156,8 @@ module top import params_pkg::*;
   logic [NUM_NODE_WIDTH-1:0]                  num_of_nodes    ;
 
   assign dmvm_valid = (&pe_ready) ? 1'b1 : dmvm_valid_reg;
-  always @(posedge clk) begin
+
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       dmvm_valid_reg <= 1'b0;
     end else begin
@@ -221,7 +222,7 @@ module top import params_pkg::*;
     end
   endgenerate
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       sm_coef_reg           <= '0;
       sm_num_of_nodes_i_reg <= 0;
@@ -233,7 +234,7 @@ module top import params_pkg::*;
 
   // -- sm_valid
   assign first_sm = (sm_valid_reg == 1'b1) ? 1'b0 : first_sm_reg;
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       first_sm_reg <= 1'b1;
     end else begin
@@ -241,7 +242,7 @@ module top import params_pkg::*;
     end
   end
 
-  always @(*) begin
+  always_comb begin
     if (sm_valid_reg) begin
       sm_valid = 1'b0;
     end else if (softmax_FIFO_rd_valid) begin
@@ -251,7 +252,7 @@ module top import params_pkg::*;
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       sm_valid_reg <= 1'b0;
     end else begin
@@ -307,7 +308,7 @@ module top import params_pkg::*;
     end
   endgenerate
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       aggr_alpha_reg          <= '0;
       aggr_num_of_nodes_i_reg <= 0;
@@ -319,7 +320,7 @@ module top import params_pkg::*;
 
   // -- aggr_valid
   assign first_aggr = (aggr_valid_reg == 1'b1) ? 1'b0 : first_aggr_reg;
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       first_aggr_reg <= 1'b1;
     end else begin
@@ -327,7 +328,7 @@ module top import params_pkg::*;
     end
   end
 
-  always @(*) begin
+  always_comb begin
     if (aggr_valid_reg) begin
       aggr_valid = 1'b0;
     end else if (aggr_FIFO_rd_valid) begin
@@ -337,7 +338,7 @@ module top import params_pkg::*;
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       aggr_valid_reg <= 1'b0;
     end else begin

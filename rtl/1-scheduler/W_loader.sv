@@ -68,7 +68,7 @@ module W_loader import params_pkg::*;
 
 
   //* ====== 2 cycles delay from BRAM =======
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     w_valid_q1 <= w_valid_i;
     w_valid_q2 <= w_valid_q1;
   end
@@ -92,7 +92,7 @@ module W_loader import params_pkg::*;
     end
   endgenerate
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       addr_reg    <= 0;
       row_idx_reg <= 0;
@@ -109,7 +109,7 @@ module W_loader import params_pkg::*;
   //* ============= [w_ready] ===============
   assign w_ready = (row_idx_reg == W_NUM_OF_ROWS - 1) && (col_idx_reg == W_NUM_OF_COLS - 1) ? 1'b1 : w_ready_reg;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk or negedge rst_n) begin
     if (~rst_n) begin
       w_ready_reg <= 1'b0;
     end else begin
