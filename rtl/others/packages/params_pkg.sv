@@ -1,6 +1,5 @@
 package params_pkg;
-  //* =============== parameter ================
-  // -- [DATA WIDTH]
+  //* =============== parameter ===============
   parameter DATA_WIDTH            = 8;
   parameter WH_DATA_WIDTH         = 12;
   parameter DMVM_DATA_WIDTH       = 20;
@@ -14,42 +13,39 @@ package params_pkg;
   parameter NUM_FEATURE_OUT       = 16;
   parameter NUM_SUBGRAPHS         = 2708;
   parameter MAX_NODES             = 168;
+  //* =========================================
 
+
+  //* ============== localparams ==============
+  localparam signed ZERO          = 20'b0000_0000_0000_0000_0000;
+
+  // -- [DEPTH]
+  localparam COL_IDX_DEPTH        = H_NUM_SPARSE_DATA;
+  localparam VALUE_DEPTH          = H_NUM_SPARSE_DATA;
+  localparam NODE_INFO_DEPTH      = TOTAL_NODES;
+  localparam WEIGHT_DEPTH         = W_NUM_OF_COLS * W_NUM_OF_ROWS;
+  localparam WH_1_DEPTH           = 120;
+  localparam WH_2_DEPTH           = TOTAL_NODES;
+  localparam A_DEPTH              = W_NUM_OF_COLS * 2;
   // -- [H]
-  parameter H_NUM_OF_ROWS         = TOTAL_NODES;
-  parameter H_NUM_OF_COLS         = NUM_FEATURE_IN;
-
-  // -- [W]
-  parameter W_NUM_OF_ROWS         = NUM_FEATURE_IN;
-  parameter W_NUM_OF_COLS         = NUM_FEATURE_OUT;
-
-  // -- [BRAM]
-  parameter COL_IDX_DEPTH         = H_NUM_SPARSE_DATA;
-  parameter VALUE_DEPTH           = H_NUM_SPARSE_DATA;
-  parameter NODE_INFO_DEPTH       = TOTAL_NODES;
-  parameter WEIGHT_DEPTH          = W_NUM_OF_COLS * W_NUM_OF_ROWS;
-  parameter WH_1_DEPTH            = 120;
-  parameter WH_2_DEPTH            = TOTAL_NODES;
-  parameter A_DEPTH               = W_NUM_OF_COLS * 2;
-
-  // -- [MAX_NODES]
-
-  parameter signed ZERO           = 20'b0000_0000_0000_0000_0000;
-
-  //* ============== localparams ===============
+  localparam H_NUM_OF_ROWS        = TOTAL_NODES;
+  localparam H_NUM_OF_COLS        = NUM_FEATURE_IN;
   // -- [H] col_idx
   localparam COL_IDX_WIDTH        = $clog2(H_NUM_OF_COLS);
   localparam COL_IDX_ADDR_W       = $clog2(COL_IDX_DEPTH);
   // -- [H] value
   localparam VALUE_WIDTH          = DATA_WIDTH;
   localparam VALUE_ADDR_W         = $clog2(VALUE_DEPTH);
-  // -- [H] node_info = [row_length - num_of_nodes - source_node_flag]
+  // -- [H] node_info
   localparam ROW_LEN_WIDTH        = $clog2(H_NUM_OF_COLS);
   localparam NUM_NODE_WIDTH       = $clog2(MAX_NODES);
-  localparam NODE_INFO_WIDTH      = ROW_LEN_WIDTH + NUM_NODE_WIDTH + 1;
+  localparam FLAG_WIDTH           = 1;
+  localparam NODE_INFO_WIDTH      = ROW_LEN_WIDTH + NUM_NODE_WIDTH + FLAG_WIDTH;
   localparam NODE_INFO_ADDR_W     = $clog2(NODE_INFO_DEPTH);
 
   // -- [W]
+  localparam W_NUM_OF_ROWS        = NUM_FEATURE_IN;
+  localparam W_NUM_OF_COLS        = NUM_FEATURE_OUT;
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS);
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS);
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH);
@@ -60,7 +56,7 @@ package params_pkg;
   localparam WH_1_ADDR_W          = $clog2(WH_1_DEPTH);
   localparam WH_2_ADDR_W          = $clog2(WH_2_DEPTH);
   localparam WH_RESULT_WIDTH      = WH_DATA_WIDTH * W_NUM_OF_COLS;
-  localparam WH_WIDTH             = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + 1;
+  localparam WH_WIDTH             = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH;
 
   // -- [a]
   localparam A_ADDR_W             = $clog2(A_DEPTH);
@@ -84,6 +80,7 @@ package params_pkg;
   localparam AGGR_WIDTH           = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH;
   localparam AGGR_DEPTH           = NUM_SUBGRAPHS;
   localparam AGGR_ADDR_W          = $clog2(AGGR_DEPTH);
+  //* =========================================
 
   typedef struct packed {
     bit [DATA_WIDTH-1:0]      coef_1;

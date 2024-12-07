@@ -77,7 +77,7 @@ module top import params_pkg::*;
   genvar i;
 
   //* ==================== Memory Controller ===================
-  mmr_ctrl u_mmr_ctrl (.*);
+  mem_ctrl u_mem_ctrl (.*);
   //* ==========================================================
 
 
