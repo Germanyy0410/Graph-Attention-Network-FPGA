@@ -9,10 +9,10 @@ module softmax import params_pkg::*;
   output                                              sm_ready_o        ,
   output                                              sm_pre_ready_o    ,
 
-  input   [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]         coef_i            ,
+  input   [MAX_NODES-1:0] [DATA_WIDTH-1:0]            coef_i            ,
   input   [NUM_NODE_WIDTH-1:0]                        num_of_nodes      ,
 
-  output  [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha_o           ,
+  output  [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha_o           ,
   output  [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_o
 );
   logic                                             sm_ready              ;
@@ -20,13 +20,13 @@ module softmax import params_pkg::*;
   logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes       ;
   logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_reg   ;
 
-  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha                 ;
-  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha_reg             ;
-  logic [NUM_OF_NODES-1:0] [SM_DATA_WIDTH-1:0]      exp                   ;
-  logic [NUM_OF_NODES-1:0] [SM_DATA_WIDTH-1:0]      exp_reg               ;
+  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha                 ;
+  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha_reg             ;
+  logic [MAX_NODES-1:0] [SM_DATA_WIDTH-1:0]         exp                   ;
+  logic [MAX_NODES-1:0] [SM_DATA_WIDTH-1:0]         exp_reg               ;
 
-  logic [NUM_OF_NODES-1:0] [SM_DATA_WIDTH-1:0]      exp_calc              ;
-  logic [NUM_OF_NODES-1:0] [SM_DATA_WIDTH-1:0]      exp_calc_reg          ;
+  logic [MAX_NODES-1:0] [SM_DATA_WIDTH-1:0]         exp_calc              ;
+  logic [MAX_NODES-1:0] [SM_DATA_WIDTH-1:0]         exp_calc_reg          ;
 
   logic [NUM_NODE_WIDTH-1:0]                        arr_size              ;
   logic [NUM_NODE_WIDTH-1:0]                        arr_size_reg          ;
@@ -64,7 +64,7 @@ module softmax import params_pkg::*;
 
   //* ===================== output assignment ======================
   generate
-    for(x = 0; x < NUM_OF_NODES; x = x + 1) begin
+    for(x = 0; x < MAX_NODES; x = x + 1) begin
       assign alpha_o[x] = alpha_reg[x];
     end
   endgenerate
@@ -81,13 +81,13 @@ module softmax import params_pkg::*;
     arr_size  = arr_size_reg;
     sum_extra = sum_extra_reg;
 
-    for(i = 0; i < NUM_OF_NODES; i = i + 1) begin
+    for(i = 0; i < MAX_NODES; i = i + 1) begin
       exp[i]      = exp_reg[i];
       exp_calc[i] = exp_calc_reg[i];
     end
 
     if(sm_valid_i && ~exp_done_reg) begin
-      for(i = 0; i < NUM_OF_NODES; i = i + 1) begin
+      for(i = 0; i < MAX_NODES; i = i + 1) begin
         if (i < num_of_nodes) begin
           exp[i]      = (coef_i[i] == ZERO) ? 1 : (1 << coef_i[i]);
           exp_calc[i] = (coef_i[i] == ZERO) ? 1 : (1 << coef_i[i]);
@@ -98,7 +98,7 @@ module softmax import params_pkg::*;
       sum_extra = 0;
     end else if (exp_done_reg) begin
       if(arr_size_reg > 1) begin
-        for(i = 0; i < NUM_OF_NODES/2; i = i + 1) begin
+        for(i = 0; i < MAX_NODES/2; i = i + 1) begin
           if(i < arr_size_reg) begin
             sum_extra = (arr_size_reg[0] == 1'b1) ? (exp_reg[arr_size_reg-1] + sum_extra_reg) : sum_extra_reg;
             exp[i]    = exp_reg[2*i] + exp_reg[2*i+1];
@@ -113,7 +113,7 @@ module softmax import params_pkg::*;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if(!rst_n) begin
-      arr_size_reg    <= NUM_OF_NODES;
+      arr_size_reg    <= MAX_NODES;
       exp_done_reg    <= 0;
       exp_reg         <= '0;
       exp_calc_reg    <= '0;
@@ -249,13 +249,13 @@ module softmax import params_pkg::*;
 
   //* =========================== alpha ============================
   always_comb begin
-    for (int i = 0; i < NUM_OF_NODES; i = i + 1) begin
+    for (int i = 0; i < MAX_NODES; i = i + 1) begin
       alpha[i] = alpha_reg[i];
     end
     if ((output_control_reg == 1) && (o_idx_cnt_reg < num_of_nodes) && (~sm_ready_reg)) begin
       alpha[o_idx_cnt_reg]  = out_reg;
     end else if (sm_valid_i) begin
-      for (int i = 0; i < NUM_OF_NODES; i = i + 1) begin
+      for (int i = 0; i < MAX_NODES; i = i + 1) begin
         alpha[i] = 0;
       end
     end

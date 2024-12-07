@@ -14,7 +14,7 @@ module aggregator import params_pkg::*;
   output  [WH_2_ADDR_W-1:0]                           WH_BRAM_addrb     ,
 
   // -- alpha
-  input   [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha_i           ,
+  input   [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha_i           ,
   input   [NUM_NODE_WIDTH-1:0]                        num_of_nodes
 );
   //* ========== wire declaration ===========
@@ -23,7 +23,7 @@ module aggregator import params_pkg::*;
 
 
   //* =========== reg declaration ===========
-  reg   [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]   H_next               ;
+
   //* =======================================
 
   genvar i;

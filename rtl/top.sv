@@ -151,7 +151,7 @@ module top import params_pkg::*;
   logic                                       dmvm_valid      ;
   logic                                       dmvm_valid_reg  ;
   logic                                       dmvm_ready      ;
-  logic [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]   coef            ;
+  logic [MAX_NODES-1:0] [DATA_WIDTH-1:0]      coef            ;
   logic [COEF_W-1:0]                          coef_cat        ;
   logic [NUM_NODE_WIDTH-1:0]                  num_of_nodes    ;
 
@@ -184,8 +184,8 @@ module top import params_pkg::*;
   );
 
   generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      assign coef_cat[DATA_WIDTH*(i+1)-1-:DATA_WIDTH] = coef[NUM_OF_NODES-1-i];
+    for (i = 0; i < MAX_NODES; i = i + 1) begin
+      assign coef_cat[DATA_WIDTH*(i+1)-1-:DATA_WIDTH] = coef[MAX_NODES-1-i];
     end
   endgenerate
   //* ==========================================================
@@ -204,9 +204,9 @@ module top import params_pkg::*;
   logic                                             sm_ready                ;
   logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_i       ;
   logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_i_reg   ;
-  logic [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]         sm_coef                 ;
-  logic [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]         sm_coef_reg             ;
-  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   alpha                   ;
+  logic [MAX_NODES-1:0] [DATA_WIDTH-1:0]            sm_coef                 ;
+  logic [MAX_NODES-1:0] [DATA_WIDTH-1:0]            sm_coef_reg             ;
+  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha                   ;
   logic [ALPHA_W-1:0]                               alpha_cat               ;
   logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_o       ;
 
@@ -217,7 +217,7 @@ module top import params_pkg::*;
 
   assign sm_num_of_nodes_i      = softmax_FIFO_rd_valid ? (softmax_FIFO_dout[NUM_NODE_WIDTH-1:0]) : sm_num_of_nodes_i_reg;
   generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
+    for (i = 0; i < MAX_NODES; i = i + 1) begin
       assign sm_coef[i] = softmax_FIFO_rd_valid ? (softmax_FIFO_dout[SOFTMAX_WIDTH-1-i*DATA_WIDTH : SOFTMAX_WIDTH-(i+1)*DATA_WIDTH]) : sm_coef_reg[i];
     end
   endgenerate
@@ -273,8 +273,8 @@ module top import params_pkg::*;
   );
 
   generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
-      assign alpha_cat[ALPHA_DATA_WIDTH*(i+1)-1-:ALPHA_DATA_WIDTH] = alpha[NUM_OF_NODES-1-i];
+    for (i = 0; i < MAX_NODES; i = i + 1) begin
+      assign alpha_cat[ALPHA_DATA_WIDTH*(i+1)-1-:ALPHA_DATA_WIDTH] = alpha[MAX_NODES-1-i];
     end
   endgenerate
   //* ==========================================================
@@ -291,8 +291,8 @@ module top import params_pkg::*;
   logic                                             aggr_valid_reg          ;
   logic                                             aggr_ready              ;
   logic                                             aggr_pre_ready          ;
-  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   aggr_alpha              ;
-  logic [NUM_OF_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]   aggr_alpha_reg          ;
+  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      aggr_alpha              ;
+  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      aggr_alpha_reg          ;
   logic [NUM_NODE_WIDTH-1:0]                        aggr_num_of_nodes_i     ;
   logic [NUM_NODE_WIDTH-1:0]                        aggr_num_of_nodes_i_reg ;
 
@@ -303,7 +303,7 @@ module top import params_pkg::*;
 
   assign aggr_num_of_nodes_i  = aggr_FIFO_rd_valid ? (aggr_BRAM_dout[NUM_NODE_WIDTH-1:0]) : aggr_num_of_nodes_i_reg;
   generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
+    for (i = 0; i < MAX_NODES; i = i + 1) begin
       assign aggr_alpha[i] = aggr_FIFO_rd_valid ? (aggr_BRAM_dout[AGGR_WIDTH-1-i*ALPHA_DATA_WIDTH : AGGR_WIDTH-(i+1)*ALPHA_DATA_WIDTH]) : aggr_alpha_reg[i];
     end
   endgenerate

@@ -44,14 +44,14 @@ module mmr_ctrl import params_pkg::*;
   input   [WH_WIDTH-1:0]            WH_1_BRAM_din               ,
   input                             WH_1_BRAM_ena               ,
   input   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addra             ,
+  output  [WH_WIDTH-1:0]            WH_1_BRAM_dout              ,
   input   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addrb             ,
-  input   [WH_WIDTH-1:0]            WH_1_BRAM_dout              ,
 
   input   [WH_WIDTH-1:0]            WH_2_BRAM_din               ,
   input                             WH_2_BRAM_ena               ,
   input   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addra             ,
+  output  [WH_WIDTH-1:0]            WH_2_BRAM_dout              ,
   input   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addrb             ,
-  input   [WH_WIDTH-1:0]            WH_2_BRAM_dout              ,
 
   input   [AGGR_WIDTH-1:0]          aggr_BRAM_din               ,
   input                             aggr_BRAM_ena               ,

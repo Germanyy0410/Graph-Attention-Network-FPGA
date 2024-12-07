@@ -14,7 +14,7 @@ module DMVM import params_pkg::*;
   input   [WH_WIDTH-1:0]                        WH_BRAM_dout    ,
   output  [WH_1_ADDR_W-1:0]                     WH_BRAM_addrb   ,
   // -- output
-  output  [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]   coef_o          ,
+  output  [MAX_NODES-1:0] [DATA_WIDTH-1:0]      coef_o          ,
   output  [NUM_NODE_WIDTH-1:0]                  num_of_nodes_o
 );
   //* ========== wire declaration ===========
@@ -45,15 +45,15 @@ module DMVM import params_pkg::*;
   logic         [NUM_NODE_WIDTH-1:0]                      idx_reg             ;
   logic                                                   result_done         ;
   logic                                                   result_done_reg     ;
-  logic signed  [NUM_OF_NODES-1:0] [DMVM_DATA_WIDTH-1:0]  result              ;
-  logic signed  [NUM_OF_NODES-1:0] [DMVM_DATA_WIDTH-1:0]  result_reg          ;
+  logic signed  [MAX_NODES-1:0] [DMVM_DATA_WIDTH-1:0]     result              ;
+  logic signed  [MAX_NODES-1:0] [DMVM_DATA_WIDTH-1:0]     result_reg          ;
 
   // -- Relu
   logic                                                   sub_graph_done      ;
   logic                                                   sub_graph_done_reg  ;
-  logic signed  [NUM_OF_NODES-1:0] [DMVM_DATA_WIDTH-1:0]  r_sum_check         ;
-  logic signed  [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]       relu                ;
-  logic signed  [NUM_OF_NODES-1:0] [DATA_WIDTH-1:0]       relu_reg            ;
+  logic signed  [MAX_NODES-1:0] [DMVM_DATA_WIDTH-1:0]     r_sum_check         ;
+  logic signed  [MAX_NODES-1:0] [DATA_WIDTH-1:0]          relu                ;
+  logic signed  [MAX_NODES-1:0] [DATA_WIDTH-1:0]          relu_reg            ;
   logic         [NUM_NODE_WIDTH-1:0]                      num_of_nodes        ;
   logic         [NUM_NODE_WIDTH-1:0]                      num_of_nodes_q1     ;
   logic         [NUM_NODE_WIDTH-1:0]                      num_of_nodes_fn     ;
@@ -78,7 +78,7 @@ module DMVM import params_pkg::*;
   assign dmvm_ready_o   = dmvm_ready_reg;
   assign num_of_nodes_o = num_of_nodes_fn_reg;
   generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
+    for (i = 0; i < MAX_NODES; i = i + 1) begin
       assign coef_o[i] = relu_reg[i];
     end
   endgenerate
@@ -195,7 +195,7 @@ module DMVM import params_pkg::*;
   end
 
   generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
+    for (i = 0; i < MAX_NODES; i = i + 1) begin
       assign result[i] = (i == idx_reg && result_done_reg) ? (product_reg[0] + product_reg[2]) : result_reg[i];
     end
   endgenerate
@@ -225,7 +225,7 @@ module DMVM import params_pkg::*;
   end
 
   generate
-    for (i = 0; i < NUM_OF_NODES; i = i + 1) begin
+    for (i = 0; i < MAX_NODES; i = i + 1) begin
       always_comb begin
         relu[i] = relu_reg[i];
 
