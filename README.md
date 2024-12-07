@@ -1,19 +1,55 @@
 <strong><div align="center">
-HO CHI MINH CITY
-UNIVERSITY OF TECHNOLOGY
+HO CHI MINH CITY  
+UNIVERSITY OF TECHNOLOGY  
 <br />
-FACULTY OF COMPUTER SCIENCE AND ENGINEERING
+FACULTY OF COMPUTER SCIENCE AND ENGINEERING  
 <br />
 <br />
 
-[![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HCMUT_official_logo.png/238px-HCMUT_official_logo.png)](https://hcmut.edu.vn/)
+[![N|Solid](https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HCMUT_official_logo.png/238px-HCMUT_official_logo.png)](https://hcmut.edu.vn/)  
 <br /></strong>
 <br />
 
-**Capstone Project - Semester 241**
+**Capstone Project - Semester 241**  
 <br/>
 <br/>
 
 </div>
 
-# Accelarating Graph Attention Network on FPGA
+# Accelerating Graph Attention Network on FPGA
+
+## Overview
+
+This project explores hardware acceleration techniques for **Graph Attention Networks (GAT)**, focusing on FPGA implementation. GAT, a powerful model for graph-structured data, often suffers from high computational demands when applied to large-scale graphs. Our work aims to optimize the key computations of GAT, including Sparse Matrix-Vector Multiplication (SPMM), Dense Matrix-Vector Multiplication (DMVM), and Softmax normalization, for efficient execution on FPGA.
+
+## Objectives
+
+- **Performance Optimization:** Reduce latency and improve throughput for GAT operations using parallel and hardware-efficient designs.  
+- **Scalable Design:** Create a modular architecture that can handle large graphs and different GAT configurations.  
+- **Energy Efficiency:** Leverage FPGA's low-power characteristics to minimize energy consumption.  
+- **Resource Utilization:** Optimize memory usage and computation with custom modules and quantization techniques.  
+
+## Key Features
+
+- **Sparse Matrix Handling:** Efficiently processes sparse feature matrices using GCSR format for compact storage and quick access.  
+- **Parallelized Architecture:** Implements dedicated processing elements (PEs) for parallel computation of GAT's matrix operations.  
+- **Custom Softmax Algorithm:** Replaces the traditional exponential function \($e^x$\) with \($2^x$\) for hardware efficiency, utilizing bit-shift operations.  
+- **Dynamic Quantization:** Reduces computation precision to INT8 for efficient processing while maintaining accuracy.  
+- **Memory Optimization:** Utilizes BRAM for storing intermediate results and minimizes memory access bottlenecks.  
+
+## Overall Architecture
+![Alt text](docs/images/overall.png)
+
+## Contributors
+
+- **Hoang Tien Duc** - 2152520  
+- **Dang Hoang Gia** - 2153312  
+- **Nguyen Duc Bao Huy** - 2152089  
+
+## Acknowledgments
+
+We extend our gratitude to the Faculty of Computer Science and Engineering at Ho Chi Minh City University of Technology for providing the resources and guidance necessary for this project.
+
+---
+
+**HO CHI MINH CITY - December 2024**
