@@ -11,7 +11,7 @@ module DMVM import params_pkg::*;
   input                                         a_valid_i       ,
   input   [A_DEPTH-1:0] [DATA_WIDTH-1:0]        a_i             ,
   // -- WH BRAM
-  input   [WH_WIDTH-1:0]                        WH_BRAM_dout    ,
+  input WH_t                        WH_BRAM_dout    ,
   output  [WH_1_ADDR_W-1:0]                     WH_BRAM_addrb   ,
   // -- output
   output  [MAX_NODES-1:0] [DATA_WIDTH-1:0]      coef_o          ,
@@ -20,8 +20,8 @@ module DMVM import params_pkg::*;
   //* ========== wire declaration ===========
   logic                                                   dmvm_valid_q1       ;
   // -- Weight vector a1 & a2
-  logic         [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]        a_1                 ;
-  logic         [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]        a_2                 ;
+  logic         [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]        a_source            ;
+  logic         [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]        a_neighbor          ;
 
   // -- WH array
   logic         [WH_1_ADDR_W-1:0]                         WH_addr             ;
@@ -88,11 +88,11 @@ module DMVM import params_pkg::*;
   //* ========== split vector [a] ===========
   generate
     for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
-      assign a_1[i] = a_i[i];
+      assign a_source[i] = a_i[i];
     end
 
     for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
-      assign a_2[i] = a_i[i + HALF_A_SIZE];
+      assign a_neighbor[i] = a_i[i + HALF_A_SIZE];
     end
   endgenerate
   //* =======================================
@@ -152,7 +152,7 @@ module DMVM import params_pkg::*;
 
     if (~product_done_reg && dmvm_valid_q1) begin
       for (x = 0; x < HALF_A_SIZE; x = x + 1) begin
-        product[x] = (source_node_flag) ? ($signed(a_1[x]) * $signed(WH_arr[x])) : ($signed(a_2[x]) * $signed(WH_arr[x]));
+        product[x] = (source_node_flag) ? ($signed(a_source[x]) * $signed(WH_arr[x])) : ($signed(a_neighbor[x]) * $signed(WH_arr[x]));
       end
       product_done = 1'b1;
     end else if (product_done_reg && dmvm_valid_q1) begin

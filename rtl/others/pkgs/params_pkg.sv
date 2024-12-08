@@ -7,12 +7,12 @@ package params_pkg;
   parameter SM_SUM_DATA_WIDTH     = 103;
   parameter ALPHA_DATA_WIDTH      = 32;
 
-  parameter H_NUM_SPARSE_DATA     = 242101;
-  parameter TOTAL_NODES           = 13264;
-  parameter NUM_FEATURE_IN        = 1433;
-  parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 2708;
-  parameter MAX_NODES             = 168;
+  parameter H_NUM_SPARSE_DATA     = 256;
+  parameter TOTAL_NODES           = 100;
+  parameter NUM_FEATURE_IN        = 5;
+  parameter NUM_FEATURE_OUT       = 6;
+  parameter NUM_SUBGRAPHS         = 100;
+  parameter MAX_NODES             = 6;
   //* =========================================
 
 
@@ -23,10 +23,10 @@ package params_pkg;
   localparam COL_IDX_DEPTH        = H_NUM_SPARSE_DATA;
   localparam VALUE_DEPTH          = H_NUM_SPARSE_DATA;
   localparam NODE_INFO_DEPTH      = TOTAL_NODES;
-  localparam WEIGHT_DEPTH         = W_NUM_OF_COLS * W_NUM_OF_ROWS;
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN;
   localparam WH_1_DEPTH           = 120;
   localparam WH_2_DEPTH           = TOTAL_NODES;
-  localparam A_DEPTH              = W_NUM_OF_COLS * 2;
+  localparam A_DEPTH              = NUM_FEATURE_OUT * 2;
   // -- [H]
   localparam H_NUM_OF_ROWS        = TOTAL_NODES;
   localparam H_NUM_OF_COLS        = NUM_FEATURE_IN;

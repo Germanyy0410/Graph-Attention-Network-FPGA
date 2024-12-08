@@ -105,7 +105,7 @@ module top_tb import params_pkg::*;
   initial begin
     clk   = 1'b1;
     rst_n = 1'b0;
-    #31.01;
+    #15.01;
     rst_n = 1'b1;
     #50000;
     $finish();
