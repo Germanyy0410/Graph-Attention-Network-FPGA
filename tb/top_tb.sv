@@ -137,8 +137,8 @@ module top_tb import params_pkg::*;
         $display("Time %0tps", $time);
         $display("INFO: [Golden] \t%p", golden_input[i]);
         $display("INFO: [DUT] \t%p", dut_output[i]);
-//        comparer.update_inputs(dut.u_SPMM.pe_ready_o, golden_input[i], dut_output[i]);
-//        comparer.compare_output();
+        comparer.update_inputs(dut.u_SPMM.pe_ready_o, golden_input[i], dut_output[i]);
+        comparer.compare_output();
         $display("-----------------------------------------------------------------------------");
         #20.02;
       end
@@ -242,7 +242,7 @@ module top_tb import params_pkg::*;
 			$finish;
 		end
 		for (int j = 0; j < H_DATA_DEPTH; j++) begin
-			value_r = $fscanf(value_file, "%d\n", H_data_BRAM_din);  // Read a binary number from the file
+			value_r = $fscanf(value_file, "%b\n", H_data_BRAM_din);  // Read a binary number from the file
 			if (value_r != 1) begin
 				$display("[value]: Error or end of file");
 				break;
