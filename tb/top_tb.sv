@@ -49,19 +49,12 @@ module top_tb import params_pkg::*;
   logic                             clk                         ;
   logic                             rst_n                       ;
 
-  logic   [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_din          ;
-  logic                             H_col_idx_BRAM_ena          ;
-  logic   [COL_IDX_ADDR_W-1:0]      H_col_idx_BRAM_addra        ;
-  logic                             H_col_idx_BRAM_enb          ;
-  logic   [COL_IDX_ADDR_W-1:0]      H_col_idx_BRAM_addrb        ;
-  logic                             H_col_idx_BRAM_load_done    ;
-
-  logic   [VALUE_WIDTH-1:0]         H_value_BRAM_din            ;
-  logic                             H_value_BRAM_ena            ;
-  logic   [VALUE_ADDR_W-1:0]        H_value_BRAM_addra          ;
-  logic                             H_value_BRAM_enb            ;
-  logic   [VALUE_ADDR_W-1:0]        H_value_BRAM_addrb          ;
-  logic                             H_value_BRAM_load_done      ;
+  logic   [H_DATA_WIDTH-1:0]        H_data_BRAM_din             ;
+  logic                             H_data_BRAM_ena             ;
+  logic   [H_DATA_ADDR_W-1:0]       H_data_BRAM_addra           ;
+  logic                             H_data_BRAM_enb             ;
+  logic   [H_DATA_ADDR_W-1:0]       H_data_BRAM_addrb           ;
+  logic                             H_data_BRAM_load_done       ;
 
   logic   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_din        ;
   logic                             H_node_info_BRAM_ena        ;
@@ -157,18 +150,6 @@ module top_tb import params_pkg::*;
 
   // ---------------- Input ----------------
 	initial begin
-		H_col_idx_BRAM_ena = 1'b1;
-		H_col_idx_BRAM_load_done = 1'b0;
-		H_value_BRAM_ena = 1'b1;
-		H_value_BRAM_load_done = 1'b0;
-
-		H_col_idx_BRAM_ena = 1'b0;
-		H_col_idx_BRAM_load_done = 1'b1;
-		H_value_BRAM_ena = 1'b0;
-		H_value_BRAM_load_done = 1'b1;
-	end
-
-	initial begin
     H_node_info_BRAM_ena = 1'b1;
 		H_node_info_BRAM_load_done = 1'b0;
 		file_path = $sformatf("%s/tb/inputs/node_info.txt", ROOT_PATH);
@@ -250,57 +231,30 @@ module top_tb import params_pkg::*;
 	// ---------------------------------------
 
 	initial begin // value
-		H_value_BRAM_ena = 1'b1;
-		H_value_BRAM_load_done = 1'b0;
+		H_data_BRAM_ena = 1'b1;
+		H_data_BRAM_load_done = 1'b0;
 
-		file_path = $sformatf("%s/tb/inputs/value.txt", ROOT_PATH);
+		file_path = $sformatf("%s/tb/inputs/h_data.txt", ROOT_PATH);
 
 		value_file = $fopen(file_path, "r");
 		if (value_file == 0) begin
 			$display("ERROR: file open failed");
 			$finish;
 		end
-		for (int j = 0; j < VALUE_DEPTH; j++) begin
-			value_r = $fscanf(value_file, "%d\n", H_value_BRAM_din);  // Read a binary number from the file
+		for (int j = 0; j < H_DATA_DEPTH; j++) begin
+			value_r = $fscanf(value_file, "%d\n", H_data_BRAM_din);  // Read a binary number from the file
 			if (value_r != 1) begin
 				$display("[value]: Error or end of file");
 				break;
 			end
-			H_value_BRAM_addra = j;
+			H_data_BRAM_addra = j;
 			#20.4;
 		end
 
-		H_value_BRAM_ena = 1'b0;
-		H_value_BRAM_load_done = 1'b1;
+		H_data_BRAM_ena = 1'b0;
+		H_data_BRAM_load_done = 1'b1;
 		$fclose(value_file);
 	end
-
-	initial begin // col_idx
-		H_col_idx_BRAM_ena = 1'b1;
-		H_col_idx_BRAM_load_done = 1'b0;
-
-		file_path = $sformatf("%s/tb/inputs/col_idx.txt", ROOT_PATH);
-
-		col_idx_file = $fopen(file_path, "r");
-		if (col_idx_file == 0) begin
-			$display("ERROR: file open failed");
-			$finish;
-		end
-		for (int j = 0; j < COL_IDX_DEPTH; j++) begin
-			col_idx_r = $fscanf(col_idx_file, "%d\n", H_col_idx_BRAM_din);  // Read a binary number from the file
-			if (col_idx_r != 1) begin
-				$display("[col_idx]: Error or end of file");
-				break;
-			end
-			H_col_idx_BRAM_addra = j;
-			#20.4;
-		end
-
-		H_col_idx_BRAM_ena = 1'b0;
-		H_col_idx_BRAM_load_done = 1'b1;
-		$fclose(col_idx_file);
-	end
-
 endmodule
 
 

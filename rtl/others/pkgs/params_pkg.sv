@@ -1,18 +1,19 @@
 package params_pkg;
   //* =============== parameter ===============
+  parameter H_NUM_SPARSE_DATA     = 500;
+  parameter TOTAL_NODES           = 100;
+  parameter NUM_FEATURE_IN        = 10;
+  parameter NUM_FEATURE_OUT       = 16;
+  parameter NUM_SUBGRAPHS         = 25;
+  parameter MAX_NODES             = 6;
+
+  // -- Configurable data width
   parameter DATA_WIDTH            = 8;
   parameter WH_DATA_WIDTH         = 12;
   parameter DMVM_DATA_WIDTH       = 20;
   parameter SM_DATA_WIDTH         = 103;
   parameter SM_SUM_DATA_WIDTH     = 103;
   parameter ALPHA_DATA_WIDTH      = 32;
-
-  parameter H_NUM_SPARSE_DATA     = 256;
-  parameter TOTAL_NODES           = 100;
-  parameter NUM_FEATURE_IN        = 5;
-  parameter NUM_FEATURE_OUT       = 6;
-  parameter NUM_SUBGRAPHS         = 100;
-  parameter MAX_NODES             = 6;
   //* =========================================
 
 
