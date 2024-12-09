@@ -21,15 +21,15 @@ module fifo #(
   genvar addr;
 
   // ------------------ Internal signals ------------------
-  wire    [ADDR_WIDTH:0]        wr_addr_inc;
-  wire    [ADDR_WIDTH-1:0]      wr_addr_map;
-  wire    [ADDR_WIDTH:0]        rd_addr_inc;
-  wire    [ADDR_WIDTH-1:0]      rd_addr_map;
-  wire    [DATA_WIDTH-1:0]      buffer_nxt  [0:FIFO_DEPTH-1];
+  logic [ADDR_WIDTH:0]        wr_addr_inc                   ;
+  logic [ADDR_WIDTH-1:0]      wr_addr_map                   ;
+  logic [ADDR_WIDTH:0]        rd_addr_inc                   ;
+  logic [ADDR_WIDTH-1:0]      rd_addr_map                   ;
+  logic [DATA_WIDTH-1:0]      buffer_nxt  [0:FIFO_DEPTH-1]  ;
 
-  reg     [DATA_WIDTH-1:0]      buffer      [0:FIFO_DEPTH-1];
-  reg     [ADDR_WIDTH:0]        wr_addr;
-  reg     [ADDR_WIDTH:0]        rd_addr;
+  logic [DATA_WIDTH-1:0]      buffer      [0:FIFO_DEPTH-1]  ;
+  logic [ADDR_WIDTH:0]        wr_addr                       ;
+  logic [ADDR_WIDTH:0]        rd_addr                       ;
   // ------------------------------------------------------
 
   assign data_o = buffer[rd_addr_map];

@@ -9,7 +9,6 @@ module W_loader import params_pkg::*;
   output                                                w_ready_o         ,
 
   input   [DATA_WIDTH-1:0]                              Weight_BRAM_dout  ,
-  output                                                Weight_BRAM_enb   ,
   output  [WEIGHT_ADDR_W-1:0]                           Weight_BRAM_addrb ,
 
   output  [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout  ,
@@ -62,7 +61,6 @@ module W_loader import params_pkg::*;
 
   //* ========== output assignment ==========
   assign Weight_BRAM_addrb = addr_reg;
-  assign Weight_BRAM_enb   = ~((row_idx_reg == W_NUM_OF_ROWS - 1) && (col_idx_reg == W_NUM_OF_COLS - 1)) && w_valid_i && ~w_ready_o;
   assign w_ready_o         = w_ready_reg;
   //* =======================================
 
@@ -76,13 +74,31 @@ module W_loader import params_pkg::*;
 
 
   //* ====== Generate mul-weight BRAM =======
-  assign addr = (w_valid_i && addr_reg < W_NUM_OF_COLS * W_NUM_OF_ROWS) ? (addr_reg + 1) : addr_reg;
-  assign col_idx = (~w_valid_q1) ? col_idx_reg : ((col_idx_reg == W_NUM_OF_COLS - 1) ? 0 : (col_idx_reg + 1));
-  assign row_idx = (w_valid_q1 && col_idx_reg == W_NUM_OF_COLS - 1)
-                    ? ((row_idx_reg == W_NUM_OF_ROWS - 1)
-                        ? 0
-                        : (row_idx_reg + 1))
-                    : row_idx_reg;
+  always_comb begin
+    addr    = addr_reg;
+    col_idx = col_idx_reg;
+    row_idx = row_idx_reg;
+
+    if (w_valid_i && addr_reg < W_NUM_OF_COLS * W_NUM_OF_ROWS) begin
+      addr = addr_reg + 1;
+    end
+
+    if (w_valid_q1) begin
+      if ((col_idx_reg == W_NUM_OF_COLS - 1)) begin
+        col_idx = 0;
+      end else begin
+        col_idx = col_idx_reg + 1;
+      end
+    end
+
+    if (w_valid_q1 && col_idx_reg == W_NUM_OF_COLS - 1) begin
+      if (row_idx_reg == W_NUM_OF_ROWS - 1) begin
+        row_idx = 0;
+      end else begin
+        row_idx = row_idx_reg + 1;
+      end
+    end
+  end
 
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin

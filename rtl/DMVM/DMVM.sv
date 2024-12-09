@@ -11,13 +11,13 @@ module DMVM import params_pkg::*;
   input                                         a_valid_i       ,
   input   [A_DEPTH-1:0] [DATA_WIDTH-1:0]        a_i             ,
   // -- WH BRAM
-  input WH_t                        WH_BRAM_dout    ,
+  input   [WH_WIDTH-1:0]                        WH_BRAM_dout    ,
   output  [WH_1_ADDR_W-1:0]                     WH_BRAM_addrb   ,
   // -- output
   output  [MAX_NODES-1:0] [DATA_WIDTH-1:0]      coef_o          ,
   output  [NUM_NODE_WIDTH-1:0]                  num_of_nodes_o
 );
-  //* ========== wire declaration ===========
+  //* ========== logic declaration ===========
   logic                                                   dmvm_valid_q1       ;
   // -- Weight vector a1 & a2
   logic         [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]        a_source            ;

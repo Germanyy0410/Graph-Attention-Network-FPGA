@@ -13,15 +13,21 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="5,014.902 ns"></ZoomStartTime>
-      <ZoomEndTime time="6,589.903 ns"></ZoomEndTime>
-      <Cursor1Time time="5,352.902 ns"></Cursor1Time>
+      <ZoomStartTime time="5,257.200 ns"></ZoomStartTime>
+      <ZoomEndTime time="5,757.401 ns"></ZoomEndTime>
+      <Cursor1Time time="5,656.600 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="350"></NameColumnWidth>
-      <ValueColumnWidth column_width="96"></ValueColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="9" />
+   <WVObjectSize size="26" />
+   <wave_markers>
+      <marker time="5300000" label="" />
+      <marker time="5340000" label="" />
+      <marker time="5400000" label="" />
+      <marker time="5460000" label="" />
+   </wave_markers>
    <wvobject fp_name="/top_tb/dut/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -29,6 +35,84 @@
    <wvobject fp_name="/top_tb/dut/rst_n" type="logic">
       <obj_property name="ElementShortName">rst_n</obj_property>
       <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="group354" type="group">
+      <obj_property name="label">SP-PE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /pe_valid_i" type="logic">
+         <obj_property name="ElementShortName">pe_valid_i</obj_property>
+         <obj_property name="ObjectShortName">pe_valid_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="group341" type="group">
+         <obj_property name="label">Feature H</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+            <obj_property name="ElementShortName">value_i[7:0]</obj_property>
+            <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group342" type="group">
+         <obj_property name="label">Weight W</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
+            <obj_property name="ElementShortName">col_idx_i[2:0]</obj_property>
+            <obj_property name="ObjectShortName">col_idx_i[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /weight_addrb" type="array">
+            <obj_property name="ElementShortName">weight_addrb[2:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_addrb[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group350" type="group">
+         <obj_property name="label">Calculation</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+            <obj_property name="ElementShortName">value_i[7:0]</obj_property>
+            <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /result" type="array">
+            <obj_property name="ElementShortName">result[11:0]</obj_property>
+            <obj_property name="ObjectShortName">result[11:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group353" type="group">
+         <obj_property name="label">Condition</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /row_length_i" type="array">
+            <obj_property name="ElementShortName">row_length_i[2:0]</obj_property>
+            <obj_property name="ObjectShortName">row_length_i[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /counter_reg" type="array">
+            <obj_property name="ElementShortName">counter_reg[3:0]</obj_property>
+            <obj_property name="ObjectShortName">counter_reg[3:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group352" type="group">
+         <obj_property name="label">Output</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+            <obj_property name="ElementShortName">pe_ready_o</obj_property>
+            <obj_property name="ObjectShortName">pe_ready_o</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /result_o" type="array">
+            <obj_property name="ElementShortName">result_o[11:0]</obj_property>
+            <obj_property name="ObjectShortName">result_o[11:0]</obj_property>
+         </wvobject>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="group211" type="group">
       <obj_property name="label">Input</obj_property>
@@ -183,10 +267,6 @@
             <obj_property name="ElementShortName">Weight_BRAM_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">Weight_BRAM_dout[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/Weight_BRAM_enb" type="logic">
-            <obj_property name="ElementShortName">Weight_BRAM_enb</obj_property>
-            <obj_property name="ObjectShortName">Weight_BRAM_enb</obj_property>
-         </wvobject>
          <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/Weight_BRAM_addrb" type="array">
             <obj_property name="ElementShortName">Weight_BRAM_addrb[4:0]</obj_property>
             <obj_property name="ObjectShortName">Weight_BRAM_addrb[4:0]</obj_property>
@@ -278,6 +358,7 @@
    <wvobject fp_name="group75" type="group">
       <obj_property name="label">SPMM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/top_tb/dut/u_SPMM/spmm_valid_i" type="logic">
          <obj_property name="ElementShortName">spmm_valid_i</obj_property>
          <obj_property name="ObjectShortName">spmm_valid_i</obj_property>
@@ -456,7 +537,6 @@
    <wvobject fp_name="group159" type="group">
       <obj_property name="label">DMVM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="group206" type="group">
          <obj_property name="label">Input</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -487,42 +567,9 @@
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout" type="array">
-               <obj_property name="ElementShortName">WH_BRAM_dout</obj_property>
-               <obj_property name="ObjectShortName">WH_BRAM_dout</obj_property>
+               <obj_property name="ElementShortName">WH_BRAM_dout[75:0]</obj_property>
+               <obj_property name="ObjectShortName">WH_BRAM_dout[75:0]</obj_property>
                <obj_property name="isExpanded"></obj_property>
-               <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout.Wh_1" type="array">
-                  <obj_property name="ElementShortName">.Wh_1[11:0]</obj_property>
-                  <obj_property name="ObjectShortName">.Wh_1[11:0]</obj_property>
-               </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout.Wh_2" type="array">
-                  <obj_property name="ElementShortName">.Wh_2[11:0]</obj_property>
-                  <obj_property name="ObjectShortName">.Wh_2[11:0]</obj_property>
-               </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout.Wh_3" type="array">
-                  <obj_property name="ElementShortName">.Wh_3[11:0]</obj_property>
-                  <obj_property name="ObjectShortName">.Wh_3[11:0]</obj_property>
-               </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout.Wh_4" type="array">
-                  <obj_property name="ElementShortName">.Wh_4[11:0]</obj_property>
-                  <obj_property name="ObjectShortName">.Wh_4[11:0]</obj_property>
-               </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout.Wh_5" type="array">
-                  <obj_property name="ElementShortName">.Wh_5[11:0]</obj_property>
-                  <obj_property name="ObjectShortName">.Wh_5[11:0]</obj_property>
-               </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout.Wh_6" type="array">
-                  <obj_property name="ElementShortName">.Wh_6[11:0]</obj_property>
-                  <obj_property name="ObjectShortName">.Wh_6[11:0]</obj_property>
-               </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout.num_of_nodes" type="array">
-                  <obj_property name="ElementShortName">.num_of_nodes[2:0]</obj_property>
-                  <obj_property name="ObjectShortName">.num_of_nodes[2:0]</obj_property>
-                  <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-               </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout.source_node_flag" type="logic">
-                  <obj_property name="ElementShortName">.source_node_flag</obj_property>
-                  <obj_property name="ObjectShortName">.source_node_flag</obj_property>
-               </wvobject>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_DMVM/product_size_reg" type="array">
                <obj_property name="ElementShortName">product_size_reg[3:0]</obj_property>
@@ -712,5 +759,147 @@
             </wvobject>
          </wvobject>
       </wvobject>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/w_valid_i" type="logic">
+      <obj_property name="ElementShortName">w_valid_i</obj_property>
+      <obj_property name="ObjectShortName">w_valid_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/Weight_BRAM_addrb" type="array">
+      <obj_property name="ElementShortName">Weight_BRAM_addrb[4:0]</obj_property>
+      <obj_property name="ObjectShortName">Weight_BRAM_addrb[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/Weight_BRAM_dout" type="array">
+      <obj_property name="ElementShortName">Weight_BRAM_dout[7:0]</obj_property>
+      <obj_property name="ObjectShortName">Weight_BRAM_dout[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="group290" type="group">
+      <obj_property name="label">Weight - Col 1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_BRAM /addra" type="array">
+         <obj_property name="ElementShortName">addra[2:0]</obj_property>
+         <obj_property name="ObjectShortName">addra[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_BRAM /ena" type="logic">
+         <obj_property name="ElementShortName">ena</obj_property>
+         <obj_property name="ObjectShortName">ena</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_BRAM /din" type="array">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group291" type="group">
+      <obj_property name="label">Weight - Col 2</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_BRAM /addra" type="array">
+         <obj_property name="ElementShortName">addra[2:0]</obj_property>
+         <obj_property name="ObjectShortName">addra[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_BRAM /ena" type="logic">
+         <obj_property name="ElementShortName">ena</obj_property>
+         <obj_property name="ObjectShortName">ena</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_BRAM /din" type="array">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group295" type="group">
+      <obj_property name="label">Weight - Col 3</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[2].u_mult_weight_BRAM /addra" type="array">
+         <obj_property name="ElementShortName">addra[2:0]</obj_property>
+         <obj_property name="ObjectShortName">addra[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[2].u_mult_weight_BRAM /ena" type="logic">
+         <obj_property name="ElementShortName">ena</obj_property>
+         <obj_property name="ObjectShortName">ena</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[2].u_mult_weight_BRAM /din" type="array">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group299" type="group">
+      <obj_property name="label">Weight - Col 4</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[3].u_mult_weight_BRAM /addra" type="array">
+         <obj_property name="ElementShortName">addra[2:0]</obj_property>
+         <obj_property name="ObjectShortName">addra[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[3].u_mult_weight_BRAM /ena" type="logic">
+         <obj_property name="ElementShortName">ena</obj_property>
+         <obj_property name="ObjectShortName">ena</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[3].u_mult_weight_BRAM /din" type="array">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group303" type="group">
+      <obj_property name="label">Weight - Col 5</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[4].u_mult_weight_BRAM /addra" type="array">
+         <obj_property name="ElementShortName">addra[2:0]</obj_property>
+         <obj_property name="ObjectShortName">addra[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[4].u_mult_weight_BRAM /ena" type="logic">
+         <obj_property name="ElementShortName">ena</obj_property>
+         <obj_property name="ObjectShortName">ena</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[4].u_mult_weight_BRAM /din" type="array">
+      <obj_property name="ElementShortName">din[7:0]</obj_property>
+      <obj_property name="ObjectShortName">din[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="group307" type="group">
+      <obj_property name="label">Weight - Col 6</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[5].u_mult_weight_BRAM /addra" type="array">
+         <obj_property name="ElementShortName">addra[2:0]</obj_property>
+         <obj_property name="ObjectShortName">addra[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[5].u_mult_weight_BRAM /ena" type="logic">
+         <obj_property name="ElementShortName">ena</obj_property>
+         <obj_property name="ObjectShortName">ena</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[5].u_mult_weight_BRAM /din" type="array">
+         <obj_property name="ElementShortName">din[7:0]</obj_property>
+         <obj_property name="ObjectShortName">din[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_BRAM /memory" type="array">
+         <obj_property name="ElementShortName">memory[0:4][7:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[0:4][7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_BRAM /memory" type="array">
+      <obj_property name="ElementShortName">memory[0:4][7:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:4][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[2].u_mult_weight_BRAM /memory" type="array">
+      <obj_property name="ElementShortName">memory[0:4][7:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:4][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[3].u_mult_weight_BRAM /memory" type="array">
+      <obj_property name="ElementShortName">memory[0:4][7:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:4][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[4].u_mult_weight_BRAM /memory" type="array">
+      <obj_property name="ElementShortName">memory[0:4][7:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:4][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[5].u_mult_weight_BRAM /memory" type="array">
+      <obj_property name="ElementShortName">memory[0:4][7:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:4][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/w_ready_o" type="logic">
+      <obj_property name="ElementShortName">w_ready_o</obj_property>
+      <obj_property name="ObjectShortName">w_ready_o</obj_property>
    </wvobject>
 </wave_config>

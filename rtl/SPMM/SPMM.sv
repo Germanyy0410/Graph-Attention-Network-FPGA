@@ -191,7 +191,8 @@ module SPMM import params_pkg::*;
   //* ======== Pop data into SP-PE ==========
   assign new_row_enable = ((row_counter_reg == 1 && row_length >= 2) || (row_length == 1)) && spmm_valid_q1;
 
-  assign row_counter    = (((row_counter_reg == row_length - 1 && row_length > 1) || (row_counter_reg == 0 && row_length_nxt == 1)) && spmm_valid_q1) || (row_counter_reg == 0 && row_length == 1 && (spmm_valid_i ^ spmm_valid_q1))
+  assign row_counter    = (((row_counter_reg == row_length - 1 && row_length > 1) || (row_counter_reg == 0 && row_length_nxt == 1)) && spmm_valid_q1)
+                          || (row_counter_reg == 0 && row_length == 1 && (spmm_valid_i ^ spmm_valid_q1))
                           ? 0
                           : ((((row_counter_reg < row_length - 1) && (row_length > 1)) || (row_length == 1 && row_length_nxt > 1)) && spmm_valid_i)
                             ? (row_counter_reg + 1)

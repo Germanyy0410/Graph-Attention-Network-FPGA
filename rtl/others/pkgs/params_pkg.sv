@@ -52,7 +52,7 @@ package params_pkg;
   localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS);
 
   // -- [WH]
-  parameter DOT_PRODUCT_SIZE      = H_NUM_OF_COLS;
+  localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS;
   localparam WH_1_ADDR_W          = $clog2(WH_1_DEPTH);
   localparam WH_2_ADDR_W          = $clog2(WH_2_DEPTH);
   localparam WH_RESULT_WIDTH      = WH_DATA_WIDTH * W_NUM_OF_COLS;

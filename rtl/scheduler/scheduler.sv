@@ -2,8 +2,8 @@
 
 module scheduler import params_pkg::*;
 (
-  input                             clk                                       ,
-  input                             rst_n                                     ,
+  input                                                 clk                   ,
+  input                                                 rst_n                 ,
 
   // -- Weight BRAM
   input   [DATA_WIDTH-1:0]                              Weight_BRAM_dout      ,
@@ -31,7 +31,6 @@ module scheduler import params_pkg::*;
     .w_ready_o                (w_ready_o              ),
 
     .Weight_BRAM_dout         (Weight_BRAM_dout       ),
-    .Weight_BRAM_enb          (Weight_BRAM_enb        ),
     .Weight_BRAM_addrb        (Weight_BRAM_addrb      ),
 
     .mult_weight_addrb        (mult_weight_addrb      ),
