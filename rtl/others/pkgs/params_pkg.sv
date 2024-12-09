@@ -1,11 +1,24 @@
 package params_pkg;
+  import define_pkg::*;
+
   //* =============== parameter ===============
+`ifdef CORA_DATASET_EN
+  parameter H_NUM_SPARSE_DATA     = 242101;
+  parameter TOTAL_NODES           = 13264;
+  parameter NUM_FEATURE_IN        = 1433;
+  parameter NUM_FEATURE_OUT       = 16;
+  parameter NUM_SUBGRAPHS         = 2708;
+  parameter MAX_NODES             = 168;
+`endif
+
+`ifdef SIMULATION
   parameter H_NUM_SPARSE_DATA     = 500;
   parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 10;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 25;
+  parameter NUM_SUBGRAPHS         = 26;
   parameter MAX_NODES             = 6;
+`endif
 
   // -- Configurable data width
   parameter DATA_WIDTH            = 8;
