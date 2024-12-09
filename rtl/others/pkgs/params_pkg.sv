@@ -20,8 +20,7 @@ package params_pkg;
   localparam signed ZERO          = 20'b0000_0000_0000_0000_0000;
 
   // -- [DEPTH]
-  localparam COL_IDX_DEPTH        = H_NUM_SPARSE_DATA;
-  localparam VALUE_DEPTH          = H_NUM_SPARSE_DATA;
+  localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA;
   localparam NODE_INFO_DEPTH      = TOTAL_NODES;
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN;
   localparam WH_1_DEPTH           = 120;
@@ -30,12 +29,10 @@ package params_pkg;
   // -- [H]
   localparam H_NUM_OF_ROWS        = TOTAL_NODES;
   localparam H_NUM_OF_COLS        = NUM_FEATURE_IN;
-  // -- [H] col_idx
-  localparam COL_IDX_WIDTH        = $clog2(H_NUM_OF_COLS);
-  localparam COL_IDX_ADDR_W       = $clog2(COL_IDX_DEPTH);
   // -- [H] value
-  localparam VALUE_WIDTH          = DATA_WIDTH;
-  localparam VALUE_ADDR_W         = $clog2(VALUE_DEPTH);
+  localparam COL_IDX_WIDTH        = $clog2(H_NUM_OF_COLS);
+  localparam H_DATA_WIDTH         = DATA_WIDTH + COL_IDX_WIDTH;
+  localparam H_DATA_ADDR_W        = $clog2(H_DATA_DEPTH);
   // -- [H] node_info
   localparam ROW_LEN_WIDTH        = $clog2(H_NUM_OF_COLS);
   localparam NUM_NODE_WIDTH       = $clog2(MAX_NODES);

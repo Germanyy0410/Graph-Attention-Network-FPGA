@@ -5,19 +5,12 @@ module mem_ctrl import params_pkg::*;
   input                             clk                         ,
   input                             rst_n                       ,
 
-  input   [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_din          ,
-  input                             H_col_idx_BRAM_ena          ,
-  input   [COL_IDX_ADDR_W-1:0]      H_col_idx_BRAM_addra        ,
-  input   [COL_IDX_ADDR_W-1:0]      H_col_idx_BRAM_addrb        ,
-  output  [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_dout         ,
-  input                             H_col_idx_BRAM_load_done    ,
-
-  input   [VALUE_WIDTH-1:0]         H_value_BRAM_din            ,
-  input                             H_value_BRAM_ena            ,
-  input   [VALUE_ADDR_W-1:0]        H_value_BRAM_addra          ,
-  input   [VALUE_ADDR_W-1:0]        H_value_BRAM_addrb          ,
-  output  [VALUE_WIDTH-1:0]         H_value_BRAM_dout           ,
-  input                             H_value_BRAM_load_done      ,
+  input   [H_DATA_WIDTH-1:0]        H_data_BRAM_din             ,
+  input                             H_data_BRAM_ena             ,
+  input   [H_DATA_ADDR_W-1:0]       H_data_BRAM_addra           ,
+  input   [H_DATA_ADDR_W-1:0]       H_data_BRAM_addrb           ,
+  output  [H_DATA_WIDTH-1:0]        H_data_BRAM_dout            ,
+  input                             H_data_BRAM_load_done       ,
 
   input   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_din        ,
   input                             H_node_info_BRAM_ena        ,
@@ -77,32 +70,17 @@ module mem_ctrl import params_pkg::*;
   //* ========================= MEMORY =========================
   (* dont_touch = "yes" *)
   BRAM #(
-    .DATA_WIDTH   (COL_IDX_WIDTH        ),
-    .DEPTH        (COL_IDX_DEPTH        ),
+    .DATA_WIDTH   (H_DATA_WIDTH         ),
+    .DEPTH        (H_DATA_DEPTH         ),
     .CLK_LATENCY  (1                    )
-  ) u_H_col_idx_BRAM (
+  ) u_H_data_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
-    .din          (H_col_idx_BRAM_din   ),
-    .addra        (H_col_idx_BRAM_addra ),
-    .ena          (H_col_idx_BRAM_ena   ),
-    .addrb        (H_col_idx_BRAM_addrb ),
-    .dout         (H_col_idx_BRAM_dout  )
-  );
-
-  (* dont_touch = "yes" *)
-  BRAM #(
-    .DATA_WIDTH   (VALUE_WIDTH          ),
-    .DEPTH        (VALUE_DEPTH          ),
-    .CLK_LATENCY  (1                    )
-  ) u_H_value_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (H_value_BRAM_din     ),
-    .addra        (H_value_BRAM_addra   ),
-    .ena          (H_value_BRAM_ena     ),
-    .addrb        (H_value_BRAM_addrb   ),
-    .dout         (H_value_BRAM_dout    )
+    .din          (H_data_BRAM_din      ),
+    .addra        (H_data_BRAM_addra    ),
+    .ena          (H_data_BRAM_ena      ),
+    .addrb        (H_data_BRAM_addrb    ),
+    .dout         (H_data_BRAM_dout     )
   );
 
   (* dont_touch = "yes" *)

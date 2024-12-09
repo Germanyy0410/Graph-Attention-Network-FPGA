@@ -7,12 +7,9 @@ module SPMM import params_pkg::*;
 
   input                                                 spmm_valid_i              ,
   output  [W_NUM_OF_COLS-1:0]                           pe_ready_o                ,
-  // -- H_col_idx BRAM
-  input   [COL_IDX_WIDTH-1:0]                           H_col_idx_BRAM_dout       ,
-  output  [COL_IDX_ADDR_W-1:0]                          H_col_idx_BRAM_addrb      ,
-  // -- H_value BRAM
-  input   [VALUE_WIDTH-1:0]                             H_value_BRAM_dout         ,
-  output  [VALUE_ADDR_W-1:0]                            H_value_BRAM_addrb        ,
+  // -- H_data BRAM
+  input   [H_DATA_WIDTH-1:0]                            H_data_BRAM_dout          ,
+  output  [H_DATA_ADDR_W-1:0]                           H_data_BRAM_addrb         ,
   // -- H_node_info BRAM
   input   [NODE_INFO_WIDTH-1:0]                         H_node_info_BRAM_dout     ,
   input   [NODE_INFO_WIDTH-1:0]                         H_node_info_BRAM_dout_nxt ,
@@ -36,14 +33,14 @@ module SPMM import params_pkg::*;
   logic [ROW_LEN_WIDTH-1:0]                       row_counter_reg           ;
 
   // -- Address for H_BRAM
-  logic [COL_IDX_ADDR_W-1:0]                      data_addr                 ;
-  logic [COL_IDX_ADDR_W-1:0]                      data_addr_reg             ;
+  logic [H_DATA_ADDR_W-1:0]                       data_addr                 ;
+  logic [H_DATA_ADDR_W-1:0]                       data_addr_reg             ;
   logic [NODE_INFO_ADDR_W-1:0]                    node_info_addr            ;
   logic [NODE_INFO_ADDR_W-1:0]                    node_info_addr_reg        ;
 
   // -- current data from BRAM
   logic [COL_IDX_WIDTH-1:0]                       col_idx                   ;
-  logic [VALUE_WIDTH-1:0]                         value                     ;
+  logic [DATA_WIDTH-1:0]                          value                     ;
   logic [ROW_LEN_WIDTH-1:0]                       row_length                ;
   logic                                           source_node_flag          ;
   logic [NUM_NODE_WIDTH-1:0]                      num_of_nodes              ;
@@ -198,7 +195,7 @@ module SPMM import params_pkg::*;
                             ? (row_counter_reg + 1)
                             : row_counter_reg;
 
-  assign data_addr      = (spmm_valid_q1 && data_addr_reg < {COL_IDX_ADDR_W{1'b1}})
+  assign data_addr      = (spmm_valid_q1 && data_addr_reg < {H_DATA_ADDR_W{1'b1}})
                           ? (data_addr_reg + 1)
                           : data_addr_reg;
 
@@ -206,13 +203,9 @@ module SPMM import params_pkg::*;
                           ? (node_info_addr_reg + 1)
                           : node_info_addr_reg;
 
-  // -- col_idx
-  assign col_idx                = H_col_idx_BRAM_dout;
-  assign H_col_idx_BRAM_addrb   = data_addr_reg;
-
-  // -- value
-  assign value                  = H_value_BRAM_dout;
-  assign H_value_BRAM_addrb     = data_addr_reg;
+  // -- col_idx & value
+  assign { col_idx, value } = H_data_BRAM_dout;
+  assign H_data_BRAM_addrb  = data_addr_reg;
 
   // -- node_info
   assign { row_length, num_of_nodes, source_node_flag } = H_node_info_BRAM_dout;

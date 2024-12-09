@@ -5,17 +5,11 @@ module top import params_pkg::*;
   input                             clk                         ,
   input                             rst_n                       ,
 
-  input   [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_din          ,
-  input                             H_col_idx_BRAM_ena          ,
-  input   [COL_IDX_ADDR_W-1:0]      H_col_idx_BRAM_addra        ,
-  output  [COL_IDX_ADDR_W-1:0]      H_col_idx_BRAM_addrb        ,
-  input                             H_col_idx_BRAM_load_done    ,
-
-  input   [VALUE_WIDTH-1:0]         H_value_BRAM_din            ,
-  input                             H_value_BRAM_ena            ,
-  input   [VALUE_ADDR_W-1:0]        H_value_BRAM_addra          ,
-  output  [VALUE_ADDR_W-1:0]        H_value_BRAM_addrb          ,
-  input                             H_value_BRAM_load_done      ,
+  input   [H_DATA_WIDTH-1:0]        H_data_BRAM_din             ,
+  input                             H_data_BRAM_ena             ,
+  input   [H_DATA_ADDR_W-1:0]       H_data_BRAM_addra           ,
+  output  [H_DATA_ADDR_W-1:0]       H_data_BRAM_addrb           ,
+  input                             H_data_BRAM_load_done       ,
 
   input   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_din        ,
   input                             H_node_info_BRAM_ena        ,
@@ -35,8 +29,7 @@ module top import params_pkg::*;
   output  [A_ADDR_W-1:0]            a_BRAM_addrb                ,
   input                             a_BRAM_load_done
 );
-  logic   [VALUE_WIDTH-1:0]         H_value_BRAM_dout           ;
-  logic   [COL_IDX_WIDTH-1:0]       H_col_idx_BRAM_dout         ;
+  logic   [H_DATA_WIDTH-1:0]        H_data_BRAM_dout            ;
   logic   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout       ;
   logic   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout_nxt   ;
   logic   [DATA_WIDTH-1:0]          Weight_BRAM_dout            ;
@@ -113,18 +106,15 @@ module top import params_pkg::*;
   logic                       spmm_valid  ;
   logic [W_NUM_OF_COLS-1:0]   pe_ready    ;
 
-  assign spmm_valid = (H_col_idx_BRAM_load_done && H_value_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
+  assign spmm_valid = (H_data_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
 
   (* dont_touch = "yes" *)
   SPMM u_SPMM (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
 
-    .H_col_idx_BRAM_dout        (H_col_idx_BRAM_dout        ),
-    .H_col_idx_BRAM_addrb       (H_col_idx_BRAM_addrb       ),
-
-    .H_value_BRAM_dout          (H_value_BRAM_dout          ),
-    .H_value_BRAM_addrb         (H_value_BRAM_addrb         ),
+    .H_data_BRAM_dout           (H_data_BRAM_dout           ),
+    .H_data_BRAM_addrb          (H_data_BRAM_addrb          ),
 
     .H_node_info_BRAM_dout      (H_node_info_BRAM_dout      ),
     .H_node_info_BRAM_dout_nxt  (H_node_info_BRAM_dout_nxt  ),
