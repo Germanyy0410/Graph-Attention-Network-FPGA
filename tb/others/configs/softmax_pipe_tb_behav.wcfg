@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="softmax_pipe_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="define_pkg" />
+            <top_module name="glbl" />
+            <top_module name="params_pkg" />
+            <top_module name="softmax_pipe_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,599.001 ns"></ZoomEndTime>
+      <Cursor1Time time="0.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="332"></NameColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="23" />
+   <wvobject fp_name="/softmax_pipe_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/coef_FIFO_dout" type="array">
+      <obj_property name="ElementShortName">coef_FIFO_dout[7:0]</obj_property>
+      <obj_property name="ObjectShortName">coef_FIFO_dout[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/coef_FIFO_rd_vld" type="logic">
+      <obj_property name="ElementShortName">coef_FIFO_rd_vld</obj_property>
+      <obj_property name="ObjectShortName">coef_FIFO_rd_vld</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/e_node_FIFO_dout" type="array">
+      <obj_property name="ElementShortName">e_node_FIFO_dout[2:0]</obj_property>
+      <obj_property name="ObjectShortName">e_node_FIFO_dout[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/e_node_FIFO_rd_vld" type="logic">
+      <obj_property name="ElementShortName">e_node_FIFO_rd_vld</obj_property>
+      <obj_property name="ObjectShortName">e_node_FIFO_rd_vld</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/exp" type="array">
+      <obj_property name="ElementShortName">exp[102:0]</obj_property>
+      <obj_property name="ObjectShortName">exp[102:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/sum" type="array">
+      <obj_property name="ElementShortName">sum[102:0]</obj_property>
+      <obj_property name="ObjectShortName">sum[102:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/node_counter_reg" type="array">
+      <obj_property name="ElementShortName">node_counter_reg[2:0]</obj_property>
+      <obj_property name="ObjectShortName">node_counter_reg[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/dividend_FIFO_din" type="array">
+      <obj_property name="ElementShortName">dividend_FIFO_din[102:0]</obj_property>
+      <obj_property name="ObjectShortName">dividend_FIFO_din[102:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/dividend_FIFO_wr_vld" type="logic">
+      <obj_property name="ElementShortName">dividend_FIFO_wr_vld</obj_property>
+      <obj_property name="ObjectShortName">dividend_FIFO_wr_vld</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_din" type="array">
+      <obj_property name="ElementShortName">divisor_FIFO_din[105:0]</obj_property>
+      <obj_property name="ObjectShortName">divisor_FIFO_din[105:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_wr_vld" type="logic">
+      <obj_property name="ElementShortName">divisor_FIFO_wr_vld</obj_property>
+      <obj_property name="ObjectShortName">divisor_FIFO_wr_vld</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/dividend_FIFO_dout" type="array">
+      <obj_property name="ElementShortName">dividend_FIFO_dout[102:0]</obj_property>
+      <obj_property name="ObjectShortName">dividend_FIFO_dout[102:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/dividend_FIFO_rd_vld" type="logic">
+      <obj_property name="ElementShortName">dividend_FIFO_rd_vld</obj_property>
+      <obj_property name="ObjectShortName">dividend_FIFO_rd_vld</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_dout" type="array">
+      <obj_property name="ElementShortName">divisor_FIFO_dout[105:0]</obj_property>
+      <obj_property name="ObjectShortName">divisor_FIFO_dout[105:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_rd_vld" type="logic">
+      <obj_property name="ElementShortName">divisor_FIFO_rd_vld</obj_property>
+      <obj_property name="ObjectShortName">divisor_FIFO_rd_vld</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/dividend" type="array">
+      <obj_property name="ElementShortName">dividend[102:0]</obj_property>
+      <obj_property name="ObjectShortName">dividend[102:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/divisor" type="array">
+      <obj_property name="ElementShortName">divisor[102:0]</obj_property>
+      <obj_property name="ObjectShortName">divisor[102:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/div_num_of_nodes" type="array">
+      <obj_property name="ElementShortName">div_num_of_nodes[2:0]</obj_property>
+      <obj_property name="ObjectShortName">div_num_of_nodes[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/div_valid" type="logic">
+      <obj_property name="ElementShortName">div_valid</obj_property>
+      <obj_property name="ObjectShortName">div_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/div_ready" type="logic">
+      <obj_property name="ElementShortName">div_ready</obj_property>
+      <obj_property name="ObjectShortName">div_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/out" type="array">
+      <obj_property name="ElementShortName">out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">out[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">UNSIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">31</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+</wave_config>

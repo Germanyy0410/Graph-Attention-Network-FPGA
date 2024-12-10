@@ -80,11 +80,8 @@ module softmax import params_pkg::*;
     exp_done  = exp_done_reg;
     arr_size  = arr_size_reg;
     sum_extra = sum_extra_reg;
-
-    for(i = 0; i < MAX_NODES; i = i + 1) begin
-      exp[i]      = exp_reg[i];
-      exp_calc[i] = exp_calc_reg[i];
-    end
+    exp       = exp_reg;
+    exp_calc  = exp_calc_reg;
 
     if(sm_valid_i && ~exp_done_reg) begin
       for(i = 0; i < MAX_NODES; i = i + 1) begin

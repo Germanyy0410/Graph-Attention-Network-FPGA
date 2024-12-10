@@ -1,7 +1,7 @@
 module BRAM #(
   //* ========== parameter ===========
   parameter DATA_WIDTH      = 201,
-  parameter DEPTH           = 120,
+  parameter DEPTH           = 13264,
   parameter CLK_LATENCY     = 1,
 
   //* ========= localparams ==========
@@ -39,3 +39,4 @@ module BRAM #(
     data_q1 <= data;
   end
 endmodule
+

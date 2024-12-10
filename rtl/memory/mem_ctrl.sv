@@ -160,33 +160,33 @@ module mem_ctrl import params_pkg::*;
   );
 
   (* dont_touch = "yes" *)
-  fifo #(
+  FIFO #(
     .DATA_WIDTH (SOFTMAX_WIDTH          ),
     .FIFO_DEPTH (20                     )
   ) u_softmax_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
-    .data_i     (softmax_FIFO_din       ),
-    .data_o     (softmax_FIFO_dout      ),
-    .wr_valid_i (softmax_FIFO_wr_valid  ),
-    .rd_valid_i (softmax_FIFO_rd_valid  ),
-    .empty_o    (softmax_FIFO_empty     ),
-    .full_o     (softmax_FIFO_full      )
+    .din        (softmax_FIFO_din       ),
+    .dout       (softmax_FIFO_dout      ),
+    .wr_vld     (softmax_FIFO_wr_valid  ),
+    .rd_vld     (softmax_FIFO_rd_valid  ),
+    .empty      (softmax_FIFO_empty     ),
+    .full       (softmax_FIFO_full      )
   );
 
   (* dont_touch = "yes" *)
-  fifo #(
+  FIFO #(
     .DATA_WIDTH (AGGR_WIDTH             ),
     .FIFO_DEPTH (20                     )
   ) u_aggregator_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
-    .data_i     (aggr_FIFO_din          ),
-    .data_o     (aggr_FIFO_dout         ),
-    .wr_valid_i (aggr_FIFO_wr_valid     ),
-    .rd_valid_i (aggr_FIFO_rd_valid     ),
-    .empty_o    (aggr_FIFO_empty        ),
-    .full_o     (aggr_FIFO_full         )
+    .din        (aggr_FIFO_din          ),
+    .dout       (aggr_FIFO_dout         ),
+    .wr_vld     (aggr_FIFO_wr_valid     ),
+    .rd_vld     (aggr_FIFO_rd_valid     ),
+    .empty      (aggr_FIFO_empty        ),
+    .full       (aggr_FIFO_full         )
   );
   //* ==========================================================
 endmodule

@@ -107,21 +107,21 @@ module SPMM import params_pkg::*;
     end
   endgenerate
 
-  fifo #(
+  FIFO #(
     .DATA_WIDTH (NODE_INFO_WIDTH  ),
     .FIFO_DEPTH (300              )
   ) node_info_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
 
-    .data_i     (H_node_info_BRAM_dout  ),
-    .data_o     (ff_data_o              ),
+    .din        (H_node_info_BRAM_dout  ),
+    .dout       (ff_data_o              ),
 
-    .wr_valid_i (ff_wr_valid            ),
-    .rd_valid_i (ff_rd_valid            ),
+    .wr_vld     (ff_wr_valid            ),
+    .rd_vld     (ff_rd_valid            ),
 
-    .empty_o    (ff_empty               ),
-    .full_o     (ff_full                )
+    .empty      (ff_empty               ),
+    .full       (ff_full                )
   );
   //* =======================================
 

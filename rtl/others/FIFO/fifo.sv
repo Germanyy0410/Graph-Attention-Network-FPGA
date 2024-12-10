@@ -1,20 +1,20 @@
-module fifo #(
-  parameter DATA_WIDTH = 8,
-  parameter FIFO_DEPTH = 16
+module FIFO #(
+  parameter DATA_WIDTH = 40,
+  parameter FIFO_DEPTH = 2708
 )(
   input                                 clk,
   input                                 rst_n,
 
-  input     [DATA_WIDTH-1:0]            data_i,
-  output    [DATA_WIDTH-1:0]            data_o,
+  input     [DATA_WIDTH-1:0]            din,
+  output    [DATA_WIDTH-1:0]            dout,
 
-  input                                 wr_valid_i,
-  input                                 rd_valid_i,
+  input                                 wr_vld,
+  input                                 rd_vld,
 
   output                                almost_empty_o,
-  output                                empty_o,
+  output                                empty,
   output                                almost_full_o,
-  output                                full_o
+  output                                full
 );
 
   localparam ADDR_WIDTH = $clog2(FIFO_DEPTH);
@@ -32,21 +32,21 @@ module fifo #(
   logic [ADDR_WIDTH:0]        rd_addr                       ;
   // ------------------------------------------------------
 
-  assign data_o = buffer[rd_addr_map];
+  assign dout = buffer[rd_addr_map];
 
   assign wr_addr_inc  = wr_addr + 1'b1;
   assign rd_addr_inc  = rd_addr + 1'b1;
   assign wr_addr_map  = wr_addr[ADDR_WIDTH-1:0];
   assign rd_addr_map  = rd_addr[ADDR_WIDTH-1:0];
 
-  assign empty_o        = (wr_addr == rd_addr);
+  assign empty          = (wr_addr == rd_addr);
   assign almost_empty_o = (rd_addr_inc == wr_addr);
-  assign full_o         = (wr_addr_map == rd_addr_map) & (wr_addr[ADDR_WIDTH] ^ rd_addr[ADDR_WIDTH]);
+  assign full           = (wr_addr_map == rd_addr_map) & (wr_addr[ADDR_WIDTH] ^ rd_addr[ADDR_WIDTH]);
   assign almost_full_o  = (wr_addr_map + 1'b1 == rd_addr_map);
 
   generate
     for (addr = 0; addr < FIFO_DEPTH; addr = addr + 1) begin
-      assign buffer_nxt[addr] = (wr_addr_map == addr) ? data_i : buffer[addr];
+      assign buffer_nxt[addr] = (wr_addr_map == addr) ? din : buffer[addr];
     end
   endgenerate
 
@@ -57,7 +57,7 @@ module fifo #(
         if (!rst_n) begin
           buffer[addr] <= {DATA_WIDTH{1'b0}};
         end
-        else if (wr_valid_i & !full_o) begin
+        else if (wr_vld & !full) begin
           buffer[addr] <= buffer_nxt[addr];
         end
       end
@@ -68,7 +68,7 @@ module fifo #(
     if (!rst_n) begin
       wr_addr <= 1'b0;
     end
-    else if (wr_valid_i & !full_o) begin
+    else if (wr_vld & !full) begin
       wr_addr <= wr_addr_inc;
     end
   end
@@ -77,7 +77,7 @@ module fifo #(
     if (!rst_n) begin
       rd_addr <= 0;
     end
-    else if (rd_valid_i & !empty_o) begin
+    else if (rd_vld & !empty) begin
       rd_addr <= rd_addr_inc;
     end
   end
