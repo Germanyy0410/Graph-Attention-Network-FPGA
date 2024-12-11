@@ -13,15 +13,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="761.501 ns"></ZoomEndTime>
-      <Cursor1Time time="263.000 ns"></Cursor1Time>
+      <ZoomStartTime time="350.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,111.501 ns"></ZoomEndTime>
+      <Cursor1Time time="667.500 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="390"></NameColumnWidth>
       <ValueColumnWidth column_width="108"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="16" />
    <wvobject fp_name="/softmax_pipe_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -68,6 +68,10 @@
          <obj_property name="ElementShortName">node_counter_reg[2:0]</obj_property>
          <obj_property name="ObjectShortName">node_counter_reg[2:0]</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject fp_name="/softmax_pipe_tb/dut/num_node_BRAM_addrb" type="array">
+      <obj_property name="ElementShortName">num_node_BRAM_addrb[4:0]</obj_property>
+      <obj_property name="ObjectShortName">num_node_BRAM_addrb[4:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/softmax_pipe_tb/dut/sum" type="array">
       <obj_property name="ElementShortName">sum[102:0]</obj_property>
