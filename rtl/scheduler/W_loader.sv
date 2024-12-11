@@ -2,17 +2,17 @@
 
 module W_loader import params_pkg::*;
 (
-  input                                                 clk               ,
-  input                                                 rst_n             ,
+  input                                                 clk                     ,
+  input                                                 rst_n                   ,
 
-  input                                                 w_valid_i         ,
-  output                                                w_ready_o         ,
+  input                                                 w_valid_i               ,
+  output                                                w_ready_o               ,
 
-  input   [DATA_WIDTH-1:0]                              Weight_BRAM_dout  ,
-  output  [WEIGHT_ADDR_W-1:0]                           Weight_BRAM_addrb ,
+  input   [DATA_WIDTH-1:0]                              Weight_BRAM_dout        ,
+  output  [WEIGHT_ADDR_W-1:0]                           Weight_BRAM_addrb       ,
 
-  output  [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout  ,
-  input   [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb
+  output  [W_NUM_OF_COLS*DATA_WIDTH-1:0]                mult_weight_dout_flat   ,
+  input   [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]        mult_weight_addrb_flat
 );
 
   logic [WEIGHT_ADDR_W:0]                             addr                ;
@@ -30,6 +30,12 @@ module W_loader import params_pkg::*;
   logic [W_COL_WIDTH-1:0]                             col_idx_reg         ;
   logic                                               w_valid_q1          ;
   logic                                               w_valid_q2          ;
+
+  logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout    ;
+  logic [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb   ;
+
+  assign mult_weight_dout_flat  = mult_weight_dout;
+  assign mult_weight_addrb      = mult_weight_addrb_flat;
   //* =======================================
 
 
@@ -66,7 +72,7 @@ module W_loader import params_pkg::*;
 
 
   //* ====== 2 cycles delay from BRAM =======
-  always_ff @(posedge clk) begin
+  always @(posedge clk) begin
     w_valid_q1 <= w_valid_i;
     w_valid_q2 <= w_valid_q1;
   end
@@ -74,7 +80,7 @@ module W_loader import params_pkg::*;
 
 
   //* ====== Generate mul-weight BRAM =======
-  always_comb begin
+  always @(*) begin
     addr    = addr_reg;
     col_idx = col_idx_reg;
     row_idx = row_idx_reg;
@@ -108,7 +114,7 @@ module W_loader import params_pkg::*;
     end
   endgenerate
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       addr_reg    <= 0;
       row_idx_reg <= 0;
@@ -125,7 +131,7 @@ module W_loader import params_pkg::*;
   //* ============= [w_ready] ===============
   assign w_ready = (row_idx_reg == W_NUM_OF_ROWS - 1) && (col_idx_reg == W_NUM_OF_COLS - 1) ? 1'b1 : w_ready_reg;
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (~rst_n) begin
       w_ready_reg <= 1'b0;
     end else begin

@@ -68,7 +68,7 @@ module DMVM_pipe import params_pkg::*;
   integer x;
 
   //* ============= skid input ==============
-  always_ff @(posedge clk) begin
+  always @(posedge clk) begin
     dmvm_valid_q1 <= dmvm_valid_i;
   end
   //* =======================================
@@ -111,13 +111,13 @@ module DMVM_pipe import params_pkg::*;
 
 
   //* ========= num_of_nodes logic ==========
-  always_ff @(posedge clk) begin
+  always @(posedge clk) begin
     num_of_nodes_q1 <= num_of_nodes;
   end
 
   assign num_of_nodes_fn = (sub_graph_done_reg) ? num_of_nodes_q1 : num_of_nodes_fn_reg;
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       num_of_nodes_fn_reg <= 0;
     end else begin
@@ -132,7 +132,7 @@ module DMVM_pipe import params_pkg::*;
 
   assign WH_addr = ((product_size_reg == 2 || product_size_reg == 3) && dmvm_valid_i) ? ((WH_addr_reg < WH_1_DEPTH - 1) ? (WH_addr_reg + 1) : 0) : WH_addr_reg;
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       WH_addr_reg <= 0;
     end else begin
@@ -143,7 +143,7 @@ module DMVM_pipe import params_pkg::*;
 
 
   //* ========== Sum Of Product =============
-  always_comb begin
+  always @(*) begin
     product_done = product_done_reg;
     product_size = product_size_reg;
     for (x = 0; x < HALF_A_SIZE; x = x + 1) begin
@@ -168,7 +168,7 @@ module DMVM_pipe import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       product_done_reg <= 0;
       product_size_reg <= HALF_A_SIZE;
@@ -185,7 +185,7 @@ module DMVM_pipe import params_pkg::*;
   //* ============== result =================
   assign result_done = (product_size_reg == 2 || product_size_reg == 3) ? 1'b1 : 1'b0;
 
-  always_comb begin
+  always @(*) begin
     idx = idx_reg;
     if ((idx_reg == num_of_nodes - 1) && (product_size_reg == 1)) begin
       idx = 0;
@@ -200,7 +200,7 @@ module DMVM_pipe import params_pkg::*;
     end
   endgenerate
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       idx_reg         <= 0;
       result_done_reg <= 0;
@@ -215,7 +215,7 @@ module DMVM_pipe import params_pkg::*;
 
 
   //* ========== ReLU activation ============
-  always_comb begin
+  always @(*) begin
     sub_graph_done = sub_graph_done_reg;
     if (sub_graph_done_reg) begin
       sub_graph_done = 1'b0;
@@ -226,7 +226,7 @@ module DMVM_pipe import params_pkg::*;
 
   generate
     for (i = 0; i < MAX_NODES; i = i + 1) begin
-      always_comb begin
+      always @(*) begin
         relu[i] = relu_reg[i];
 
         if (i < num_of_nodes_q1) begin
@@ -246,7 +246,7 @@ module DMVM_pipe import params_pkg::*;
     end
   endgenerate
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       relu_reg            <= '0;
       sub_graph_done_reg  <= 0;
@@ -259,7 +259,7 @@ module DMVM_pipe import params_pkg::*;
 
 
   //* ============ dmvm_ready ===============
-  always_comb begin
+  always @(*) begin
     dmvm_ready = dmvm_ready_reg;
     if (dmvm_ready_reg == 1'b1) begin
       dmvm_ready = 1'b0;
@@ -268,7 +268,7 @@ module DMVM_pipe import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       dmvm_ready_reg <= 0;
     end else begin

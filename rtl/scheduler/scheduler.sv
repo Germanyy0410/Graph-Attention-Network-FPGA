@@ -9,15 +9,15 @@ module scheduler import params_pkg::*;
   input   [DATA_WIDTH-1:0]                              Weight_BRAM_dout      ,
   output  [WEIGHT_ADDR_W-1:0]                           Weight_BRAM_addrb     ,
   input                                                 Weight_BRAM_load_done ,
-  input   [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb     ,
-  output  [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout      ,
+  input   [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]        mult_weight_addrb     ,
+  output  [W_NUM_OF_COLS*DATA_WIDTH-1:0]                mult_weight_dout      ,
   output                                                w_ready_o             ,
 
   // -- a BRAM
   input   [DATA_WIDTH-1:0]                              a_BRAM_dout           ,
   output  [A_ADDR_W-1:0]                                a_BRAM_addrb          ,
   input                                                 a_BRAM_load_done      ,
-  output  [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a                     ,
+  output  [A_DEPTH*DATA_WIDTH-1:0]                      a                     ,
   output                                                a_ready_o
 );
 
@@ -33,8 +33,8 @@ module scheduler import params_pkg::*;
     .Weight_BRAM_dout         (Weight_BRAM_dout       ),
     .Weight_BRAM_addrb        (Weight_BRAM_addrb      ),
 
-    .mult_weight_addrb        (mult_weight_addrb      ),
-    .mult_weight_dout         (mult_weight_dout       )
+    .mult_weight_addrb_flat   (mult_weight_addrb      ),
+    .mult_weight_dout_flat    (mult_weight_dout       )
   );
   //* ==========================================================
 
@@ -51,7 +51,7 @@ module scheduler import params_pkg::*;
     .a_BRAM_enb       (a_BRAM_enb             ),
     .a_BRAM_addrb     (a_BRAM_addrb           ),
 
-    .a_o              (a                      )
+    .a_flat_o         (a                      )
   );
   //* ==========================================================
 endmodule

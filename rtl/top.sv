@@ -1,6 +1,7 @@
-`include "./others/pkgs/params.vh"
+`include "./others/pkgs/params_pkg.sv"
 
-module top (
+module top import params_pkg::*;
+(
   input                             clk                         ,
   input                             rst_n                       ,
 

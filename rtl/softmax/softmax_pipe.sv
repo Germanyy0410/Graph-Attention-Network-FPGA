@@ -14,23 +14,14 @@ module softmax_pipe import params_pkg::*;
   input                               coef_FIFO_full      ,
   output                              coef_FIFO_rd_vld    ,
 
-  input   [NUM_NODE_WIDTH-1:0]        e_node_FIFO_dout    ,
-  input                               e_node_FIFO_empty   ,
-  input                               e_node_FIFO_full    ,
-  output                              e_node_FIFO_rd_vld  ,
+  input   [NUM_NODE_WIDTH-1:0]        num_node_BRAM_dout  ,
+  output  [NUM_NODE_ADDR_W-1:0]       num_node_BRAM_addrb ,
 
   output  [ALPHA_DATA_WIDTH-1:0]      alpha_FIFO_din      ,
   input                               alpha_FIFO_empty    ,
   input                               alpha_FIFO_full     ,
-  output                              alpha_FIFO_wr_vld   ,
-
-  output  [NUM_NODE_WIDTH-1:0]        a_node_FIFO_din     ,
-  input                               a_node_FIFO_empty   ,
-  input                               a_node_FIFO_full    ,
-  output                              a_node_FIFO_wr_vld
+  output                              alpha_FIFO_wr_vld
 );
-
-  localparam DIVISOR_FF_WIDTH = NUM_NODE_WIDTH + SM_SUM_DATA_WIDTH;
 
   logic                         subgraph_done         ;
   logic                         div_subgraph_done     ;
@@ -39,6 +30,10 @@ module softmax_pipe import params_pkg::*;
   // -- handshake
   logic                         div_valid             ;
   logic                         div_ready             ;
+
+  // -- addr
+  logic [NUM_NODE_ADDR_W-1:0]   addr                  ;
+  logic [NUM_NODE_ADDR_W-1:0]   addr_reg              ;
 
   // -- sum
   logic [SM_DATA_WIDTH-1:0]     exp                   ;
@@ -65,11 +60,11 @@ module softmax_pipe import params_pkg::*;
   logic                         dividend_FIFO_rd_vld  ;
   logic [SM_DATA_WIDTH-1:0]     dividend              ;
 
-  logic [DIVISOR_FF_WIDTH-1:0]  divisor_FIFO_din      ;
+  divisor_t                     divisor_FIFO_din      ;
   logic                         divisor_FIFO_wr_vld   ;
   logic                         divisor_FIFO_full     ;
   logic                         divisor_FIFO_empty    ;
-  logic [DIVISOR_FF_WIDTH-1:0]  divisor_FIFO_dout     ;
+  divisor_t                     divisor_FIFO_dout     ;
   logic                         divisor_FIFO_rd_vld   ;
   logic [SM_SUM_DATA_WIDTH-1:0] divisor               ;
   logic [SM_SUM_DATA_WIDTH-1:0] divisor_reg           ;
@@ -104,7 +99,7 @@ module softmax_pipe import params_pkg::*;
     .rd_vld     (divisor_FIFO_rd_vld  )
   );
 
-  always_ff @(posedge clk) begin
+  always @(posedge clk) begin
     coef_FIFO_empty_reg <= coef_FIFO_empty;
   end
 
@@ -113,17 +108,26 @@ module softmax_pipe import params_pkg::*;
   assign subgraph_div_enable  = (!dividend_FIFO_empty) && ((!divisor_FIFO_empty) && (div_node_counter_reg == 0) || div_node_counter_reg != 0);
 
   //* ======================== exp & sum ==========================
+  // -- coef from FIFO
+  assign coef_FIFO_rd_vld   = (!coef_FIFO_empty) && sm_valid_i;
 
-  // -- get inputs from FIFO
-  assign coef_FIFO_rd_vld   = (!coef_FIFO_empty);
-  assign e_node_FIFO_rd_vld = (!e_node_FIFO_empty && subgraph_done) ? 1'b1 : 1'b0;
+  // -- num_of_nodes from BRAM
+  assign num_node_BRAM_addrb  = addr_reg;
+  assign num_of_nodes         = subgraph_done ? num_node_BRAM_dout : num_of_nodes_reg;
 
-  assign num_of_nodes = e_node_FIFO_rd_vld ? e_node_FIFO_dout : num_of_nodes_reg;
+  assign addr = (subgraph_done && sm_valid_i && coef_FIFO_rd_vld) ? (addr_reg + 1) : addr_reg;
+  always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      addr_reg <= '0;
+    end else begin
+      addr_reg <= addr;
+    end
+  end
 
   // -- compute 2^x
   assign exp = (coef_FIFO_dout == ZERO) ? 1 : (1 << coef_FIFO_dout);
 
-  always_comb begin
+  always @(*) begin
     sum           = sum_reg;
     node_counter  = node_counter_reg;
 
@@ -142,7 +146,7 @@ module softmax_pipe import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       exp_reg           <= '0;
       sum_reg           <= '0;
@@ -155,19 +159,26 @@ module softmax_pipe import params_pkg::*;
       node_counter_reg  <= node_counter;
     end
   end
+  //* ==============================================================
 
-  // -- push data to FIFO
+
+  //* ===================== push data to FIFO ======================
+  // -- dividend
   assign dividend_FIFO_din    = exp;
   assign dividend_FIFO_wr_vld = coef_FIFO_rd_vld && (!dividend_FIFO_full);
 
+  // -- divisor
   assign divisor_FIFO_din     = { num_of_nodes_reg, sum_reg };
   assign divisor_FIFO_wr_vld  = subgraph_done && (!divisor_FIFO_full) && (sum_reg != 0) && (!coef_FIFO_empty_reg);
   //* ==============================================================
 
-  // -- get data from FIFO
+
+  //* ===================== get data from FIFO =====================
+  // -- dividend
   assign dividend_FIFO_rd_vld = subgraph_div_enable;
   assign dividend             = dividend_FIFO_dout;
 
+  // -- divisor
   assign divisor_FIFO_rd_vld            = div_subgraph_done && (!divisor_FIFO_empty);
   assign { div_num_of_nodes, divisor }  = divisor_FIFO_rd_vld ? divisor_FIFO_dout : { div_num_of_nodes_reg, divisor_reg };
 
@@ -175,7 +186,7 @@ module softmax_pipe import params_pkg::*;
   assign div_valid = subgraph_div_enable;
 
   // -- node counter
-  always_comb begin
+  always @(*) begin
     div_node_counter = div_node_counter_reg;
     if (subgraph_div_enable) begin
       if (div_node_counter_reg == div_num_of_nodes_reg - 1) begin
@@ -188,7 +199,7 @@ module softmax_pipe import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk) begin
+  always @(posedge clk) begin
     if (!rst_n) begin
       div_node_counter_reg <= '0;
       div_num_of_nodes_reg <= '0;
@@ -218,6 +229,7 @@ module softmax_pipe import params_pkg::*;
     .ready    (div_ready          ),
     .out      (out                )
   );
+  //* ==============================================================
 
   assign alpha_FIFO_din     = out;
   assign alpha_FIFO_wr_vld  = div_ready && (!alpha_FIFO_full);

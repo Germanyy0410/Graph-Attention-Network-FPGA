@@ -2,23 +2,23 @@ package params_pkg;
   import define_pkg::*;
 
   //* =============== parameter ===============
-// `ifdef CORA_DATASET_EN
-//   parameter H_NUM_SPARSE_DATA     = 242101;
-//   parameter TOTAL_NODES           = 13264;
-//   parameter NUM_FEATURE_IN        = 1433;
-//   parameter NUM_FEATURE_OUT       = 16;
-//   parameter NUM_SUBGRAPHS         = 2708;
-//   parameter MAX_NODES             = 168;
-// `endif
+`ifdef CORA_DATASET_EN
+  parameter H_NUM_SPARSE_DATA     = 242101;
+  parameter TOTAL_NODES           = 13264;
+  parameter NUM_FEATURE_IN        = 1433;
+  parameter NUM_FEATURE_OUT       = 16;
+  parameter NUM_SUBGRAPHS         = 2708;
+  parameter MAX_NODES             = 168;
+`endif
 
-// `ifdef SIMULATION
+`ifdef SIMULATION
   parameter H_NUM_SPARSE_DATA     = 500;
   parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 10;
   parameter NUM_FEATURE_OUT       = 16;
   parameter NUM_SUBGRAPHS         = 26;
   parameter MAX_NODES             = 6;
-// `endif
+`endif
 
   // -- Configurable data width
   parameter DATA_WIDTH            = 8;
@@ -40,6 +40,7 @@ package params_pkg;
   localparam WH_1_DEPTH           = TOTAL_NODES;
   localparam WH_2_DEPTH           = TOTAL_NODES;
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2;
+  localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS;
   // -- [H]
   localparam H_NUM_OF_ROWS        = TOTAL_NODES;
   localparam H_NUM_OF_COLS        = NUM_FEATURE_IN;
@@ -78,6 +79,7 @@ package params_pkg;
   localparam DMVM_PRODUCT_WIDTH   = $clog2(HALF_A_SIZE);
   localparam COEF_W               = DATA_WIDTH * MAX_NODES;
   localparam ALPHA_W              = ALPHA_DATA_WIDTH * MAX_NODES;
+  localparam NUM_NODE_ADDR_W      = $clog2(NUM_NODES_DEPTH);
 
   // -- [Softmax]
   localparam SOFTMAX_WIDTH        = MAX_NODES * DATA_WIDTH + NUM_NODE_WIDTH;
@@ -86,6 +88,7 @@ package params_pkg;
   localparam WOI                  = 1;
   localparam WOF                  = ALPHA_DATA_WIDTH - WOI;
   localparam DL_DATA_WIDTH        = $clog2(WOI + WOF + 3) + 1;
+  localparam DIVISOR_FF_WIDTH     = NUM_NODE_WIDTH + SM_SUM_DATA_WIDTH;
 
   // -- [Aggregator]
   localparam AGGR_WIDTH           = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH;
@@ -159,4 +162,9 @@ package params_pkg;
     bit [NUM_NODE_WIDTH-1:0]  num_of_nodes;
     bit                       source_node_flag;
   } WH_t;
+
+  typedef struct packed {
+    bit [NUM_NODE_WIDTH-1:0]    num_of_nodes;
+    bit [SM_SUM_DATA_WIDTH-1:0] divisor;
+  } divisor_t;
 endpackage

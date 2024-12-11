@@ -76,7 +76,7 @@ module softmax import params_pkg::*;
 
 
   //* ======================== exp(x) & sum ========================
-  always_comb begin
+  always @(*) begin
     exp_done  = exp_done_reg;
     arr_size  = arr_size_reg;
     sum_extra = sum_extra_reg;
@@ -108,7 +108,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if(!rst_n) begin
       arr_size_reg    <= MAX_NODES;
       exp_done_reg    <= 0;
@@ -125,7 +125,7 @@ module softmax import params_pkg::*;
 
 
   //* ============================ sum =============================
-  always_comb begin
+  always @(*) begin
     sum_done = sum_done_reg;
     if ((sm_valid_i && ~exp_done_reg) || (delay_cnt_reg == WOI + WOF + 3)) begin
       sum_done = 1'b0;
@@ -134,7 +134,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_comb begin
+  always @(*) begin
     sum_result = sum_result_reg;
     if (num_of_nodes % 2 == 1 && delay_cnt_reg == 0) begin
       sum_result = exp_reg[0] + exp_reg[num_of_nodes-1] + sum_extra_reg;
@@ -143,7 +143,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if(!rst_n) begin
       sum_done_reg    <= 0;
       sum_extra_reg   <= 0;
@@ -160,7 +160,7 @@ module softmax import params_pkg::*;
   //* ========================= i_idx_cnt ==========================
   assign in = (sum_done_reg) ? exp_calc_reg[i_idx_cnt_reg] : in_reg;
 
-  always_comb begin
+  always @(*) begin
     i_idx_cnt = i_idx_cnt_reg;
     if (sum_done_reg && (i_idx_cnt_reg < num_of_nodes - 1)) begin
       i_idx_cnt = i_idx_cnt_reg + 1;
@@ -169,7 +169,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if(!rst_n) begin
       in_reg        <= 0;
       i_idx_cnt_reg <= 0;
@@ -182,7 +182,7 @@ module softmax import params_pkg::*;
 
 
   //* ========================= delay_cnt ==========================
-  always_comb begin
+  always @(*) begin
     delay_cnt = delay_cnt_reg;
     if (sum_done_reg && delay_cnt_reg < WOI + WOF + 3) begin
       delay_cnt = delay_cnt_reg + 1;
@@ -191,7 +191,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if(!rst_n) begin
       delay_cnt_reg <= 0;
     end else begin
@@ -202,7 +202,7 @@ module softmax import params_pkg::*;
 
 
   //* ======================= output_control =======================
-  always_comb begin
+  always @(*) begin
     output_control = output_control_reg;
     if (sum_done_reg && delay_cnt_reg == WOI + WOF + 3) begin
       output_control = 1;
@@ -211,7 +211,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if(!rst_n) begin
       output_control_reg <= 0;
     end else begin
@@ -222,7 +222,7 @@ module softmax import params_pkg::*;
 
 
   //* ========================= o_idx_cnt ==========================
-  always_comb begin
+  always @(*) begin
     o_idx_cnt = o_idx_cnt_reg;
 
     if ((output_control_reg == 1) && (o_idx_cnt_reg < num_of_nodes - 1) && (~sm_ready_reg))  begin
@@ -232,7 +232,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if(!rst_n) begin
       out_reg       <= 0;
       o_idx_cnt_reg <= 0;
@@ -245,7 +245,7 @@ module softmax import params_pkg::*;
 
 
   //* =========================== alpha ============================
-  always_comb begin
+  always @(*) begin
     for (int i = 0; i < MAX_NODES; i = i + 1) begin
       alpha[i] = alpha_reg[i];
     end
@@ -258,7 +258,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       alpha_reg <= '0;
     end else begin
@@ -269,7 +269,7 @@ module softmax import params_pkg::*;
 
 
   //* ========================= sm_ready ===========================
-  always_comb begin
+  always @(*) begin
     sm_ready  = sm_ready_reg;
     if (sm_ready_reg) begin
       sm_ready = 1'b0;
@@ -278,7 +278,7 @@ module softmax import params_pkg::*;
     end
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       sm_ready_reg <= 0;
     end else begin
@@ -291,7 +291,7 @@ module softmax import params_pkg::*;
   //* ====================== sm_num_of_nodes =======================
   assign sm_num_of_nodes = (sm_ready) ? num_of_nodes : sm_num_of_nodes_reg;
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       sm_num_of_nodes_reg <= 0;
     end else begin
