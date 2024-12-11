@@ -5,7 +5,7 @@
    <db_ref_list>
       <db_ref path="top_tb_behav.wdb" id="1">
          <top_modules>
-            <top_module name="\$unit_BRAM_sv_2665225163 " />
+            <top_module name="\$unit_BRAM_sv_1486149718 " />
             <top_module name="define_pkg" />
             <top_module name="glbl" />
             <top_module name="params_pkg" />
@@ -14,20 +14,17 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="10,167.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="10,485.601 ns"></ZoomEndTime>
-      <Cursor1Time time="10,203.200 ns"></Cursor1Time>
+      <ZoomStartTime time="9,222.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="12,466.501 ns"></ZoomEndTime>
+      <Cursor1Time time="12,900.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="338"></NameColumnWidth>
-      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+      <NameColumnWidth column_width="374"></NameColumnWidth>
+      <ValueColumnWidth column_width="96"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="11" />
+   <WVObjectSize size="17" />
    <wave_markers>
-      <marker time="5300000" label="" />
-      <marker time="5340000" label="" />
-      <marker time="5400000" label="" />
-      <marker time="5460000" label="" />
+      <marker time="10298000" label="" />
    </wave_markers>
    <wvobject fp_name="/top_tb/dut/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -523,40 +520,10 @@
          <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i" type="array">
             <obj_property name="ElementShortName">WH_data_i</obj_property>
             <obj_property name="ObjectShortName">WH_data_i</obj_property>
-            <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.Wh_1" type="array">
-               <obj_property name="ElementShortName">.Wh_1[11:0]</obj_property>
-               <obj_property name="ObjectShortName">.Wh_1[11:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.Wh_2" type="array">
-               <obj_property name="ElementShortName">.Wh_2[11:0]</obj_property>
-               <obj_property name="ObjectShortName">.Wh_2[11:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.Wh_3" type="array">
-               <obj_property name="ElementShortName">.Wh_3[11:0]</obj_property>
-               <obj_property name="ObjectShortName">.Wh_3[11:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.Wh_4" type="array">
-               <obj_property name="ElementShortName">.Wh_4[11:0]</obj_property>
-               <obj_property name="ObjectShortName">.Wh_4[11:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.Wh_5" type="array">
-               <obj_property name="ElementShortName">.Wh_5[11:0]</obj_property>
-               <obj_property name="ObjectShortName">.Wh_5[11:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.Wh_6" type="array">
-               <obj_property name="ElementShortName">.Wh_6[11:0]</obj_property>
-               <obj_property name="ObjectShortName">.Wh_6[11:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.num_of_nodes" type="array">
-               <obj_property name="ElementShortName">.num_of_nodes[2:0]</obj_property>
-               <obj_property name="ObjectShortName">.num_of_nodes[2:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.source_node_flag" type="logic">
-               <obj_property name="ElementShortName">.source_node_flag</obj_property>
-               <obj_property name="ObjectShortName">.source_node_flag</obj_property>
-            </wvobject>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/WH_1_BRAM_addra" type="array">
+            <obj_property name="ElementShortName">WH_1_BRAM_addra[6:0]</obj_property>
+            <obj_property name="ObjectShortName">WH_1_BRAM_addra[6:0]</obj_property>
          </wvobject>
       </wvobject>
    </wvobject>
@@ -577,6 +544,7 @@
             <wvobject fp_name="/top_tb/dut/u_DMVM/a_source" type="array">
                <obj_property name="ElementShortName">a_source[15:0][7:0]</obj_property>
                <obj_property name="ObjectShortName">a_source[15:0][7:0]</obj_property>
+               <obj_property name="isExpanded"></obj_property>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_DMVM/a_neighbor" type="array">
                <obj_property name="ElementShortName">a_neighbor[15:0][7:0]</obj_property>
@@ -587,6 +555,10 @@
             <obj_property name="label">WH</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/top_tb/dut/u_DMVM/WH_arr" type="array">
+               <obj_property name="ElementShortName">WH_arr[15:0][11:0]</obj_property>
+               <obj_property name="ObjectShortName">WH_arr[15:0][11:0]</obj_property>
+            </wvobject>
             <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_addrb" type="array">
                <obj_property name="ElementShortName">WH_BRAM_addrb[6:0]</obj_property>
                <obj_property name="ObjectShortName">WH_BRAM_addrb[6:0]</obj_property>
@@ -595,44 +567,10 @@
             <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_dout" type="array">
                <obj_property name="ElementShortName">WH_BRAM_dout[195:0]</obj_property>
                <obj_property name="ObjectShortName">WH_BRAM_dout[195:0]</obj_property>
-               <obj_property name="isExpanded"></obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_DMVM/product_size_reg" type="array">
-               <obj_property name="ElementShortName">product_size_reg[4:0]</obj_property>
-               <obj_property name="ObjectShortName">product_size_reg[4:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_DMVM/product" type="array">
-               <obj_property name="ElementShortName">product[15:0][19:0]</obj_property>
-               <obj_property name="ObjectShortName">product[15:0][19:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_DMVM/result_done_reg" type="logic">
-               <obj_property name="ElementShortName">result_done_reg</obj_property>
-               <obj_property name="ObjectShortName">result_done_reg</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_DMVM/sub_graph_done_reg" type="logic">
-               <obj_property name="ElementShortName">sub_graph_done_reg</obj_property>
-               <obj_property name="ObjectShortName">sub_graph_done_reg</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_DMVM/result" type="array">
-               <obj_property name="ElementShortName">result[5:0][19:0]</obj_property>
-               <obj_property name="ObjectShortName">result[5:0][19:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_DMVM/coef_o" type="array">
-               <obj_property name="ElementShortName">coef_o[5:0][7:0]</obj_property>
-               <obj_property name="ObjectShortName">coef_o[5:0][7:0]</obj_property>
-               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_DMVM/num_of_nodes_o" type="array">
-               <obj_property name="ElementShortName">num_of_nodes_o[2:0]</obj_property>
-               <obj_property name="ObjectShortName">num_of_nodes_o[2:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_DMVM/relu" type="array">
-               <obj_property name="ElementShortName">relu[5:0][7:0]</obj_property>
-               <obj_property name="ObjectShortName">relu[5:0][7:0]</obj_property>
+            <wvobject fp_name="/top_tb/dut/u_DMVM/WH_BRAM_data" type="array">
+               <obj_property name="ElementShortName">WH_BRAM_data[195:0]</obj_property>
+               <obj_property name="ObjectShortName">WH_BRAM_data[195:0]</obj_property>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_DMVM/dmvm_ready_o" type="logic">
                <obj_property name="ElementShortName">dmvm_ready_o</obj_property>
@@ -652,22 +590,6 @@
          <obj_property name="label">FIFO</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/softmax_FIFO_din" type="array">
-            <obj_property name="ElementShortName">softmax_FIFO_din[50:0]</obj_property>
-            <obj_property name="ObjectShortName">softmax_FIFO_din[50:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/top_tb/dut/softmax_FIFO_dout" type="array">
-            <obj_property name="ElementShortName">softmax_FIFO_dout[50:0]</obj_property>
-            <obj_property name="ObjectShortName">softmax_FIFO_dout[50:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/top_tb/dut/softmax_FIFO_wr_valid" type="logic">
-            <obj_property name="ElementShortName">softmax_FIFO_wr_valid</obj_property>
-            <obj_property name="ObjectShortName">softmax_FIFO_wr_valid</obj_property>
-         </wvobject>
-         <wvobject fp_name="/top_tb/dut/softmax_FIFO_rd_valid" type="logic">
-            <obj_property name="ElementShortName">softmax_FIFO_rd_valid</obj_property>
-            <obj_property name="ObjectShortName">softmax_FIFO_rd_valid</obj_property>
-         </wvobject>
       </wvobject>
       <wvobject fp_name="group246" type="group">
          <obj_property name="label">SOFTMAX</obj_property>
@@ -681,10 +603,6 @@
                <obj_property name="ElementShortName">sm_valid_i</obj_property>
                <obj_property name="ObjectShortName">sm_valid_i</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/coef_i" type="array">
-               <obj_property name="ElementShortName">coef_i[5:0][7:0]</obj_property>
-               <obj_property name="ObjectShortName">coef_i[5:0][7:0]</obj_property>
-            </wvobject>
             <wvobject fp_name="/top_tb/dut/u_softmax/num_of_nodes" type="array">
                <obj_property name="ElementShortName">num_of_nodes[2:0]</obj_property>
                <obj_property name="ObjectShortName">num_of_nodes[2:0]</obj_property>
@@ -695,54 +613,20 @@
             <obj_property name="label">EXP</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_softmax/coef_i" type="array">
-               <obj_property name="ElementShortName">coef_i[5:0][7:0]</obj_property>
-               <obj_property name="ObjectShortName">coef_i[5:0][7:0]</obj_property>
-            </wvobject>
             <wvobject fp_name="/top_tb/dut/u_softmax/exp" type="array">
-               <obj_property name="ElementShortName">exp[5:0][102:0]</obj_property>
-               <obj_property name="ObjectShortName">exp[5:0][102:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/exp_done_reg" type="logic">
-               <obj_property name="ElementShortName">exp_done_reg</obj_property>
-               <obj_property name="ObjectShortName">exp_done_reg</obj_property>
+               <obj_property name="ElementShortName">exp[102:0]</obj_property>
+               <obj_property name="ObjectShortName">exp[102:0]</obj_property>
             </wvobject>
          </wvobject>
          <wvobject fp_name="group142" type="group">
             <obj_property name="label">SUM</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_softmax/arr_size_reg" type="array">
-               <obj_property name="ElementShortName">arr_size_reg[2:0]</obj_property>
-               <obj_property name="ObjectShortName">arr_size_reg[2:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/sum_done_reg" type="logic">
-               <obj_property name="ElementShortName">sum_done_reg</obj_property>
-               <obj_property name="ObjectShortName">sum_done_reg</obj_property>
-            </wvobject>
          </wvobject>
          <wvobject fp_name="group143" type="group">
             <obj_property name="label">DIVISION</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_softmax/i_idx_cnt_reg" type="array">
-               <obj_property name="ElementShortName">i_idx_cnt_reg[2:0]</obj_property>
-               <obj_property name="ObjectShortName">i_idx_cnt_reg[2:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/in" type="array">
-               <obj_property name="ElementShortName">in[102:0]</obj_property>
-               <obj_property name="ObjectShortName">in[102:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/sum_result_reg" type="array">
-               <obj_property name="ElementShortName">sum_result_reg[102:0]</obj_property>
-               <obj_property name="ObjectShortName">sum_result_reg[102:0]</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/delay_cnt_reg" type="array">
-               <obj_property name="ElementShortName">delay_cnt_reg[6:0]</obj_property>
-               <obj_property name="ObjectShortName">delay_cnt_reg[6:0]</obj_property>
-            </wvobject>
             <wvobject fp_name="/top_tb/dut/u_softmax/out" type="array">
                <obj_property name="ElementShortName">out[31:0]</obj_property>
                <obj_property name="ObjectShortName">out[31:0]</obj_property>
@@ -756,34 +640,15 @@
             <obj_property name="label">OUT</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_softmax/o_idx_cnt_reg" type="array">
-               <obj_property name="ElementShortName">o_idx_cnt_reg[2:0]</obj_property>
-               <obj_property name="ObjectShortName">o_idx_cnt_reg[2:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/output_control_reg" type="logic">
-               <obj_property name="ElementShortName">output_control_reg</obj_property>
-               <obj_property name="ObjectShortName">output_control_reg</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/sm_num_of_nodes_o" type="array">
-               <obj_property name="ElementShortName">sm_num_of_nodes_o[2:0]</obj_property>
-               <obj_property name="ObjectShortName">sm_num_of_nodes_o[2:0]</obj_property>
-               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-            </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_softmax/alpha_o" type="array">
-               <obj_property name="ElementShortName">alpha_o[5:0][31:0]</obj_property>
-               <obj_property name="ObjectShortName">alpha_o[5:0][31:0]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">UNSIGNEDFIXEDPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">31</obj_property>
-               <obj_property name="radix_otherWidth">0</obj_property>
-               <obj_property name="isExpanded"></obj_property>
-            </wvobject>
             <wvobject fp_name="/top_tb/dut/u_softmax/sm_ready_o" type="logic">
                <obj_property name="ElementShortName">sm_ready_o</obj_property>
                <obj_property name="ObjectShortName">sm_ready_o</obj_property>
             </wvobject>
          </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/source_dmvm" type="array">
+         <obj_property name="ElementShortName">source_dmvm[19:0]</obj_property>
+         <obj_property name="ObjectShortName">source_dmvm[19:0]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group195" type="group">
@@ -929,5 +794,78 @@
          <obj_property name="ElementShortName">w_ready_o</obj_property>
          <obj_property name="ObjectShortName">w_ready_o</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product" type="array">
+      <obj_property name="ElementShortName">pipe_product[4:0][15:0][19:0]</obj_property>
+      <obj_property name="ObjectShortName">pipe_product[4:0][15:0][19:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg" type="array">
+      <obj_property name="ElementShortName">pipe_product_reg[5:0][15:0][19:0]</obj_property>
+      <obj_property name="ObjectShortName">pipe_product_reg[5:0][15:0][19:0]</obj_property>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[5]" type="array">
+         <obj_property name="ElementShortName">[5][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[5][15:0][19:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[4]" type="array">
+         <obj_property name="ElementShortName">[4][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[4][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[3]" type="array">
+         <obj_property name="ElementShortName">[3][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[3][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[2]" type="array">
+         <obj_property name="ElementShortName">[2][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[1]" type="array">
+         <obj_property name="ElementShortName">[1][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[0]" type="array">
+         <obj_property name="ElementShortName">[0][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[5]" type="array">
+         <obj_property name="ElementShortName">[5][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[5][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[4]" type="array">
+         <obj_property name="ElementShortName">[4][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[4][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[3]" type="array">
+         <obj_property name="ElementShortName">[3][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[3][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[2]" type="array">
+         <obj_property name="ElementShortName">[2][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[1]" type="array">
+         <obj_property name="ElementShortName">[1][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[0]" type="array">
+         <obj_property name="ElementShortName">[0][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][15:0][19:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_src_flag" type="array">
+      <obj_property name="ElementShortName">pipe_src_flag[4:0]</obj_property>
+      <obj_property name="ObjectShortName">pipe_src_flag[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_src_flag_reg" type="array">
+      <obj_property name="ElementShortName">pipe_src_flag_reg[5:0]</obj_property>
+      <obj_property name="ObjectShortName">pipe_src_flag_reg[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_DMVM/source_dmvm" type="array">
+      <obj_property name="ElementShortName">source_dmvm[19:0]</obj_property>
+      <obj_property name="ObjectShortName">source_dmvm[19:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_coef" type="array">
+      <obj_property name="ElementShortName">pipe_coef[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pipe_coef[7:0]</obj_property>
    </wvobject>
 </wave_config>

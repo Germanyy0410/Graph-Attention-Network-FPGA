@@ -2,303 +2,211 @@
 
 module softmax import params_pkg::*;
 (
-  input                                               clk               ,
-  input                                               rst_n             ,
+  input                               clk                 ,
+  input                               rst_n               ,
 
-  input                                               sm_valid_i        ,
-  output                                              sm_ready_o        ,
-  output                                              sm_pre_ready_o    ,
+  input                               sm_valid_i          ,
+  output                              sm_ready_o          ,
 
-  input   [MAX_NODES-1:0] [DATA_WIDTH-1:0]            coef_i            ,
-  input   [NUM_NODE_WIDTH-1:0]                        num_of_nodes      ,
+  input   [DATA_WIDTH-1:0]            coef_FIFO_dout      ,
+  input                               coef_FIFO_empty     ,
+  output                              coef_FIFO_rd_vld    ,
 
-  output  [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha_o           ,
-  output  [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_o
+  input   [NUM_NODE_WIDTH-1:0]        num_node_BRAM_dout  ,
+  output  [NUM_NODE_ADDR_W-1:0]       num_node_BRAM_addrb ,
+
+  output  [ALPHA_DATA_WIDTH-1:0]      alpha_FIFO_din      ,
+  input                               alpha_FIFO_full     ,
+  output                              alpha_FIFO_wr_vld
 );
-  logic                                             sm_ready              ;
-  logic                                             sm_ready_reg          ;
-  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes       ;
-  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_reg   ;
 
-  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha                 ;
-  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha_reg             ;
-  logic [MAX_NODES-1:0] [SM_DATA_WIDTH-1:0]         exp                   ;
-  logic [MAX_NODES-1:0] [SM_DATA_WIDTH-1:0]         exp_reg               ;
+  logic                         subgraph_done         ;
+  logic                         div_subgraph_done     ;
+  logic                         coef_FIFO_empty_reg   ;
 
-  logic [MAX_NODES-1:0] [SM_DATA_WIDTH-1:0]         exp_calc              ;
-  logic [MAX_NODES-1:0] [SM_DATA_WIDTH-1:0]         exp_calc_reg          ;
+  // -- handshake
+  logic                         div_valid             ;
+  logic                         div_ready             ;
 
-  logic [NUM_NODE_WIDTH-1:0]                        arr_size              ;
-  logic [NUM_NODE_WIDTH-1:0]                        arr_size_reg          ;
-  logic                                             exp_done              ;
-  logic                                             exp_done_reg          ;
+  // -- addr
+  logic [NUM_NODE_ADDR_W-1:0]   addr                  ;
+  logic [NUM_NODE_ADDR_W-1:0]   addr_reg              ;
 
-  logic [SM_SUM_DATA_WIDTH-1:0]                     sum_result            ;
-  logic [SM_SUM_DATA_WIDTH-1:0]                     sum_result_reg        ;
-  logic [SM_SUM_DATA_WIDTH-1:0]                     sum_extra             ;
-  logic [SM_SUM_DATA_WIDTH-1:0]                     sum_extra_reg         ;
+  // -- sum
+  logic [SM_DATA_WIDTH-1:0]     exp                   ;
+  logic [SM_DATA_WIDTH-1:0]     exp_reg               ;
+  logic [SM_SUM_DATA_WIDTH-1:0] sum                   ;
+  logic [SM_SUM_DATA_WIDTH-1:0] sum_reg               ;
+  logic [NUM_NODE_WIDTH-1:0]    node_counter          ;
+  logic [NUM_NODE_WIDTH-1:0]    node_counter_reg      ;
+  logic [NUM_NODE_WIDTH-1:0]    num_of_nodes          ;
+  logic [NUM_NODE_WIDTH-1:0]    num_of_nodes_reg      ;
 
-  logic                                             sum_done              ;
-  logic                                             sum_done_reg          ;
+  // -- div
+  logic [NUM_NODE_WIDTH-1:0]    div_node_counter      ;
+  logic [NUM_NODE_WIDTH-1:0]    div_node_counter_reg  ;
+  logic [NUM_NODE_WIDTH-1:0]    div_num_of_nodes      ;
+  logic [NUM_NODE_WIDTH-1:0]    div_num_of_nodes_reg  ;
 
-  // -- [division] IN
-  logic [SM_DATA_WIDTH-1:0]                         in                    ;
-  logic [SM_DATA_WIDTH-1:0]                         in_reg                ;
-  logic [NUM_NODE_WIDTH-1:0]                        i_idx_cnt             ;
-  logic [NUM_NODE_WIDTH-1:0]                        i_idx_cnt_reg         ;
 
-  // -- [division] delay
-  logic [DL_DATA_WIDTH-1:0]                         delay_cnt             ;
-  logic [DL_DATA_WIDTH-1:0]                         delay_cnt_reg         ;
+  logic [SM_DATA_WIDTH-1:0]     dividend_FIFO_din     ;
+  logic                         dividend_FIFO_wr_vld  ;
+  logic                         dividend_FIFO_full    ;
+  logic                         dividend_FIFO_empty   ;
+  logic [SM_DATA_WIDTH-1:0]     dividend_FIFO_dout    ;
+  logic                         dividend_FIFO_rd_vld  ;
+  logic [SM_DATA_WIDTH-1:0]     dividend              ;
 
-  // -- [division] OUT
-  logic [NUM_NODE_WIDTH-1:0]                        o_idx_cnt             ;
-  logic [NUM_NODE_WIDTH-1:0]                        o_idx_cnt_reg         ;
-  logic                                             output_control        ;
-  logic                                             output_control_reg    ;
-  logic [ALPHA_DATA_WIDTH-1:0]                      out                   ;
-  logic [ALPHA_DATA_WIDTH-1:0]                      out_reg               ;
+  divisor_t                     divisor_FIFO_din      ;
+  logic                         divisor_FIFO_wr_vld   ;
+  logic                         divisor_FIFO_full     ;
+  logic                         divisor_FIFO_empty    ;
+  divisor_t                     divisor_FIFO_dout     ;
+  logic                         divisor_FIFO_rd_vld   ;
+  logic [SM_SUM_DATA_WIDTH-1:0] divisor               ;
+  logic [SM_SUM_DATA_WIDTH-1:0] divisor_reg           ;
 
-  integer i;
-  genvar x;
+  logic [ALPHA_DATA_WIDTH-1:0]  out                   ;
 
-  //* ===================== output assignment ======================
-  generate
-    for(x = 0; x < MAX_NODES; x = x + 1) begin
-      assign alpha_o[x] = alpha_reg[x];
+  FIFO #(
+    .DATA_WIDTH (SM_DATA_WIDTH        ),
+    .FIFO_DEPTH (20                  )
+  ) u_dividend_FIFO (
+    .clk        (clk                  ),
+    .rst_n      (rst_n                ),
+    .din        (dividend_FIFO_din    ),
+    .wr_vld     (dividend_FIFO_wr_vld ),
+    .full       (dividend_FIFO_full   ),
+    .empty      (dividend_FIFO_empty  ),
+    .dout       (dividend_FIFO_dout   ),
+    .rd_vld     (dividend_FIFO_rd_vld )
+  );
+
+  FIFO #(
+    .DATA_WIDTH (DIVISOR_FF_WIDTH     ),
+    .FIFO_DEPTH (10                   )
+  ) u_divisor_FIFO (
+    .clk        (clk                  ),
+    .rst_n      (rst_n                ),
+    .din        (divisor_FIFO_din     ),
+    .wr_vld     (divisor_FIFO_wr_vld  ),
+    .full       (divisor_FIFO_full    ),
+    .empty      (divisor_FIFO_empty   ),
+    .dout       (divisor_FIFO_dout    ),
+    .rd_vld     (divisor_FIFO_rd_vld  )
+  );
+
+  always @(posedge clk) begin
+    coef_FIFO_empty_reg <= coef_FIFO_empty;
+  end
+
+  assign subgraph_done        = (node_counter_reg == 0);
+  assign div_subgraph_done    = (div_node_counter_reg == 0);
+  assign subgraph_div_enable  = (!dividend_FIFO_empty) && ((!divisor_FIFO_empty) && (div_node_counter_reg == 0) || div_node_counter_reg != 0);
+
+  //* ======================== exp & sum ==========================
+  // -- coef from FIFO
+  assign coef_FIFO_rd_vld   = (!coef_FIFO_empty) && sm_valid_i;
+
+  // -- num_of_nodes from BRAM
+  assign num_node_BRAM_addrb  = addr_reg;
+  assign num_of_nodes         = subgraph_done ? num_node_BRAM_dout : num_of_nodes_reg;
+
+  assign addr = (subgraph_done && sm_valid_i && coef_FIFO_rd_vld) ? (addr_reg + 1) : addr_reg;
+  always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      addr_reg <= '0;
+    end else begin
+      addr_reg <= addr;
     end
-  endgenerate
+  end
 
-  assign sm_ready_o         = sm_ready_reg;
-  assign sm_pre_ready_o     = sm_ready;
-  assign sm_num_of_nodes_o  = sm_num_of_nodes_reg;
-  //* ==============================================================
+  // -- compute 2^x
+  assign exp = (coef_FIFO_dout == ZERO) ? 1 : (1 << coef_FIFO_dout);
 
-
-  //* ======================== exp(x) & sum ========================
   always @(*) begin
-    exp_done  = exp_done_reg;
-    arr_size  = arr_size_reg;
-    sum_extra = sum_extra_reg;
-    exp       = exp_reg;
-    exp_calc  = exp_calc_reg;
+    sum           = sum_reg;
+    node_counter  = node_counter_reg;
 
-    if(sm_valid_i && ~exp_done_reg) begin
-      for(i = 0; i < MAX_NODES; i = i + 1) begin
-        if (i < num_of_nodes) begin
-          exp[i]      = (coef_i[i] == ZERO) ? 1 : (1 << coef_i[i]);
-          exp_calc[i] = (coef_i[i] == ZERO) ? 1 : (1 << coef_i[i]);
-        end
-      end
-      arr_size  = num_of_nodes;
-      exp_done  = 1;
-      sum_extra = 0;
-    end else if (exp_done_reg) begin
-      if(arr_size_reg > 1) begin
-        for(i = 0; i < MAX_NODES/2; i = i + 1) begin
-          if(i < arr_size_reg) begin
-            sum_extra = (arr_size_reg[0] == 1'b1) ? (exp_reg[arr_size_reg-1] + sum_extra_reg) : sum_extra_reg;
-            exp[i]    = exp_reg[2*i] + exp_reg[2*i+1];
-            arr_size  = arr_size_reg >> 1;
-          end
-        end
+    if (coef_FIFO_rd_vld) begin
+      if (node_counter_reg == num_of_nodes_reg - 1) begin
+        node_counter  = '0;
       end else begin
-        exp_done = 0;
+        node_counter  = node_counter_reg + 1;
       end
-    end
-  end
 
-  always @(posedge clk or negedge rst_n) begin
-    if(!rst_n) begin
-      arr_size_reg    <= MAX_NODES;
-      exp_done_reg    <= 0;
-      exp_reg         <= '0;
-      exp_calc_reg    <= '0;
-    end else begin
-      arr_size_reg    <= arr_size;
-      exp_done_reg    <= exp_done;
-      exp_reg         <= exp;
-      exp_calc_reg    <= exp_calc;
-    end
-  end
-  //* ==============================================================
-
-
-  //* ============================ sum =============================
-  always @(*) begin
-    sum_done = sum_done_reg;
-    if ((sm_valid_i && ~exp_done_reg) || (delay_cnt_reg == WOI + WOF + 3)) begin
-      sum_done = 1'b0;
-    end else if (arr_size_reg == 1) begin
-      sum_done = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    sum_result = sum_result_reg;
-    if (num_of_nodes % 2 == 1 && delay_cnt_reg == 0) begin
-      sum_result = exp_reg[0] + exp_reg[num_of_nodes-1] + sum_extra_reg;
-    end else if (delay_cnt_reg == 0) begin
-      sum_result = exp_reg[0] + sum_extra_reg;
-    end
-  end
-
-  always @(posedge clk or negedge rst_n) begin
-    if(!rst_n) begin
-      sum_done_reg    <= 0;
-      sum_extra_reg   <= 0;
-      sum_result_reg  <= 0;
-    end else begin
-      sum_done_reg    <= sum_done;
-      sum_extra_reg   <= sum_extra;
-      sum_result_reg  <= sum_result;
-    end
-  end
-  //* ==============================================================
-
-
-  //* ========================= i_idx_cnt ==========================
-  assign in = (sum_done_reg) ? exp_calc_reg[i_idx_cnt_reg] : in_reg;
-
-  always @(*) begin
-    i_idx_cnt = i_idx_cnt_reg;
-    if (sum_done_reg && (i_idx_cnt_reg < num_of_nodes - 1)) begin
-      i_idx_cnt = i_idx_cnt_reg + 1;
-    end else if (sm_valid_i) begin
-      i_idx_cnt = 0;
-    end
-  end
-
-  always @(posedge clk or negedge rst_n) begin
-    if(!rst_n) begin
-      in_reg        <= 0;
-      i_idx_cnt_reg <= 0;
-    end else begin
-      in_reg        <= in;
-      i_idx_cnt_reg <= i_idx_cnt;
-    end
-  end
-  //* ==============================================================
-
-
-  //* ========================= delay_cnt ==========================
-  always @(*) begin
-    delay_cnt = delay_cnt_reg;
-    if (sum_done_reg && delay_cnt_reg < WOI + WOF + 3) begin
-      delay_cnt = delay_cnt_reg + 1;
-    end else if (sm_valid_i) begin
-      delay_cnt = 0;
-    end
-  end
-
-  always @(posedge clk or negedge rst_n) begin
-    if(!rst_n) begin
-      delay_cnt_reg <= 0;
-    end else begin
-      delay_cnt_reg <= delay_cnt;
-    end
-  end
-  //* ==============================================================
-
-
-  //* ======================= output_control =======================
-  always @(*) begin
-    output_control = output_control_reg;
-    if (sum_done_reg && delay_cnt_reg == WOI + WOF + 3) begin
-      output_control = 1;
-    end else if (sm_ready) begin
-      output_control = 0;
-    end
-  end
-
-  always @(posedge clk or negedge rst_n) begin
-    if(!rst_n) begin
-      output_control_reg <= 0;
-    end else begin
-      output_control_reg <= output_control;
-    end
-  end
-  //* ==============================================================
-
-
-  //* ========================= o_idx_cnt ==========================
-  always @(*) begin
-    o_idx_cnt = o_idx_cnt_reg;
-
-    if ((output_control_reg == 1) && (o_idx_cnt_reg < num_of_nodes - 1) && (~sm_ready_reg))  begin
-      o_idx_cnt = o_idx_cnt_reg + 1;
-    end else if (o_idx_cnt_reg >= num_of_nodes - 1) begin
-      o_idx_cnt = 0;
-    end
-  end
-
-  always @(posedge clk or negedge rst_n) begin
-    if(!rst_n) begin
-      out_reg       <= 0;
-      o_idx_cnt_reg <= 0;
-    end else begin
-      out_reg       <= out;
-      o_idx_cnt_reg <= o_idx_cnt;
-    end
-  end
-  //* ==============================================================
-
-
-  //* =========================== alpha ============================
-  always @(*) begin
-    for (int i = 0; i < MAX_NODES; i = i + 1) begin
-      alpha[i] = alpha_reg[i];
-    end
-    if ((output_control_reg == 1) && (o_idx_cnt_reg < num_of_nodes) && (~sm_ready_reg)) begin
-      alpha[o_idx_cnt_reg]  = out_reg;
-    end else if (sm_valid_i) begin
-      for (int i = 0; i < MAX_NODES; i = i + 1) begin
-        alpha[i] = 0;
+      if (node_counter_reg == 0) begin
+        sum = exp;
+      end else begin
+        sum = sum_reg + exp;
       end
     end
   end
 
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      alpha_reg <= '0;
+      exp_reg           <= '0;
+      sum_reg           <= '0;
+      num_of_nodes_reg  <= '0;
+      node_counter_reg  <= '0;
     end else begin
-      alpha_reg <= alpha;
+      exp_reg           <= exp;
+      sum_reg           <= sum;
+      num_of_nodes_reg  <= num_of_nodes;
+      node_counter_reg  <= node_counter;
     end
   end
   //* ==============================================================
 
 
-  //* ========================= sm_ready ===========================
+  //* ===================== push data to FIFO ======================
+  // -- dividend
+  assign dividend_FIFO_din    = exp;
+  assign dividend_FIFO_wr_vld = coef_FIFO_rd_vld && (!dividend_FIFO_full);
+
+  // -- divisor
+  assign divisor_FIFO_din     = { num_of_nodes_reg, sum_reg };
+  assign divisor_FIFO_wr_vld  = subgraph_done && (!divisor_FIFO_full) && (sum_reg != 0) && (!coef_FIFO_empty_reg);
+  //* ==============================================================
+
+
+  //* ===================== get data from FIFO =====================
+  // -- dividend
+  assign dividend_FIFO_rd_vld = subgraph_div_enable;
+  assign dividend             = dividend_FIFO_dout;
+
+  // -- divisor
+  assign divisor_FIFO_rd_vld            = div_subgraph_done && (!divisor_FIFO_empty);
+  assign { div_num_of_nodes, divisor }  = divisor_FIFO_rd_vld ? divisor_FIFO_dout : { div_num_of_nodes_reg, divisor_reg };
+
+  // -- vld signal
+  assign div_valid = subgraph_div_enable;
+
+  // -- node counter
   always @(*) begin
-    sm_ready  = sm_ready_reg;
-    if (sm_ready_reg) begin
-      sm_ready = 1'b0;
-    end else if (o_idx_cnt_reg >= num_of_nodes - 1) begin
-      sm_ready  = 1'b1;
-    end
-  end
-
-  always @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      sm_ready_reg <= 0;
+    div_node_counter = div_node_counter_reg;
+    if (subgraph_div_enable) begin
+      if (div_node_counter_reg == div_num_of_nodes_reg - 1) begin
+        div_node_counter = '0;
+      end else begin
+        div_node_counter = div_node_counter_reg + 1;
+      end
     end else begin
-      sm_ready_reg <= sm_ready;
+      div_node_counter = '0;
     end
   end
-  //* ==============================================================
 
-
-  //* ====================== sm_num_of_nodes =======================
-  assign sm_num_of_nodes = (sm_ready) ? num_of_nodes : sm_num_of_nodes_reg;
-
-  always @(posedge clk or negedge rst_n) begin
+  always @(posedge clk) begin
     if (!rst_n) begin
-      sm_num_of_nodes_reg <= 0;
+      div_node_counter_reg <= '0;
+      div_num_of_nodes_reg <= '0;
+      divisor_reg          <= '0;
     end else begin
-      sm_num_of_nodes_reg <= sm_num_of_nodes;
+      div_node_counter_reg <= div_node_counter;
+      div_num_of_nodes_reg <= div_num_of_nodes;
+      divisor_reg          <= divisor;
     end
   end
-  //* ==============================================================
 
   (* dont_touch = "yes" *)
   fxp_div_pipe #(
@@ -312,9 +220,14 @@ module softmax import params_pkg::*;
   ) u_fxp_div_pipe (
     .clk      (clk                ),
     .rstn     (rst_n              ),
-    .dividend (in                 ),
-    .divisor  (sum_result_reg     ),
+    .valid    (div_valid          ),
+    .dividend (dividend           ),
+    .divisor  (divisor            ),
+    .ready    (div_ready          ),
     .out      (out                )
   );
-endmodule
+  //* ==============================================================
 
+  assign alpha_FIFO_din     = out;
+  assign alpha_FIFO_wr_vld  = div_ready && (!alpha_FIFO_full);
+endmodule

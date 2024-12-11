@@ -7,15 +7,15 @@ module aggregator import params_pkg::*;
 
   input                                               aggr_valid_i      ,
   output                                              aggr_ready_o      ,
-  output                                              aggr_pre_ready_o  ,
 
   // -- WH
-  input   [WH_WIDTH-1:0]                              WH_BRAM_doutb     ,
+  input   [WH_WIDTH-1:0]                              WH_BRAM_dout      ,
   output  [WH_2_ADDR_W-1:0]                           WH_BRAM_addrb     ,
 
   // -- alpha
-  input   [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha_i           ,
-  input   [NUM_NODE_WIDTH-1:0]                        num_of_nodes
+  input   [ALPHA_DATA_WIDTH-1:0]                      alpha_FIFO_dout   ,
+  input                                               alpha_FIFO_empty  ,
+  output                                              alpha_FIFO_rd_vld
 );
   //* ========== wire declaration ===========
 

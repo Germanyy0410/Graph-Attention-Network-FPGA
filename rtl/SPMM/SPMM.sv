@@ -7,16 +7,25 @@ module SPMM import params_pkg::*;
 
   input                                                 spmm_valid_i              ,
   output  [W_NUM_OF_COLS-1:0]                           pe_ready_o                ,
+
   // -- H_data BRAM
   input   [H_DATA_WIDTH-1:0]                            H_data_BRAM_dout          ,
   output  [H_DATA_ADDR_W-1:0]                           H_data_BRAM_addrb         ,
+
   // -- H_node_info BRAM
   input   [NODE_INFO_WIDTH-1:0]                         H_node_info_BRAM_dout     ,
   input   [NODE_INFO_WIDTH-1:0]                         H_node_info_BRAM_dout_nxt ,
   output  [NODE_INFO_ADDR_W-1:0]                        H_node_info_BRAM_addrb    ,
+
   // -- Weight
   input   [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout          ,
   output  [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb         ,
+
+  // -- num_of_nodes
+  output  [NUM_NODE_WIDTH-1:0]                          num_node_BRAM_din         ,
+  output                                                num_node_BRAM_ena         ,
+  output  [NUM_NODE_ADDR_W-1:0]                         num_node_BRAM_addra       ,
+
   // -- WH
   output  [WH_WIDTH-1:0]                                WH_1_BRAM_din             ,
   output                                                WH_1_BRAM_ena             ,
@@ -235,6 +244,32 @@ module SPMM import params_pkg::*;
       node_info_addr_reg  <= node_info_addr;
       ff_node_info_reg    <= ff_node_info;
     end
+  end
+  //* =======================================
+
+
+  //* ========== num_of_nodes BRAM ==========
+  // -- num_of_nodes BRAM
+  assign num_node_BRAM_din   = ff_num_of_nodes_reg;
+  assign num_node_BRAM_ena   = &pe_ready_o;
+  assign num_node_BRAM_addra = num_node_BRAM_addr_reg;
+
+  logic [NUM_NODE_ADDR_W-1:0] num_node_BRAM_addr;
+  logic [NUM_NODE_ADDR_W-1:0] num_node_BRAM_addr_reg;
+  logic ff_rd_valid_q1;
+
+  assign num_node_BRAM_addr = ff_rd_valid_q1 ? (num_node_BRAM_addr_reg + 1) : num_node_BRAM_addr_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      num_node_BRAM_addr_reg <= 0;
+    end else begin
+      num_node_BRAM_addr_reg <= num_node_BRAM_addr;
+    end
+  end
+
+  always_ff @(posedge clk) begin
+    ff_rd_valid_q1 <= ff_rd_valid;
   end
   //* =======================================
 endmodule

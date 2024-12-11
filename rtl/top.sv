@@ -40,6 +40,7 @@ module top import params_pkg::*;
   logic   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addra             ;
   logic   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addrb             ;
   logic   [WH_WIDTH-1:0]            WH_1_BRAM_dout              ;
+  logic                             WH_1_BRAM_dout_valid        ;
 
   logic   [WH_WIDTH-1:0]            WH_2_BRAM_din               ;
   logic                             WH_2_BRAM_ena               ;
@@ -47,25 +48,27 @@ module top import params_pkg::*;
   logic   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addrb             ;
   logic   [WH_WIDTH-1:0]            WH_2_BRAM_dout              ;
 
-  logic   [SOFTMAX_WIDTH-1:0]       softmax_FIFO_din            ;
-  logic   [SOFTMAX_WIDTH-1:0]       softmax_FIFO_dout           ;
-  logic                             softmax_FIFO_wr_valid       ;
-  logic                             softmax_FIFO_rd_valid       ;
-  logic                             softmax_FIFO_empty          ;
-  logic                             softmax_FIFO_full           ;
+  logic   [NUM_NODE_WIDTH-1:0]      num_node_BRAM_din           ;
+  logic                             num_node_BRAM_ena           ;
+  logic   [NUM_NODE_ADDR_W-1:0]     num_node_BRAM_addra         ;
+  logic   [NUM_NODE_ADDR_W-1:0]     num_node_BRAM_addrb         ;
+  logic   [NUM_NODE_WIDTH-1:0]      num_node_BRAM_doutb         ;
+  logic   [NUM_NODE_ADDR_W-1:0]     num_node_BRAM_addrc         ;
+  logic   [NUM_NODE_WIDTH-1:0]      num_node_BRAM_doutc         ;
 
-  logic   [AGGR_WIDTH-1:0]          aggr_FIFO_din               ;
-  logic   [AGGR_WIDTH-1:0]          aggr_FIFO_dout              ;
-  logic                             aggr_FIFO_wr_valid          ;
-  logic                             aggr_FIFO_rd_valid          ;
-  logic                             aggr_FIFO_empty             ;
-  logic                             aggr_FIFO_full              ;
+  logic   [DATA_WIDTH-1:0]          coef_FIFO_din               ;
+  logic                             coef_FIFO_wr_vld            ;
+  logic   [DATA_WIDTH-1:0]          coef_FIFO_dout              ;
+  logic                             coef_FIFO_rd_vld            ;
+  logic                             coef_FIFO_empty             ;
+  logic                             coef_FIFO_full              ;
 
-  logic   [AGGR_WIDTH-1:0]          aggr_BRAM_din               ;
-  logic                             aggr_BRAM_ena               ;
-  logic   [AGGR_ADDR_W-1:0]         aggr_BRAM_addra             ;
-  logic   [AGGR_WIDTH-1:0]          aggr_BRAM_dout              ;
-  logic   [AGGR_ADDR_W-1:0]         aggr_BRAM_addrb             ;
+  logic   [ALPHA_DATA_WIDTH-1:0]    alpha_FIFO_din              ;
+  logic                             alpha_FIFO_wr_vld           ;
+  logic   [ALPHA_DATA_WIDTH-1:0]    alpha_FIFO_dout             ;
+  logic                             alpha_FIFO_rd_vld           ;
+  logic                             alpha_FIFO_empty            ;
+  logic                             alpha_FIFO_full             ;
 
   genvar i;
 
@@ -126,6 +129,10 @@ module top import params_pkg::*;
     .spmm_valid_i               (spmm_valid                 ),
     .pe_ready_o                 (pe_ready                   ),
 
+    .num_node_BRAM_addra        (num_node_BRAM_addra        ),
+    .num_node_BRAM_ena          (num_node_BRAM_ena          ),
+    .num_node_BRAM_din          (num_node_BRAM_din          ),
+
     .WH_1_BRAM_din              (WH_1_BRAM_din              ),
     .WH_1_BRAM_ena              (WH_1_BRAM_ena              ),
     .WH_1_BRAM_addra            (WH_1_BRAM_addra            ),
@@ -138,217 +145,69 @@ module top import params_pkg::*;
 
 
   //* ========================== DMVM ==========================
-  logic                                       dmvm_valid      ;
-  logic                                       dmvm_valid_reg  ;
-  logic                                       dmvm_ready      ;
-  logic [MAX_NODES-1:0] [DATA_WIDTH-1:0]      coef            ;
-  logic [COEF_W-1:0]                          coef_cat        ;
-  logic [NUM_NODE_WIDTH-1:0]                  num_of_nodes    ;
-
-  assign dmvm_valid = (&pe_ready) ? 1'b1 : dmvm_valid_reg;
-
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      dmvm_valid_reg <= 1'b0;
-    end else begin
-      dmvm_valid_reg <= dmvm_valid;
-    end
-  end
+  logic dmvm_ready;
 
   (* dont_touch = "yes" *)
   DMVM u_DMVM (
-    .clk              (clk              ),
-    .rst_n            (rst_n            ),
+    .clk                (clk                  ),
+    .rst_n              (rst_n                ),
 
-    .dmvm_valid_i     (dmvm_valid_reg   ),
-    .dmvm_ready_o     (dmvm_ready       ),
+    .dmvm_valid_i       (WH_1_BRAM_dout_valid ),
+    .dmvm_ready_o       (dmvm_ready           ),
 
-    .a_valid_i        (a_BRAM_load_done ),
-    .a_i              (a                ),
+    .a_valid_i          (a_BRAM_load_done     ),
+    .a_i                (a                    ),
 
-    .WH_BRAM_dout     (WH_1_BRAM_dout   ),
-    .WH_BRAM_addrb    (WH_1_BRAM_addrb  ),
+    .WH_BRAM_dout       (WH_1_BRAM_dout       ),
+    .WH_BRAM_addrb      (WH_1_BRAM_addrb      ),
 
-    .coef_o           (coef             ),
-    .num_of_nodes_o   (num_of_nodes     )
+    .coef_FIFO_din      (coef_FIFO_din        ),
+    .coef_FIFO_wr_vld   (coef_FIFO_wr_vld     ),
+    .coef_FIFO_full     (coef_FIFO_full       )
   );
-
-  generate
-    for (i = 0; i < MAX_NODES; i = i + 1) begin
-      assign coef_cat[DATA_WIDTH*(i+1)-1-:DATA_WIDTH] = coef[MAX_NODES-1-i];
-    end
-  endgenerate
   //* ==========================================================
 
 
   //* ======================== Softmax =========================
-  // -- BRAM logic
-  coef_t                                            sm_data_i               ;
-  // -- 1st data available
-  logic                                             first_sm                ;
-  logic                                             first_sm_reg            ;
-  // -- I/O
-  logic                                             sm_valid                ;
-  logic                                             sm_valid_reg            ;
-  logic                                             sm_pre_ready            ;
-  logic                                             sm_ready                ;
-  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_i       ;
-  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_i_reg   ;
-  logic [MAX_NODES-1:0] [DATA_WIDTH-1:0]            sm_coef                 ;
-  logic [MAX_NODES-1:0] [DATA_WIDTH-1:0]            sm_coef_reg             ;
-  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      alpha                   ;
-  logic [ALPHA_W-1:0]                               alpha_cat               ;
-  logic [NUM_NODE_WIDTH-1:0]                        sm_num_of_nodes_o       ;
+  logic sm_ready;
 
-  assign sm_data_i              = { coef_cat, num_of_nodes };
-  assign softmax_FIFO_din       = sm_data_i;
-  assign softmax_FIFO_wr_valid  = dmvm_ready;
-  assign softmax_FIFO_rd_valid  = (first_sm && ~softmax_FIFO_empty) ? 1'b1 : (sm_pre_ready && ~softmax_FIFO_empty) ? 1'b1 : 1'b0;
+  softmax_pipe u_softmax (
+    .clk                  (clk                    ),
+    .rst_n                (rst_n                  ),
 
-  assign sm_num_of_nodes_i      = softmax_FIFO_rd_valid ? (softmax_FIFO_dout[NUM_NODE_WIDTH-1:0]) : sm_num_of_nodes_i_reg;
-  generate
-    for (i = 0; i < MAX_NODES; i = i + 1) begin
-      assign sm_coef[i] = softmax_FIFO_rd_valid ? (softmax_FIFO_dout[SOFTMAX_WIDTH-1-i*DATA_WIDTH : SOFTMAX_WIDTH-(i+1)*DATA_WIDTH]) : sm_coef_reg[i];
-    end
-  endgenerate
+    .sm_valid_i           (dmvm_ready             ),
+    .sm_ready_o           (sm_ready               ),
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      sm_coef_reg           <= '0;
-      sm_num_of_nodes_i_reg <= 0;
-    end else begin
-      sm_coef_reg           <= sm_coef;
-      sm_num_of_nodes_i_reg <= sm_num_of_nodes_i;
-    end
-  end
+    .coef_FIFO_dout       (coef_FIFO_dout         ),
+    .coef_FIFO_empty      (coef_FIFO_empty        ),
+    .coef_FIFO_rd_vld     (coef_FIFO_rd_vld       ),
 
-  // -- sm_valid
-  assign first_sm = (sm_valid_reg == 1'b1) ? 1'b0 : first_sm_reg;
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      first_sm_reg <= 1'b1;
-    end else begin
-      first_sm_reg <= first_sm;
-    end
-  end
+    .num_node_BRAM_dout   (num_node_BRAM_doutb    ),
+    .num_node_BRAM_addrb  (num_node_BRAM_addrb    ),
 
-  always_comb begin
-    if (sm_valid_reg) begin
-      sm_valid = 1'b0;
-    end else if (softmax_FIFO_rd_valid) begin
-      sm_valid = 1'b1;
-    end else begin
-      sm_valid = sm_valid_reg;
-    end
-  end
-
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      sm_valid_reg <= 1'b0;
-    end else begin
-      sm_valid_reg <= sm_valid;
-    end
-  end
-
-  (* dont_touch = "yes" *)
-  softmax u_softmax (
-    .clk            (clk                    ),
-    .rst_n          (rst_n                  ),
-    .sm_valid_i     (sm_valid_reg           ),
-    .sm_pre_ready_o (sm_pre_ready           ),
-    .sm_ready_o     (sm_ready               ),
-    .coef_i         (sm_coef_reg            ),
-    .num_of_nodes   (sm_num_of_nodes_i_reg  ),
-    .alpha_o        (alpha                  )
+    .alpha_FIFO_din       (alpha_FIFO_din         ),
+    .alpha_FIFO_full      (alpha_FIFO_full        ),
+    .alpha_FIFO_wr_vld    (alpha_FIFO_wr_vld      )
   );
-
-  generate
-    for (i = 0; i < MAX_NODES; i = i + 1) begin
-      assign alpha_cat[ALPHA_DATA_WIDTH*(i+1)-1-:ALPHA_DATA_WIDTH] = alpha[MAX_NODES-1-i];
-    end
-  endgenerate
   //* ==========================================================
 
 
   //* ======================= Aggregator =======================
-  // -- BRAM logic
-  aggr_t                                            aggr_data_i             ;
-  // -- 1st data available
-  logic                                             first_aggr              ;
-  logic                                             first_aggr_reg          ;
-
-  logic                                             aggr_valid              ;
-  logic                                             aggr_valid_reg          ;
-  logic                                             aggr_ready              ;
-  logic                                             aggr_pre_ready          ;
-  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      aggr_alpha              ;
-  logic [MAX_NODES-1:0] [ALPHA_DATA_WIDTH-1:0]      aggr_alpha_reg          ;
-  logic [NUM_NODE_WIDTH-1:0]                        aggr_num_of_nodes_i     ;
-  logic [NUM_NODE_WIDTH-1:0]                        aggr_num_of_nodes_i_reg ;
-
-  assign aggr_data_i            = { alpha_cat, sm_num_of_nodes_o };
-  assign aggr_FIFO_din          = aggr_data_i;
-  assign aggr_FIFO_wr_valid     = sm_ready;
-  assign aggr_FIFO_rd_valid     = (first_aggr && ~aggr_FIFO_empty) ? 1'b1 : (aggr_pre_ready && ~aggr_FIFO_empty) ? 1'b1 : 1'b0;
-
-  assign aggr_num_of_nodes_i  = aggr_FIFO_rd_valid ? (aggr_BRAM_dout[NUM_NODE_WIDTH-1:0]) : aggr_num_of_nodes_i_reg;
-  generate
-    for (i = 0; i < MAX_NODES; i = i + 1) begin
-      assign aggr_alpha[i] = aggr_FIFO_rd_valid ? (aggr_BRAM_dout[AGGR_WIDTH-1-i*ALPHA_DATA_WIDTH : AGGR_WIDTH-(i+1)*ALPHA_DATA_WIDTH]) : aggr_alpha_reg[i];
-    end
-  endgenerate
-
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      aggr_alpha_reg          <= '0;
-      aggr_num_of_nodes_i_reg <= 0;
-    end else begin
-      aggr_alpha_reg          <= aggr_alpha;
-      aggr_num_of_nodes_i_reg <= aggr_num_of_nodes_i;
-    end
-  end
-
-  // -- aggr_valid
-  assign first_aggr = (aggr_valid_reg == 1'b1) ? 1'b0 : first_aggr_reg;
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      first_aggr_reg <= 1'b1;
-    end else begin
-      first_aggr_reg <= first_aggr;
-    end
-  end
-
-  always_comb begin
-    if (aggr_valid_reg) begin
-      aggr_valid = 1'b0;
-    end else if (aggr_FIFO_rd_valid) begin
-      aggr_valid = 1'b1;
-    end else begin
-      aggr_valid = aggr_valid_reg;
-    end
-  end
-
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      aggr_valid_reg <= 1'b0;
-    end else begin
-      aggr_valid_reg <= aggr_valid;
-    end
-  end
+  logic aggr_ready;
 
   aggregator u_aggregator (
-    .clk              (clk                      ),
-    .rst_n            (rst_n                    ),
+    .clk                  (clk                      ),
+    .rst_n                (rst_n                    ),
 
-    .aggr_valid_i     (aggr_valid_reg           ),
-    .aggr_ready_o     (aggr_ready               ),
-    .aggr_pre_ready_o (aggr_pre_ready           ),
+    .aggr_valid_i         (sm_ready                 ),
+    .aggr_ready_o         (aggr_ready               ),
 
-    .WH_BRAM_doutb    (WH_2_BRAM_dout           ),
-    .WH_BRAM_addrb    (WH_2_BRAM_addrb          ),
-    .num_of_nodes     (aggr_num_of_nodes_i_reg  ),
+    .WH_BRAM_dout         (WH_2_BRAM_dout           ),
+    .WH_BRAM_addrb        (WH_2_BRAM_addrb          ),
 
-    .alpha_i          (aggr_alpha_reg           )
+    .alpha_FIFO_dout      (alpha_FIFO_dout          ),
+    .alpha_FIFO_empty     (alpha_FIFO_empty         ),
+    .alpha_FIFO_rd_vld    (alpha_FIFO_rd_vld        )
   );
   //* ==========================================================
 endmodule

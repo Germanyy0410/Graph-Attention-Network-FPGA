@@ -15,11 +15,14 @@ module BRAM #(
   input                           ena           ,
   // -- Data Fetch
   input   [DATA_ADDR_W-1:0]       addrb         ,
-  output  [DATA_WIDTH-1:0]        dout
+  output  [DATA_WIDTH-1:0]        dout          ,
+  output                          dout_valid
 );
   logic [DATA_WIDTH-1:0]    memory      [0:DEPTH-1]       ;
   logic [DATA_WIDTH-1:0]    data                          ;
   logic [DATA_WIDTH-1:0]    data_q1                       ;
+
+  assign dout_valid = (addrb < addra);
 
   generate
     if (CLK_LATENCY == 0) begin

@@ -16,7 +16,7 @@ package params_pkg;
   parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 10;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 26;
+  parameter NUM_SUBGRAPHS         = 25;
   parameter MAX_NODES             = 6;
 `endif
 
@@ -37,7 +37,7 @@ package params_pkg;
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA;
   localparam NODE_INFO_DEPTH      = TOTAL_NODES;
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN;
-  localparam WH_1_DEPTH           = TOTAL_NODES;
+  localparam WH_1_DEPTH           = 40;
   localparam WH_2_DEPTH           = TOTAL_NODES;
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2;
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS;
