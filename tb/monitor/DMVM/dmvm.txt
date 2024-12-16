@@ -1,0 +1,401 @@
+
+[PASSED] -> DMVM - 5320000 ps
+		- Golden = 17072
+		- DUT    = 17072
+
+[PASSED] -> DMVM - 5370000 ps
+		- Golden = 37166
+		- DUT    = 37166
+
+[PASSED] -> DMVM - 5420000 ps
+		- Golden = 29618
+		- DUT    = 29618
+
+[PASSED] -> DMVM - 5500000 ps
+		- Golden = 30209
+		- DUT    = 30209
+
+[PASSED] -> DMVM - 5560000 ps
+		- Golden = 37841
+		- DUT    = 37841
+
+[PASSED] -> DMVM - 5590000 ps
+		- Golden = 20825
+		- DUT    = 20825
+
+[PASSED] -> DMVM - 5620000 ps
+		- Golden = 15355
+		- DUT    = 15355
+
+[PASSED] -> DMVM - 5670000 ps
+		- Golden = 37603
+		- DUT    = 37603
+
+[PASSED] -> DMVM - 5710000 ps
+		- Golden = 16065
+		- DUT    = 16065
+
+[PASSED] -> DMVM - 5780000 ps
+		- Golden = 37855
+		- DUT    = 37855
+
+[PASSED] -> DMVM - 5800000 ps
+		- Golden = 8836
+		- DUT    = 8836
+
+[PASSED] -> DMVM - 5850000 ps
+		- Golden = 33187
+		- DUT    = 33187
+
+[PASSED] -> DMVM - 5920000 ps
+		- Golden = 35156
+		- DUT    = 35156
+
+[PASSED] -> DMVM - 5960000 ps
+		- Golden = 16518
+		- DUT    = 16518
+
+[PASSED] -> DMVM - 6010000 ps
+		- Golden = 28169
+		- DUT    = 28169
+
+[PASSED] -> DMVM - 6070000 ps
+		- Golden = 38351
+		- DUT    = 38351
+
+[PASSED] -> DMVM - 6100000 ps
+		- Golden = 20101
+		- DUT    = 20101
+
+[PASSED] -> DMVM - 6130000 ps
+		- Golden = 20892
+		- DUT    = 20892
+
+[PASSED] -> DMVM - 6160000 ps
+		- Golden = 21785
+		- DUT    = 21785
+
+[PASSED] -> DMVM - 6210000 ps
+		- Golden = 23554
+		- DUT    = 23554
+
+[PASSED] -> DMVM - 6290000 ps
+		- Golden = 41892
+		- DUT    = 41892
+
+[PASSED] -> DMVM - 6370000 ps
+		- Golden = 47935
+		- DUT    = 47935
+
+[PASSED] -> DMVM - 6430000 ps
+		- Golden = 34092
+		- DUT    = 34092
+
+[PASSED] -> DMVM - 6470000 ps
+		- Golden = 5980
+		- DUT    = 5980
+
+[PASSED] -> DMVM - 6510000 ps
+		- Golden = 12939
+		- DUT    = 12939
+
+[PASSED] -> DMVM - 6560000 ps
+		- Golden = 33600
+		- DUT    = 33600
+
+[PASSED] -> DMVM - 6630000 ps
+		- Golden = 45002
+		- DUT    = 45002
+
+[PASSED] -> DMVM - 6670000 ps
+		- Golden = 20974
+		- DUT    = 20974
+
+[PASSED] -> DMVM - 6710000 ps
+		- Golden = 20862
+		- DUT    = 20862
+
+[PASSED] -> DMVM - 6770000 ps
+		- Golden = 38686
+		- DUT    = 38686
+
+[PASSED] -> DMVM - 6830000 ps
+		- Golden = 41859
+		- DUT    = 41859
+
+[PASSED] -> DMVM - 6870000 ps
+		- Golden = 28713
+		- DUT    = 28713
+
+[PASSED] -> DMVM - 6910000 ps
+		- Golden = 23180
+		- DUT    = 23180
+
+[PASSED] -> DMVM - 6970000 ps
+		- Golden = 27581
+		- DUT    = 27581
+
+[PASSED] -> DMVM - 7040000 ps
+		- Golden = 40426
+		- DUT    = 40426
+
+[PASSED] -> DMVM - 7060000 ps
+		- Golden = 20354
+		- DUT    = 20354
+
+[PASSED] -> DMVM - 7110000 ps
+		- Golden = 29496
+		- DUT    = 29496
+
+[PASSED] -> DMVM - 7170000 ps
+		- Golden = 24182
+		- DUT    = 24182
+
+[PASSED] -> DMVM - 7230000 ps
+		- Golden = 19568
+		- DUT    = 19568
+
+[PASSED] -> DMVM - 7270000 ps
+		- Golden = 26561
+		- DUT    = 26561
+
+[PASSED] -> DMVM - 7320000 ps
+		- Golden = 32843
+		- DUT    = 32843
+
+[PASSED] -> DMVM - 7360000 ps
+		- Golden = 26014
+		- DUT    = 26014
+
+[PASSED] -> DMVM - 7400000 ps
+		- Golden = 37297
+		- DUT    = 37297
+
+[PASSED] -> DMVM - 7450000 ps
+		- Golden = 23876
+		- DUT    = 23876
+
+[PASSED] -> DMVM - 7530000 ps
+		- Golden = 41892
+		- DUT    = 41892
+
+[PASSED] -> DMVM - 7570000 ps
+		- Golden = 23035
+		- DUT    = 23035
+
+[PASSED] -> DMVM - 7610000 ps
+		- Golden = 33380
+		- DUT    = 33380
+
+[PASSED] -> DMVM - 7660000 ps
+		- Golden = 33333
+		- DUT    = 33333
+
+[PASSED] -> DMVM - 7720000 ps
+		- Golden = 36582
+		- DUT    = 36582
+
+[PASSED] -> DMVM - 7770000 ps
+		- Golden = 28772
+		- DUT    = 28772
+
+[PASSED] -> DMVM - 7810000 ps
+		- Golden = 17943
+		- DUT    = 17943
+
+[PASSED] -> DMVM - 7870000 ps
+		- Golden = 46915
+		- DUT    = 46915
+
+[PASSED] -> DMVM - 7920000 ps
+		- Golden = 13060
+		- DUT    = 13060
+
+[PASSED] -> DMVM - 7970000 ps
+		- Golden = 42261
+		- DUT    = 42261
+
+[PASSED] -> DMVM - 8000000 ps
+		- Golden = 18964
+		- DUT    = 18964
+
+[PASSED] -> DMVM - 8070000 ps
+		- Golden = 36961
+		- DUT    = 36961
+
+[PASSED] -> DMVM - 8100000 ps
+		- Golden = 16799
+		- DUT    = 16799
+
+[PASSED] -> DMVM - 8160000 ps
+		- Golden = 21416
+		- DUT    = 21416
+
+[PASSED] -> DMVM - 8220000 ps
+		- Golden = 17370
+		- DUT    = 17370
+
+[PASSED] -> DMVM - 8240000 ps
+		- Golden = 5665
+		- DUT    = 5665
+
+[PASSED] -> DMVM - 8320000 ps
+		- Golden = 54382
+		- DUT    = 54382
+
+[PASSED] -> DMVM - 8370000 ps
+		- Golden = 12381
+		- DUT    = 12381
+
+[PASSED] -> DMVM - 8430000 ps
+		- Golden = 26351
+		- DUT    = 26351
+
+[PASSED] -> DMVM - 8480000 ps
+		- Golden = 38215
+		- DUT    = 38215
+
+[PASSED] -> DMVM - 8520000 ps
+		- Golden = 30060
+		- DUT    = 30060
+
+[PASSED] -> DMVM - 8570000 ps
+		- Golden = 29059
+		- DUT    = 29059
+
+[PASSED] -> DMVM - 8620000 ps
+		- Golden = 21334
+		- DUT    = 21334
+
+[PASSED] -> DMVM - 8680000 ps
+		- Golden = 25247
+		- DUT    = 25247
+
+[PASSED] -> DMVM - 8740000 ps
+		- Golden = 28475
+		- DUT    = 28475
+
+[PASSED] -> DMVM - 8770000 ps
+		- Golden = 16779
+		- DUT    = 16779
+
+[PASSED] -> DMVM - 8830000 ps
+		- Golden = 28262
+		- DUT    = 28262
+
+[PASSED] -> DMVM - 8890000 ps
+		- Golden = 35913
+		- DUT    = 35913
+
+[PASSED] -> DMVM - 8940000 ps
+		- Golden = 26910
+		- DUT    = 26910
+
+[PASSED] -> DMVM - 8980000 ps
+		- Golden = 21411
+		- DUT    = 21411
+
+[PASSED] -> DMVM - 9020000 ps
+		- Golden = 28053
+		- DUT    = 28053
+
+[PASSED] -> DMVM - 9050000 ps
+		- Golden = 11834
+		- DUT    = 11834
+
+[PASSED] -> DMVM - 9120000 ps
+		- Golden = 48066
+		- DUT    = 48066
+
+[PASSED] -> DMVM - 9160000 ps
+		- Golden = 24874
+		- DUT    = 24874
+
+[PASSED] -> DMVM - 9210000 ps
+		- Golden = 33017
+		- DUT    = 33017
+
+[PASSED] -> DMVM - 9250000 ps
+		- Golden = 34723
+		- DUT    = 34723
+
+[PASSED] -> DMVM - 9320000 ps
+		- Golden = 38870
+		- DUT    = 38870
+
+[PASSED] -> DMVM - 9360000 ps
+		- Golden = 15271
+		- DUT    = 15271
+
+[PASSED] -> DMVM - 9430000 ps
+		- Golden = 48713
+		- DUT    = 48713
+
+[PASSED] -> DMVM - 9500000 ps
+		- Golden = 47434
+		- DUT    = 47434
+
+[PASSED] -> DMVM - 9520000 ps
+		- Golden = 2559
+		- DUT    = 2559
+
+[PASSED] -> DMVM - 9570000 ps
+		- Golden = 30578
+		- DUT    = 30578
+
+[PASSED] -> DMVM - 9630000 ps
+		- Golden = 26562
+		- DUT    = 26562
+
+[PASSED] -> DMVM - 9680000 ps
+		- Golden = 32215
+		- DUT    = 32215
+
+[PASSED] -> DMVM - 9720000 ps
+		- Golden = 21441
+		- DUT    = 21441
+
+[PASSED] -> DMVM - 9780000 ps
+		- Golden = 20007
+		- DUT    = 20007
+
+[PASSED] -> DMVM - 9820000 ps
+		- Golden = 17365
+		- DUT    = 17365
+
+[PASSED] -> DMVM - 9870000 ps
+		- Golden = 35364
+		- DUT    = 35364
+
+[PASSED] -> DMVM - 9920000 ps
+		- Golden = 29469
+		- DUT    = 29469
+
+[PASSED] -> DMVM - 9950000 ps
+		- Golden = 20558
+		- DUT    = 20558
+
+[PASSED] -> DMVM - 10000000 ps
+		- Golden = 26150
+		- DUT    = 26150
+
+[PASSED] -> DMVM - 10070000 ps
+		- Golden = 48713
+		- DUT    = 48713
+
+[PASSED] -> DMVM - 10090000 ps
+		- Golden = -474
+		- DUT    = -474
+
+[PASSED] -> DMVM - 10150000 ps
+		- Golden = 36077
+		- DUT    = 36077
+
+[PASSED] -> DMVM - 10190000 ps
+		- Golden = 35860
+		- DUT    = 35860
+
+[PASSED] -> DMVM - 10270000 ps
+		- Golden = 37267
+		- DUT    = 37267
+

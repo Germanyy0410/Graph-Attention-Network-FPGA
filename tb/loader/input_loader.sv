@@ -6,7 +6,7 @@
     H_node_info_BRAM_ena        = 1'b1;
 		H_node_info_BRAM_load_done  = 1'b0;
 
-		file_path       = $sformatf("%s/tb/inputs/node_info.txt", ROOT_PATH);
+		file_path       = $sformatf("%s/tb/input/node_info.txt", ROOT_PATH);
     node_info_file  = $fopen(file_path, "r");
 
     for (int i = 0; i < NODE_INFO_DEPTH; i++) begin
@@ -25,7 +25,7 @@
 		Weight_BRAM_ena       = 1'b1;
 		Weight_BRAM_load_done = 1'b0;
 
-		file_path   = $sformatf("%s/tb/inputs/weight.txt", ROOT_PATH);
+		file_path   = $sformatf("%s/tb/input/weight.txt", ROOT_PATH);
     weight_file = $fopen(file_path, "r");
 
     for (int i = 0; i < WEIGHT_DEPTH; i++) begin
@@ -44,7 +44,7 @@
 		a_BRAM_ena        = 1'b1;
 		a_BRAM_load_done  = 1'b0;
 
-		file_path = $sformatf("%s/tb/inputs/a.txt", ROOT_PATH);
+		file_path = $sformatf("%s/tb/input/a.txt", ROOT_PATH);
 		a_file    = $fopen(file_path, "r");
 
 		for (int i = 0; i < A_DEPTH; i++) begin
@@ -62,7 +62,7 @@
 		H_data_BRAM_ena       = 1'b1;
 		H_data_BRAM_load_done = 1'b0;
 
-		file_path   = $sformatf("%s/tb/inputs/h_data.txt", ROOT_PATH);
+		file_path   = $sformatf("%s/tb/input/h_data.txt", ROOT_PATH);
 		value_file  = $fopen(file_path, "r");
 
 		for (int i = 0; i < H_DATA_DEPTH; i++) begin

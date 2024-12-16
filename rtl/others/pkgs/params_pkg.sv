@@ -2,7 +2,7 @@
 
 `define VIVADO                1
 
-// `define PASSED                1
+`define PASSED                1
 `define FAILED                1
 
 package params_pkg;
@@ -16,7 +16,7 @@ package params_pkg;
   parameter ALPHA_DATA_WIDTH      = 32;
 
 `ifdef SIMULATION
-  parameter H_NUM_SPARSE_DATA     = 501;
+  parameter H_NUM_SPARSE_DATA     = 500;
   parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 10;
   parameter NUM_FEATURE_OUT       = 16;
@@ -28,12 +28,12 @@ package params_pkg;
   parameter DIVIDEND_DEPTH        = 30;
   parameter DIVISOR_DEPTH         = 20;
 `else
-  parameter H_NUM_SPARSE_DATA     = 242101;
-  parameter TOTAL_NODES           = 13264;
-  parameter NUM_FEATURE_IN        = 1433;
+  parameter H_NUM_SPARSE_DATA     = 500;
+  parameter TOTAL_NODES           = 100;
+  parameter NUM_FEATURE_IN        = 10;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 2708;
-  parameter MAX_NODES             = 168;
+  parameter NUM_SUBGRAPHS         = 26;
+  parameter MAX_NODES             = 6;
 
   parameter COEF_DEPTH            = 200;
   parameter ALPHA_DEPTH           = 200;

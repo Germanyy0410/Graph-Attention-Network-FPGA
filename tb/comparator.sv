@@ -8,6 +8,8 @@
 
 `include "./../rtl/others/pkgs/params_pkg.sv"
 
+localparam string MONITOR_PATH = "d:/VLSI/Capstone/tb/monitor";
+
 class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH = 256, parameter SPMM_DEPTH = 16);
   logic dut_ready;
   T golden_output       [DEPTH];
@@ -18,6 +20,7 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
 
   string  label;
   string  monitor;
+  string  monitor_path;
   int     pass_checker;
   int     total_checker;
   int     int_bits;
@@ -127,6 +130,16 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
 
   task base_scoreboard();
     $display("     - %s     : %5d | %5d\t(%0d%%)", label, pass_checker, total_checker, pass_checker * 100 / total_checker );
+    export_monitor();
+  endtask
+
+  task export_monitor();
+    integer file;
+    file = $fopen($sformatf("%s/%s", MONITOR_PATH, monitor_path), "w");
+    if (file == 0) $error("Monitor: Failed to open %s", monitor_path);
+
+    $fwrite(file, "%s\n", monitor);
+    $fclose(file);
   endtask
 
   function real abs(real value);

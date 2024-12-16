@@ -53,16 +53,7 @@ module top_tb import params_pkg::*;
 
 
   ///////////////////////////////////////////////////////////////////
-  int   golden_spmm         [TOTAL_NODES*NUM_FEATURE_OUT];
 
-  int   golden_dmvm         [TOTAL_NODES];
-  int   golden_coef         [TOTAL_NODES];
-
-  int   golden_dividend     [TOTAL_NODES];
-  int   golden_divisor      [NUM_SUBGRAPHS];
-  int   golden_sm_num_node  [NUM_SUBGRAPHS];
-  real  golden_alpha        [TOTAL_NODES];
-  real  golden_exp_alpha    [TOTAL_NODES];
 
   `include "./helper/helper.sv"
   `include "./loader/input_loader.sv"
@@ -78,6 +69,16 @@ module top_tb import params_pkg::*;
   OutputComparator #(int, NUM_NODE_WIDTH, NUM_SUBGRAPHS)               sm_num_nodes = new("SM_NUM_NODE", NUM_NODE_WIDTH, 0, 0);
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)              alpha        = new("Alpha      ", WOI, WOF, 0);
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)              exp_alpha    = new("Exp_Alpha  ", WOI, WOF, 0);
+
+  initial begin
+    spmm.monitor_path         = "/SPMM/wh.txt";
+    dmvm.monitor_path         = "/DMVM/dmvm.txt";
+    coef.monitor_path         = "/DMVM/coef.txt";
+    dividend.monitor_path     = "/softmax/dividend.txt";
+    divisor.monitor_path      = "/softmax/divisor.txt";
+    sm_num_nodes.monitor_path = "/softmax/num_nodes.txt";
+    alpha.monitor_path        = "/softmax/alpha.txt";
+  end
 
   always_comb begin
     spmm.dut_ready              = dut.u_SPMM.spmm_ready_o;

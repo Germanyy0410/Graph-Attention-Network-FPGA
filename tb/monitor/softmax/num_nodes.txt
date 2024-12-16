@@ -1,0 +1,105 @@
+
+[PASSED] -> SM_NUM_NODE - 5520000 ps
+		- Golden = 3
+		- DUT    = 3
+
+[PASSED] -> SM_NUM_NODE - 5730000 ps
+		- Golden = 5
+		- DUT    = 5
+
+[PASSED] -> SM_NUM_NODE - 5980000 ps
+		- Golden = 5
+		- DUT    = 5
+
+[PASSED] -> SM_NUM_NODE - 6120000 ps
+		- Golden = 3
+		- DUT    = 3
+
+[PASSED] -> SM_NUM_NODE - 6450000 ps
+		- Golden = 6
+		- DUT    = 6
+
+[PASSED] -> SM_NUM_NODE - 6530000 ps
+		- Golden = 2
+		- DUT    = 2
+
+[PASSED] -> SM_NUM_NODE - 6730000 ps
+		- Golden = 4
+		- DUT    = 4
+
+[PASSED] -> SM_NUM_NODE - 6850000 ps
+		- Golden = 2
+		- DUT    = 2
+
+[PASSED] -> SM_NUM_NODE - 7060000 ps
+		- Golden = 4
+		- DUT    = 4
+
+[PASSED] -> SM_NUM_NODE - 7250000 ps
+		- Golden = 4
+		- DUT    = 4
+
+[PASSED] -> SM_NUM_NODE - 7340000 ps
+		- Golden = 2
+		- DUT    = 2
+
+[PASSED] -> SM_NUM_NODE - 7630000 ps
+		- Golden = 6
+		- DUT    = 6
+
+[PASSED] -> SM_NUM_NODE - 7940000 ps
+		- Golden = 6
+		- DUT    = 6
+
+[PASSED] -> SM_NUM_NODE - 8120000 ps
+		- Golden = 4
+		- DUT    = 4
+
+[PASSED] -> SM_NUM_NODE - 8260000 ps
+		- Golden = 3
+		- DUT    = 3
+
+[PASSED] -> SM_NUM_NODE - 8450000 ps
+		- Golden = 3
+		- DUT    = 3
+
+[PASSED] -> SM_NUM_NODE - 8700000 ps
+		- Golden = 5
+		- DUT    = 5
+
+[PASSED] -> SM_NUM_NODE - 8850000 ps
+		- Golden = 3
+		- DUT    = 3
+
+[PASSED] -> SM_NUM_NODE - 9070000 ps
+		- Golden = 5
+		- DUT    = 5
+
+[PASSED] -> SM_NUM_NODE - 9180000 ps
+		- Golden = 2
+		- DUT    = 2
+
+[PASSED] -> SM_NUM_NODE - 9380000 ps
+		- Golden = 4
+		- DUT    = 4
+
+[PASSED] -> SM_NUM_NODE - 9650000 ps
+		- Golden = 5
+		- DUT    = 5
+
+[PASSED] -> SM_NUM_NODE - 9800000 ps
+		- Golden = 3
+		- DUT    = 3
+
+[PASSED] -> SM_NUM_NODE - 9940000 ps
+		- Golden = 3
+		- DUT    = 3
+
+[PASSED] -> SM_NUM_NODE - 10110000 ps
+		- Golden = 4
+		- DUT    = 4
+
+[PASSED] -> SM_NUM_NODE - 10370000 ps
+		- Golden = 4
+		- DUT    = 4
+

@@ -1,0 +1,105 @@
+
+[PASSED] -> Divisor - 5520000 ps
+		- Golden = 10496
+		- DUT    = 10496
+
+[PASSED] -> Divisor - 5730000 ps
+		- Golden = 153600
+		- DUT    = 153600
+
+[PASSED] -> Divisor - 5980000 ps
+		- Golden = 16576
+		- DUT    = 16576
+
+[PASSED] -> Divisor - 6120000 ps
+		- Golden = 9472
+		- DUT    = 9472
+
+[PASSED] -> Divisor - 6450000 ps
+		- Golden = 101888
+		- DUT    = 101888
+
+[PASSED] -> Divisor - 6530000 ps
+		- Golden = 66048
+		- DUT    = 66048
+
+[PASSED] -> Divisor - 6730000 ps
+		- Golden = 18752
+		- DUT    = 18752
+
+[PASSED] -> Divisor - 6850000 ps
+		- Golden = 17408
+		- DUT    = 17408
+
+[PASSED] -> Divisor - 7060000 ps
+		- Golden = 1277952
+		- DUT    = 1277952
+
+[PASSED] -> Divisor - 7250000 ps
+		- Golden = 704512
+		- DUT    = 704512
+
+[PASSED] -> Divisor - 7340000 ps
+		- Golden = 2560
+		- DUT    = 2560
+
+[PASSED] -> Divisor - 7630000 ps
+		- Golden = 491520
+		- DUT    = 491520
+
+[PASSED] -> Divisor - 7940000 ps
+		- Golden = 823296
+		- DUT    = 823296
+
+[PASSED] -> Divisor - 8120000 ps
+		- Golden = 12480
+		- DUT    = 12480
+
+[PASSED] -> Divisor - 8260000 ps
+		- Golden = 1024
+		- DUT    = 1024
+
+[PASSED] -> Divisor - 8450000 ps
+		- Golden = 16404
+		- DUT    = 16404
+
+[PASSED] -> Divisor - 8700000 ps
+		- Golden = 55296
+		- DUT    = 55296
+
+[PASSED] -> Divisor - 8850000 ps
+		- Golden = 13312
+		- DUT    = 13312
+
+[PASSED] -> Divisor - 9070000 ps
+		- Golden = 61440
+		- DUT    = 61440
+
+[PASSED] -> Divisor - 9180000 ps
+		- Golden = 16416
+		- DUT    = 16416
+
+[PASSED] -> Divisor - 9380000 ps
+		- Golden = 69632
+		- DUT    = 69632
+
+[PASSED] -> Divisor - 9650000 ps
+		- Golden = 67728
+		- DUT    = 67728
+
+[PASSED] -> Divisor - 9800000 ps
+		- Golden = 22528
+		- DUT    = 22528
+
+[PASSED] -> Divisor - 9940000 ps
+		- Golden = 9216
+		- DUT    = 9216
+
+[PASSED] -> Divisor - 10110000 ps
+		- Golden = 552960
+		- DUT    = 552960
+
+[FAILED] -> Divisor - 10370000 ps
+		- Golden = 769
+		- DUT    = 768
+

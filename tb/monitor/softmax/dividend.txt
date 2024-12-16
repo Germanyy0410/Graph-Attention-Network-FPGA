@@ -1,0 +1,401 @@
+
+[PASSED] -> Dividend - 5530000 ps
+		- Golden = 256
+		- DUT    = 256
+
+[PASSED] -> Dividend - 5540000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 5550000 ps
+		- Golden = 2048
+		- DUT    = 2048
+
+[PASSED] -> Dividend - 5740000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 5750000 ps
+		- Golden = 65536
+		- DUT    = 65536
+
+[PASSED] -> Dividend - 5760000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 5770000 ps
+		- Golden = 2048
+		- DUT    = 2048
+
+[PASSED] -> Dividend - 5780000 ps
+		- Golden = 65536
+		- DUT    = 65536
+
+[PASSED] -> Dividend - 5990000 ps
+		- Golden = 128
+		- DUT    = 128
+
+[PASSED] -> Dividend - 6000000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 6010000 ps
+		- Golden = 64
+		- DUT    = 64
+
+[PASSED] -> Dividend - 6020000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 6030000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 6130000 ps
+		- Golden = 256
+		- DUT    = 256
+
+[PASSED] -> Dividend - 6140000 ps
+		- Golden = 1024
+		- DUT    = 1024
+
+[PASSED] -> Dividend - 6150000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 6460000 ps
+		- Golden = 512
+		- DUT    = 512
+
+[PASSED] -> Dividend - 6470000 ps
+		- Golden = 1024
+		- DUT    = 1024
+
+[PASSED] -> Dividend - 6480000 ps
+		- Golden = 1024
+		- DUT    = 1024
+
+[PASSED] -> Dividend - 6490000 ps
+		- Golden = 1024
+		- DUT    = 1024
+
+[PASSED] -> Dividend - 6500000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 6511000 ps
+		- Golden = 65536
+		- DUT    = 65536
+
+[PASSED] -> Dividend - 6540000 ps
+		- Golden = 65536
+		- DUT    = 65536
+
+[PASSED] -> Dividend - 6550000 ps
+		- Golden = 512
+		- DUT    = 512
+
+[PASSED] -> Dividend - 6740000 ps
+		- Golden = 64
+		- DUT    = 64
+
+[PASSED] -> Dividend - 6750000 ps
+		- Golden = 2048
+		- DUT    = 2048
+
+[PASSED] -> Dividend - 6760000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 6770000 ps
+		- Golden = 256
+		- DUT    = 256
+
+[PASSED] -> Dividend - 6860000 ps
+		- Golden = 1024
+		- DUT    = 1024
+
+[PASSED] -> Dividend - 6870000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 7070000 ps
+		- Golden = 1048576
+		- DUT    = 1048576
+
+[PASSED] -> Dividend - 7080000 ps
+		- Golden = 131072
+		- DUT    = 131072
+
+[PASSED] -> Dividend - 7090000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 7100000 ps
+		- Golden = 65536
+		- DUT    = 65536
+
+[PASSED] -> Dividend - 7260000 ps
+		- Golden = 524288
+		- DUT    = 524288
+
+[PASSED] -> Dividend - 7270000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 7280000 ps
+		- Golden = 131072
+		- DUT    = 131072
+
+[PASSED] -> Dividend - 7290000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 7350000 ps
+		- Golden = 512
+		- DUT    = 512
+
+[PASSED] -> Dividend - 7360000 ps
+		- Golden = 2048
+		- DUT    = 2048
+
+[PASSED] -> Dividend - 7640000 ps
+		- Golden = 65536
+		- DUT    = 65536
+
+[PASSED] -> Dividend - 7650000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 7660000 ps
+		- Golden = 131072
+		- DUT    = 131072
+
+[PASSED] -> Dividend - 7670000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 7680000 ps
+		- Golden = 262144
+		- DUT    = 262144
+
+[PASSED] -> Dividend - 7691000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 7950000 ps
+		- Golden = 65536
+		- DUT    = 65536
+
+[PASSED] -> Dividend - 7960000 ps
+		- Golden = 65536
+		- DUT    = 65536
+
+[PASSED] -> Dividend - 7970000 ps
+		- Golden = 131072
+		- DUT    = 131072
+
+[PASSED] -> Dividend - 7980000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 7990000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 8001000 ps
+		- Golden = 524288
+		- DUT    = 524288
+
+[PASSED] -> Dividend - 8130000 ps
+		- Golden = 64
+		- DUT    = 64
+
+[PASSED] -> Dividend - 8140000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 8150000 ps
+		- Golden = 128
+		- DUT    = 128
+
+[PASSED] -> Dividend - 8160000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 8270000 ps
+		- Golden = 256
+		- DUT    = 256
+
+[PASSED] -> Dividend - 8280000 ps
+		- Golden = 512
+		- DUT    = 512
+
+[PASSED] -> Dividend - 8290000 ps
+		- Golden = 256
+		- DUT    = 256
+
+[PASSED] -> Dividend - 8460000 ps
+		- Golden = 4
+		- DUT    = 4
+
+[PASSED] -> Dividend - 8470000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 8480000 ps
+		- Golden = 16
+		- DUT    = 16
+
+[PASSED] -> Dividend - 8710000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 8720000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 8730000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 8740000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 8750000 ps
+		- Golden = 2048
+		- DUT    = 2048
+
+[PASSED] -> Dividend - 8860000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 8870000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 8880000 ps
+		- Golden = 1024
+		- DUT    = 1024
+
+[PASSED] -> Dividend - 9080000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 9090000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 9100000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 9110000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 9120000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 9190000 ps
+		- Golden = 32
+		- DUT    = 32
+
+[PASSED] -> Dividend - 9200000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 9390000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 9400000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 9410000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 9420000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 9660000 ps
+		- Golden = 128
+		- DUT    = 128
+
+[PASSED] -> Dividend - 9670000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 9680000 ps
+		- Golden = 32768
+		- DUT    = 32768
+
+[PASSED] -> Dividend - 9690000 ps
+		- Golden = 16
+		- DUT    = 16
+
+[PASSED] -> Dividend - 9700000 ps
+		- Golden = 2048
+		- DUT    = 2048
+
+[PASSED] -> Dividend - 9810000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 9820000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 9830000 ps
+		- Golden = 2048
+		- DUT    = 2048
+
+[PASSED] -> Dividend - 9950000 ps
+		- Golden = 512
+		- DUT    = 512
+
+[PASSED] -> Dividend - 9960000 ps
+		- Golden = 512
+		- DUT    = 512
+
+[PASSED] -> Dividend - 9970000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 10120000 ps
+		- Golden = 16384
+		- DUT    = 16384
+
+[PASSED] -> Dividend - 10130000 ps
+		- Golden = 4096
+		- DUT    = 4096
+
+[PASSED] -> Dividend - 10140000 ps
+		- Golden = 8192
+		- DUT    = 8192
+
+[PASSED] -> Dividend - 10150000 ps
+		- Golden = 524288
+		- DUT    = 524288
+
+[FAILED] -> Dividend - 10380000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Dividend - 10390000 ps
+		- Golden = 256
+		- DUT    = 256
+
+[PASSED] -> Dividend - 10400000 ps
+		- Golden = 256
+		- DUT    = 256
+
+[PASSED] -> Dividend - 10410000 ps
+		- Golden = 256
+		- DUT    = 256
+

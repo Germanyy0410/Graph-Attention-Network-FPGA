@@ -1,0 +1,401 @@
+
+[PASSED] -> Alpha - 5880000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 5890000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 5900000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6090000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6100000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6110000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6120000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6130000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6340000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6350000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6360000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6370000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6380000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6480000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6490000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6500000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6810000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6820000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6830000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6840000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6850000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6861000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6890000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 6900000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7090000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7100000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7110000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7120000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7210000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7220000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7420000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7430000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7440000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7450000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7610000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7620000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7630000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7640000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7700000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7710000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 7990000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8000000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8010000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8020000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8030000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8041000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8300000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8310000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8320000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8330000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8340000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8351000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8480000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8490000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8500000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8510000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8620000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8630000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8640000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8810000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8820000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 8830000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9060000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9070000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9080000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9090000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9100000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9210000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9220000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9230000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9430000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9440000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9450000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9460000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9470000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9540000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9550000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9740000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9750000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9760000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 9770000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10010000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10020000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10030000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10040000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10050000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10160000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10170000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10180000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10300000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10310000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10320000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10470000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10480000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10490000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10500000 ps
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10730000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10740000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10750000 ps
+		- Golden = 0
+		- DUT    = 0
+
+[PASSED] -> Alpha - 10760000 ps
+		- Golden = 0
+		- DUT    = 0
+
