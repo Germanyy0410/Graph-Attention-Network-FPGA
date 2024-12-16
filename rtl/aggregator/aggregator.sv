@@ -10,7 +10,7 @@ module aggregator import params_pkg::*;
 
   // -- WH
   input   [WH_WIDTH-1:0]                              WH_BRAM_dout      ,
-  output  [WH_2_ADDR_W-1:0]                           WH_BRAM_addrb     ,
+  output  [WH_ADDR_W-1:0]                             WH_BRAM_addrb     ,
 
   // -- alpha
   input   [ALPHA_DATA_WIDTH-1:0]                      alpha_FIFO_dout   ,

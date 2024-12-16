@@ -34,18 +34,11 @@ module mem_ctrl import params_pkg::*;
   output  [DATA_WIDTH-1:0]          a_BRAM_dout                 ,
   input                             a_BRAM_load_done            ,
 
-  input   [WH_WIDTH-1:0]            WH_1_BRAM_din               ,
-  input                             WH_1_BRAM_ena               ,
-  input   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addra             ,
-  output  [WH_WIDTH-1:0]            WH_1_BRAM_dout              ,
-  input   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addrb             ,
-  output                            WH_1_BRAM_dout_valid        ,
-
-  input   [WH_WIDTH-1:0]            WH_2_BRAM_din               ,
-  input                             WH_2_BRAM_ena               ,
-  input   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addra             ,
-  output  [WH_WIDTH-1:0]            WH_2_BRAM_dout              ,
-  input   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addrb             ,
+  input   [WH_WIDTH-1:0]            WH_BRAM_din                 ,
+  input                             WH_BRAM_ena                 ,
+  input   [WH_ADDR_W-1:0]           WH_BRAM_addra               ,
+  output  [WH_WIDTH-1:0]            WH_BRAM_dout                ,
+  input   [WH_ADDR_W-1:0]           WH_BRAM_addrb               ,
 
   input   [NUM_NODE_WIDTH-1:0]      num_node_BRAM_din           ,
   input                             num_node_BRAM_ena           ,
@@ -71,7 +64,6 @@ module mem_ctrl import params_pkg::*;
 );
 
   //* ========================= MEMORY =========================
-  (* dont_touch = "yes" *)
   BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
     .DEPTH        (H_DATA_DEPTH         ),
@@ -86,7 +78,6 @@ module mem_ctrl import params_pkg::*;
     .dout         (H_data_BRAM_dout     )
   );
 
-  (* dont_touch = "yes" *)
   modified_BRAM #(
     .DATA_WIDTH   (NODE_INFO_WIDTH            ),
     .DEPTH        (NODE_INFO_DEPTH            ),
@@ -102,7 +93,6 @@ module mem_ctrl import params_pkg::*;
     .dout_nxt     (H_node_info_BRAM_dout_nxt  )
   );
 
-  (* dont_touch = "yes" *)
   BRAM #(
     .DATA_WIDTH   (DATA_WIDTH           ),
     .DEPTH        (WEIGHT_DEPTH         ),
@@ -117,38 +107,20 @@ module mem_ctrl import params_pkg::*;
     .dout         (Weight_BRAM_dout     )
   );
 
-  (* dont_touch = "yes" *)
   BRAM #(
     .DATA_WIDTH   (WH_WIDTH             ),
-    .DEPTH        (WH_1_DEPTH           ),
+    .DEPTH        (WH_DEPTH             ),
     .CLK_LATENCY  (1                    )
-  ) u_WH_1_BRAM (
+  ) u_WH_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
-    .din          (WH_1_BRAM_din        ),
-    .addra        (WH_1_BRAM_addra      ),
-    .ena          (WH_1_BRAM_ena        ),
-    .addrb        (WH_1_BRAM_addrb      ),
-    .dout         (WH_1_BRAM_dout       ),
-    .dout_valid   (WH_1_BRAM_dout_valid )
+    .din          (WH_BRAM_din          ),
+    .addra        (WH_BRAM_addra        ),
+    .ena          (WH_BRAM_ena          ),
+    .addrb        (WH_BRAM_addrb        ),
+    .dout         (WH_BRAM_dout         )
   );
 
-  (* dont_touch = "yes" *)
-  BRAM #(
-    .DATA_WIDTH   (WH_WIDTH             ),
-    .DEPTH        (WH_2_DEPTH           ),
-    .CLK_LATENCY  (1                    )
-  ) u_WH_2_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (WH_2_BRAM_din        ),
-    .addra        (WH_2_BRAM_addra      ),
-    .ena          (WH_2_BRAM_ena        ),
-    .addrb        (WH_2_BRAM_addrb      ),
-    .dout         (WH_2_BRAM_dout       )
-  );
-
-  (* dont_touch = "yes" *)
   BRAM #(
     .DATA_WIDTH   (DATA_WIDTH           ),
     .DEPTH        (A_DEPTH              ),
@@ -163,7 +135,6 @@ module mem_ctrl import params_pkg::*;
     .dout         (a_BRAM_dout          )
   );
 
-  (* dont_touch = "yes" *)
   dual_read_BRAM #(
     .DATA_WIDTH   (NUM_NODE_WIDTH       ),
     .DEPTH        (NUM_NODES_DEPTH      ),
@@ -180,10 +151,9 @@ module mem_ctrl import params_pkg::*;
     .doutc        (num_node_BRAM_doutc  )
   );
 
-  (* dont_touch = "yes" *)
   FIFO #(
     .DATA_WIDTH (DATA_WIDTH     ),
-    .FIFO_DEPTH (TOTAL_NODES    )
+    .FIFO_DEPTH (COEF_DEPTH     )
   ) u_coef_FIFO (
     .clk        (clk                ),
     .rst_n      (rst_n              ),
@@ -195,10 +165,9 @@ module mem_ctrl import params_pkg::*;
     .rd_vld     (coef_FIFO_rd_vld   )
   );
 
-  (* dont_touch = "yes" *)
   FIFO #(
     .DATA_WIDTH (ALPHA_DATA_WIDTH       ),
-    .FIFO_DEPTH (TOTAL_NODES            )
+    .FIFO_DEPTH (ALPHA_DEPTH            )
   ) u_alpha_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),

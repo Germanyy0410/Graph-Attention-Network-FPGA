@@ -2,6 +2,4 @@
 .vscode/
 dvt_build.log
 sim/
-tb/inputs/
-tb/outputs/
-tb/logs/
+tb/others/logs/

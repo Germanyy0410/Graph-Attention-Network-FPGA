@@ -6,7 +6,7 @@ module SPMM import params_pkg::*;
   input                                                 rst_n                     ,
 
   input                                                 spmm_valid_i              ,
-  output  [W_NUM_OF_COLS-1:0]                           pe_ready_o                ,
+  output                                                spmm_ready_o              ,
 
   // -- H_data BRAM
   input   [H_DATA_WIDTH-1:0]                            H_data_BRAM_dout          ,
@@ -21,19 +21,17 @@ module SPMM import params_pkg::*;
   input   [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_weight_dout          ,
   output  [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_weight_addrb         ,
 
+  // -- DMVM
+  output  [WH_WIDTH-1:0]                                WH_data_o                 ,
+
   // -- num_of_nodes
   output  [NUM_NODE_WIDTH-1:0]                          num_node_BRAM_din         ,
   output                                                num_node_BRAM_ena         ,
   output  [NUM_NODE_ADDR_W-1:0]                         num_node_BRAM_addra       ,
 
-  // -- WH
-  output  [WH_WIDTH-1:0]                                WH_1_BRAM_din             ,
-  output                                                WH_1_BRAM_ena             ,
-  output  [WH_1_ADDR_W-1:0]                             WH_1_BRAM_addra           ,
-
-  output  [WH_WIDTH-1:0]                                WH_2_BRAM_din             ,
-  output                                                WH_2_BRAM_ena             ,
-  output  [WH_2_ADDR_W-1:0]                             WH_2_BRAM_addra
+  output  WH_t                                          WH_BRAM_din               ,
+  output                                                WH_BRAM_ena               ,
+  output  [WH_ADDR_W-1:0]                               WH_BRAM_addra
 );
 
   //* ======== internal declaration =========
@@ -81,23 +79,50 @@ module SPMM import params_pkg::*;
   logic                                           pe_valid                  ;
   logic                                           pe_valid_reg              ;
   logic                                           spmm_valid_q1             ;
+  logic [W_NUM_OF_COLS-1:0]                       pe_ready_o                ;
 
   // -- SP-PE results
   logic [WH_RESULT_WIDTH-1:0]                     result_cat                ;
   logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0]   result                    ;
   WH_t                                            WH_data_i                 ;
-  logic [WH_1_ADDR_W-1:0]                         WH_1_addr                 ;
-  logic [WH_1_ADDR_W-1:0]                         WH_1_addr_reg             ;
-  logic [WH_2_ADDR_W-1:0]                         WH_2_addr                 ;
-  logic [WH_2_ADDR_W-1:0]                         WH_2_addr_reg             ;
+  logic [WH_ADDR_W-1:0]                           WH_addr                   ;
+  logic [WH_ADDR_W-1:0]                           WH_addr_reg               ;
+
+  // -- output
+  logic [WH_WIDTH-1:0]                            WH_data                   ;
+  logic [WH_WIDTH-1:0]                            WH_data_reg               ;
+
+
+  // -- num_of_nodes BRAM
+  logic [NUM_NODE_ADDR_W-1:0]                     addr                      ;
+  logic [NUM_NODE_ADDR_W-1:0]                     addr_reg                  ;
+
+  logic [NUM_NODE_WIDTH-1:0]                      num_of_nodes_reg          ;
+
+  logic [NODE_INFO_ADDR_W-1:0]                    cpt_nf_addr               ;
+  logic [NODE_INFO_ADDR_W-1:0]                    cpt_nf_addr_reg           ;
+
+  logic                                           nn_ena                    ;
+  logic                                           nn_ena_reg                ;
+
+  logic                                           addr_en                   ;
+  logic                                           addr_en_reg               ;
   //* =======================================
 
   genvar i, k;
   integer x, y;
 
+
+  //* ========== output assignment ==========
+  assign spmm_ready_o = &pe_ready_o;
+  assign WH_data_o    = WH_data;
+  //* =======================================
+
+
   //* ============ instantiation ============
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
+      (* dont_touch = "yes" *)
       SP_PE u_SP_PE (
         .clk                (clk                        ),
         .rst_n              (rst_n                      ),
@@ -118,7 +143,7 @@ module SPMM import params_pkg::*;
 
   FIFO #(
     .DATA_WIDTH (NODE_INFO_WIDTH  ),
-    .FIFO_DEPTH (300              )
+    .FIFO_DEPTH (100              )
   ) node_info_FIFO (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
@@ -142,26 +167,35 @@ module SPMM import params_pkg::*;
     end
   endgenerate
 
-  assign WH_data_i        = { result_cat, ff_num_of_nodes_reg, ff_source_node_flag_reg };
+  // -- output from SP-PE
+  assign WH_data_i  = { result_cat, ff_num_of_nodes_reg, ff_source_node_flag_reg };
 
-  assign WH_1_BRAM_din    = WH_data_i;
-  assign WH_1_BRAM_ena    = (&pe_ready_o);
-  assign WH_1_BRAM_addra  = WH_1_addr_reg;
+  // -- WH BRAM
+  assign WH_BRAM_din    = { result_cat, ff_num_of_nodes_reg, ff_source_node_flag_reg };
+  assign WH_BRAM_ena    = (&pe_ready_o);
+  assign WH_BRAM_addra  = WH_addr_reg;
 
-  assign WH_2_BRAM_din    = WH_data_i;
-  assign WH_2_BRAM_ena    = (&pe_ready_o);
-  assign WH_2_BRAM_addra  = WH_2_addr_reg;
-
-  assign WH_1_addr = (&pe_ready_o) ? ((WH_1_addr_reg < WH_1_DEPTH - 1) ? (WH_1_addr_reg + 1) : 0) : WH_1_addr_reg;
-  assign WH_2_addr = (&pe_ready_o) ? (WH_2_addr_reg + 1) : WH_2_addr_reg;
+  // -- WH BRAM addr
+  assign WH_addr = (&pe_ready_o) ? (WH_addr_reg + 1) : WH_addr_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      WH_1_addr_reg <= 0;
-      WH_2_addr_reg <= 0;
+      WH_addr_reg <= 0;
     end else begin
-      WH_1_addr_reg <= WH_1_addr;
-      WH_2_addr_reg <= WH_2_addr;
+      WH_addr_reg <= WH_addr;
+    end
+  end
+  //* =======================================
+
+
+  //* ============== WH output ==============
+  assign WH_data = (&pe_ready_o) ? { result_cat, ff_num_of_nodes_reg, ff_source_node_flag_reg } : WH_data_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      WH_data_reg <= 0;
+    end else begin
+      WH_data_reg <= WH_data;
     end
   end
   //* =======================================
@@ -249,27 +283,43 @@ module SPMM import params_pkg::*;
 
 
   //* ========== num_of_nodes BRAM ==========
-  // -- num_of_nodes BRAM
-  assign num_node_BRAM_din   = ff_num_of_nodes_reg;
-  assign num_node_BRAM_ena   = &pe_ready_o;
-  assign num_node_BRAM_addra = num_node_BRAM_addr_reg;
+  // push to BRAM
+  assign num_node_BRAM_din   = num_of_nodes_reg;
+  assign num_node_BRAM_ena   = nn_ena_reg;
+  assign num_node_BRAM_addra = addr_reg;
 
-  logic [NUM_NODE_ADDR_W-1:0] num_node_BRAM_addr;
-  logic [NUM_NODE_ADDR_W-1:0] num_node_BRAM_addr_reg;
-  logic ff_rd_valid_q1;
+  assign addr_en  = (node_info_addr != node_info_addr_reg);
+  assign nn_ena   = ((cpt_nf_addr_reg == node_info_addr_reg) && (node_info_addr_reg > 0)) || (addr_en_reg && node_info_addr_reg == 1);
 
-  assign num_node_BRAM_addr = ff_rd_valid_q1 ? (num_node_BRAM_addr_reg + 1) : num_node_BRAM_addr_reg;
+  always_comb begin
+    cpt_nf_addr = cpt_nf_addr_reg;
+    addr        = addr_reg;
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      num_node_BRAM_addr_reg <= 0;
-    end else begin
-      num_node_BRAM_addr_reg <= num_node_BRAM_addr;
+    if (addr_en_reg) begin
+      if ((source_node_flag && node_info_addr_reg > 1) || (~source_node_flag && node_info_addr_reg == 1)) begin
+        cpt_nf_addr = cpt_nf_addr_reg + num_of_nodes;
+      end
+    end
+
+    if (nn_ena_reg && (node_info_addr_reg > 0)) begin
+      addr = addr_reg + 1;
     end
   end
 
   always_ff @(posedge clk) begin
-    ff_rd_valid_q1 <= ff_rd_valid;
+    if (!rst_n) begin
+      addr_en_reg       <= 'b0;
+      addr_reg          <= 'b0;
+      nn_ena_reg        <= 'b0;
+      cpt_nf_addr_reg   <= 'b0;
+      num_of_nodes_reg  <= 'b0;
+    end else begin
+      addr_reg          <= addr;
+      nn_ena_reg        <= nn_ena;
+      addr_en_reg       <= addr_en;
+      cpt_nf_addr_reg   <= cpt_nf_addr;
+      num_of_nodes_reg  <= num_of_nodes;
+    end
   end
   //* =======================================
 endmodule

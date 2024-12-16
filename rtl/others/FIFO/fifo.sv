@@ -1,5 +1,5 @@
 module FIFO #(
-  parameter DATA_WIDTH = 40,
+  parameter DATA_WIDTH = 8,
   parameter FIFO_DEPTH = 2708
 )(
   input                                 clk,
@@ -34,8 +34,8 @@ module FIFO #(
 
   assign dout = buffer[rd_addr_map];
 
-  assign wr_addr_inc  = wr_addr + 1'b1;
-  assign rd_addr_inc  = rd_addr + 1'b1;
+  assign wr_addr_inc  = wr_addr < (FIFO_DEPTH - 1) ? (wr_addr + 1'b1) : 'b0;
+  assign rd_addr_inc  = rd_addr < (FIFO_DEPTH - 1) ? (rd_addr + 1'b1) : 'b0;
   assign wr_addr_map  = wr_addr[ADDR_WIDTH-1:0];
   assign rd_addr_map  = rd_addr[ADDR_WIDTH-1:0];
 

@@ -1,47 +1,6 @@
 `timescale 1ns / 1ps
 
-// `include "checker.sv"
-class OutputComparator;
-  bit ready_signal;
-  int golden_output[];
-  int dut_output[];
-  int pass_checker;
-  int total_checker;
-  int N;
-
-  function new(int size);
-    N = size;
-    pass_checker = 0;
-    total_checker = 0;
-  endfunction
-
-  task compare_output();
-    for (int i = 0; i < N; i++) begin
-      #0.01;
-      if (golden_output[i] === dut_output[i]) begin
-        pass_checker++;
-      end
-      else begin
-        $display("ERROR: error at index [%0d], GOLDEN: %0d \t\t DUT: %0d", i, golden_output[i], dut_output[i]);
-      end
-      total_checker++;
-    end
-  endtask
-
-  function void update_inputs(bit ready, int golden[], int dut[]);
-    ready_signal = ready;
-    golden_output = golden;
-    dut_output = dut;
-  endfunction
-  function void monitor_checker();
-    $display("Total Checks: %0d, Passed: %0d", total_checker, pass_checker);
-    if (total_checker === pass_checker) begin
-      $display("TEST PASSED");
-    end else begin
-      $display("TEST FAILED");
-    end
-  endfunction
-endclass
+`include "comparator.sv"
 
 module top_tb import params_pkg::*;
   ();
@@ -79,186 +38,146 @@ module top_tb import params_pkg::*;
 
   top dut (.*);
 
-  integer node_info_file, a_file, weight_file, col_idx_file, value_file;
-  integer nd_r, w_r, a_r, value_r, col_idx_r, wh_r;
-
 	localparam string ROOT_PATH = "d:/VLSI/Capstone";
+	localparam string GOLDEN_PATH = "d:/VLSI/Capstone/tb/outputs";
 
-  bit ready_signal;
-  logic signed [WH_DATA_WIDTH-1:0]  golden_input[NODE_INFO_DEPTH][16];
-  logic signed [WH_DATA_WIDTH-1:0]   dut_output[NODE_INFO_DEPTH][16];
-  string line;
-  int WH_output_file, line_count, wh_o;
-  string file_path;
-  string output_file_path;
-  OutputComparator comparer;
-
-  ////////////////////////////////////////////
-  always #10 clk = ~clk;
+  ///////////////////////////////////////////////////////////////////
+  always #5 clk = ~clk;
   initial begin
     clk   = 1'b1;
     rst_n = 1'b0;
     #15.01;
     rst_n = 1'b1;
-    #50000;
-    $finish();
   end
-  ////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////
 
-  int i = 0;
+
+  ///////////////////////////////////////////////////////////////////
+  int   golden_spmm         [TOTAL_NODES*NUM_FEATURE_OUT];
+
+  int   golden_dmvm         [TOTAL_NODES];
+  int   golden_coef         [TOTAL_NODES];
+
+  int   golden_dividend     [TOTAL_NODES];
+  int   golden_divisor      [NUM_SUBGRAPHS];
+  int   golden_sm_num_node  [NUM_SUBGRAPHS];
+  real  golden_alpha        [TOTAL_NODES];
+  real  golden_exp_alpha    [TOTAL_NODES];
+
+  `include "./helper/helper.sv"
+  `include "./loader/input_loader.sv"
+  `include "./loader/output_loader.sv"
+
+  OutputComparator #(int, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT) spmm         = new("WH         ", WH_DATA_WIDTH, 0, 1);
+
+  OutputComparator #(int, DMVM_DATA_WIDTH, TOTAL_NODES)                dmvm         = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
+  OutputComparator #(int, DATA_WIDTH, TOTAL_NODES)                     coef         = new("COEF       ", DATA_WIDTH, 0, 1);
+
+  OutputComparator #(int, SM_DATA_WIDTH, TOTAL_NODES)                  dividend     = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
+  OutputComparator #(int, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)            divisor      = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
+  OutputComparator #(int, NUM_NODE_WIDTH, NUM_SUBGRAPHS)               sm_num_nodes = new("SM_NUM_NODE", NUM_NODE_WIDTH, 0, 0);
+  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)              alpha        = new("Alpha      ", WOI, WOF, 0);
+  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)              exp_alpha    = new("Exp_Alpha  ", WOI, WOF, 0);
+
+  always_comb begin
+    spmm.dut_ready              = dut.u_SPMM.spmm_ready_o;
+    spmm.dut_spmm_output        = dut.u_SPMM.result;
+    spmm.golden_spmm_output     = golden_spmm;
+
+    dmvm.dut_ready              = dut.u_DMVM.valid_shift_reg[COEF_DELAY_LENGTH-1];
+    dmvm.dut_output             = dut.u_DMVM.pipe_product_reg[NUM_STAGES][0];
+    dmvm.golden_output          = golden_dmvm;
+
+    coef.dut_ready              = dut.u_DMVM.dmvm_ready_o;
+    coef.dut_output             = dut.u_DMVM.coef_FIFO_din;
+    coef.golden_output          = golden_coef;
+
+    dividend.dut_ready          = dut.u_softmax.dividend_FIFO_rd_vld;
+    dividend.dut_output         = dut.u_softmax.dividend_FIFO_dout;
+    dividend.golden_output      = golden_dividend;
+
+    divisor.dut_ready           = dut.u_softmax.divisor_FIFO_wr_vld;
+    divisor.dut_output          = dut.u_softmax.divisor_FIFO_din.divisor;
+    divisor.golden_output       = golden_divisor;
+
+    sm_num_nodes.dut_ready      = dut.u_softmax.divisor_FIFO_wr_vld;
+    sm_num_nodes.dut_output     = dut.u_softmax.divisor_FIFO_din.num_of_nodes;
+    sm_num_nodes.golden_output  = golden_sm_num_node;
+
+    alpha.dut_ready             = dut.u_softmax.sm_ready_o;
+    alpha.dut_output            = dut.u_softmax.alpha_FIFO_din;
+    alpha.golden_output         = golden_alpha;
+
+    exp_alpha.dut_ready         = dut.u_softmax.sm_ready_o;
+    exp_alpha.dut_output        = dut.u_softmax.alpha_FIFO_din;
+    exp_alpha.golden_output     = golden_exp_alpha;
+  end
+
   initial begin
-    //compare
-    comparer = new(16);
-
-    output_file_path  = $sformatf("%s/tb/outputs/WH.txt", ROOT_PATH);
-    WH_output_file    = $fopen(output_file_path, "r");
-    if(WH_output_file == 0) begin
-      $display("FATAL");
-      $finish;
-    end
-    for (int i = 0; i < NODE_INFO_DEPTH; i++) begin
-      for (int j = 0; j < 16; j++) begin
-        wh_r = $fscanf(WH_output_file, "%d\n", wh_o);
-        if (wh_r != 1) begin
-          $display("[WH]: Error or end of file");
-          break;
-        end
-        golden_input[i][j] = wh_o;
-      end
-    end
-
-      #0.01;
-      for(int i = 0; i < NODE_INFO_DEPTH; i++) begin
-        wait(dut.u_SPMM.pe_ready_o == {16{1'b1}});
-        for(int j = 0; j < 16;j++) begin
-          dut_output[i][j] = dut.u_SPMM.result[j];
-        end
-        $display("-----------------------------------COMPARATOR--------------------------------");
-        $display("Time %0tps", $time);
-        $display("INFO: [Golden] \t%p", golden_input[i]);
-        $display("INFO: [DUT] \t%p", dut_output[i]);
-        comparer.update_inputs(dut.u_SPMM.pe_ready_o, golden_input[i], dut_output[i]);
-        comparer.compare_output();
-        $display("-----------------------------------------------------------------------------");
-        #20.02;
-      end
-    //BUG HERE: dut cannot change.
-
-    #200;
-    comparer.monitor_checker();
+    fork
+      spmm.spmm_checker();
+      dmvm.output_checker();
+      coef.output_checker();
+      dividend.output_checker();
+      divisor.output_checker();
+      sm_num_nodes.output_checker();
+      alpha.output_checker(0.005);
+      exp_alpha.output_checker(0.1);
+    join
   end
 
-  // ---------------- Input ----------------
-	initial begin
-    H_node_info_BRAM_ena = 1'b1;
-		H_node_info_BRAM_load_done = 1'b0;
-		file_path = $sformatf("%s/tb/inputs/node_info.txt", ROOT_PATH);
+  longint start_time, end_time;
 
-    node_info_file = $fopen(file_path, "r");
-
-    if (node_info_file == 0) begin
-      $display("ERROR: file open failed");
-      $finish;
+  initial begin
+    #0.1;
+    wait(dut.u_SPMM.spmm_valid_i == 1'b1);
+    start_time = $time;
+    for (int i = 0; i < TOTAL_NODES; i++) begin
+      #10.01;
+      wait(dut.u_softmax.sm_ready_o == 1'b1);
     end
-    for (int i = 0; i < NODE_INFO_DEPTH; i++) begin
-      nd_r = $fscanf(node_info_file, "%b\n", H_node_info_BRAM_din);  // Read a binary number from the file
-      if (nd_r != 1) begin
-        $display("[node_info]: Error or end of file");
-        break;
-      end
-      H_node_info_BRAM_addra = i;
+    end_time = $time;
+  end
 
-      #20.4;
-    end
-		H_node_info_BRAM_ena = 1'b0;
-		H_node_info_BRAM_load_done = 1'b1;
+  initial begin
+    begin_section;
 
-    $fclose(node_info_file);
-	end
+    #50000;
 
-	initial begin // weight
-		Weight_BRAM_ena = 1'b1;
-		Weight_BRAM_load_done = 1'b0;
+    spmm.base_monitor();
 
-		file_path = $sformatf("%s/tb/inputs/weight.txt", ROOT_PATH);
+    dmvm.base_monitor();
+    coef.base_monitor();
 
-    weight_file = $fopen(file_path, "r");
-    //$display("Weight file %d", weight_file);
-    if (weight_file == 0) begin
-      $display("ERROR: file open failed");
-      $finish;
-    end
-    for (int k = 0; k < WEIGHT_DEPTH; k++) begin
-      w_r = $fscanf(weight_file, "%d\n", Weight_BRAM_din);  // Read a binary number from the file
-      if (w_r != 1) begin
-        $display("[weight]: Error or end of file");
-        break;
-      end
-      Weight_BRAM_addra = k;
-      #20.4;
-    end
+    dividend.base_monitor();
+    sm_num_nodes.base_monitor();
+    divisor.base_monitor();
+    alpha.base_monitor();
+    // exp_alpha.base_monitor();
 
-		Weight_BRAM_ena = 1'b0;
-		Weight_BRAM_load_done = 1'b1;
-		$fclose(weight_file);
-	end
+    summary_section;
 
-	initial begin
-		a_BRAM_ena = 1'b1;
-		a_BRAM_load_done = 1'b0;
+    $display("\n  SPMM:");
+    spmm.base_scoreboard();
 
-		file_path = $sformatf("%s/tb/inputs/a.txt", ROOT_PATH);
+    $display("\n  DMVM:");
+    dmvm.base_scoreboard();
+    coef.base_scoreboard();
 
-		a_file = $fopen(file_path, "r");
-		if (a_file == 0) begin
-			$display("ERROR: file open failed");
-			$finish;
-		end
-		for (int j = 0; j < A_DEPTH; j++) begin
-			a_r = $fscanf(a_file, "%d\n", a_BRAM_din);  // Read a binary number from the file
-			if (a_r != 1) begin
-				$display("[a]: Error or end of file");
-				break;
-			end
-			a_BRAM_addra = j;
-			#20.4;
-		end
+    $display("\n  SOFTMAX:");
+    dividend.base_scoreboard();
+    divisor.base_scoreboard();
+    sm_num_nodes.base_scoreboard();
+    alpha.base_scoreboard();
+    // exp_alpha.base_scoreboard();
 
-		a_BRAM_ena = 1'b0;
-		a_BRAM_load_done = 1'b1;
-		$fclose(a_file);
-	end
-	// ---------------------------------------
+    end_section;
 
-	initial begin // value
-		H_data_BRAM_ena = 1'b1;
-		H_data_BRAM_load_done = 1'b0;
-
-		file_path = $sformatf("%s/tb/inputs/h_data.txt", ROOT_PATH);
-
-		value_file = $fopen(file_path, "r");
-		if (value_file == 0) begin
-			$display("ERROR: file open failed");
-			$finish;
-		end
-		for (int j = 0; j < H_DATA_DEPTH; j++) begin
-			value_r = $fscanf(value_file, "%b\n", H_data_BRAM_din);  // Read a binary number from the file
-			if (value_r != 1) begin
-				$display("[value]: Error or end of file");
-				break;
-			end
-			H_data_BRAM_addra = j;
-			#20.4;
-		end
-
-		H_data_BRAM_ena = 1'b0;
-		H_data_BRAM_load_done = 1'b1;
-		$fclose(value_file);
-	end
+  `ifndef VIVADO
+    $finish();
+  `endif
+  end
 endmodule
-
-
-
 
 
 

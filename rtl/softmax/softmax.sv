@@ -70,7 +70,7 @@ module softmax import params_pkg::*;
 
   FIFO #(
     .DATA_WIDTH (SM_DATA_WIDTH        ),
-    .FIFO_DEPTH (20                  )
+    .FIFO_DEPTH (DIVIDEND_DEPTH       )
   ) u_dividend_FIFO (
     .clk        (clk                  ),
     .rst_n      (rst_n                ),
@@ -84,7 +84,7 @@ module softmax import params_pkg::*;
 
   FIFO #(
     .DATA_WIDTH (DIVISOR_FF_WIDTH     ),
-    .FIFO_DEPTH (10                   )
+    .FIFO_DEPTH (DIVISOR_DEPTH        )
   ) u_divisor_FIFO (
     .clk        (clk                  ),
     .rst_n      (rst_n                ),
@@ -140,6 +140,10 @@ module softmax import params_pkg::*;
       end else begin
         sum = sum_reg + exp;
       end
+    end else begin
+      if (node_counter_reg == 0) begin
+        sum = '0;
+      end
     end
   end
 
@@ -172,7 +176,7 @@ module softmax import params_pkg::*;
 
   //* ===================== get data from FIFO =====================
   // -- dividend
-  assign dividend_FIFO_rd_vld = subgraph_div_enable;
+  assign dividend_FIFO_rd_vld = subgraph_div_enable && (!dividend_FIFO_empty);
   assign dividend             = dividend_FIFO_dout;
 
   // -- divisor
@@ -230,4 +234,5 @@ module softmax import params_pkg::*;
 
   assign alpha_FIFO_din     = out;
   assign alpha_FIFO_wr_vld  = div_ready && (!alpha_FIFO_full);
+  assign sm_ready_o         = div_ready && (!alpha_FIFO_full);
 endmodule

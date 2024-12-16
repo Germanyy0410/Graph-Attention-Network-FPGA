@@ -7,19 +7,19 @@ module DMVM import params_pkg::*;
 
   input                                         dmvm_valid_i        ,
   output                                        dmvm_ready_o        ,
+
   // -- a
   input                                         a_valid_i           ,
   input   [A_DEPTH-1:0] [DATA_WIDTH-1:0]        a_i                 ,
+
   // -- WH BRAM
-  input   [WH_WIDTH-1:0]                        WH_BRAM_dout        ,
-  output  [WH_1_ADDR_W-1:0]                     WH_BRAM_addrb       ,
+  input   [WH_WIDTH-1:0]                        WH_data_i           ,
+
   // -- output
   output  [DATA_WIDTH-1:0]                      coef_FIFO_din       ,
   input                                         coef_FIFO_full      ,
   output                                        coef_FIFO_wr_vld
 );
-  localparam NUM_STAGES = $clog2(NUM_FEATURE_OUT) + 1;
-  localparam COEF_DELAY_LENGTH = NUM_STAGES + 1;
 
   //* ========== logic declaration ===========
   // -- Weight vector a1 & a2
@@ -28,19 +28,18 @@ module DMVM import params_pkg::*;
 
   // -- capture [dout]
   logic                                                           WH_read_delay       ;
-  logic [WH_WIDTH-1:0]                                            WH_BRAM_data        ;
-  logic [WH_WIDTH-1:0]                                            WH_BRAM_data_reg    ;
+  logic [WH_WIDTH-1:0]                                            WH_data             ;
+  logic [WH_WIDTH-1:0]                                            WH_data_reg         ;
 
   // -- WH data
-  logic [WH_1_ADDR_W-1:0]                                         WH_addr             ;
-  logic [WH_1_ADDR_W-1:0]                                         WH_addr_reg         ;
+  logic [WH_ADDR_W-1:0]                                           WH_addr             ;
+  logic [WH_ADDR_W-1:0]                                           WH_addr_reg         ;
   logic [HALF_A_SIZE-1:0] [WH_DATA_WIDTH-1:0]                     WH_arr              ;
   logic                                                           source_node_flag    ;
 
   logic [NUM_NODE_WIDTH-1:0]                                      num_of_nodes        ;
 
-
-  // -- pipeline [NUM_FEATURE_OUT + 1] stages
+  // -- pipeline 5 stages
   logic [NUM_STAGES-1:0]                                          pipe_src_flag       ;
   logic [NUM_STAGES:0]                                            pipe_src_flag_reg   ;
   logic [DMVM_DATA_WIDTH-1:0]                                     source_dmvm         ;
@@ -76,36 +75,26 @@ module DMVM import params_pkg::*;
   //* =======================================
 
 
-  //* ============== WH_BRAM ================
-  // -- addrb
-  assign WH_BRAM_addrb  = WH_addr_reg;
-  assign WH_addr = (dmvm_valid_i) ? ((WH_addr_reg < WH_1_DEPTH - 1) ? (WH_addr_reg + 1) : 0) : WH_addr_reg;
-
-  // -- capture [dout]
-  always_ff @(posedge clk) begin
-    WH_read_delay <= (WH_addr != WH_addr_reg);
-  end
-  assign WH_BRAM_data = WH_read_delay ? WH_BRAM_dout : WH_BRAM_data_reg;
+  //* ============== WH_data ================
+  assign WH_data = dmvm_valid_i ? WH_data_i : WH_data_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      WH_addr_reg       <= '0;
-      WH_BRAM_data_reg  <= '0;
+      WH_data_reg  <= '0;
     end else begin
-      WH_addr_reg       <= WH_addr;
-      WH_BRAM_data_reg  <= WH_BRAM_data;
+      WH_data_reg  <= WH_data;
     end
   end
   //* =======================================
 
 
   //* ======= get WH data from BRAM =========
-  assign source_node_flag = WH_BRAM_data_reg[0];
-  assign num_of_nodes     = WH_BRAM_data_reg[NUM_NODE_WIDTH:1];
+  assign source_node_flag = WH_data_reg[0];
+  assign num_of_nodes     = WH_data_reg[NUM_NODE_WIDTH:1];
 
   generate
     for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
-      assign WH_arr[HALF_A_SIZE-1-i] = WH_BRAM_data_reg[WH_WIDTH-1-i*WH_DATA_WIDTH : WH_WIDTH-(i+1)*WH_DATA_WIDTH];
+      assign WH_arr[HALF_A_SIZE-1-i] = WH_data_reg[WH_WIDTH-1-i*WH_DATA_WIDTH : WH_WIDTH-(i+1)*WH_DATA_WIDTH];
     end
   endgenerate
   //* =======================================
@@ -170,8 +159,8 @@ module DMVM import params_pkg::*;
   //* ============ dmvm_ready ===============
   always_ff @(posedge clk or negedge rst_n) begin
 		if (!rst_n) begin
-			valid_shift_reg <= '0;
-			dmvm_ready_reg  <= 1'b0;
+			valid_shift_reg <= 'b0;
+			dmvm_ready_reg  <= 'b0;
 		end else begin
 			valid_shift_reg <= {valid_shift_reg[COEF_DELAY_LENGTH-2:0], dmvm_valid_i};
 			dmvm_ready_reg  <= valid_shift_reg[COEF_DELAY_LENGTH-1];

@@ -35,18 +35,11 @@ module top import params_pkg::*;
   logic   [DATA_WIDTH-1:0]          Weight_BRAM_dout            ;
   logic   [DATA_WIDTH-1:0]          a_BRAM_dout                 ;
 
-  logic   [WH_WIDTH-1:0]            WH_1_BRAM_din               ;
-  logic                             WH_1_BRAM_ena               ;
-  logic   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addra             ;
-  logic   [WH_1_ADDR_W-1:0]         WH_1_BRAM_addrb             ;
-  logic   [WH_WIDTH-1:0]            WH_1_BRAM_dout              ;
-  logic                             WH_1_BRAM_dout_valid        ;
-
-  logic   [WH_WIDTH-1:0]            WH_2_BRAM_din               ;
-  logic                             WH_2_BRAM_ena               ;
-  logic   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addra             ;
-  logic   [WH_2_ADDR_W-1:0]         WH_2_BRAM_addrb             ;
-  logic   [WH_WIDTH-1:0]            WH_2_BRAM_dout              ;
+  logic   [WH_WIDTH-1:0]            WH_BRAM_din                 ;
+  logic                             WH_BRAM_ena                 ;
+  logic   [WH_ADDR_W-1:0]           WH_BRAM_addra               ;
+  logic   [WH_ADDR_W-1:0]           WH_BRAM_addrb               ;
+  logic   [WH_WIDTH-1:0]            WH_BRAM_dout                ;
 
   logic   [NUM_NODE_WIDTH-1:0]      num_node_BRAM_din           ;
   logic                             num_node_BRAM_ena           ;
@@ -84,7 +77,6 @@ module top import params_pkg::*;
   logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a                   ;
   logic                                               a_ready             ;
 
-  (* dont_touch = "yes" *)
   scheduler u_scheduler (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
@@ -107,11 +99,11 @@ module top import params_pkg::*;
 
   //* ========================== SPMM ==========================
   logic                       spmm_valid  ;
-  logic [W_NUM_OF_COLS-1:0]   pe_ready    ;
+  logic                       spmm_ready  ;
+  logic [WH_WIDTH-1:0]        WH_data     ;
 
   assign spmm_valid = (H_data_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
 
-  (* dont_touch = "yes" *)
   SPMM u_SPMM (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
@@ -127,19 +119,17 @@ module top import params_pkg::*;
     .mult_weight_dout           (mult_weight_dout           ),
 
     .spmm_valid_i               (spmm_valid                 ),
-    .pe_ready_o                 (pe_ready                   ),
+    .spmm_ready_o               (spmm_ready                 ),
+
+    .WH_data_o                  (WH_data                    ),
 
     .num_node_BRAM_addra        (num_node_BRAM_addra        ),
     .num_node_BRAM_ena          (num_node_BRAM_ena          ),
     .num_node_BRAM_din          (num_node_BRAM_din          ),
 
-    .WH_1_BRAM_din              (WH_1_BRAM_din              ),
-    .WH_1_BRAM_ena              (WH_1_BRAM_ena              ),
-    .WH_1_BRAM_addra            (WH_1_BRAM_addra            ),
-
-    .WH_2_BRAM_din              (WH_2_BRAM_din              ),
-    .WH_2_BRAM_ena              (WH_2_BRAM_ena              ),
-    .WH_2_BRAM_addra            (WH_2_BRAM_addra            )
+    .WH_BRAM_din                (WH_BRAM_din                ),
+    .WH_BRAM_ena                (WH_BRAM_ena                ),
+    .WH_BRAM_addra              (WH_BRAM_addra              )
   );
   //* ==========================================================
 
@@ -147,19 +137,17 @@ module top import params_pkg::*;
   //* ========================== DMVM ==========================
   logic dmvm_ready;
 
-  (* dont_touch = "yes" *)
   DMVM u_DMVM (
     .clk                (clk                  ),
     .rst_n              (rst_n                ),
 
-    .dmvm_valid_i       (WH_1_BRAM_dout_valid ),
+    .dmvm_valid_i       (spmm_ready           ),
     .dmvm_ready_o       (dmvm_ready           ),
 
     .a_valid_i          (a_BRAM_load_done     ),
     .a_i                (a                    ),
 
-    .WH_BRAM_dout       (WH_1_BRAM_dout       ),
-    .WH_BRAM_addrb      (WH_1_BRAM_addrb      ),
+    .WH_data_i          (WH_data              ),
 
     .coef_FIFO_din      (coef_FIFO_din        ),
     .coef_FIFO_wr_vld   (coef_FIFO_wr_vld     ),
@@ -171,7 +159,7 @@ module top import params_pkg::*;
   //* ======================== Softmax =========================
   logic sm_ready;
 
-  softmax_pipe u_softmax (
+  softmax u_softmax (
     .clk                  (clk                    ),
     .rst_n                (rst_n                  ),
 
@@ -202,8 +190,8 @@ module top import params_pkg::*;
     .aggr_valid_i         (sm_ready                 ),
     .aggr_ready_o         (aggr_ready               ),
 
-    .WH_BRAM_dout         (WH_2_BRAM_dout           ),
-    .WH_BRAM_addrb        (WH_2_BRAM_addrb          ),
+    .WH_BRAM_dout         (WH_BRAM_dout             ),
+    .WH_BRAM_addrb        (WH_BRAM_addrb            ),
 
     .alpha_FIFO_dout      (alpha_FIFO_dout          ),
     .alpha_FIFO_empty     (alpha_FIFO_empty         ),
