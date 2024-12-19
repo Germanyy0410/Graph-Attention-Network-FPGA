@@ -60,9 +60,14 @@ module mem_ctrl import params_pkg::*;
   output                            alpha_FIFO_full             ,
   input                             alpha_FIFO_wr_vld           ,
   input                             alpha_FIFO_rd_vld           ,
-  output  [ALPHA_DATA_WIDTH-1:0]    alpha_FIFO_dout
-);
+  output  [ALPHA_DATA_WIDTH-1:0]    alpha_FIFO_dout             ,
 
+  input   [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_din            ,
+  input                             Feature_BRAM_ena            ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addra          ,
+  output  [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_dout           ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addrb
+);
   //* ========================= MEMORY =========================
   BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
@@ -177,6 +182,20 @@ module mem_ctrl import params_pkg::*;
     .rd_vld     (alpha_FIFO_rd_vld      ),
     .empty      (alpha_FIFO_empty       ),
     .full       (alpha_FIFO_full        )
+  );
+
+  BRAM #(
+    .DATA_WIDTH   (NEW_FEATURE_WIDTH    ),
+    .DEPTH        (NEW_FEATURE_DEPTH    ),
+    .CLK_LATENCY  (1                    )
+  ) u_Feature_BRAM (
+    .clk          (clk                  ),
+    .rst_n        (rst_n                ),
+    .din          (Feature_BRAM_din     ),
+    .addra        (Feature_BRAM_addra   ),
+    .ena          (Feature_BRAM_ena     ),
+    .addrb        (Feature_BRAM_addrb   ),
+    .dout         (Feature_BRAM_dout    )
   );
   //* ==========================================================
 endmodule

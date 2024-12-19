@@ -4,7 +4,7 @@
 # Created on 9th October 2024
 # Modified by Hoang Tien Duc, date 26/11/2024
 
-set clk_speed   150
+set clk_speed   200
 set clk_period  [expr (1000.0 / $clk_speed)]
 
 set max_delay   0.2

@@ -6,26 +6,30 @@
   string fail = "\033[31m[FAILED]\033[0m";
 `endif
 
-`include "./../rtl/others/pkgs/params_pkg.sv"
-
-localparam string MONITOR_PATH = "d:/VLSI/Capstone/tb/monitor";
+localparam string MONITOR_PATH  = "D:/VLSI/Capstone/tb/monitor";
 
 class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH = 256, parameter SPMM_DEPTH = 16);
-  logic dut_ready;
-  T golden_output       [DEPTH];
-  T golden_spmm_output  [DEPTH*SPMM_DEPTH];
-  logic signed [DATA_WIDTH-1:0] dut_output;
-  logic        [DATA_WIDTH-1:0] dut_unsigned_output;
+  logic                                           dut_ready;
+
+  logic signed [DATA_WIDTH-1:0]                   dut_output;
+  logic        [DATA_WIDTH-1:0]                   dut_unsigned_output;
+  T                                               golden_output       [DEPTH];
+
   logic signed [SPMM_DEPTH-1:0] [DATA_WIDTH-1:0]  dut_spmm_output;
+  T                                               golden_spmm_output  [DEPTH*SPMM_DEPTH];
 
   string  label;
   string  monitor;
   string  monitor_path;
+
   int     pass_checker;
   int     total_checker;
+
   int     int_bits;
   int     frac_bits;
+
   int     comparator;
+
   int     signed_bit;
   int     dec_dut_output;
   real    real_dut_output;
@@ -39,11 +43,6 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
     this.int_bits       = int_bits;
     this.frac_bits      = frac_bits;
     this.signed_bit     = signed_bit;
-  endfunction
-
-  function real fxp_to_dec();
-    real scaled_factor = 2.0 ** frac_bits;
-    return $itor($signed(dut_output)) / scaled_factor;
   endfunction
 
   task output_checker(real error = 0);
@@ -83,7 +82,6 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
       `endif
       end
       total_checker++;
-
       #10.01;
     end
   endtask
@@ -142,6 +140,11 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
     $fclose(file);
   endtask
 
+  function real fxp_to_dec();
+    real scaled_factor = 2.0 ** frac_bits;
+    return $itor($signed(dut_output)) / scaled_factor;
+  endfunction
+
   function real abs(real value);
     return (value < 0.0) ? -value : value;
   endfunction
@@ -155,4 +158,5 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
     end
     return output_string;
   endfunction
+
 endclass

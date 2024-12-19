@@ -45,6 +45,7 @@ module DMVM import params_pkg::*;
   logic [DMVM_DATA_WIDTH-1:0]                                     source_dmvm         ;
   logic [DMVM_DATA_WIDTH-1:0]                                     source_dmvm_reg     ;
   logic [DATA_WIDTH-1:0]                                          pipe_coef           ;
+  logic [DATA_WIDTH-1:0]                                          pipe_coef_reg       ;
   logic [NUM_STAGES-1:0] [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]  pipe_product        ;
   logic [NUM_STAGES:0] [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]    pipe_product_reg    ;
 
@@ -151,7 +152,15 @@ module DMVM import params_pkg::*;
 
 
   //* ========== Write [e] to FIFO ==========
-  assign coef_FIFO_din      = pipe_coef;
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      pipe_coef_reg <= 0;
+    end else begin
+      pipe_coef_reg <= pipe_coef;
+    end
+  end
+
+  assign coef_FIFO_din      = (pipe_coef_reg[DATA_WIDTH-1] == 1'b0) ? pipe_coef_reg : 'b0;
   assign coef_FIFO_wr_vld   = dmvm_ready_reg && !coef_FIFO_full;
   //* =======================================
 

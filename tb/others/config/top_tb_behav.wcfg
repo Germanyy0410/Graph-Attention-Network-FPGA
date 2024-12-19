@@ -13,12 +13,12 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="30,448.500 ns"></ZoomStartTime>
-      <ZoomEndTime time="31,053.001 ns"></ZoomEndTime>
-      <Cursor1Time time="30,656.500 ns"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="84.400001 us"></ZoomEndTime>
+      <Cursor1Time time="30.656500 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="358"></NameColumnWidth>
+      <NameColumnWidth column_width="352"></NameColumnWidth>
       <ValueColumnWidth column_width="90"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="10" />
@@ -67,8 +67,8 @@
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_SPMM/ff_num_of_nodes" type="array">
                <obj_property name="DisplayName">label</obj_property>
-               <obj_property name="ElementShortName">ff_num_of_nodes[3:0]</obj_property>
-               <obj_property name="ObjectShortName">ff_num_of_nodes[3:0]</obj_property>
+               <obj_property name="ElementShortName">ff_num_of_nodes[2:0]</obj_property>
+               <obj_property name="ObjectShortName">ff_num_of_nodes[2:0]</obj_property>
                <obj_property name="label">num_of_nodes[2:0]</obj_property>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_SPMM/ff_source_node_flag" type="logic">
@@ -364,16 +364,16 @@
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_din" type="array">
-            <obj_property name="ElementShortName">num_node_BRAM_din[3:0]</obj_property>
-            <obj_property name="ObjectShortName">num_node_BRAM_din[3:0]</obj_property>
+            <obj_property name="ElementShortName">num_node_BRAM_din[2:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_din[2:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_ena" type="logic">
             <obj_property name="ElementShortName">num_node_BRAM_ena</obj_property>
             <obj_property name="ObjectShortName">num_node_BRAM_ena</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_addra" type="array">
-            <obj_property name="ElementShortName">num_node_BRAM_addra[5:0]</obj_property>
-            <obj_property name="ObjectShortName">num_node_BRAM_addra[5:0]</obj_property>
+            <obj_property name="ElementShortName">num_node_BRAM_addra[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_addra[4:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/row_length" type="array">
             <obj_property name="ElementShortName">row_length[3:0]</obj_property>
@@ -381,8 +381,8 @@
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/num_of_nodes" type="array">
-            <obj_property name="ElementShortName">num_of_nodes[3:0]</obj_property>
-            <obj_property name="ObjectShortName">num_of_nodes[3:0]</obj_property>
+            <obj_property name="ElementShortName">num_of_nodes[2:0]</obj_property>
+            <obj_property name="ObjectShortName">num_of_nodes[2:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/source_node_flag" type="logic">
@@ -390,24 +390,24 @@
             <obj_property name="ObjectShortName">source_node_flag</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_mem_ctrl/u_num_node_BRAM/din" type="array">
-            <obj_property name="ElementShortName">din[3:0]</obj_property>
-            <obj_property name="ObjectShortName">din[3:0]</obj_property>
+            <obj_property name="ElementShortName">din[2:0]</obj_property>
+            <obj_property name="ObjectShortName">din[2:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_mem_ctrl/u_num_node_BRAM/addra" type="array">
-            <obj_property name="ElementShortName">addra[5:0]</obj_property>
-            <obj_property name="ObjectShortName">addra[5:0]</obj_property>
+            <obj_property name="ElementShortName">addra[4:0]</obj_property>
+            <obj_property name="ObjectShortName">addra[4:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_mem_ctrl/u_num_node_BRAM/ena" type="logic">
             <obj_property name="ElementShortName">ena</obj_property>
             <obj_property name="ObjectShortName">ena</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/node_info_addr_reg" type="array">
-            <obj_property name="ElementShortName">node_info_addr_reg[8:0]</obj_property>
-            <obj_property name="ObjectShortName">node_info_addr_reg[8:0]</obj_property>
+            <obj_property name="ElementShortName">node_info_addr_reg[6:0]</obj_property>
+            <obj_property name="ObjectShortName">node_info_addr_reg[6:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/num_of_nodes" type="array">
-            <obj_property name="ElementShortName">num_of_nodes[3:0]</obj_property>
-            <obj_property name="ObjectShortName">num_of_nodes[3:0]</obj_property>
+            <obj_property name="ElementShortName">num_of_nodes[2:0]</obj_property>
+            <obj_property name="ObjectShortName">num_of_nodes[2:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/addr_en" type="logic">
@@ -415,32 +415,32 @@
             <obj_property name="ObjectShortName">addr_en</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_din" type="array">
-            <obj_property name="ElementShortName">num_node_BRAM_din[3:0]</obj_property>
-            <obj_property name="ObjectShortName">num_node_BRAM_din[3:0]</obj_property>
+            <obj_property name="ElementShortName">num_node_BRAM_din[2:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_din[2:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_ena" type="logic">
             <obj_property name="ElementShortName">num_node_BRAM_ena</obj_property>
             <obj_property name="ObjectShortName">num_node_BRAM_ena</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_addra" type="array">
-            <obj_property name="ElementShortName">num_node_BRAM_addra[5:0]</obj_property>
-            <obj_property name="ObjectShortName">num_node_BRAM_addra[5:0]</obj_property>
+            <obj_property name="ElementShortName">num_node_BRAM_addra[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_addra[4:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/cpt_nf_addr" type="array">
-            <obj_property name="ElementShortName">cpt_nf_addr[8:0]</obj_property>
-            <obj_property name="ObjectShortName">cpt_nf_addr[8:0]</obj_property>
+            <obj_property name="ElementShortName">cpt_nf_addr[6:0]</obj_property>
+            <obj_property name="ObjectShortName">cpt_nf_addr[6:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/cpt_nf_addr_reg" type="array">
-            <obj_property name="ElementShortName">cpt_nf_addr_reg[8:0]</obj_property>
-            <obj_property name="ObjectShortName">cpt_nf_addr_reg[8:0]</obj_property>
+            <obj_property name="ElementShortName">cpt_nf_addr_reg[6:0]</obj_property>
+            <obj_property name="ObjectShortName">cpt_nf_addr_reg[6:0]</obj_property>
          </wvobject>
          <wvobject fp_name="group82" type="group">
             <obj_property name="label">Check</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
             <wvobject fp_name="/top_tb/dut/u_SPMM/H_node_info_BRAM_addrb" type="array">
-               <obj_property name="ElementShortName">H_node_info_BRAM_addrb[8:0]</obj_property>
-               <obj_property name="ObjectShortName">H_node_info_BRAM_addrb[8:0]</obj_property>
+               <obj_property name="ElementShortName">H_node_info_BRAM_addrb[6:0]</obj_property>
+               <obj_property name="ObjectShortName">H_node_info_BRAM_addrb[6:0]</obj_property>
                <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_SPMM/row_counter_reg" type="array">
@@ -467,8 +467,8 @@
          </wvobject>
       </wvobject>
       <wvobject fp_name="/top_tb/dut/u_SPMM/ff_num_of_nodes" type="array">
-         <obj_property name="ElementShortName">ff_num_of_nodes[3:0]</obj_property>
-         <obj_property name="ObjectShortName">ff_num_of_nodes[3:0]</obj_property>
+         <obj_property name="ElementShortName">ff_num_of_nodes[2:0]</obj_property>
+         <obj_property name="ObjectShortName">ff_num_of_nodes[2:0]</obj_property>
       </wvobject>
       <wvobject fp_name="group111" type="group">
          <obj_property name="label">SP-PE</obj_property>
@@ -541,8 +541,8 @@
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.num_of_nodes" type="array">
-            <obj_property name="ElementShortName">.num_of_nodes[3:0]</obj_property>
-            <obj_property name="ObjectShortName">.num_of_nodes[3:0]</obj_property>
+            <obj_property name="ElementShortName">.num_of_nodes[2:0]</obj_property>
+            <obj_property name="ObjectShortName">.num_of_nodes[2:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.source_node_flag" type="logic">
@@ -649,6 +649,30 @@
             <obj_property name="ElementShortName">[0][15:0][19:0]</obj_property>
             <obj_property name="ObjectShortName">[0][15:0][19:0]</obj_property>
          </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[5]" type="array">
+            <obj_property name="ElementShortName">[5][15:0][19:0]</obj_property>
+            <obj_property name="ObjectShortName">[5][15:0][19:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[4]" type="array">
+            <obj_property name="ElementShortName">[4][15:0][19:0]</obj_property>
+            <obj_property name="ObjectShortName">[4][15:0][19:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[3]" type="array">
+            <obj_property name="ElementShortName">[3][15:0][19:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][15:0][19:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[2]" type="array">
+            <obj_property name="ElementShortName">[2][15:0][19:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][15:0][19:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[1]" type="array">
+            <obj_property name="ElementShortName">[1][15:0][19:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][15:0][19:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[0]" type="array">
+            <obj_property name="ElementShortName">[0][15:0][19:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][15:0][19:0]</obj_property>
+         </wvobject>
       </wvobject>
       <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_src_flag" type="array">
          <obj_property name="ElementShortName">pipe_src_flag[4:0]</obj_property>
@@ -688,28 +712,28 @@
             <obj_property name="ObjectShortName">coef_FIFO_rd_vld</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_dout" type="array">
-            <obj_property name="ElementShortName">num_node_BRAM_dout[3:0]</obj_property>
-            <obj_property name="ObjectShortName">num_node_BRAM_dout[3:0]</obj_property>
+            <obj_property name="ElementShortName">num_node_BRAM_dout[2:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_dout[2:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_addrb" type="array">
-            <obj_property name="ElementShortName">num_node_BRAM_addrb[5:0]</obj_property>
-            <obj_property name="ObjectShortName">num_node_BRAM_addrb[5:0]</obj_property>
+            <obj_property name="ElementShortName">num_node_BRAM_addrb[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_addrb[4:0]</obj_property>
          </wvobject>
          <wvobject fp_name="group324" type="group">
             <obj_property name="label">num_of_nodes</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_addrb" type="array">
-               <obj_property name="ElementShortName">num_node_BRAM_addrb[5:0]</obj_property>
-               <obj_property name="ObjectShortName">num_node_BRAM_addrb[5:0]</obj_property>
+               <obj_property name="ElementShortName">num_node_BRAM_addrb[4:0]</obj_property>
+               <obj_property name="ObjectShortName">num_node_BRAM_addrb[4:0]</obj_property>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_dout" type="array">
-               <obj_property name="ElementShortName">num_node_BRAM_dout[3:0]</obj_property>
-               <obj_property name="ObjectShortName">num_node_BRAM_dout[3:0]</obj_property>
+               <obj_property name="ElementShortName">num_node_BRAM_dout[2:0]</obj_property>
+               <obj_property name="ObjectShortName">num_node_BRAM_dout[2:0]</obj_property>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_softmax/addr" type="array">
-               <obj_property name="ElementShortName">addr[5:0]</obj_property>
-               <obj_property name="ObjectShortName">addr[5:0]</obj_property>
+               <obj_property name="ElementShortName">addr[4:0]</obj_property>
+               <obj_property name="ObjectShortName">addr[4:0]</obj_property>
             </wvobject>
             <wvobject fp_name="/top_tb/dut/u_softmax/sm_valid_i" type="logic">
                <obj_property name="ElementShortName">sm_valid_i</obj_property>
@@ -721,8 +745,8 @@
             </wvobject>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_softmax/num_of_nodes" type="array">
-            <obj_property name="ElementShortName">num_of_nodes[3:0]</obj_property>
-            <obj_property name="ObjectShortName">num_of_nodes[3:0]</obj_property>
+            <obj_property name="ElementShortName">num_of_nodes[2:0]</obj_property>
+            <obj_property name="ObjectShortName">num_of_nodes[2:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_softmax/coef_FIFO_dout" type="array">
@@ -823,12 +847,12 @@
             <obj_property name="ObjectShortName">alpha_FIFO_wr_vld</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_addrb" type="array">
-            <obj_property name="ElementShortName">num_node_BRAM_addrb[5:0]</obj_property>
-            <obj_property name="ObjectShortName">num_node_BRAM_addrb[5:0]</obj_property>
+            <obj_property name="ElementShortName">num_node_BRAM_addrb[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_addrb[4:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/golden_divisor" type="array">
-            <obj_property name="ElementShortName">golden_divisor[0:40][31:0]</obj_property>
-            <obj_property name="ObjectShortName">golden_divisor[0:40][31:0]</obj_property>
+            <obj_property name="ElementShortName">golden_divisor[0:25][31:0]</obj_property>
+            <obj_property name="ObjectShortName">golden_divisor[0:25][31:0]</obj_property>
          </wvobject>
       </wvobject>
    </wvobject>

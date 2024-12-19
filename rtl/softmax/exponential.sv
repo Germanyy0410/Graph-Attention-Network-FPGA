@@ -1,6 +1,11 @@
-module exp #(
-  parameter IN_DATA_WIDTH   = 8     ,
-  parameter OUT_DATA_WIDTH  = 128
+module exponential #(
+  parameter IN_DATA_WIDTH   = 8,
+  parameter OUT_DATA_WIDTH  = 184,
+
+	parameter EXP_WIDTH  			= 40,
+  parameter INT_BIT         = IN_DATA_WIDTH,
+  parameter FRAC_BIT        = EXP_WIDTH - INT_BIT,
+	parameter NUM_STAGES      = 23
 )(
   input                       clk   ,
   input                       rst_n ,
@@ -11,48 +16,100 @@ module exp #(
   input  [IN_DATA_WIDTH-1:0]  din   ,
   output [OUT_DATA_WIDTH-1:0] dout
 );
-  localparams INTERNAL_WIDTH  = 32;
-  localparams INT_BIT         = 5;
-  localparams FRAC_BIT        = INTERNAL_WIDTH - INT_BIT;
 
-  logic [7:0]                 k_LUT;
-  logic [INTERNAL_WIDTH-1:0]  din_scaled;
-  logic [INTERNAL_WIDTH-1:0]  din_scaled_reg;
+  logic [NUM_STAGES-1:0] [EXP_WIDTH-1:0]			k_LUT									;
+  logic [EXP_WIDTH-1:0]  											din_scaled						;
+  logic [EXP_WIDTH-1:0]  											din_scaled_reg				;
 
-	assign k_LUT[0]  = 32'b10100110010110101111011001111000;  /* 20.794415417 */
-	assign k_LUT[1]  = 32'b10100000110011110110010110111001;  /* 20.101268236 */
-	assign k_LUT[2]  = 32'b10011011010000111101010011111001;  /* 19.408121056 */
-	assign k_LUT[3]  = 32'b10010101101110000100010000111001;  /* 18.714973875 */
-	assign k_LUT[4]  = 32'b10010000001011001011001101111001;  /* 18.021826695 */
-	assign k_LUT[5]  = 32'b10001010101000010010001010111010;  /* 17.328679514 */
-	assign k_LUT[6]  = 32'b10000101000101011001000111111010;  /* 16.635532333 */
-	assign k_LUT[7]  = 32'b01111111100010100000000100111010;  /* 15.942385153 */
-	assign k_LUT[8]  = 32'b01111001111111100111000001111010;  /* 15.249237972 */
-	assign k_LUT[9]  = 32'b01110100011100101101111110111011;  /* 14.556090792 */
-	assign k_LUT[10] = 32'b01101110111001110100111011111011;  /* 13.862943611 */
-	assign k_LUT[11] = 32'b01101001010110111011111000111011;  /* 13.169796431 */
-	assign k_LUT[12] = 32'b01100011110100000010110101111011;  /* 12.476649250 */
-	assign k_LUT[13] = 32'b01011110010001001001110010111100;  /* 11.783502070 */
-	assign k_LUT[14] = 32'b01011000101110010000101111111100;  /* 11.090354889 */
-	assign k_LUT[15] = 32'b01010011001011010111101100111100;  /* 10.397207708 */
-	assign k_LUT[16] = 32'b01001101101000011110101001111100;  /*  9.704060528 */
-	assign k_LUT[17] = 32'b01001000000101100101100110111101;  /*  9.010913347 */
-	assign k_LUT[18] = 32'b01000010100010101100100011111101;  /*  8.317766167 */
-	assign k_LUT[19] = 32'b00111100111111110011100000111101;  /*  7.624618986 */
-	assign k_LUT[20] = 32'b00110111011100111010011101111101;  /*  6.931471806 */
-	assign k_LUT[21] = 32'b00110001111010000001011010111110;  /*  6.238324625 */
-	assign k_LUT[22] = 32'b00101100010111001000010111111110;  /*  5.545177444 */
-	assign k_LUT[23] = 32'b00100110110100001111010100111110;  /*  4.852030264 */
-	assign k_LUT[24] = 32'b00100001010001010110010001111110;  /*  4.158883083 */
-	assign k_LUT[25] = 32'b00011011101110011101001110111111;  /*  3.465735903 */
-	assign k_LUT[26] = 32'b00010110001011100100001011111111;  /*  2.772588722 */
-	assign k_LUT[27] = 32'b00010000101000101011001000111111;  /*  2.079441542 */
-	assign k_LUT[28] = 32'b00001011000101110010000101111111;  /*  1.386294361 */
-	assign k_LUT[29] = 32'b00000101100010111001000011000000;  /*  0.693147181 */
-	assign k_LUT[30] = 32'b00000011001111100110010001111110;  /*  0.405465108 */
-	assign k_LUT[31] = 32'b00000001110010001111111101111100;  /*  0.223143551 */
-	assign k_LUT[32] = 32'b00000000111100010011100000111011;  /*  0.117783036 */
-	assign k_LUT[33] = 32'b00000000011111000010100011000011;  /*  0.060624622 */
+	logic                       								pipe_valid						;
+	logic [NUM_STAGES-1:0]											pipe_valid_shift_reg	;
+	logic                                       ready_reg							;
 
-  assign din_scaled = valid ? (din * (1 << FRAC_BIT)) : din_scaled_reg;
+	logic [NUM_STAGES-1:0] [EXP_WIDTH-1:0] 			pipe_exp							;
+	logic [NUM_STAGES:0] [EXP_WIDTH-1:0] 				pipe_exp_reg					;
+
+	logic [NUM_STAGES-1:0] [OUT_DATA_WIDTH-1:0] pipe_result						;
+	logic [NUM_STAGES:0] [OUT_DATA_WIDTH-1:0] 	pipe_result_reg				;
+
+	genvar i;
+
+	assign k_LUT[0]  = 40'b00001101_00101011011101111100011101100101;  /* 13.169796431 */
+	assign k_LUT[1]  = 40'b00001100_01111010000001011010111101101101;  /* 12.476649250 */
+	assign k_LUT[2]  = 40'b00001011_11001000100100111001011101110101;  /* 11.783502070 */
+	assign k_LUT[3]  = 40'b00001011_00010111001000010111111101111101;  /* 11.090354889 */
+	assign k_LUT[4]  = 40'b00001010_01100101101011110110011110000101;  /* 10.397207708 */
+	assign k_LUT[5]  = 40'b00001001_10110100001111010100111110001101;  /*  9.704060528 */
+	assign k_LUT[6]  = 40'b00001001_00000010110010110011011110010110;  /*  9.010913347 */
+	assign k_LUT[7]  = 40'b00001000_01010001010110010001111110011110;  /*  8.317766167 */
+	assign k_LUT[8]  = 40'b00000111_10011111111001110000011110100110;  /*  7.624618986 */
+	assign k_LUT[9]  = 40'b00000110_11101110011101001110111110101110;  /*  6.931471806 */
+	assign k_LUT[10] = 40'b00000110_00111101000000101101011110110110;  /*  6.238324625 */
+	assign k_LUT[11] = 40'b00000101_10001011100100001011111110111111;  /*  5.545177444 */
+	assign k_LUT[12] = 40'b00000100_11011010000111101010011111000111;  /*  4.852030264 */
+	assign k_LUT[13] = 40'b00000100_00101000101011001000111111001111;  /*  4.158883083 */
+	assign k_LUT[14] = 40'b00000011_01110111001110100111011111010111;  /*  3.465735903 */
+	assign k_LUT[15] = 40'b00000010_11000101110010000101111111011111;  /*  2.772588722 */
+	assign k_LUT[16] = 40'b00000010_00010100010101100100011111100111;  /*  2.079441542 */
+	assign k_LUT[17] = 40'b00000001_01100010111001000010111111110000;  /*  1.386294361 */
+	assign k_LUT[18] = 40'b00000000_10110001011100100001011111111000;  /*  0.693147181 */
+	assign k_LUT[19] = 40'b00000000_01100111110011001000111110110011;  /*  0.405465108 */
+	assign k_LUT[20] = 40'b00000000_00111001000111111110111110001111;  /*  0.223143551 */
+	assign k_LUT[21] = 40'b00000000_00011110001001110000011101101110;  /*  0.117783036 */
+	assign k_LUT[22] = 40'b00000000_00001111100001010001100001100000;  /*  0.060624622 */
+
+	assign dout 	= pipe_result_reg[NUM_STAGES];
+	assign ready 	= ready_reg;
+
+  assign din_scaled = valid ? ($signed(din) * (1 << FRAC_BIT)) : '0;
+
+	always_ff @(posedge clk or negedge rst_n) begin
+		if (!rst_n) begin
+			din_scaled_reg <= '0;
+		end else begin
+			din_scaled_reg <= din_scaled;
+		end
+	end
+
+	always_ff @(posedge clk) begin
+		pipe_valid <= valid;
+	end
+
+	generate
+		for (i = 0; i < NUM_STAGES; i = i + 1) begin
+			if (i == 0) begin
+				assign pipe_exp[i] 		= (pipe_valid && (din_scaled_reg > k_LUT[i])) ? (din_scaled_reg - k_LUT[i]) : din_scaled_reg;
+				assign pipe_result[i] = (pipe_valid && (din_scaled_reg > k_LUT[i])) ? (1 << (19 - i)) : '0;
+			end else if (i < 19) begin
+				assign pipe_exp[i]    = (pipe_exp_reg[i] > k_LUT[i]) ? (pipe_exp_reg[i] - k_LUT[i]) : pipe_exp_reg[i];
+				assign pipe_result[i] = (pipe_exp_reg[i] > k_LUT[i]) ? (pipe_result_reg[i] * (1 << (19 - i))) : pipe_result_reg[i];
+			end else begin
+				assign pipe_exp[i]    = (pipe_exp_reg[i] > k_LUT[i]) ? (pipe_exp_reg[i] - k_LUT[i]) : pipe_exp_reg[i];
+				assign pipe_result[i] = (pipe_exp_reg[i] > k_LUT[i]) ? (pipe_result_reg[i] + (pipe_result_reg[i] >> (i - 18))) : pipe_result_reg[i];
+			end
+		end
+	endgenerate
+
+	generate
+		for (i = 0; i < NUM_STAGES; i = i + 1) begin
+			always_ff @(posedge clk or negedge rst_n) begin
+				if (!rst_n) begin
+					pipe_exp_reg[i+1] 		<= '0;
+					pipe_result_reg[i+1] 	<= '0;
+				end else begin
+					pipe_exp_reg[i+1]			<= pipe_exp[i];
+					pipe_result_reg[i+1]	<= pipe_result[i];
+				end
+			end
+		end
+	endgenerate
+
+	always_ff @(posedge clk or negedge rst_n) begin
+		if (!rst_n) begin
+			pipe_valid_shift_reg	<= '0;
+		end else begin
+			pipe_valid_shift_reg	<= { pipe_valid_shift_reg[NUM_STAGES-2:0], pipe_valid };
+			ready_reg            	<= pipe_valid_shift_reg[NUM_STAGES-1];
+		end
+	end
+
 endmodule

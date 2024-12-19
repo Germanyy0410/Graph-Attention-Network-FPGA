@@ -63,6 +63,12 @@ module top import params_pkg::*;
   logic                             alpha_FIFO_empty            ;
   logic                             alpha_FIFO_full             ;
 
+  logic   [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_din            ;
+  logic                             Feature_BRAM_ena            ;
+  logic   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addra          ;
+  logic   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addrb          ;
+  logic   [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_dout           ;
+
   genvar i;
 
   //* ==================== Memory Controller ===================
@@ -182,12 +188,24 @@ module top import params_pkg::*;
 
   //* ======================= Aggregator =======================
   logic aggr_ready;
+  logic aggr_valid;
+  logic aggr_valid_reg;
+
+  assign aggr_valid = (sm_ready == 1'b1) ? 1'b1 : aggr_valid_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      aggr_valid_reg <= 0;
+    end else begin
+      aggr_valid_reg <= aggr_valid;
+    end
+  end
 
   aggregator u_aggregator (
     .clk                  (clk                      ),
     .rst_n                (rst_n                    ),
 
-    .aggr_valid_i         (sm_ready                 ),
+    .aggr_valid_i         (aggr_valid_reg           ),
     .aggr_ready_o         (aggr_ready               ),
 
     .WH_BRAM_dout         (WH_BRAM_dout             ),
@@ -195,7 +213,11 @@ module top import params_pkg::*;
 
     .alpha_FIFO_dout      (alpha_FIFO_dout          ),
     .alpha_FIFO_empty     (alpha_FIFO_empty         ),
-    .alpha_FIFO_rd_vld    (alpha_FIFO_rd_vld        )
+    .alpha_FIFO_rd_vld    (alpha_FIFO_rd_vld        ),
+
+    .Feature_BRAM_addra   (Feature_BRAM_addra       ),
+    .Feature_BRAM_din     (Feature_BRAM_din         ),
+    .Feature_BRAM_ena     (Feature_BRAM_ena         )
   );
   //* ==========================================================
 endmodule

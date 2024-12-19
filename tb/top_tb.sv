@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 
+	localparam string ROOT_PATH = "d:/VLSI/Capstone";
+
 `include "comparator.sv"
 
 module top_tb import params_pkg::*;
@@ -38,9 +40,6 @@ module top_tb import params_pkg::*;
 
   top dut (.*);
 
-	localparam string ROOT_PATH = "d:/VLSI/Capstone";
-	localparam string GOLDEN_PATH = "d:/VLSI/Capstone/tb/outputs";
-
   ///////////////////////////////////////////////////////////////////
   always #5 clk = ~clk;
   initial begin
@@ -53,7 +52,8 @@ module top_tb import params_pkg::*;
 
 
   ///////////////////////////////////////////////////////////////////
-
+  longint start_time, end_time;
+  longint lat_start_time, lat_end_time;
 
   `include "./helper/helper.sv"
   `include "./loader/input_loader.sv"
@@ -84,7 +84,9 @@ module top_tb import params_pkg::*;
     spmm.dut_ready              = dut.u_SPMM.spmm_ready_o;
     spmm.dut_spmm_output        = dut.u_SPMM.result;
     spmm.golden_spmm_output     = golden_spmm;
+  end
 
+  always_comb begin
     dmvm.dut_ready              = dut.u_DMVM.valid_shift_reg[COEF_DELAY_LENGTH-1];
     dmvm.dut_output             = dut.u_DMVM.pipe_product_reg[NUM_STAGES][0];
     dmvm.golden_output          = golden_dmvm;
@@ -92,7 +94,9 @@ module top_tb import params_pkg::*;
     coef.dut_ready              = dut.u_DMVM.dmvm_ready_o;
     coef.dut_output             = dut.u_DMVM.coef_FIFO_din;
     coef.golden_output          = golden_coef;
+  end
 
+  always_comb begin
     dividend.dut_ready          = dut.u_softmax.dividend_FIFO_rd_vld;
     dividend.dut_output         = dut.u_softmax.dividend_FIFO_dout;
     dividend.golden_output      = golden_dividend;
@@ -127,23 +131,21 @@ module top_tb import params_pkg::*;
     join
   end
 
-  longint start_time, end_time;
-
   initial begin
     #0.1;
     wait(dut.u_SPMM.spmm_valid_i == 1'b1);
-    start_time = $time;
+    start_time      = $time;
+    lat_start_time  = $time;
     for (int i = 0; i < TOTAL_NODES; i++) begin
       #10.01;
       wait(dut.u_softmax.sm_ready_o == 1'b1);
+      if (i == 0) begin
+        lat_end_time = $time;
+      end
     end
     end_time = $time;
-  end
 
-  initial begin
     begin_section;
-
-    #50000;
 
     spmm.base_monitor();
 
@@ -174,9 +176,8 @@ module top_tb import params_pkg::*;
 
     end_section;
 
-  `ifndef VIVADO
+    #20000;
     $finish();
-  `endif
   end
 endmodule
 

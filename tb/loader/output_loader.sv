@@ -1,4 +1,3 @@
-
   int   golden_spmm         [TOTAL_NODES*NUM_FEATURE_OUT];
 
   int   golden_dmvm         [TOTAL_NODES];

@@ -2,7 +2,7 @@
 
 `define VIVADO                1
 
-`define PASSED                1
+// `define PASSED                1
 `define FAILED                1
 
 package params_pkg;
@@ -16,24 +16,24 @@ package params_pkg;
   parameter ALPHA_DATA_WIDTH      = 32;
 
 `ifdef SIMULATION
-  parameter H_NUM_SPARSE_DATA     = 500;
-  parameter TOTAL_NODES           = 100;
-  parameter NUM_FEATURE_IN        = 10;
+  parameter H_NUM_SPARSE_DATA     = 1104;
+  parameter TOTAL_NODES           = 200;
+  parameter NUM_FEATURE_IN        = 11;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 26;
-  parameter MAX_NODES             = 6;
+  parameter NUM_SUBGRAPHS         = 19;
+  parameter MAX_NODES             = 18;
 
   parameter COEF_DEPTH            = 30;
-  parameter ALPHA_DEPTH           = TOTAL_NODES;
+  parameter ALPHA_DEPTH           = 30;
   parameter DIVIDEND_DEPTH        = 30;
-  parameter DIVISOR_DEPTH         = 20;
+  parameter DIVISOR_DEPTH         = 30;
 `else
-  parameter H_NUM_SPARSE_DATA     = 500;
-  parameter TOTAL_NODES           = 100;
-  parameter NUM_FEATURE_IN        = 10;
+  parameter H_NUM_SPARSE_DATA     = 242101;
+  parameter TOTAL_NODES           = 13264;
+  parameter NUM_FEATURE_IN        = 1433;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 26;
-  parameter MAX_NODES             = 6;
+  parameter NUM_SUBGRAPHS         = 2708;
+  parameter MAX_NODES             = 168;
 
   parameter COEF_DEPTH            = 200;
   parameter ALPHA_DEPTH           = 200;
@@ -50,7 +50,7 @@ package params_pkg;
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA;
   parameter NODE_INFO_DEPTH       = TOTAL_NODES;
   parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN;
-  parameter WH_DEPTH              = TOTAL_NODES;
+  parameter WH_DEPTH              = 1000;
   parameter A_DEPTH               = NUM_FEATURE_OUT * 2;
   parameter NUM_NODES_DEPTH       = NUM_SUBGRAPHS;
 
@@ -110,17 +110,17 @@ package params_pkg;
   parameter AGGR_WIDTH            = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH;
   parameter AGGR_DEPTH            = NUM_SUBGRAPHS;
   parameter AGGR_ADDR_W           = $clog2(AGGR_DEPTH);
+
+  // -- [New Feature]
+  parameter NEW_FEATURE_WIDTH     = DATA_WIDTH * NUM_FEATURE_OUT;
+  parameter NEW_FEATURE_DEPTH     = TOTAL_NODES;
+  parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH);
   //* =========================================
 
   typedef struct packed {
-    logic [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]  coef;
-    logic [NUM_NODE_WIDTH-1:0]                    num_of_nodes;
-  } coef_t;
-
-  typedef struct packed {
-    bit [ROW_LEN_WIDTH-1:0]   row_length;
-    bit [NUM_NODE_WIDTH-1:0]  num_of_nodes;
-    bit                       source_node_flag;
+    bit [ROW_LEN_WIDTH-1:0]     row_length;
+    bit [NUM_NODE_WIDTH-1:0]    num_of_nodes;
+    bit                         source_node_flag;
   } node_info_t;
 
   typedef struct packed {
@@ -128,6 +128,11 @@ package params_pkg;
     logic [NUM_NODE_WIDTH-1:0]                        num_of_nodes;
     logic                                             source_node_flag;
   } WH_t;
+
+  typedef struct packed {
+    logic [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]      coef;
+    logic [NUM_NODE_WIDTH-1:0]                        num_of_nodes;
+  } coef_t;
 
   typedef struct packed {
     bit [NUM_NODE_WIDTH-1:0]    num_of_nodes;
