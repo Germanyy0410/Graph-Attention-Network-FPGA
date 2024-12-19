@@ -28,6 +28,9 @@ endtask
   string end_str      = "\033[38;5;220mEND\033[0m";
 `endif
 
+real total_latency;
+real total_time;
+
 task begin_section;
   $display("------------------------------------------------------------");
   $display("|                         %s                            |", begin_str);
@@ -35,6 +38,9 @@ task begin_section;
 endtask
 
 task summary_section;
+  total_time    = (end_time - start_time) / 10.0;
+  total_latency = (lat_end_time - lat_start_time) / 10.0;
+
   $display("------------------------------------------------------------");
   $display("|                    %s                        |", summary_str);
   $display("------------------------------------------------------------");
@@ -42,11 +48,12 @@ task summary_section;
   $display("  NUM_SUBGRAPHS = %0d\t\t  NUM_FEATURE_OUT = %0d", NUM_SUBGRAPHS, NUM_FEATURE_OUT);
   $display("  MAX_NODES     = %0d\t\t  NUM_SPARSE_DATA = %0d", MAX_NODES, H_NUM_SPARSE_DATA);
   $display("------------------------------------------------------------");
-  $display("  Total Time    = %0d cycles  ", (end_time - start_time) / 10);
-  $display("  Total Latency = %0d cycles\n", (lat_end_time - lat_start_time) / 10);
-  $display("  F = 100 MHz -> Latency = %0d ns -> Total Time = %0.2f us", ((lat_end_time - lat_start_time) / 10) * 10, ((end_time - start_time) / 10) * 10 / 1000);
-  $display("  F = 150 MHz -> Latency = %0d ns -> Total Time = %0.2f us", ((lat_end_time - lat_start_time) / 10) * 6.67, ((end_time - start_time) / 10) * 6.67 / 1000);
-  $display("  F = 200 MHz -> Latency = %0d ns -> Total Time = %0.2f us", ((lat_end_time - lat_start_time) / 10) * 5, ((end_time - start_time) / 10) * 5 / 1000);
+  $display("  Total Time    = %5d cycles  ", total_time);
+  $display("  Total Latency = %5d cycles\n", total_latency);
+  $display("  F = 100 MHz -> Latency = %0.2f us -> Total Time = %0.2f us", total_latency * 10.0 / 1000.00, total_time * 10.0 / 1000.00);
+  $display("  F = 150 MHz -> Latency = %0.2f us -> Total Time = %0.2f us", total_latency * 6.67 / 1000.00, total_time * 6.67 / 1000.00);
+  $display("  F = 200 MHz -> Latency = %0.2f us -> Total Time = %0.2f us", total_latency * 5.00 / 1000.00, total_time * 5.00 / 1000.00);
+  $display("  F = 225 MHz -> Latency = %0.2f us -> Total Time = %0.2f us", total_latency * 4.44 / 1000.00, total_time * 4.44 / 1000.00);
   $display("------------------------------------------------------------");
 endtask
 

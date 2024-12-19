@@ -1,21 +1,25 @@
-  int   golden_spmm         [TOTAL_NODES*NUM_FEATURE_OUT];
+	localparam string GOLDEN_PATH  = { ROOT_PATH, "/output" };
 
-  int   golden_dmvm         [TOTAL_NODES];
-  int   golden_coef         [TOTAL_NODES];
+  longint   golden_spmm         [TOTAL_NODES*NUM_FEATURE_OUT];
 
-  int   golden_dividend     [TOTAL_NODES];
-  int   golden_divisor      [NUM_SUBGRAPHS];
-  int   golden_sm_num_node  [NUM_SUBGRAPHS];
-  real  golden_alpha        [TOTAL_NODES];
-  real  golden_exp_alpha    [TOTAL_NODES];
+  longint   golden_dmvm         [TOTAL_NODES];
+  longint   golden_coef         [TOTAL_NODES];
 
-  integer spmm_file, dmvm_file, coef_file, alpha_file, dividend_file, divisor_file, sm_num_node_file, exp_alpha_file, status;
-  integer spmm_value, dmvm_value, coef_value, dividend_value, divisor_value, sm_num_node_value;
+  longint   golden_dividend     [TOTAL_NODES];
+  longint   golden_divisor      [NUM_SUBGRAPHS];
+  longint   golden_sm_num_node  [NUM_SUBGRAPHS];
+  real      golden_alpha        [TOTAL_NODES];
+  real      golden_exp_alpha    [TOTAL_NODES];
+
+  longint status;
+  longint spmm_file, dmvm_file, coef_file, alpha_file, dividend_file, divisor_file, sm_num_node_file, exp_alpha_file ;
+  longint spmm_value, dmvm_value, coef_value, dividend_value, divisor_value, sm_num_node_value;
   real    alpha_value, exp_alpha_value;
+  string  golden_file_path;
 
   initial begin
-    spmm_file = $fopen("D:/VLSI/Capstone/tb/output/SPMM/wh.txt", "r");
-    for (int i = 0; i < TOTAL_NODES*NUM_FEATURE_OUT; i++) begin
+    spmm_file = $fopen($sformatf("%s/SPMM/wh.txt", GOLDEN_PATH), "r");
+    for (longint i = 0; i < TOTAL_NODES*NUM_FEATURE_OUT; i++) begin
       status = $fscanf(spmm_file, "%d\n", spmm_value);
       golden_spmm[i] = spmm_value;
     end
@@ -23,8 +27,8 @@
   end
 
   initial begin
-    dmvm_file = $fopen("D:/VLSI/Capstone/tb/output/DMVM/dmvm.txt", "r");
-    for (int i = 0; i < TOTAL_NODES; i++) begin
+    dmvm_file = $fopen( $sformatf("%s/DMVM/dmvm.txt", GOLDEN_PATH), "r");
+    for (longint i = 0; i < TOTAL_NODES; i++) begin
       status = $fscanf(dmvm_file, "%d\n", dmvm_value);
       golden_dmvm[i] = dmvm_value;
     end
@@ -32,8 +36,8 @@
   end
 
   initial begin
-    coef_file = $fopen("D:/VLSI/Capstone/tb/output/DMVM/coef.txt", "r");
-    for (int i = 0; i < TOTAL_NODES; i++) begin
+    coef_file = $fopen($sformatf("%s/DMVM/coef.txt", GOLDEN_PATH), "r");
+    for (longint i = 0; i < TOTAL_NODES; i++) begin
       status = $fscanf(coef_file, "%d\n", coef_value);
       golden_coef[i] = coef_value;
     end
@@ -41,7 +45,7 @@
   end
 
   initial begin
-    alpha_file = $fopen("D:/VLSI/Capstone/tb/output/softmax/alpha.txt", "r");
+    alpha_file = $fopen($sformatf("%s/softmax/alpha.txt", GOLDEN_PATH), "r");
     for (int i = 0; i < TOTAL_NODES; i++) begin
       status = $fscanf(alpha_file, "%f\n", alpha_value);
       golden_alpha[i] = alpha_value;
@@ -50,25 +54,25 @@
   end
 
   initial begin
-    dividend_file = $fopen("D:/VLSI/Capstone/tb/output/softmax/dividend.txt", "r");
+    dividend_file = $fopen($sformatf("%s/softmax/dividend.txt", GOLDEN_PATH), "r");
     for (int i = 0; i < TOTAL_NODES; i++) begin
-      status = $fscanf(dividend_file, "%f\n", dividend_value);
+      status = $fscanf(dividend_file, "%d\n", dividend_value);
       golden_dividend[i] = dividend_value;
     end
     $fclose(dividend_file);
   end
 
   initial begin
-    divisor_file = $fopen("D:/VLSI/Capstone/tb/output/softmax/divisor.txt", "r");
+    divisor_file = $fopen($sformatf("%s/softmax/divisor.txt", GOLDEN_PATH), "r");
     for (int i = 0; i < TOTAL_NODES; i++) begin
-      status = $fscanf(divisor_file, "%f\n", divisor_value);
+      status = $fscanf(divisor_file, "%d\n", divisor_value);
       golden_divisor[i] = divisor_value;
     end
     $fclose(divisor_file);
   end
 
   initial begin
-    sm_num_node_file = $fopen("D:/VLSI/Capstone/tb/output/softmax/num_nodes.txt", "r");
+    sm_num_node_file = $fopen($sformatf("%s/softmax/num_nodes.txt", GOLDEN_PATH), "r");
     for (int i = 0; i < TOTAL_NODES; i++) begin
       status = $fscanf(sm_num_node_file, "%f\n", sm_num_node_value);
       golden_sm_num_node[i] = sm_num_node_value;
@@ -77,7 +81,7 @@
   end
 
   initial begin
-    exp_alpha_file = $fopen("D:/VLSI/Capstone/tb/output/softmax/exp_alpha.txt", "r");
+    exp_alpha_file = $fopen($sformatf("%s/softmax/exp_alpha.txt", GOLDEN_PATH), "r");
     for (int i = 0; i < TOTAL_NODES; i++) begin
       status = $fscanf(exp_alpha_file, "%f\n", exp_alpha_value);
       golden_exp_alpha[i] = exp_alpha_value;

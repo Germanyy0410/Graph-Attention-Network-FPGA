@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-	localparam string ROOT_PATH = "d:/VLSI/Capstone";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
 
 `include "comparator.sv"
 
@@ -59,25 +59,25 @@ module top_tb import params_pkg::*;
   `include "./loader/input_loader.sv"
   `include "./loader/output_loader.sv"
 
-  OutputComparator #(int, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT) spmm         = new("WH         ", WH_DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT)  spmm         = new("WH         ", WH_DATA_WIDTH, 0, 1);
 
-  OutputComparator #(int, DMVM_DATA_WIDTH, TOTAL_NODES)                dmvm         = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
-  OutputComparator #(int, DATA_WIDTH, TOTAL_NODES)                     coef         = new("COEF       ", DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, DMVM_DATA_WIDTH, TOTAL_NODES)                 dmvm         = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, DATA_WIDTH, TOTAL_NODES)                      coef         = new("COEF       ", DATA_WIDTH, 0, 1);
 
-  OutputComparator #(int, SM_DATA_WIDTH, TOTAL_NODES)                  dividend     = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
-  OutputComparator #(int, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)            divisor      = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
-  OutputComparator #(int, NUM_NODE_WIDTH, NUM_SUBGRAPHS)               sm_num_nodes = new("SM_NUM_NODE", NUM_NODE_WIDTH, 0, 0);
-  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)              alpha        = new("Alpha      ", WOI, WOF, 0);
-  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)              exp_alpha    = new("Exp_Alpha  ", WOI, WOF, 0);
+  OutputComparator #(longint, SM_DATA_WIDTH, TOTAL_NODES)                   dividend     = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
+  OutputComparator #(longint, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)             divisor      = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
+  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                sm_num_nodes = new("SM_NUM_NODE", NUM_NODE_WIDTH, 0, 0);
+  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                   alpha        = new("Alpha      ", WOI, WOF, 0);
+  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                   exp_alpha    = new("Exp_Alpha  ", WOI, WOF, 0);
 
   initial begin
-    spmm.monitor_path         = "/SPMM/wh.txt";
-    dmvm.monitor_path         = "/DMVM/dmvm.txt";
-    coef.monitor_path         = "/DMVM/coef.txt";
-    dividend.monitor_path     = "/softmax/dividend.txt";
-    divisor.monitor_path      = "/softmax/divisor.txt";
-    sm_num_nodes.monitor_path = "/softmax/num_nodes.txt";
-    alpha.monitor_path        = "/softmax/alpha.txt";
+    spmm.monitor_path         = "/SPMM/wh.log";
+    dmvm.monitor_path         = "/DMVM/dmvm.log";
+    coef.monitor_path         = "/DMVM/coef.log";
+    dividend.monitor_path     = "/softmax/dividend.log";
+    divisor.monitor_path      = "/softmax/divisor.log";
+    sm_num_nodes.monitor_path = "/softmax/num_nodes.log";
+    alpha.monitor_path        = "/softmax/alpha.log";
   end
 
   always_comb begin
@@ -120,7 +120,7 @@ module top_tb import params_pkg::*;
 
   initial begin
     fork
-      spmm.spmm_checker();
+      spmm.packed_checker();
       dmvm.output_checker();
       coef.output_checker();
       dividend.output_checker();
@@ -176,8 +176,10 @@ module top_tb import params_pkg::*;
 
     end_section;
 
-    #20000;
+  `ifndef VIVADO
+    #200000;
     $finish();
+  `endif
   end
 endmodule
 

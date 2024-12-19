@@ -2,7 +2,7 @@
   integer nd_r, w_r, a_r, value_r;
   string file_path;
 
-	localparam string INPUT_PATH  = "D:/VLSI/Capstone/tb/input";
+	localparam string INPUT_PATH  = { ROOT_PATH, "/input" };
 
   initial begin
     H_node_info_BRAM_ena        = 1'b1;

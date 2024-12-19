@@ -6,13 +6,16 @@
   string fail = "\033[31m[FAILED]\033[0m";
 `endif
 
-localparam string MONITOR_PATH  = "D:/VLSI/Capstone/tb/monitor";
+`ifdef VIVADO
+  `include "D:/VLSI/Capstone/rtl/others/pkgs/params_pkg.sv"
+`endif
 
-class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH = 256, parameter SPMM_DEPTH = 16);
+localparam string MONITOR_PATH  = { ROOT_PATH, "/monitor" };
+
+class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter DEPTH = 256, parameter SPMM_DEPTH = 16);
   logic                                           dut_ready;
 
-  logic signed [DATA_WIDTH-1:0]                   dut_output;
-  logic        [DATA_WIDTH-1:0]                   dut_unsigned_output;
+  logic        [DATA_WIDTH-1:0]                   dut_output;
   T                                               golden_output       [DEPTH];
 
   logic signed [SPMM_DEPTH-1:0] [DATA_WIDTH-1:0]  dut_spmm_output;
@@ -22,16 +25,16 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
   string  monitor;
   string  monitor_path;
 
-  int     pass_checker;
-  int     total_checker;
+  longint pass_checker;
+  longint total_checker;
 
-  int     int_bits;
-  int     frac_bits;
+  longint int_bits;
+  longint frac_bits;
 
-  int     comparator;
+  longint comparator;
 
-  int     signed_bit;
-  int     dec_dut_output;
+  longint signed_bit;
+  longint dec_dut_output;
   real    real_dut_output;
 
   function new (string label, int int_bits, int frac_bits, int signed_bit);
@@ -46,6 +49,8 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
   endfunction
 
   task output_checker(real error = 0);
+    string msg = "";
+
     for (int i = 0; i < DEPTH; i++) begin
       #0.1;
       wait(dut_ready == 1'b1);
@@ -53,14 +58,8 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
       real_dut_output = fxp_to_dec();
 
       if (error == 0) begin
-        if (signed_bit) begin
-          comparator      = (dut_output == golden_output[i]);
-          dec_dut_output  = dut_output;
-        end else begin
-          dut_unsigned_output = dut_output;
-          comparator          = (dut_unsigned_output == golden_output[i]);
-          dec_dut_output      = dut_unsigned_output;
-        end
+        comparator      = (signed_bit) ? ($signed(dut_output) == golden_output[i]) : (dut_output == golden_output[i]);
+        real_dut_output = (signed_bit) ? $signed(dut_output) : dut_output;
       end else begin
         comparator = (real_dut_output - golden_output[i]) <= (error * golden_output[i]);
       end
@@ -69,13 +68,13 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
         pass_checker++;
       `ifdef PASSED
         monitor = { monitor, $sformatf("\n%s -> %s - %0t ps\n", pass, rm_spc(label), $time) };
-        monitor = { monitor, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d\n", golden_output[i], dec_dut_output) };
+        monitor = { monitor, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d\n", golden_output[i], real_dut_output) };
       `endif
       end else begin
       `ifdef FAILED
         monitor = { monitor, $sformatf("\n%s -> %s - %0t ps\n", fail, rm_spc(label), $time) };
         if (frac_bits == 0) begin
-          monitor = { monitor, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d\n", golden_output[i], real_dut_output) };
+          monitor = { monitor, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d, [i] = %0d\n", golden_output[i], real_dut_output, i) };
         end else begin
           monitor = { monitor, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f\n", golden_output[i], real_dut_output) };
         end
@@ -86,7 +85,7 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
     end
   endtask
 
-  task spmm_checker();
+  task packed_checker();
     for (int i = 0; i < DEPTH; i++) begin
       logic signed [DATA_WIDTH-1:0] golden_temp     [SPMM_DEPTH];
       logic signed [DATA_WIDTH-1:0] dut_temp        [SPMM_DEPTH];
@@ -160,3 +159,4 @@ class OutputComparator #(type T = int, parameter DATA_WIDTH = 8, parameter DEPTH
   endfunction
 
 endclass
+
