@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="\$unit_BRAM_sv_713892775 " />
+            <top_module name="glbl" />
+            <top_module name="params_pkg" />
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="79,796.333 ns"></ZoomStartTime>
+      <ZoomEndTime time="80,040.734 ns"></ZoomEndTime>
+      <Cursor1Time time="79,961.333 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="334"></NameColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="10" />
+   <wave_markers>
+      <marker time="10298000" label="" />
+      <marker time="30716500" label="" />
+   </wave_markers>
+   <wvobject fp_name="/top_tb/dut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/dut/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="group211" type="group">
+      <obj_property name="label">Input</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="group198" type="group">
+         <obj_property name="label">Feature Matrix H</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="ElementShortName">col_idx_i[4:0]</obj_property>
+            <obj_property name="ObjectShortName">col_idx_i[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="label">col_idx[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="ElementShortName">value_i[7:0]</obj_property>
+            <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="label">value[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="group224" type="group">
+            <obj_property name="label">node_info</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/ff_row_length" type="array">
+               <obj_property name="DisplayName">label</obj_property>
+               <obj_property name="ElementShortName">ff_row_length[4:0]</obj_property>
+               <obj_property name="ObjectShortName">ff_row_length[4:0]</obj_property>
+               <obj_property name="label">row_length[2:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/ff_num_of_nodes" type="array">
+               <obj_property name="DisplayName">label</obj_property>
+               <obj_property name="ElementShortName">ff_num_of_nodes[4:0]</obj_property>
+               <obj_property name="ObjectShortName">ff_num_of_nodes[4:0]</obj_property>
+               <obj_property name="label">num_of_nodes[2:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/ff_source_node_flag" type="logic">
+               <obj_property name="DisplayName">label</obj_property>
+               <obj_property name="ElementShortName">ff_source_node_flag</obj_property>
+               <obj_property name="ObjectShortName">ff_source_node_flag</obj_property>
+               <obj_property name="label">source_node_flag</obj_property>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group207" type="group">
+         <obj_property name="label">Weight Matrix W (col = 1)</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group209" type="group">
+         <obj_property name="label">Weight Matrix W (col = 2)</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[1].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group214" type="group">
+         <obj_property name="label">Weight Matrix W (col = 3)</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[2].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group216" type="group">
+         <obj_property name="label">Weight Matrix W (col = 4)</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[3].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group219" type="group">
+         <obj_property name="label">Weight Matrix W (col = 5)</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[5].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group220" type="group">
+         <obj_property name="label">Weight Matrix W (col = 6)</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[4].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group212" type="group">
+      <obj_property name="label">Output</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+         <obj_property name="ElementShortName">pe_ready_o</obj_property>
+         <obj_property name="ObjectShortName">pe_ready_o</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group354" type="group">
+      <obj_property name="label">SP-PE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /pe_valid_i" type="logic">
+         <obj_property name="ElementShortName">pe_valid_i</obj_property>
+         <obj_property name="ObjectShortName">pe_valid_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="group341" type="group">
+         <obj_property name="label">Feature H</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+            <obj_property name="ElementShortName">value_i[7:0]</obj_property>
+            <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group342" type="group">
+         <obj_property name="label">Weight W</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
+            <obj_property name="ElementShortName">col_idx_i[4:0]</obj_property>
+            <obj_property name="ObjectShortName">col_idx_i[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /weight_addrb" type="array">
+            <obj_property name="ElementShortName">weight_addrb[4:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_addrb[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group350" type="group">
+         <obj_property name="label">Calculation</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+            <obj_property name="ElementShortName">value_i[7:0]</obj_property>
+            <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
+            <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /result" type="array">
+            <obj_property name="ElementShortName">result[11:0]</obj_property>
+            <obj_property name="ObjectShortName">result[11:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group353" type="group">
+         <obj_property name="label">Condition</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /row_length_i" type="array">
+            <obj_property name="ElementShortName">row_length_i[4:0]</obj_property>
+            <obj_property name="ObjectShortName">row_length_i[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /counter_reg" type="array">
+            <obj_property name="ElementShortName">counter_reg[5:0]</obj_property>
+            <obj_property name="ObjectShortName">counter_reg[5:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group352" type="group">
+         <obj_property name="label">Output</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+            <obj_property name="ElementShortName">pe_ready_o</obj_property>
+            <obj_property name="ObjectShortName">pe_ready_o</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /result_o" type="array">
+            <obj_property name="ElementShortName">result_o[11:0]</obj_property>
+            <obj_property name="ObjectShortName">result_o[11:0]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group544" type="group">
+      <obj_property name="label">W LOADER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/w_valid_i" type="logic">
+         <obj_property name="ElementShortName">w_valid_i</obj_property>
+         <obj_property name="ObjectShortName">w_valid_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/w_ready_o" type="logic">
+         <obj_property name="ElementShortName">w_ready_o</obj_property>
+         <obj_property name="ObjectShortName">w_ready_o</obj_property>
+      </wvobject>
+      <wvobject fp_name="group564" type="group">
+         <obj_property name="label">Weight</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/Weight_BRAM_dout" type="array">
+            <obj_property name="ElementShortName">Weight_BRAM_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">Weight_BRAM_dout[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/Weight_BRAM_addrb" type="array">
+            <obj_property name="ElementShortName">Weight_BRAM_addrb[8:0]</obj_property>
+            <obj_property name="ObjectShortName">Weight_BRAM_addrb[8:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/row_idx" type="array">
+         <obj_property name="ElementShortName">row_idx[4:0]</obj_property>
+         <obj_property name="ObjectShortName">row_idx[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/col_idx" type="array">
+         <obj_property name="ElementShortName">col_idx[3:0]</obj_property>
+         <obj_property name="ObjectShortName">col_idx[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/row_idx_reg" type="array">
+         <obj_property name="ElementShortName">row_idx_reg[4:0]</obj_property>
+         <obj_property name="ObjectShortName">row_idx_reg[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/col_idx_reg" type="array">
+         <obj_property name="ElementShortName">col_idx_reg[3:0]</obj_property>
+         <obj_property name="ObjectShortName">col_idx_reg[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="group197" type="group">
+         <obj_property name="label">Weight Memory</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_BRAM /memory" type="array">
+            <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
+            <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_BRAM /memory" type="array">
+            <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
+            <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_BRAM /memory" type="array">
+            <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
+            <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_BRAM /memory" type="array">
+            <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
+            <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_W_loader/\genblk1[3].u_mult_weight_BRAM /memory" type="array">
+            <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
+            <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group59" type="group">
+      <obj_property name="label">A LOADER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_a_loader/a_valid_i" type="logic">
+         <obj_property name="ElementShortName">a_valid_i</obj_property>
+         <obj_property name="ObjectShortName">a_valid_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_a_loader/a_ready_o" type="logic">
+         <obj_property name="ElementShortName">a_ready_o</obj_property>
+         <obj_property name="ObjectShortName">a_ready_o</obj_property>
+      </wvobject>
+      <wvobject fp_name="group73" type="group">
+         <obj_property name="label">a</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_a_loader/a_BRAM_addrb" type="array">
+            <obj_property name="ElementShortName">a_BRAM_addrb[4:0]</obj_property>
+            <obj_property name="ObjectShortName">a_BRAM_addrb[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_a_loader/a_BRAM_dout" type="array">
+            <obj_property name="ElementShortName">a_BRAM_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">a_BRAM_dout[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_a_loader/idx_reg" type="array">
+            <obj_property name="ElementShortName">idx_reg[4:0]</obj_property>
+            <obj_property name="ObjectShortName">idx_reg[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_scheduler/u_a_loader/a_BRAM_enb" type="logic">
+            <obj_property name="ElementShortName">a_BRAM_enb</obj_property>
+            <obj_property name="ObjectShortName">a_BRAM_enb</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_a_loader/a" type="array">
+         <obj_property name="ElementShortName">a[31:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">a[31:0][7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_scheduler/u_a_loader/a_o" type="array">
+         <obj_property name="ElementShortName">a_o[31:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">a_o[31:0][7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group75" type="group">
+      <obj_property name="label">SPMM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_SPMM/spmm_valid_i" type="logic">
+         <obj_property name="ElementShortName">spmm_valid_i</obj_property>
+         <obj_property name="ObjectShortName">spmm_valid_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_SPMM/spmm_valid_q1" type="logic">
+         <obj_property name="ElementShortName">spmm_valid_q1</obj_property>
+         <obj_property name="ObjectShortName">spmm_valid_q1</obj_property>
+      </wvobject>
+      <wvobject fp_name="group94" type="group">
+         <obj_property name="label">col_idx</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/col_idx" type="array">
+            <obj_property name="ElementShortName">col_idx[4:0]</obj_property>
+            <obj_property name="ObjectShortName">col_idx[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group95" type="group">
+         <obj_property name="label">value</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="CellHeight">37</obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/value" type="array">
+            <obj_property name="ElementShortName">value[7:0]</obj_property>
+            <obj_property name="ObjectShortName">value[7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group96" type="group">
+         <obj_property name="label">node_info</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_din" type="array">
+            <obj_property name="ElementShortName">num_node_BRAM_din[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_din[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_ena" type="logic">
+            <obj_property name="ElementShortName">num_node_BRAM_ena</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_ena</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_addra" type="array">
+            <obj_property name="ElementShortName">num_node_BRAM_addra[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_addra[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/row_length" type="array">
+            <obj_property name="ElementShortName">row_length[4:0]</obj_property>
+            <obj_property name="ObjectShortName">row_length[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/num_of_nodes" type="array">
+            <obj_property name="ElementShortName">num_of_nodes[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_of_nodes[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/source_node_flag" type="logic">
+            <obj_property name="ElementShortName">source_node_flag</obj_property>
+            <obj_property name="ObjectShortName">source_node_flag</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_mem_ctrl/u_num_node_BRAM/din" type="array">
+            <obj_property name="ElementShortName">din[4:0]</obj_property>
+            <obj_property name="ObjectShortName">din[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_mem_ctrl/u_num_node_BRAM/addra" type="array">
+            <obj_property name="ElementShortName">addra[4:0]</obj_property>
+            <obj_property name="ObjectShortName">addra[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_mem_ctrl/u_num_node_BRAM/ena" type="logic">
+            <obj_property name="ElementShortName">ena</obj_property>
+            <obj_property name="ObjectShortName">ena</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/node_info_addr_reg" type="array">
+            <obj_property name="ElementShortName">node_info_addr_reg[7:0]</obj_property>
+            <obj_property name="ObjectShortName">node_info_addr_reg[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/num_of_nodes" type="array">
+            <obj_property name="ElementShortName">num_of_nodes[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_of_nodes[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/addr_en" type="logic">
+            <obj_property name="ElementShortName">addr_en</obj_property>
+            <obj_property name="ObjectShortName">addr_en</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_din" type="array">
+            <obj_property name="ElementShortName">num_node_BRAM_din[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_din[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_ena" type="logic">
+            <obj_property name="ElementShortName">num_node_BRAM_ena</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_ena</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/num_node_BRAM_addra" type="array">
+            <obj_property name="ElementShortName">num_node_BRAM_addra[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_addra[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/cpt_nf_addr" type="array">
+            <obj_property name="ElementShortName">cpt_nf_addr[7:0]</obj_property>
+            <obj_property name="ObjectShortName">cpt_nf_addr[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/cpt_nf_addr_reg" type="array">
+            <obj_property name="ElementShortName">cpt_nf_addr_reg[7:0]</obj_property>
+            <obj_property name="ObjectShortName">cpt_nf_addr_reg[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="group82" type="group">
+            <obj_property name="label">Check</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/H_node_info_BRAM_addrb" type="array">
+               <obj_property name="ElementShortName">H_node_info_BRAM_addrb[7:0]</obj_property>
+               <obj_property name="ObjectShortName">H_node_info_BRAM_addrb[7:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/row_counter_reg" type="array">
+               <obj_property name="ElementShortName">row_counter_reg[4:0]</obj_property>
+               <obj_property name="ObjectShortName">row_counter_reg[4:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/row_length" type="array">
+               <obj_property name="ElementShortName">row_length[4:0]</obj_property>
+               <obj_property name="ObjectShortName">row_length[4:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/row_length_nxt" type="array">
+               <obj_property name="ElementShortName">row_length_nxt[4:0]</obj_property>
+               <obj_property name="ObjectShortName">row_length_nxt[4:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/ff_wr_valid" type="logic">
+               <obj_property name="ElementShortName">ff_wr_valid</obj_property>
+               <obj_property name="ObjectShortName">ff_wr_valid</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/ff_rd_valid" type="logic">
+               <obj_property name="ElementShortName">ff_rd_valid</obj_property>
+               <obj_property name="ObjectShortName">ff_rd_valid</obj_property>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_SPMM/ff_num_of_nodes" type="array">
+         <obj_property name="ElementShortName">ff_num_of_nodes[4:0]</obj_property>
+         <obj_property name="ObjectShortName">ff_num_of_nodes[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="group111" type="group">
+         <obj_property name="label">SP-PE</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="group102" type="group">
+            <obj_property name="label">SP-PE 1</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /row_length_i" type="array">
+               <obj_property name="ElementShortName">row_length_i[4:0]</obj_property>
+               <obj_property name="ObjectShortName">row_length_i[4:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /pe_valid_i" type="logic">
+               <obj_property name="ElementShortName">pe_valid_i</obj_property>
+               <obj_property name="ObjectShortName">pe_valid_i</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+               <obj_property name="ElementShortName">pe_ready_o</obj_property>
+               <obj_property name="ObjectShortName">pe_ready_o</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+               <obj_property name="ElementShortName">value_i[7:0]</obj_property>
+               <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
+               <obj_property name="ElementShortName">col_idx_i[4:0]</obj_property>
+               <obj_property name="ObjectShortName">col_idx_i[4:0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /counter_reg" type="array">
+               <obj_property name="ElementShortName">counter_reg[5:0]</obj_property>
+               <obj_property name="ObjectShortName">counter_reg[5:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="group100" type="group">
+               <obj_property name="label">Calc</obj_property>
+               <obj_property name="DisplayName">label</obj_property>
+               <obj_property name="isExpanded"></obj_property>
+               <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+                  <obj_property name="ElementShortName">value_i[7:0]</obj_property>
+                  <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
+                  <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+               </wvobject>
+               <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /products" type="array">
+                  <obj_property name="ElementShortName">products[11:0]</obj_property>
+                  <obj_property name="ObjectShortName">products[11:0]</obj_property>
+                  <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+               </wvobject>
+               <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /result" type="array">
+                  <obj_property name="ElementShortName">result[11:0]</obj_property>
+                  <obj_property name="ObjectShortName">result[11:0]</obj_property>
+                  <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+               </wvobject>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_SPMM/result" type="array">
+         <obj_property name="ElementShortName">result[15:0][11:0]</obj_property>
+         <obj_property name="ObjectShortName">result[15:0][11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="group101" type="group">
+         <obj_property name="label">Result</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+            <obj_property name="ElementShortName">pe_ready_o</obj_property>
+            <obj_property name="ObjectShortName">pe_ready_o</obj_property>
+            <obj_property name="CustomSignalColor">#00FF00</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.num_of_nodes" type="array">
+            <obj_property name="ElementShortName">.num_of_nodes[4:0]</obj_property>
+            <obj_property name="ObjectShortName">.num_of_nodes[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i.source_node_flag" type="logic">
+            <obj_property name="ElementShortName">.source_node_flag</obj_property>
+            <obj_property name="ObjectShortName">.source_node_flag</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group107" type="group">
+         <obj_property name="label">WH</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_SPMM/WH_data_i" type="array">
+            <obj_property name="ElementShortName">WH_data_i</obj_property>
+            <obj_property name="ObjectShortName">WH_data_i</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group159" type="group">
+      <obj_property name="label">DMVM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="group206" type="group">
+         <obj_property name="label">Input</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_DMVM/dmvm_valid_i" type="logic">
+            <obj_property name="ElementShortName">dmvm_valid_i</obj_property>
+            <obj_property name="ObjectShortName">dmvm_valid_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="group207" type="group">
+            <obj_property name="label">Attention Weight</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <wvobject fp_name="/top_tb/dut/u_DMVM/a_source" type="array">
+               <obj_property name="ElementShortName">a_source[15:0][7:0]</obj_property>
+               <obj_property name="ObjectShortName">a_source[15:0][7:0]</obj_property>
+               <obj_property name="isExpanded"></obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_DMVM/a_neighbor" type="array">
+               <obj_property name="ElementShortName">a_neighbor[15:0][7:0]</obj_property>
+               <obj_property name="ObjectShortName">a_neighbor[15:0][7:0]</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject fp_name="group175" type="group">
+            <obj_property name="label">WH</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/top_tb/dut/u_DMVM/WH_arr" type="array">
+               <obj_property name="ElementShortName">WH_arr[15:0][11:0]</obj_property>
+               <obj_property name="ObjectShortName">WH_arr[15:0][11:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_DMVM/dmvm_ready_o" type="logic">
+               <obj_property name="ElementShortName">dmvm_ready_o</obj_property>
+               <obj_property name="ObjectShortName">dmvm_ready_o</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_DMVM/dmvm_ready_o" type="logic">
+               <obj_property name="ElementShortName">dmvm_ready_o</obj_property>
+               <obj_property name="ObjectShortName">dmvm_ready_o</obj_property>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product" type="array">
+         <obj_property name="ElementShortName">pipe_product[4:0][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">pipe_product[4:0][15:0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/dmvm_valid_i" type="logic">
+         <obj_property name="ElementShortName">dmvm_valid_i</obj_property>
+         <obj_property name="ObjectShortName">dmvm_valid_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg[5][0]" type="array">
+         <obj_property name="ElementShortName">[0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_product_reg" type="array">
+         <obj_property name="ElementShortName">pipe_product_reg[5:0][15:0][19:0]</obj_property>
+         <obj_property name="ObjectShortName">pipe_product_reg[5:0][15:0][19:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_src_flag" type="array">
+         <obj_property name="ElementShortName">pipe_src_flag[4:0]</obj_property>
+         <obj_property name="ObjectShortName">pipe_src_flag[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_src_flag_reg" type="array">
+         <obj_property name="ElementShortName">pipe_src_flag_reg[5:0]</obj_property>
+         <obj_property name="ObjectShortName">pipe_src_flag_reg[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/source_dmvm" type="array">
+         <obj_property name="ElementShortName">source_dmvm[19:0]</obj_property>
+         <obj_property name="ObjectShortName">source_dmvm[19:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/pipe_coef" type="array">
+         <obj_property name="ElementShortName">pipe_coef[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pipe_coef[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_DMVM/dmvm_ready_o" type="logic">
+         <obj_property name="ElementShortName">dmvm_ready_o</obj_property>
+         <obj_property name="ObjectShortName">dmvm_ready_o</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group229" type="group">
+      <obj_property name="label">Softmax</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="group301" type="group">
+         <obj_property name="label">Input</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_softmax/sm_valid_i" type="logic">
+            <obj_property name="ElementShortName">sm_valid_i</obj_property>
+            <obj_property name="ObjectShortName">sm_valid_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/coef_FIFO_rd_vld" type="logic">
+            <obj_property name="ElementShortName">coef_FIFO_rd_vld</obj_property>
+            <obj_property name="ObjectShortName">coef_FIFO_rd_vld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_dout" type="array">
+            <obj_property name="ElementShortName">num_node_BRAM_dout[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_dout[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_addrb" type="array">
+            <obj_property name="ElementShortName">num_node_BRAM_addrb[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_addrb[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="group324" type="group">
+            <obj_property name="label">num_of_nodes</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_addrb" type="array">
+               <obj_property name="ElementShortName">num_node_BRAM_addrb[4:0]</obj_property>
+               <obj_property name="ObjectShortName">num_node_BRAM_addrb[4:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_dout" type="array">
+               <obj_property name="ElementShortName">num_node_BRAM_dout[4:0]</obj_property>
+               <obj_property name="ObjectShortName">num_node_BRAM_dout[4:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_softmax/addr" type="array">
+               <obj_property name="ElementShortName">addr[4:0]</obj_property>
+               <obj_property name="ObjectShortName">addr[4:0]</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_softmax/sm_valid_i" type="logic">
+               <obj_property name="ElementShortName">sm_valid_i</obj_property>
+               <obj_property name="ObjectShortName">sm_valid_i</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_softmax/subgraph_done" type="logic">
+               <obj_property name="ElementShortName">subgraph_done</obj_property>
+               <obj_property name="ObjectShortName">subgraph_done</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/num_of_nodes" type="array">
+            <obj_property name="ElementShortName">num_of_nodes[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_of_nodes[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/coef_FIFO_dout" type="array">
+            <obj_property name="ElementShortName">coef_FIFO_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">coef_FIFO_dout[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/coef_FIFO_empty" type="logic">
+            <obj_property name="ElementShortName">coef_FIFO_empty</obj_property>
+            <obj_property name="ObjectShortName">coef_FIFO_empty</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/coef_FIFO_rd_vld" type="logic">
+            <obj_property name="ElementShortName">coef_FIFO_rd_vld</obj_property>
+            <obj_property name="ObjectShortName">coef_FIFO_rd_vld</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group305" type="group">
+         <obj_property name="label">Dividend</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_mem_ctrl/u_coef_FIFO/din" type="array">
+            <obj_property name="ElementShortName">din[7:0]</obj_property>
+            <obj_property name="ObjectShortName">din[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/coef_FIFO_dout" type="array">
+            <obj_property name="ElementShortName">coef_FIFO_dout[7:0]</obj_property>
+            <obj_property name="ObjectShortName">coef_FIFO_dout[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/coef_FIFO_empty" type="logic">
+            <obj_property name="ElementShortName">coef_FIFO_empty</obj_property>
+            <obj_property name="ObjectShortName">coef_FIFO_empty</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/coef_FIFO_rd_vld" type="logic">
+            <obj_property name="ElementShortName">coef_FIFO_rd_vld</obj_property>
+            <obj_property name="ObjectShortName">coef_FIFO_rd_vld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/exp" type="array">
+            <obj_property name="ElementShortName">exp[102:0]</obj_property>
+            <obj_property name="ObjectShortName">exp[102:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/dividend_FIFO_din" type="array">
+            <obj_property name="ElementShortName">dividend_FIFO_din[102:0]</obj_property>
+            <obj_property name="ObjectShortName">dividend_FIFO_din[102:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/dividend_FIFO_wr_vld" type="logic">
+            <obj_property name="ElementShortName">dividend_FIFO_wr_vld</obj_property>
+            <obj_property name="ObjectShortName">dividend_FIFO_wr_vld</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group308" type="group">
+         <obj_property name="label">Divisor</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_softmax/sum_reg" type="array">
+            <obj_property name="ElementShortName">sum_reg[102:0]</obj_property>
+            <obj_property name="ObjectShortName">sum_reg[102:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/divisor_FIFO_din" type="array">
+            <obj_property name="ElementShortName">divisor_FIFO_din</obj_property>
+            <obj_property name="ObjectShortName">divisor_FIFO_din</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/divisor_FIFO_wr_vld" type="logic">
+            <obj_property name="ElementShortName">divisor_FIFO_wr_vld</obj_property>
+            <obj_property name="ObjectShortName">divisor_FIFO_wr_vld</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_softmax/divisor_FIFO_dout" type="array">
+         <obj_property name="ElementShortName">divisor_FIFO_dout</obj_property>
+         <obj_property name="ObjectShortName">divisor_FIFO_dout</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_softmax/divisor_FIFO_rd_vld" type="logic">
+         <obj_property name="ElementShortName">divisor_FIFO_rd_vld</obj_property>
+         <obj_property name="ObjectShortName">divisor_FIFO_rd_vld</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_softmax/dividend_FIFO_dout" type="array">
+         <obj_property name="ElementShortName">dividend_FIFO_dout[102:0]</obj_property>
+         <obj_property name="ObjectShortName">dividend_FIFO_dout[102:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_softmax/dividend_FIFO_rd_vld" type="logic">
+         <obj_property name="ElementShortName">dividend_FIFO_rd_vld</obj_property>
+         <obj_property name="ObjectShortName">dividend_FIFO_rd_vld</obj_property>
+      </wvobject>
+      <wvobject fp_name="group302" type="group">
+         <obj_property name="label">Output</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_softmax/sm_ready_o" type="logic">
+            <obj_property name="ElementShortName">sm_ready_o</obj_property>
+            <obj_property name="ObjectShortName">sm_ready_o</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/alpha_FIFO_din" type="array">
+            <obj_property name="ElementShortName">alpha_FIFO_din[31:0]</obj_property>
+            <obj_property name="ObjectShortName">alpha_FIFO_din[31:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">UNSIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">31</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/alpha_FIFO_full" type="logic">
+            <obj_property name="ElementShortName">alpha_FIFO_full</obj_property>
+            <obj_property name="ObjectShortName">alpha_FIFO_full</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/alpha_FIFO_wr_vld" type="logic">
+            <obj_property name="ElementShortName">alpha_FIFO_wr_vld</obj_property>
+            <obj_property name="ObjectShortName">alpha_FIFO_wr_vld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_softmax/num_node_BRAM_addrb" type="array">
+            <obj_property name="ElementShortName">num_node_BRAM_addrb[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_node_BRAM_addrb[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/golden_dmvm" type="array">
+            <obj_property name="ElementShortName">golden_dmvm[0:199][63:0]</obj_property>
+            <obj_property name="ObjectShortName">golden_dmvm[0:199][63:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/golden_coef" type="array">
+            <obj_property name="ElementShortName">golden_coef[0:199][63:0]</obj_property>
+            <obj_property name="ObjectShortName">golden_coef[0:199][63:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/golden_dividend" type="array">
+            <obj_property name="ElementShortName">golden_dividend[0:199][63:0]</obj_property>
+            <obj_property name="ObjectShortName">golden_dividend[0:199][63:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/golden_divisor" type="array">
+            <obj_property name="ElementShortName">golden_divisor[0:21][63:0]</obj_property>
+            <obj_property name="ObjectShortName">golden_divisor[0:21][63:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/golden_sm_num_node" type="array">
+            <obj_property name="ElementShortName">golden_sm_num_node[0:21][63:0]</obj_property>
+            <obj_property name="ObjectShortName">golden_sm_num_node[0:21][63:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/golden_alpha" type="array">
+            <obj_property name="ElementShortName">golden_alpha[0:199]</obj_property>
+            <obj_property name="ObjectShortName">golden_alpha[0:199]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/golden_exp_alpha" type="array">
+            <obj_property name="ElementShortName">golden_exp_alpha[0:199]</obj_property>
+            <obj_property name="ObjectShortName">golden_exp_alpha[0:199]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+</wave_config>

@@ -12,15 +12,15 @@ module a_loader import params_pkg::*;
   output                                  a_BRAM_enb    ,
   output  [A_ADDR_W-1:0]                  a_BRAM_addrb  ,
 
-  output  [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a_o
+  output  [A_DEPTH*DATA_WIDTH-1:0]        a_flat_o
 );
   //* ========== wire declaration ===========
   wire  [A_ADDR_W-1:0]                  a_addr      ;
   wire  [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a           ;
   wire                                  rd_en       ;
   wire  [A_INDEX_WIDTH-1:0]             idx         ;
+  wire  [A_DEPTH-1:0] [DATA_WIDTH-1:0]  a_o         ;
   //* =======================================
-
 
   //* =========== reg declaration ===========
   reg   [A_ADDR_W-1:0]                  a_addr_reg  ;
@@ -46,13 +46,15 @@ module a_loader import params_pkg::*;
       assign a_o[i] = a_reg[i];
     end
   endgenerate
+
+  assign a_flat_o = a_o;
   //* =======================================
 
 
   //* ================ addr =================
   assign a_addr = (a_valid_i && a_addr_reg < A_DEPTH - 1) ? (a_addr_reg + 1) : a_addr_reg;
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       a_addr_reg <= 0;
     end else begin
@@ -62,7 +64,7 @@ module a_loader import params_pkg::*;
   //* =======================================
 
 
-  always_ff @(posedge clk) begin
+  always @(posedge clk) begin
     rd_en_q1 <= rd_en;
     rd_en_q2 <= rd_en_q1;
   end
@@ -77,7 +79,7 @@ module a_loader import params_pkg::*;
     end
   endgenerate
 
-  always_ff @(posedge clk or negedge rst_n) begin
+  always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       idx_reg <= 0;
       a_reg   <= '0;
