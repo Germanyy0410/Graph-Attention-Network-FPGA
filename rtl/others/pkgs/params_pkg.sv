@@ -1,6 +1,6 @@
 `define SIMULATION            1
 
-`define VIVADO                1
+// `define VIVADO                1
 
 // `define PASSED                1
 `define FAILED                1
@@ -16,11 +16,11 @@ package params_pkg;
   parameter ALPHA_DATA_WIDTH      = 32;
 
 `ifdef SIMULATION
-  parameter H_NUM_SPARSE_DATA     = 3158;
-  parameter TOTAL_NODES           = 300;
+  parameter H_NUM_SPARSE_DATA     = 2105;
+  parameter TOTAL_NODES           = 200;
   parameter NUM_FEATURE_IN        = 21;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 33;
+  parameter NUM_SUBGRAPHS         = 21;
   parameter MAX_NODES             = 18;
 
   parameter COEF_DEPTH            = 30;

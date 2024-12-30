@@ -6,7 +6,11 @@
   string fail = "\033[31m[FAILED]\033[0m";
 `endif
 
-`ifdef VIVADO
+  string red    = "\033[31m";
+  string green  = "\033[32m";
+  string reset  = "\033[0m";
+
+`ifndef VIVADO
   `include "D:/VLSI/Capstone/rtl/others/pkgs/params_pkg.sv"
 `endif
 
@@ -119,14 +123,20 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
 
   task base_monitor();
     if (monitor != "") begin
-      $display("\n--------------------------ooOoo---------------------------");
+      $display("\n---------------------------ooOoo----------------------------");
       $display("%s", monitor);
-      $display("--------------------------ooOoo---------------------------\n");
+      $display("---------------------------ooOoo----------------------------\n");
     end
   endtask
 
   task base_scoreboard();
-    $display("     - %s     : %5d | %5d\t(%0d%%)", label, pass_checker, total_checker, pass_checker * 100 / total_checker );
+    int accuracy = pass_checker * 100 / total_checker;
+    string color = (accuracy == 100) ? green : red;
+  `ifndef VIVADO
+    $display("     - %s     : %5d | %5d\t(%s%0d%%%s)", label, pass_checker, total_checker, color, accuracy, reset );
+  `else
+    $display("     - %s     : %5d | %5d\t(%0d%%)", label, pass_checker, total_checker, accuracy );
+  `endif
     export_monitor();
   endtask
 

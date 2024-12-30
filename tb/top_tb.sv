@@ -176,10 +176,10 @@ module top_tb import params_pkg::*;
 
     end_section;
 
-  `ifndef VIVADO
-    #200000;
+  // `ifndef VIVADO
+    #200;
     $finish();
-  `endif
+  // `endif
   end
 endmodule
 
