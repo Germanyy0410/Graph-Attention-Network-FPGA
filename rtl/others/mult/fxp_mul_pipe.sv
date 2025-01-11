@@ -17,18 +17,21 @@ module fxp_mul_pipe # (
   output logic                  overflow
 );
 
-  // localparam DELAY_LENGTH = 1;
-	// logic [DELAY_LENGTH-1:0] valid_shift_reg;
+  /* DELAY LENGTH = 2 */
+  logic valid_reg_q1;
+  logic valid_reg_q2;
 
-	// always @(posedge clk or negedge rstn) begin
-	// 	if (!rstn) begin
-	// 		valid_shift_reg <= '0;
-	// 		ready 					<= 1'b0;
-	// 	end else begin
-	// 		valid_shift_reg <= {valid_shift_reg[DELAY_LENGTH-2:0], valid};
-	// 		ready 					<= valid_shift_reg[DELAY_LENGTH-1];
-	// 	end
-	// end
+	always @(posedge clk or negedge rstn) begin
+		if (!rstn) begin
+			valid_reg_q1 <= '0;
+			valid_reg_q2 <= '0;
+      ready        <= '0;
+		end else begin
+      valid_reg_q1 <= valid;
+      valid_reg_q2 <= valid_reg_q1;
+      ready        <= valid_reg_q2;
+		end
+	end
 
   initial { out, overflow } = 0;
 

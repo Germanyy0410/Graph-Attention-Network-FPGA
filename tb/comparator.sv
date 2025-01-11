@@ -91,8 +91,8 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
 
   task packed_checker();
     for (int i = 0; i < DEPTH; i++) begin
-      logic signed [DATA_WIDTH-1:0] golden_temp     [SPMM_DEPTH];
-      logic signed [DATA_WIDTH-1:0] dut_temp        [SPMM_DEPTH];
+      logic signed [DATA_WIDTH-1:0] golden_temp   [SPMM_DEPTH];
+      logic signed [DATA_WIDTH-1:0] dut_temp      [SPMM_DEPTH];
 
       #0.1;
       wait(dut_ready == 1'b1);

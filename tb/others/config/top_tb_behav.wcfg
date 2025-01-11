@@ -5,7 +5,7 @@
    <db_ref_list>
       <db_ref path="top_tb_behav.wdb" id="1">
          <top_modules>
-            <top_module name="\$unit_BRAM_sv_713892775 " />
+            <top_module name="\$unit_BRAM_sv_1655741806 " />
             <top_module name="glbl" />
             <top_module name="params_pkg" />
             <top_module name="top_tb" />
@@ -13,18 +13,17 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="79,796.333 ns"></ZoomStartTime>
-      <ZoomEndTime time="80,040.734 ns"></ZoomEndTime>
-      <Cursor1Time time="79,961.333 ns"></Cursor1Time>
+      <ZoomStartTime time="23,527.617 ns"></ZoomStartTime>
+      <ZoomEndTime time="23,661.918 ns"></ZoomEndTime>
+      <Cursor1Time time="23,556.617 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="334"></NameColumnWidth>
+      <NameColumnWidth column_width="322"></NameColumnWidth>
       <ValueColumnWidth column_width="90"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="10" />
+   <WVObjectSize size="11" />
    <wave_markers>
-      <marker time="10298000" label="" />
-      <marker time="30716500" label="" />
+      <marker time="23550000" label="" />
    </wave_markers>
    <wvobject fp_name="/top_tb/dut/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -331,7 +330,6 @@
    <wvobject fp_name="group75" type="group">
       <obj_property name="label">SPMM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/top_tb/dut/u_SPMM/spmm_valid_i" type="logic">
          <obj_property name="ElementShortName">spmm_valid_i</obj_property>
          <obj_property name="ObjectShortName">spmm_valid_i</obj_property>
@@ -564,7 +562,6 @@
    <wvobject fp_name="group159" type="group">
       <obj_property name="label">DMVM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="group206" type="group">
          <obj_property name="label">Input</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -649,7 +646,6 @@
    <wvobject fp_name="group229" type="group">
       <obj_property name="label">Softmax</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="group301" type="group">
          <obj_property name="label">Input</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -822,12 +818,12 @@
             <obj_property name="ObjectShortName">golden_dividend[0:199][63:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/golden_divisor" type="array">
-            <obj_property name="ElementShortName">golden_divisor[0:21][63:0]</obj_property>
-            <obj_property name="ObjectShortName">golden_divisor[0:21][63:0]</obj_property>
+            <obj_property name="ElementShortName">golden_divisor[0:20][63:0]</obj_property>
+            <obj_property name="ObjectShortName">golden_divisor[0:20][63:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/golden_sm_num_node" type="array">
-            <obj_property name="ElementShortName">golden_sm_num_node[0:21][63:0]</obj_property>
-            <obj_property name="ObjectShortName">golden_sm_num_node[0:21][63:0]</obj_property>
+            <obj_property name="ElementShortName">golden_sm_num_node[0:20][63:0]</obj_property>
+            <obj_property name="ObjectShortName">golden_sm_num_node[0:20][63:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/top_tb/golden_alpha" type="array">
             <obj_property name="ElementShortName">golden_alpha[0:199]</obj_property>
@@ -837,6 +833,557 @@
             <obj_property name="ElementShortName">golden_exp_alpha[0:199]</obj_property>
             <obj_property name="ObjectShortName">golden_exp_alpha[0:199]</obj_property>
          </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group598" type="group">
+      <obj_property name="label">Aggregator</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/top_tb/dut/u_aggregator/aggr_valid_i" type="logic">
+         <obj_property name="ElementShortName">aggr_valid_i</obj_property>
+         <obj_property name="ObjectShortName">aggr_valid_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="group973" type="group">
+         <obj_property name="label">WH</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/WH_BRAM_addrb" type="array">
+            <obj_property name="ElementShortName">WH_BRAM_addrb[9:0]</obj_property>
+            <obj_property name="ObjectShortName">WH_BRAM_addrb[9:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/WH_BRAM_dout" type="array">
+            <obj_property name="ElementShortName">WH_BRAM_dout[197:0]</obj_property>
+            <obj_property name="ObjectShortName">WH_BRAM_dout[197:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout" type="array">
+            <obj_property name="ElementShortName">WH_dout[15:0][11:0]</obj_property>
+            <obj_property name="ObjectShortName">WH_dout[15:0][11:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/WH_num_of_nodes" type="array">
+            <obj_property name="ElementShortName">WH_num_of_nodes[4:0]</obj_property>
+            <obj_property name="ObjectShortName">WH_num_of_nodes[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/source_node_flag" type="logic">
+            <obj_property name="ElementShortName">source_node_flag</obj_property>
+            <obj_property name="ObjectShortName">source_node_flag</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group974" type="group">
+         <obj_property name="label">Alpha</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/alpha_FIFO_rd_vld" type="logic">
+            <obj_property name="ElementShortName">alpha_FIFO_rd_vld</obj_property>
+            <obj_property name="ObjectShortName">alpha_FIFO_rd_vld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/alpha_FIFO_dout" type="array">
+            <obj_property name="ElementShortName">alpha_FIFO_dout[31:0]</obj_property>
+            <obj_property name="ObjectShortName">alpha_FIFO_dout[31:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">UNSIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">31</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group806" type="group">
+         <obj_property name="label"> Multiplication</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/\genblk1[0].u_mul_pipe /valid" type="logic">
+            <obj_property name="ElementShortName">valid</obj_property>
+            <obj_property name="ObjectShortName">valid</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/alpha" type="array">
+            <obj_property name="ElementShortName">alpha[31:0]</obj_property>
+            <obj_property name="ObjectShortName">alpha[31:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">UNSIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">31</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout" type="array">
+            <obj_property name="ElementShortName">WH_dout[15:0][11:0]</obj_property>
+            <obj_property name="ObjectShortName">WH_dout[15:0][11:0]</obj_property>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[15]" type="array">
+               <obj_property name="ElementShortName">[15][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[15][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[14]" type="array">
+               <obj_property name="ElementShortName">[14][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[14][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[13]" type="array">
+               <obj_property name="ElementShortName">[13][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[13][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[12]" type="array">
+               <obj_property name="ElementShortName">[12][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[12][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[11]" type="array">
+               <obj_property name="ElementShortName">[11][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[11][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[10]" type="array">
+               <obj_property name="ElementShortName">[10][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[10][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[9]" type="array">
+               <obj_property name="ElementShortName">[9][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[9][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[8]" type="array">
+               <obj_property name="ElementShortName">[8][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[8][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[7]" type="array">
+               <obj_property name="ElementShortName">[7][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[7][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[6]" type="array">
+               <obj_property name="ElementShortName">[6][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[6][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[5]" type="array">
+               <obj_property name="ElementShortName">[5][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[5][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[4]" type="array">
+               <obj_property name="ElementShortName">[4][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[4][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[3]" type="array">
+               <obj_property name="ElementShortName">[3][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[2]" type="array">
+               <obj_property name="ElementShortName">[2][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[1]" type="array">
+               <obj_property name="ElementShortName">[1][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/WH_dout[0]" type="array">
+               <obj_property name="ElementShortName">[0][11:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][11:0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/\genblk1[0].u_mul_pipe /ready" type="logic">
+            <obj_property name="ElementShortName">ready</obj_property>
+            <obj_property name="ObjectShortName">ready</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/product" type="array">
+            <obj_property name="ElementShortName">product[15:0][43:0]</obj_property>
+            <obj_property name="ObjectShortName">product[15:0][43:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">32</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[15]" type="array">
+               <obj_property name="ElementShortName">[15][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[15][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[14]" type="array">
+               <obj_property name="ElementShortName">[14][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[14][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[13]" type="array">
+               <obj_property name="ElementShortName">[13][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[13][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[12]" type="array">
+               <obj_property name="ElementShortName">[12][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[12][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[11]" type="array">
+               <obj_property name="ElementShortName">[11][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[11][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[10]" type="array">
+               <obj_property name="ElementShortName">[10][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[10][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[9]" type="array">
+               <obj_property name="ElementShortName">[9][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[9][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[8]" type="array">
+               <obj_property name="ElementShortName">[8][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[8][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[7]" type="array">
+               <obj_property name="ElementShortName">[7][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[7][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[6]" type="array">
+               <obj_property name="ElementShortName">[6][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[6][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[5]" type="array">
+               <obj_property name="ElementShortName">[5][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[5][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[4]" type="array">
+               <obj_property name="ElementShortName">[4][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[4][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[3]" type="array">
+               <obj_property name="ElementShortName">[3][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[2]" type="array">
+               <obj_property name="ElementShortName">[2][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[1]" type="array">
+               <obj_property name="ElementShortName">[1][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/product[0]" type="array">
+               <obj_property name="ElementShortName">[0][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group907" type="group">
+         <obj_property name="label">Result</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/num_of_nodes_reg" type="array">
+            <obj_property name="ElementShortName">num_of_nodes_reg[4:0]</obj_property>
+            <obj_property name="ObjectShortName">num_of_nodes_reg[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/counter_reg" type="array">
+            <obj_property name="ElementShortName">counter_reg[4:0]</obj_property>
+            <obj_property name="ObjectShortName">counter_reg[4:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg" type="array">
+            <obj_property name="ElementShortName">result_reg[15:0][43:0]</obj_property>
+            <obj_property name="ObjectShortName">result_reg[15:0][43:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">32</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[15]" type="array">
+               <obj_property name="ElementShortName">[15][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[15][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[14]" type="array">
+               <obj_property name="ElementShortName">[14][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[14][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[13]" type="array">
+               <obj_property name="ElementShortName">[13][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[13][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[12]" type="array">
+               <obj_property name="ElementShortName">[12][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[12][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[11]" type="array">
+               <obj_property name="ElementShortName">[11][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[11][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[10]" type="array">
+               <obj_property name="ElementShortName">[10][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[10][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[9]" type="array">
+               <obj_property name="ElementShortName">[9][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[9][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[8]" type="array">
+               <obj_property name="ElementShortName">[8][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[8][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[7]" type="array">
+               <obj_property name="ElementShortName">[7][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[7][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[6]" type="array">
+               <obj_property name="ElementShortName">[6][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[6][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[5]" type="array">
+               <obj_property name="ElementShortName">[5][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[5][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[4]" type="array">
+               <obj_property name="ElementShortName">[4][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[4][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[3]" type="array">
+               <obj_property name="ElementShortName">[3][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[3][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[2]" type="array">
+               <obj_property name="ElementShortName">[2][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[2][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[1]" type="array">
+               <obj_property name="ElementShortName">[1][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[1][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+            <wvobject fp_name="/top_tb/dut/u_aggregator/result_reg[0]" type="array">
+               <obj_property name="ElementShortName">[0][43:0]</obj_property>
+               <obj_property name="ObjectShortName">[0][43:0]</obj_property>
+               <obj_property name="Radix">REALRADIX</obj_property>
+               <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+               <obj_property name="radix_fractionWidth">32</obj_property>
+               <obj_property name="radix_otherWidth">0</obj_property>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature" type="array">
+         <obj_property name="ElementShortName">new_feature[15:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">new_feature[15:0][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[15]" type="array">
+            <obj_property name="ElementShortName">[15][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[15][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[14]" type="array">
+            <obj_property name="ElementShortName">[14][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[14][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[13]" type="array">
+            <obj_property name="ElementShortName">[13][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[13][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[12]" type="array">
+            <obj_property name="ElementShortName">[12][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[12][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[11]" type="array">
+            <obj_property name="ElementShortName">[11][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[11][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[10]" type="array">
+            <obj_property name="ElementShortName">[10][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[10][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[9]" type="array">
+            <obj_property name="ElementShortName">[9][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[9][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[8]" type="array">
+            <obj_property name="ElementShortName">[8][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[8][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[7]" type="array">
+            <obj_property name="ElementShortName">[7][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[7][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[6]" type="array">
+            <obj_property name="ElementShortName">[6][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[6][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[5]" type="array">
+            <obj_property name="ElementShortName">[5][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[5][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[4]" type="array">
+            <obj_property name="ElementShortName">[4][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[4][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[3]" type="array">
+            <obj_property name="ElementShortName">[3][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[2]" type="array">
+            <obj_property name="ElementShortName">[2][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[1]" type="array">
+            <obj_property name="ElementShortName">[1][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/top_tb/dut/u_aggregator/new_feature[0]" type="array">
+            <obj_property name="ElementShortName">[0][7:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][7:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_aggregator/Feature_BRAM_addra" type="array">
+         <obj_property name="ElementShortName">Feature_BRAM_addra[7:0]</obj_property>
+         <obj_property name="ObjectShortName">Feature_BRAM_addra[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_aggregator/Feature_BRAM_din" type="array">
+         <obj_property name="ElementShortName">Feature_BRAM_din[127:0]</obj_property>
+         <obj_property name="ObjectShortName">Feature_BRAM_din[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_aggregator/Feature_BRAM_ena" type="logic">
+         <obj_property name="ElementShortName">Feature_BRAM_ena</obj_property>
+         <obj_property name="ObjectShortName">Feature_BRAM_ena</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_aggregator/feature_addr" type="array">
+         <obj_property name="ElementShortName">feature_addr[7:0]</obj_property>
+         <obj_property name="ObjectShortName">feature_addr[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_aggregator/feature_addr_reg" type="array">
+         <obj_property name="ElementShortName">feature_addr_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">feature_addr_reg[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/top_tb/dut/u_aggregator/aggr_ready_o" type="logic">
+         <obj_property name="ElementShortName">aggr_ready_o</obj_property>
+         <obj_property name="ObjectShortName">aggr_ready_o</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

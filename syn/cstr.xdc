@@ -1,8 +1,8 @@
-# Author: Hoang Tien Duc
-# Company: Ho Chi Minh City University of Technology
-# Title: Acceleration of Graph Attention Network on FPGA
-# Created on 9th October 2024
-# Modified by Hoang Tien Duc, date 26/11/2024
+# Author    : Hoang Tien Duc
+# Company   : Ho Chi Minh City University of Technology
+# Title     : Acceleration of Graph Attention Network on FPGA
+# Created   : 9th October 2024
+# Modified  : Hoang Tien Duc, date 09/01/2025
 
 set clk_speed   200
 set clk_period  [expr (1000.0 / $clk_speed)]

@@ -1,6 +1,6 @@
-`define SIMULATION            1
+// `define SIMULATION            1
 
-// `define VIVADO                1
+`define VIVADO                1
 
 // `define PASSED                1
 `define FAILED                1
@@ -20,7 +20,7 @@ package params_pkg;
   parameter TOTAL_NODES           = 200;
   parameter NUM_FEATURE_IN        = 21;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 21;
+  parameter NUM_SUBGRAPHS         = 20;
   parameter MAX_NODES             = 18;
 
   parameter COEF_DEPTH            = 30;
@@ -50,9 +50,10 @@ package params_pkg;
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA;
   parameter NODE_INFO_DEPTH       = TOTAL_NODES;
   parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN;
-  parameter WH_DEPTH              = 1000;
+  parameter WH_DEPTH              = TOTAL_NODES;
   parameter A_DEPTH               = NUM_FEATURE_OUT * 2;
   parameter NUM_NODES_DEPTH       = NUM_SUBGRAPHS;
+  parameter NEW_FEATURE_DEPTH     = NUM_SUBGRAPHS;
 
   // -- [H]
   parameter H_NUM_OF_ROWS         = TOTAL_NODES;
@@ -110,10 +111,10 @@ package params_pkg;
   parameter AGGR_WIDTH            = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH;
   parameter AGGR_DEPTH            = NUM_SUBGRAPHS;
   parameter AGGR_ADDR_W           = $clog2(AGGR_DEPTH);
+  parameter AGGR_MULT_W           = WH_DATA_WIDTH + 32;
 
   // -- [New Feature]
-  parameter NEW_FEATURE_WIDTH     = DATA_WIDTH * NUM_FEATURE_OUT;
-  parameter NEW_FEATURE_DEPTH     = TOTAL_NODES;
+  parameter NEW_FEATURE_WIDTH     = 40 * NUM_FEATURE_OUT;
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH);
   //* =========================================
 

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
+localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
 
 `include "comparator.sv"
 
@@ -51,7 +51,6 @@ module top_tb import params_pkg::*;
   ///////////////////////////////////////////////////////////////////
 
 
-  ///////////////////////////////////////////////////////////////////
   longint start_time, end_time;
   longint lat_start_time, lat_end_time;
 
@@ -59,6 +58,8 @@ module top_tb import params_pkg::*;
   `include "./loader/input_loader.sv"
   `include "./loader/output_loader.sv"
 
+
+  ///////////////////////////////////////////////////////////////////
   OutputComparator #(longint, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT)  spmm         = new("WH         ", WH_DATA_WIDTH, 0, 1);
 
   OutputComparator #(longint, DMVM_DATA_WIDTH, TOTAL_NODES)                 dmvm         = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
@@ -69,7 +70,11 @@ module top_tb import params_pkg::*;
   OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                sm_num_nodes = new("SM_NUM_NODE", NUM_NODE_WIDTH, 0, 0);
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                   alpha        = new("Alpha      ", WOI, WOF, 0);
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                   exp_alpha    = new("Exp_Alpha  ", WOI, WOF, 0);
+  OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS)                new_feature  = new("New_Feature", NEW_FEATURE_WIDTH, 8, 32);
+  ///////////////////////////////////////////////////////////////////
 
+
+  ///////////////////////////////////////////////////////////////////
   initial begin
     spmm.monitor_path         = "/SPMM/wh.log";
     dmvm.monitor_path         = "/DMVM/dmvm.log";
@@ -78,8 +83,12 @@ module top_tb import params_pkg::*;
     divisor.monitor_path      = "/softmax/divisor.log";
     sm_num_nodes.monitor_path = "/softmax/num_nodes.log";
     alpha.monitor_path        = "/softmax/alpha.log";
+    new_feature.monitor_path  = "/aggregator/new_feature.log";
   end
+  ///////////////////////////////////////////////////////////////////
 
+
+  ///////////////////////////////////////////////////////////////////
   always_comb begin
     spmm.dut_ready              = dut.u_SPMM.spmm_ready_o;
     spmm.dut_spmm_output        = dut.u_SPMM.result;
@@ -118,6 +127,15 @@ module top_tb import params_pkg::*;
     exp_alpha.golden_output     = golden_exp_alpha;
   end
 
+  always_comb begin
+    new_feature.dut_ready        = dut.u_aggregator.aggr_ready_o;
+    new_feature.dut_output       = dut.u_aggregator.new_feature;
+    new_feature.golden_output    = golden_new_feature;
+  end
+  ///////////////////////////////////////////////////////////////////
+
+
+  ///////////////////////////////////////////////////////////////////
   initial begin
     fork
       spmm.packed_checker();
@@ -130,7 +148,10 @@ module top_tb import params_pkg::*;
       exp_alpha.output_checker(0.1);
     join
   end
+  ///////////////////////////////////////////////////////////////////
 
+
+  ///////////////////////////////////////////////////////////////////
   initial begin
     #0.1;
     wait(dut.u_SPMM.spmm_valid_i == 1'b1);
@@ -138,7 +159,7 @@ module top_tb import params_pkg::*;
     lat_start_time  = $time;
     for (int i = 0; i < TOTAL_NODES; i++) begin
       #10.01;
-      wait(dut.u_softmax.sm_ready_o == 1'b1);
+      wait(dut.u_aggregator.aggr_ready_o == 1'b1);
       if (i == 0) begin
         lat_end_time = $time;
       end
@@ -148,39 +169,34 @@ module top_tb import params_pkg::*;
     begin_section;
 
     spmm.base_monitor();
-
     dmvm.base_monitor();
     coef.base_monitor();
-
     dividend.base_monitor();
     sm_num_nodes.base_monitor();
     divisor.base_monitor();
     alpha.base_monitor();
-    // exp_alpha.base_monitor();
 
     summary_section;
 
     $display("\n  SPMM:");
     spmm.base_scoreboard();
-
     $display("\n  DMVM:");
     dmvm.base_scoreboard();
     coef.base_scoreboard();
-
     $display("\n  SOFTMAX:");
     dividend.base_scoreboard();
     divisor.base_scoreboard();
     sm_num_nodes.base_scoreboard();
     alpha.base_scoreboard();
-    // exp_alpha.base_scoreboard();
 
     end_section;
 
-  // `ifndef VIVADO
+  `ifndef VIVADO
     #200;
     $finish();
-  // `endif
+  `endif
   end
+  ///////////////////////////////////////////////////////////////////
 endmodule
 
 

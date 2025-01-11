@@ -238,9 +238,7 @@ module SPMM import params_pkg::*;
                             ? (row_counter_reg + 1)
                             : row_counter_reg;
 
-  assign data_addr      = (spmm_valid_q1 && data_addr_reg < {H_DATA_ADDR_W{1'b1}})
-                          ? (data_addr_reg + 1)
-                          : data_addr_reg;
+  assign data_addr      = (spmm_valid_q1) ? (data_addr_reg + 1) : data_addr_reg;
 
   assign node_info_addr = (((row_counter_reg == 0 && row_length >= 2) || (row_length == 1)) && spmm_valid_q1 && (node_info_addr_reg < {NODE_INFO_ADDR_W{1'b1}}))
                           ? (node_info_addr_reg + 1)

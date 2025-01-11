@@ -11,10 +11,12 @@
   real      golden_alpha        [TOTAL_NODES];
   real      golden_exp_alpha    [TOTAL_NODES];
 
+  real      golden_new_feature  [NUM_SUBGRAPHS*NUM_FEATURE_OUT]
+
   longint status;
-  longint spmm_file, dmvm_file, coef_file, alpha_file, dividend_file, divisor_file, sm_num_node_file, exp_alpha_file ;
+  longint spmm_file, dmvm_file, coef_file, alpha_file, dividend_file, divisor_file, sm_num_node_file, exp_alpha_file, new_feature_file ;
   longint spmm_value, dmvm_value, coef_value, dividend_value, divisor_value, sm_num_node_value;
-  real    alpha_value, exp_alpha_value;
+  real    alpha_value, exp_alpha_value, new_feature_value;
   string  golden_file_path;
 
   initial begin
@@ -87,4 +89,13 @@
       golden_exp_alpha[i] = exp_alpha_value;
     end
     $fclose(exp_alpha_file);
+  end
+
+  initial begin
+    new_feature_file = $fopen($sformatf("%s/aggregator/new_feature.txt", GOLDEN_PATH), "r");
+    for (longint i = 0; i < NUM_SUBGRAPHS*NUM_FEATURE_OUT; i++) begin
+      status = $fscanf(new_feature_file, "%f\n", new_feature_value);
+      golden_new_feature[i] = new_feature_value;
+    end
+    $fclose(new_feature_file);
   end

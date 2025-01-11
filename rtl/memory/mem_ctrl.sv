@@ -65,14 +65,13 @@ module mem_ctrl import params_pkg::*;
   input   [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_din            ,
   input                             Feature_BRAM_ena            ,
   input   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addra          ,
-  output  [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_dout           ,
+  output  [DATA_WIDTH-1:0]          Feature_BRAM_dout           ,
   input   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addrb
 );
   //* ========================= MEMORY =========================
   BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
-    .DEPTH        (H_DATA_DEPTH         ),
-    .CLK_LATENCY  (1                    )
+    .DEPTH        (H_DATA_DEPTH         )
   ) u_H_data_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
@@ -85,8 +84,7 @@ module mem_ctrl import params_pkg::*;
 
   modified_BRAM #(
     .DATA_WIDTH   (NODE_INFO_WIDTH            ),
-    .DEPTH        (NODE_INFO_DEPTH            ),
-    .CLK_LATENCY  (1                          )
+    .DEPTH        (NODE_INFO_DEPTH            )
   ) u_H_node_info_BRAM (
     .clk          (clk                        ),
     .rst_n        (rst_n                      ),
@@ -100,8 +98,7 @@ module mem_ctrl import params_pkg::*;
 
   BRAM #(
     .DATA_WIDTH   (DATA_WIDTH           ),
-    .DEPTH        (WEIGHT_DEPTH         ),
-    .CLK_LATENCY  (1                    )
+    .DEPTH        (WEIGHT_DEPTH         )
   ) u_Weight_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
@@ -114,8 +111,7 @@ module mem_ctrl import params_pkg::*;
 
   BRAM #(
     .DATA_WIDTH   (WH_WIDTH             ),
-    .DEPTH        (WH_DEPTH             ),
-    .CLK_LATENCY  (1                    )
+    .DEPTH        (WH_DEPTH             )
   ) u_WH_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
@@ -128,8 +124,7 @@ module mem_ctrl import params_pkg::*;
 
   BRAM #(
     .DATA_WIDTH   (DATA_WIDTH           ),
-    .DEPTH        (A_DEPTH              ),
-    .CLK_LATENCY  (1                    )
+    .DEPTH        (A_DEPTH              )
   ) u_a_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
@@ -142,8 +137,7 @@ module mem_ctrl import params_pkg::*;
 
   dual_read_BRAM #(
     .DATA_WIDTH   (NUM_NODE_WIDTH       ),
-    .DEPTH        (NUM_NODES_DEPTH      ),
-    .CLK_LATENCY  (1                    )
+    .DEPTH        (NUM_NODES_DEPTH      )
   ) u_num_node_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
@@ -184,18 +178,19 @@ module mem_ctrl import params_pkg::*;
     .full       (alpha_FIFO_full        )
   );
 
+  (* dont_touch = "true" *)
   BRAM #(
-    .DATA_WIDTH   (NEW_FEATURE_WIDTH    ),
-    .DEPTH        (NEW_FEATURE_DEPTH    ),
-    .CLK_LATENCY  (1                    )
+    .DATA_WIDTH     (NEW_FEATURE_WIDTH    ),
+    .DEPTH          (NEW_FEATURE_DEPTH    ),
+    .RD_DATA_WIDTH  (DATA_WIDTH           )
   ) u_Feature_BRAM (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (Feature_BRAM_din     ),
-    .addra        (Feature_BRAM_addra   ),
-    .ena          (Feature_BRAM_ena     ),
-    .addrb        (Feature_BRAM_addrb   ),
-    .dout         (Feature_BRAM_dout    )
+    .clk            (clk                  ),
+    .rst_n          (rst_n                ),
+    .din            (Feature_BRAM_din     ),
+    .addra          (Feature_BRAM_addra   ),
+    .ena            (Feature_BRAM_ena     ),
+    .addrb          (Feature_BRAM_addrb   ),
+    .dout           (Feature_BRAM_dout    )
   );
   //* ==========================================================
 endmodule

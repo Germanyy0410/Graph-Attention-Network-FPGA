@@ -1,9 +1,8 @@
-module BRAM #(
+module URAM #(
   //* ========== parameter ===========
   parameter DATA_WIDTH      = 128,
   parameter DEPTH           = 2708,
   parameter CLK_LATENCY     = 1,
-  parameter RD_DATA_WIDTH   = DATA_WIDTH,
 
   //* ========= localparams ==========
   parameter DATA_ADDR_W     = $clog2(DEPTH)
@@ -16,10 +15,10 @@ module BRAM #(
   input                           ena           ,
   // -- Data Fetch
   input   [DATA_ADDR_W-1:0]       addrb         ,
-  output  [RD_DATA_WIDTH-1:0]     dout
+  output  [DATA_WIDTH-1:0]        dout
 );
 
-  (* ram_style = "block" *)
+  (* ram_style = "ultra" *)
   logic [DATA_WIDTH-1:0]    memory    [0:DEPTH-1]         ;
 
   logic [DATA_WIDTH-1:0]    data                          ;

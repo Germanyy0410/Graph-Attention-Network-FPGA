@@ -27,7 +27,10 @@ module top import params_pkg::*;
   input                             a_BRAM_ena                  ,
   input   [A_ADDR_W-1:0]            a_BRAM_addra                ,
   output  [A_ADDR_W-1:0]            a_BRAM_addrb                ,
-  input                             a_BRAM_load_done
+  input                             a_BRAM_load_done            ,
+
+  input   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addrb          ,
+  output  [DATA_WIDTH-1:0]          Feature_BRAM_dout
 );
   logic   [H_DATA_WIDTH-1:0]        H_data_BRAM_dout            ;
   logic   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout       ;
@@ -67,7 +70,7 @@ module top import params_pkg::*;
   logic                             Feature_BRAM_ena            ;
   logic   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addra          ;
   logic   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addrb          ;
-  logic   [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_dout           ;
+  logic   [DATA_WIDTH-1:0]          Feature_BRAM_dout           ;
 
   genvar i;
 
