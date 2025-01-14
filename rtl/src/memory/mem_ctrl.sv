@@ -1,6 +1,6 @@
-`include "./../others/pkgs/params_pkg.sv"
+`include "./../../inc/gat_pkg.sv"
 
-module mem_ctrl import params_pkg::*;
+module mem_ctrl import gat_pkg::*;
 (
   input                             clk                         ,
   input                             rst_n                       ,
@@ -20,12 +20,12 @@ module mem_ctrl import params_pkg::*;
   output  [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout_nxt   ,
   input                             H_node_info_BRAM_load_done  ,
 
-  input   [DATA_WIDTH-1:0]          Weight_BRAM_din             ,
-  input                             Weight_BRAM_ena             ,
-  input   [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addra           ,
-  input   [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addrb           ,
-  output  [DATA_WIDTH-1:0]          Weight_BRAM_dout            ,
-  input                             Weight_BRAM_load_done       ,
+  input   [DATA_WIDTH-1:0]          weight_BRAM_din             ,
+  input                             weight_BRAM_ena             ,
+  input   [WEIGHT_ADDR_W-1:0]       weight_BRAM_addra           ,
+  input   [WEIGHT_ADDR_W-1:0]       weight_BRAM_addrb           ,
+  output  [DATA_WIDTH-1:0]          weight_BRAM_dout            ,
+  input                             weight_BRAM_load_done       ,
 
   input   [DATA_WIDTH-1:0]          a_BRAM_din                  ,
   input                             a_BRAM_ena                  ,
@@ -62,11 +62,11 @@ module mem_ctrl import params_pkg::*;
   input                             alpha_FIFO_rd_vld           ,
   output  [ALPHA_DATA_WIDTH-1:0]    alpha_FIFO_dout             ,
 
-  input   [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_din            ,
-  input                             Feature_BRAM_ena            ,
-  input   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addra          ,
-  output  [DATA_WIDTH-1:0]          Feature_BRAM_dout           ,
-  input   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addrb
+  input   [DATA_WIDTH-1:0]          feature_BRAM_din            ,
+  input                             feature_BRAM_ena            ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  feature_BRAM_addra          ,
+  output  [DATA_WIDTH-1:0]          feature_BRAM_dout           ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  feature_BRAM_addrb
 );
   //* ========================= MEMORY =========================
   BRAM #(
@@ -99,16 +99,17 @@ module mem_ctrl import params_pkg::*;
   BRAM #(
     .DATA_WIDTH   (DATA_WIDTH           ),
     .DEPTH        (WEIGHT_DEPTH         )
-  ) u_Weight_BRAM (
+  ) u_weight_BRAM (
     .clk          (clk                  ),
     .rst_n        (rst_n                ),
-    .din          (Weight_BRAM_din      ),
-    .addra        (Weight_BRAM_addra    ),
-    .ena          (Weight_BRAM_ena      ),
-    .addrb        (Weight_BRAM_addrb    ),
-    .dout         (Weight_BRAM_dout     )
+    .din          (weight_BRAM_din      ),
+    .addra        (weight_BRAM_addra    ),
+    .ena          (weight_BRAM_ena      ),
+    .addrb        (weight_BRAM_addrb    ),
+    .dout         (weight_BRAM_dout     )
   );
 
+  (* dont_touch = "true" *)
   BRAM #(
     .DATA_WIDTH   (WH_WIDTH             ),
     .DEPTH        (WH_DEPTH             )
@@ -181,16 +182,15 @@ module mem_ctrl import params_pkg::*;
   (* dont_touch = "true" *)
   BRAM #(
     .DATA_WIDTH     (NEW_FEATURE_WIDTH    ),
-    .DEPTH          (NEW_FEATURE_DEPTH    ),
-    .RD_DATA_WIDTH  (DATA_WIDTH           )
-  ) u_Feature_BRAM (
+    .DEPTH          (NEW_FEATURE_DEPTH    )
+  ) u_feature_BRAM (
     .clk            (clk                  ),
     .rst_n          (rst_n                ),
-    .din            (Feature_BRAM_din     ),
-    .addra          (Feature_BRAM_addra   ),
-    .ena            (Feature_BRAM_ena     ),
-    .addrb          (Feature_BRAM_addrb   ),
-    .dout           (Feature_BRAM_dout    )
+    .din            (feature_BRAM_din     ),
+    .addra          (feature_BRAM_addra   ),
+    .ena            (feature_BRAM_ena     ),
+    .addrb          (feature_BRAM_addrb   ),
+    .dout           (feature_BRAM_dout    )
   );
   //* ==========================================================
 endmodule

@@ -1,6 +1,6 @@
-`include "./../others/pkgs/params_pkg.sv"
+`include "./../../inc/gat_pkg.sv"
 
-module SP_PE import params_pkg::*;
+module SP_PE import gat_pkg::*;
 (
   input                             clk                     ,
   input                             rst_n                   ,

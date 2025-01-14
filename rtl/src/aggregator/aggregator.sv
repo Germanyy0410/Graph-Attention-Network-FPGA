@@ -1,6 +1,6 @@
-`include "./../others/pkgs/params_pkg.sv"
+`include "./../../inc/gat_pkg.sv"
 
-module aggregator import params_pkg::*;
+module aggregator import gat_pkg::*;
 (
   input                                               clk                 ,
   input                                               rst_n               ,
@@ -18,14 +18,12 @@ module aggregator import params_pkg::*;
   output                                              alpha_FIFO_rd_vld   ,
 
   // -- new features
-  output logic [NEW_FEATURE_ADDR_W-1:0]               Feature_BRAM_addra  ,
-  output logic [NEW_FEATURE_WIDTH-1:0]                Feature_BRAM_din    ,
-  output logic                                        Feature_BRAM_ena
+  output logic [NEW_FEATURE_ADDR_W-1:0]               feature_BRAM_addra  ,
+  output logic [DATA_WIDTH-1:0]                       feature_BRAM_din    ,
+  output logic                                        feature_BRAM_ena
 );
   //* ============== logic declaration ==============
   logic                                               aggr_valid_q1       ;
-  logic                                               aggr_ready          ;
-  logic                                               aggr_ready_reg      ;
 
   logic [ALPHA_DATA_WIDTH-1:0]                        alpha               ;
 
@@ -160,7 +158,7 @@ module aggregator import params_pkg::*;
   //* ==============================================
 
 
-  //* ========== push data to Feature BRAM =========
+  //* ========== push data to feature BRAM =========
   generate
     for (i = 0; i < NUM_FEATURE_OUT; i = i + 1) begin
       assign new_feature[i] = (result_reg[i][AGGR_MULT_W-1] == 1'b0)
@@ -169,7 +167,7 @@ module aggregator import params_pkg::*;
     end
   endgenerate
 
-  assign num_of_nodes_out = (Feature_BRAM_ena || (feature_addr_reg == 0 && aggr_valid_i)) ? num_of_nodes_reg : num_of_nodes_out_reg;
+  assign num_of_nodes_out = (aggr_ready_o || (feature_addr_reg == 0 && aggr_valid_i)) ? num_of_nodes_reg : num_of_nodes_out_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -180,41 +178,19 @@ module aggregator import params_pkg::*;
   end
 
   assign new_feature_enable = (counter_reg == (num_of_nodes_out_reg - 1));
-  assign feature_addr       = (new_feature_enable && aggr_valid_i) ? (feature_addr_reg + 1'b1) : feature_addr_reg;
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      feature_addr_reg <= 0;
-    end else begin
-      feature_addr_reg <= feature_addr;
-    end
-  end
+  feature_controller u_feature_controller (
+    .clk                (clk                  ),
+    .rst_n              (rst_n                ),
 
-  assign Feature_BRAM_din = new_feature;
+    .new_feature        (new_feature          ),
+    .new_feature_vld    (new_feature_enable   ),
+    .new_feature_rdy    (aggr_ready_o         ),
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      Feature_BRAM_addra  <= '0;
-      Feature_BRAM_ena    <= '0;
-    end else begin
-      Feature_BRAM_addra  <= feature_addr_reg;
-      Feature_BRAM_ena    <= new_feature_enable;
-    end
-  end
-  //* ==============================================
-
-
-  //* ================= aggr_ready =================
-  assign aggr_ready_o = aggr_ready_reg;
-  assign aggr_ready   = new_feature_enable;
-
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      aggr_ready_reg <= '0;
-    end else begin
-      aggr_ready_reg <= aggr_ready;
-    end
-  end
+    .feature_BRAM_addra (feature_BRAM_addra   ),
+    .feature_BRAM_din   (feature_BRAM_din     ),
+    .feature_BRAM_ena   (feature_BRAM_ena     )
+  );
   //* ==============================================
 endmodule
 

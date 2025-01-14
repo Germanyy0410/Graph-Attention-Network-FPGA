@@ -1,6 +1,6 @@
-`include "./../others/pkgs/params_pkg.sv"
+`include "./../../inc/gat_pkg.sv"
 
-module SPMM import params_pkg::*;
+module SPMM import gat_pkg::*;
 (
   input                                                 clk                       ,
   input                                                 rst_n                     ,
@@ -122,7 +122,6 @@ module SPMM import params_pkg::*;
   //* ============ instantiation ============
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
-      (* dont_touch = "yes" *)
       SP_PE u_SP_PE (
         .clk                (clk                        ),
         .rst_n              (rst_n                      ),

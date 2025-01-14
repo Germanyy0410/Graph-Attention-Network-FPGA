@@ -24,20 +24,20 @@
 	end
 
 	initial begin
-		Weight_BRAM_ena       = 1'b1;
-		Weight_BRAM_load_done = 1'b0;
+		weight_BRAM_ena       = 1'b1;
+		weight_BRAM_load_done = 1'b0;
 
 		file_path   = $sformatf("%s/weight.txt", INPUT_PATH);
     weight_file = $fopen(file_path, "r");
 
     for (int i = 0; i < WEIGHT_DEPTH; i++) begin
-      w_r = $fscanf(weight_file, "%d\n", Weight_BRAM_din);
-      Weight_BRAM_addra = i;
+      w_r = $fscanf(weight_file, "%d\n", weight_BRAM_din);
+      weight_BRAM_addra = i;
       #10.4;
     end
 
-		Weight_BRAM_ena       = 1'b0;
-		Weight_BRAM_load_done = 1'b1;
+		weight_BRAM_ena       = 1'b0;
+		weight_BRAM_load_done = 1'b1;
 
 		$fclose(weight_file);
 	end

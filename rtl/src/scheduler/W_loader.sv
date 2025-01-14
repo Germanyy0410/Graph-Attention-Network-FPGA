@@ -1,6 +1,6 @@
-`include "./../others/pkgs/params_pkg.sv"
+`include "./../../inc/gat_pkg.sv"
 
-module W_loader import params_pkg::*;
+module W_loader import gat_pkg::*;
 (
   input                                                 clk                     ,
   input                                                 rst_n                   ,
@@ -8,8 +8,8 @@ module W_loader import params_pkg::*;
   input                                                 w_valid_i               ,
   output                                                w_ready_o               ,
 
-  input   [DATA_WIDTH-1:0]                              Weight_BRAM_dout        ,
-  output  [WEIGHT_ADDR_W-1:0]                           Weight_BRAM_addrb       ,
+  input   [DATA_WIDTH-1:0]                              weight_BRAM_dout        ,
+  output  [WEIGHT_ADDR_W-1:0]                           weight_BRAM_addrb       ,
 
   output  [W_NUM_OF_COLS*DATA_WIDTH-1:0]                mult_weight_dout_flat   ,
   input   [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]        mult_weight_addrb_flat
@@ -66,7 +66,7 @@ module W_loader import params_pkg::*;
 
 
   //* ========== output assignment ==========
-  assign Weight_BRAM_addrb = addr_reg;
+  assign weight_BRAM_addrb = addr_reg;
   assign w_ready_o         = w_ready_reg;
   //* =======================================
 
@@ -109,7 +109,7 @@ module W_loader import params_pkg::*;
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       assign mult_weight_addra[i] = row_idx_reg;
-      assign mult_weight_din[i]   = Weight_BRAM_dout;
+      assign mult_weight_din[i]   = weight_BRAM_dout;
       assign mult_weight_ena[i]   = (i == col_idx_reg && ~w_ready_reg) ? 1'b1 : 1'b0;
     end
   endgenerate

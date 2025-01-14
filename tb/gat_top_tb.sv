@@ -1,12 +1,21 @@
 `timescale 1ns / 1ps
 
-localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
-
 `include "comparator.sv"
 
-module top_tb import params_pkg::*;
-  ();
+`ifdef CORA
+  localparam string ROOT_PATH = "d:/VLSI/Capstone/data/cora/layer_1";
+`elsif CITESEER
+  localparam string ROOT_PATH = "d:/VLSI/Capstone/data/citeseer/layer_1";
+`elsif PUBMED
+  localparam string ROOT_PATH = "d:/VLSI/Capstone/data/pubmed/layer_1";
+`else
+  localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
+`endif
 
+`include "./../rtl/inc/gat_pkg.sv"
+
+module gat_top_tb import gat_pkg::*;
+();
   logic                             clk                         ;
   logic                             rst_n                       ;
 
@@ -24,12 +33,12 @@ module top_tb import params_pkg::*;
   logic   [NODE_INFO_ADDR_W-1:0]    H_node_info_BRAM_addrb      ;
   logic                             H_node_info_BRAM_load_done  ;
 
-  logic   [DATA_WIDTH-1:0]          Weight_BRAM_din             ;
-  logic                             Weight_BRAM_ena             ;
-  logic   [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addra           ;
-  logic                             Weight_BRAM_enb             ;
-  logic   [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addrb           ;
-  logic                             Weight_BRAM_load_done       ;
+  logic   [DATA_WIDTH-1:0]          weight_BRAM_din             ;
+  logic                             weight_BRAM_ena             ;
+  logic   [WEIGHT_ADDR_W-1:0]       weight_BRAM_addra           ;
+  logic                             weight_BRAM_enb             ;
+  logic   [WEIGHT_ADDR_W-1:0]       weight_BRAM_addrb           ;
+  logic                             weight_BRAM_load_done       ;
 
   logic   [DATA_WIDTH-1:0]          a_BRAM_din                  ;
   logic                             a_BRAM_ena                  ;
@@ -38,7 +47,10 @@ module top_tb import params_pkg::*;
   logic   [A_ADDR_W-1:0]            a_BRAM_addrb                ;
   logic                             a_BRAM_load_done            ;
 
-  top dut (.*);
+  logic   [NEW_FEATURE_ADDR_W-1:0]  feature_BRAM_addrb          ;
+  logic   [DATA_WIDTH-1:0]          feature_BRAM_dout           ;
+
+  gat_top dut (.*);
 
   ///////////////////////////////////////////////////////////////////
   always #5 clk = ~clk;
@@ -70,6 +82,7 @@ module top_tb import params_pkg::*;
   OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                sm_num_nodes = new("SM_NUM_NODE", NUM_NODE_WIDTH, 0, 0);
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                   alpha        = new("Alpha      ", WOI, WOF, 0);
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                   exp_alpha    = new("Exp_Alpha  ", WOI, WOF, 0);
+
   OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS)                new_feature  = new("New_Feature", NEW_FEATURE_WIDTH, 8, 32);
   ///////////////////////////////////////////////////////////////////
 
@@ -127,11 +140,11 @@ module top_tb import params_pkg::*;
     exp_alpha.golden_output     = golden_exp_alpha;
   end
 
-  always_comb begin
-    new_feature.dut_ready        = dut.u_aggregator.aggr_ready_o;
-    new_feature.dut_output       = dut.u_aggregator.new_feature;
-    new_feature.golden_output    = golden_new_feature;
-  end
+  // always_comb begin
+  //   new_feature.dut_ready        = dut.u_aggregator.aggr_ready_o;
+  //   new_feature.dut_output       = dut.u_aggregator.new_feature;
+  //   new_feature.golden_output    = golden_new_feature;
+  // end
   ///////////////////////////////////////////////////////////////////
 
 

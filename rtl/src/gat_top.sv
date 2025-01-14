@@ -1,6 +1,6 @@
-`include "./others/pkgs/params_pkg.sv"
+`include "./../inc/gat_pkg.sv"
 
-module top import params_pkg::*;
+module gat_top import gat_pkg::*;
 (
   input                             clk                         ,
   input                             rst_n                       ,
@@ -17,11 +17,11 @@ module top import params_pkg::*;
   output  [NODE_INFO_ADDR_W-1:0]    H_node_info_BRAM_addrb      ,
   input                             H_node_info_BRAM_load_done  ,
 
-  input   [DATA_WIDTH-1:0]          Weight_BRAM_din             ,
-  input                             Weight_BRAM_ena             ,
-  input   [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addra           ,
-  output  [WEIGHT_ADDR_W-1:0]       Weight_BRAM_addrb           ,
-  input                             Weight_BRAM_load_done       ,
+  input   [DATA_WIDTH-1:0]          weight_BRAM_din             ,
+  input                             weight_BRAM_ena             ,
+  input   [WEIGHT_ADDR_W-1:0]       weight_BRAM_addra           ,
+  output  [WEIGHT_ADDR_W-1:0]       weight_BRAM_addrb           ,
+  input                             weight_BRAM_load_done       ,
 
   input   [DATA_WIDTH-1:0]          a_BRAM_din                  ,
   input                             a_BRAM_ena                  ,
@@ -29,13 +29,13 @@ module top import params_pkg::*;
   output  [A_ADDR_W-1:0]            a_BRAM_addrb                ,
   input                             a_BRAM_load_done            ,
 
-  input   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addrb          ,
-  output  [DATA_WIDTH-1:0]          Feature_BRAM_dout
+  input   [NEW_FEATURE_ADDR_W-1:0]  feature_BRAM_addrb          ,
+  output  [DATA_WIDTH-1:0]          feature_BRAM_dout
 );
   logic   [H_DATA_WIDTH-1:0]        H_data_BRAM_dout            ;
   logic   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout       ;
   logic   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_dout_nxt   ;
-  logic   [DATA_WIDTH-1:0]          Weight_BRAM_dout            ;
+  logic   [DATA_WIDTH-1:0]          weight_BRAM_dout            ;
   logic   [DATA_WIDTH-1:0]          a_BRAM_dout                 ;
 
   logic   [WH_WIDTH-1:0]            WH_BRAM_din                 ;
@@ -66,11 +66,9 @@ module top import params_pkg::*;
   logic                             alpha_FIFO_empty            ;
   logic                             alpha_FIFO_full             ;
 
-  logic   [NEW_FEATURE_WIDTH-1:0]   Feature_BRAM_din            ;
-  logic                             Feature_BRAM_ena            ;
-  logic   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addra          ;
-  logic   [NEW_FEATURE_ADDR_W-1:0]  Feature_BRAM_addrb          ;
-  logic   [DATA_WIDTH-1:0]          Feature_BRAM_dout           ;
+  logic   [NEW_FEATURE_WIDTH-1:0]   feature_BRAM_din            ;
+  logic                             feature_BRAM_ena            ;
+  logic   [NEW_FEATURE_ADDR_W-1:0]  feature_BRAM_addra          ;
 
   genvar i;
 
@@ -90,9 +88,9 @@ module top import params_pkg::*;
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
 
-    .Weight_BRAM_dout           (Weight_BRAM_dout           ),
-    .Weight_BRAM_addrb          (Weight_BRAM_addrb          ),
-    .Weight_BRAM_load_done      (Weight_BRAM_load_done      ),
+    .weight_BRAM_dout           (weight_BRAM_dout           ),
+    .weight_BRAM_addrb          (weight_BRAM_addrb          ),
+    .weight_BRAM_load_done      (weight_BRAM_load_done      ),
     .mult_weight_addrb          (mult_weight_addrb          ),
     .mult_weight_dout           (mult_weight_dout           ),
     .w_ready_o                  (w_ready                    ),
@@ -111,7 +109,7 @@ module top import params_pkg::*;
   logic                       spmm_ready  ;
   logic [WH_WIDTH-1:0]        WH_data     ;
 
-  assign spmm_valid = (H_data_BRAM_load_done && H_node_info_BRAM_load_done && Weight_BRAM_load_done && w_ready);
+  assign spmm_valid = (H_data_BRAM_load_done && H_node_info_BRAM_load_done && weight_BRAM_load_done && w_ready);
 
   SPMM u_SPMM (
     .clk                        (clk                        ),
@@ -218,9 +216,9 @@ module top import params_pkg::*;
     .alpha_FIFO_empty     (alpha_FIFO_empty         ),
     .alpha_FIFO_rd_vld    (alpha_FIFO_rd_vld        ),
 
-    .Feature_BRAM_addra   (Feature_BRAM_addra       ),
-    .Feature_BRAM_din     (Feature_BRAM_din         ),
-    .Feature_BRAM_ena     (Feature_BRAM_ena         )
+    .feature_BRAM_addra   (feature_BRAM_addra       ),
+    .feature_BRAM_din     (feature_BRAM_din         ),
+    .feature_BRAM_ena     (feature_BRAM_ena         )
   );
   //* ==========================================================
 endmodule

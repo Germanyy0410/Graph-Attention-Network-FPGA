@@ -11,7 +11,7 @@
   real      golden_alpha        [TOTAL_NODES];
   real      golden_exp_alpha    [TOTAL_NODES];
 
-  real      golden_new_feature  [NUM_SUBGRAPHS*NUM_FEATURE_OUT]
+  real      golden_new_feature  [NUM_SUBGRAPHS*NUM_FEATURE_OUT];
 
   longint status;
   longint spmm_file, dmvm_file, coef_file, alpha_file, dividend_file, divisor_file, sm_num_node_file, exp_alpha_file, new_feature_file ;
