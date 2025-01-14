@@ -11,11 +11,11 @@ package gat_pkg;
   parameter ALPHA_DATA_WIDTH      = 32;
 
 `ifdef SIMULATION
-  parameter H_NUM_SPARSE_DATA     = 2105;
+  parameter H_NUM_SPARSE_DATA     = 2103;
   parameter TOTAL_NODES           = 200;
   parameter NUM_FEATURE_IN        = 21;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 20;
+  parameter NUM_SUBGRAPHS         = 23;
   parameter MAX_NODES             = 18;
 
   parameter COEF_DEPTH            = 30;

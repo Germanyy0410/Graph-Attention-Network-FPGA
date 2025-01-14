@@ -73,7 +73,7 @@ module gat_top import gat_pkg::*;
   genvar i;
 
   //* ==================== Memory Controller ===================
-  mem_ctrl u_mem_ctrl (.*);
+  memory_controller u_memory_controller (.*);
   //* ==========================================================
 
 

@@ -1,6 +1,6 @@
 `include "./../../inc/gat_pkg.sv"
 
-module mem_ctrl import gat_pkg::*;
+module memory_controller import gat_pkg::*;
 (
   input                             clk                         ,
   input                             rst_n                       ,

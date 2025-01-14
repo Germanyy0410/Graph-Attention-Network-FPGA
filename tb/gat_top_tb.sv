@@ -3,13 +3,13 @@
 `include "comparator.sv"
 
 `ifdef CORA
-  localparam string ROOT_PATH = "d:/VLSI/Capstone/data/cora/layer_1";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
 `elsif CITESEER
-  localparam string ROOT_PATH = "d:/VLSI/Capstone/data/citeseer/layer_1";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
 `elsif PUBMED
-  localparam string ROOT_PATH = "d:/VLSI/Capstone/data/pubmed/layer_1";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
 `else
-  localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
 `endif
 
 `include "./../rtl/inc/gat_pkg.sv"

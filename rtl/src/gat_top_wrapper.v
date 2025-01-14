@@ -1,5 +1,3 @@
-`include "./../inc/gat_define.sv"
-
 module gat_top_wrapper #(
     //* =============== parameter ===============
   // -- [Configurable] Data Width
@@ -10,19 +8,6 @@ module gat_top_wrapper #(
   parameter SM_SUM_DATA_WIDTH     = 103,
   parameter ALPHA_DATA_WIDTH      = 32,
 
-`ifdef SIMULATION
-  parameter H_NUM_SPARSE_DATA     = 2105,
-  parameter TOTAL_NODES           = 200,
-  parameter NUM_FEATURE_IN        = 21,
-  parameter NUM_FEATURE_OUT       = 16,
-  parameter NUM_SUBGRAPHS         = 20,
-  parameter MAX_NODES             = 18,
-
-  parameter COEF_DEPTH            = 30,
-  parameter ALPHA_DEPTH           = 30,
-  parameter DIVIDEND_DEPTH        = 30,
-  parameter DIVISOR_DEPTH         = 30,
-`else
   parameter H_NUM_SPARSE_DATA     = 242101,
   parameter TOTAL_NODES           = 13264,
   parameter NUM_FEATURE_IN        = 1433,
@@ -34,7 +19,6 @@ module gat_top_wrapper #(
   parameter ALPHA_DEPTH           = 200,
   parameter DIVIDEND_DEPTH        = 200,
   parameter DIVISOR_DEPTH         = 200,
-`endif
   //* =========================================
 
 
