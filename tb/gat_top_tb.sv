@@ -1,17 +1,16 @@
 `timescale 1ns / 1ps
 
 `ifdef CORA
-	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/cora/layer_1";
 `elsif CITESEER
-	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/citeseer/layer_1";
 `elsif PUBMED
-	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/pubmed/layer_1";
 `else
 	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
 `endif
 
-`include "./comparator.sv"
-`include "./../rtl/inc/gat_pkg.sv"
+`include "comparator.sv"
 
 module gat_top_tb import gat_pkg::*;
 ();
@@ -65,9 +64,9 @@ module gat_top_tb import gat_pkg::*;
   longint start_time, end_time;
   longint lat_start_time, lat_end_time;
 
-  `include "./helper/helper.sv"
-  `include "./loader/input_loader.sv"
-  `include "./loader/output_loader.sv"
+  `include "helper/helper.sv"
+  `include "loader/input_loader.sv"
+  `include "loader/output_loader.sv"
 
 
   ///////////////////////////////////////////////////////////////////
@@ -165,19 +164,18 @@ module gat_top_tb import gat_pkg::*;
 
   ///////////////////////////////////////////////////////////////////
   initial begin
-    // #0.1;
-    // wait(dut.u_SPMM.spmm_vld_i == 1'b1);
-    // start_time      = $time;
-    // lat_start_time  = $time;
-    // for (int i = 0; i < TOTAL_NODES; i++) begin
-    //   #10.01;
-    //   wait(dut.u_softmax.sm_rdy_o == 1'b1);
-    //   if (i == 0) begin
-    //     lat_end_time = $time;
-    //   end
-    // end
-    // end_time = $time;
-    #200000;
+    #0.1;
+    wait(dut.u_SPMM.spmm_vld_i == 1'b1);
+    start_time      = $time;
+    lat_start_time  = $time;
+    for (int i = 0; i < TOTAL_NODES; i++) begin
+      #10.01;
+      wait(dut.u_softmax.sm_rdy_o == 1'b1);
+      if (i == 0) begin
+        lat_end_time = $time;
+      end
+    end
+    end_time = $time;
 
     begin_section;
 

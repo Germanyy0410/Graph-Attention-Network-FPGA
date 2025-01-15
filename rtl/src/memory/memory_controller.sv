@@ -107,6 +107,7 @@ module memory_controller import gat_pkg::*;
     .dout         (wgt_bram_dout        )
   );
 
+  (* dont_touch = "true" *)
   BRAM #(
     .DATA_WIDTH   (WH_WIDTH             ),
     .DEPTH        (WH_DEPTH             )
@@ -176,6 +177,7 @@ module memory_controller import gat_pkg::*;
     .full       (alpha_ff_full          )
   );
 
+  (* dont_touch = "true" *)
   BRAM #(
     .DATA_WIDTH     (NEW_FEATURE_WIDTH    ),
     .DEPTH          (NEW_FEATURE_DEPTH    )

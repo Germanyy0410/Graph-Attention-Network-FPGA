@@ -246,19 +246,19 @@ module SPMM import gat_pkg::*;
   assign h_data_bram_addrb  = data_addr_reg;
 
   // -- node_info
-  assign { row_len, num_node, src_flag } = h_node_info_bram_dout;
-  assign h_node_info_bram_addrb                         = node_info_addr;
+  assign { row_len, num_node, src_flag }  = h_node_info_bram_dout;
+  assign h_node_info_bram_addrb           = node_info_addr;
 
   // -- next data
   assign { row_len_nxt, num_node_nxt, src_flag_nxt } = h_node_info_bram_dout_nxt;
 
   // -- ff
   assign ff_wr_vld  = new_row_en;
-  assign ff_rd_vld    = (&pe_rdy_o || data_addr_reg == 1) && !ff_empty;
+  assign ff_rd_vld  = (&pe_rdy_o || data_addr_reg == 1) && !ff_empty;
 
   // -- -- data_o
-  assign ff_node_info                                             = (ff_rd_vld)   ? ff_data_o : ff_node_info_reg;
-  assign { ff_row_len, ff_num_node, ff_src_flag }  = ff_node_info;
+  assign ff_node_info                                         = (ff_rd_vld)   ? ff_data_o : ff_node_info_reg;
+  assign { ff_row_len, ff_num_node, ff_src_flag }             = ff_node_info;
   assign { ff_row_len_reg, ff_num_node_reg, ff_src_flag_reg } = ff_node_info_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
