@@ -1,32 +1,31 @@
-`include "./../../inc/gat_pkg.sv"
-
 module softmax import gat_pkg::*;
 (
   input                               clk                 ,
   input                               rst_n               ,
 
-  input                               sm_valid_i          ,
-  output                              sm_ready_o          ,
+  input                               sm_vld_i            ,
+  output                              sm_rdy_o            ,
 
-  input   [DATA_WIDTH-1:0]            coef_FIFO_dout      ,
-  input                               coef_FIFO_empty     ,
-  output                              coef_FIFO_rd_vld    ,
+  input   [DATA_WIDTH-1:0]            coef_ff_dout        ,
+  input                               coef_ff_empty       ,
+  output                              coef_ff_rd_vld      ,
 
-  input   [NUM_NODE_WIDTH-1:0]        num_node_BRAM_dout  ,
-  output  [NUM_NODE_ADDR_W-1:0]       num_node_BRAM_addrb ,
+  input   [NUM_NODE_WIDTH-1:0]        num_node_bram_dout  ,
+  output  [NUM_NODE_ADDR_W-1:0]       num_node_bram_addrb ,
 
-  output  [ALPHA_DATA_WIDTH-1:0]      alpha_FIFO_din      ,
-  input                               alpha_FIFO_full     ,
-  output                              alpha_FIFO_wr_vld
+  output  [ALPHA_DATA_WIDTH-1:0]      alpha_ff_din        ,
+  input                               alpha_ff_full       ,
+  output                              alpha_ff_wr_vld
 );
 
-  logic                         subgraph_done         ;
-  logic                         div_subgraph_done     ;
-  logic                         coef_FIFO_empty_reg   ;
+  logic                         sub_grph_done         ;
+  logic                         div_sub_grph_done     ;
+  logic                         coef_ff_empty_reg     ;
+  logic                         sub_grph_div_ena      ;
 
   // -- handshake
-  logic                         div_valid             ;
-  logic                         div_ready             ;
+  logic                         div_vld               ;
+  logic                         div_rdy               ;
 
   // -- addr
   logic [NUM_NODE_ADDR_W-1:0]   addr                  ;
@@ -37,111 +36,111 @@ module softmax import gat_pkg::*;
   logic [SM_DATA_WIDTH-1:0]     exp_reg               ;
   logic [SM_SUM_DATA_WIDTH-1:0] sum                   ;
   logic [SM_SUM_DATA_WIDTH-1:0] sum_reg               ;
-  logic [NUM_NODE_WIDTH-1:0]    node_counter          ;
-  logic [NUM_NODE_WIDTH-1:0]    node_counter_reg      ;
-  logic [NUM_NODE_WIDTH-1:0]    num_of_nodes          ;
-  logic [NUM_NODE_WIDTH-1:0]    num_of_nodes_reg      ;
+  logic [NUM_NODE_WIDTH-1:0]    node_cnt              ;
+  logic [NUM_NODE_WIDTH-1:0]    node_cnt_reg          ;
+  logic [NUM_NODE_WIDTH-1:0]    num_node              ;
+  logic [NUM_NODE_WIDTH-1:0]    num_node_reg          ;
 
   // -- div
-  logic [NUM_NODE_WIDTH-1:0]    div_node_counter      ;
-  logic [NUM_NODE_WIDTH-1:0]    div_node_counter_reg  ;
-  logic [NUM_NODE_WIDTH-1:0]    div_num_of_nodes      ;
-  logic [NUM_NODE_WIDTH-1:0]    div_num_of_nodes_reg  ;
+  logic [NUM_NODE_WIDTH-1:0]    div_node_cnt          ;
+  logic [NUM_NODE_WIDTH-1:0]    div_node_cnt_reg      ;
+  logic [NUM_NODE_WIDTH-1:0]    div_num_node          ;
+  logic [NUM_NODE_WIDTH-1:0]    div_num_node_reg      ;
 
 
-  logic [SM_DATA_WIDTH-1:0]     dividend_FIFO_din     ;
-  logic                         dividend_FIFO_wr_vld  ;
-  logic                         dividend_FIFO_full    ;
-  logic                         dividend_FIFO_empty   ;
-  logic [SM_DATA_WIDTH-1:0]     dividend_FIFO_dout    ;
-  logic                         dividend_FIFO_rd_vld  ;
-  logic [SM_DATA_WIDTH-1:0]     dividend              ;
+  logic [SM_DATA_WIDTH-1:0]     divd_ff_din           ;
+  logic                         divd_ff_wr_vld        ;
+  logic                         divd_ff_full          ;
+  logic                         divd_ff_empty         ;
+  logic [SM_DATA_WIDTH-1:0]     divd_ff_dout          ;
+  logic                         divd_ff_rd_vld        ;
+  logic [SM_DATA_WIDTH-1:0]     divd                  ;
 
-  divisor_t                     divisor_FIFO_din      ;
-  logic                         divisor_FIFO_wr_vld   ;
-  logic                         divisor_FIFO_full     ;
-  logic                         divisor_FIFO_empty    ;
-  divisor_t                     divisor_FIFO_dout     ;
-  logic                         divisor_FIFO_rd_vld   ;
-  logic [SM_SUM_DATA_WIDTH-1:0] divisor               ;
-  logic [SM_SUM_DATA_WIDTH-1:0] divisor_reg           ;
+  dvsr_t                        dvsr_ff_din           ;
+  logic                         dvsr_ff_wr_vld        ;
+  logic                         dvsr_ff_full          ;
+  logic                         dvsr_ff_empty         ;
+  dvsr_t                        dvsr_ff_dout          ;
+  logic                         dvsr_ff_rd_vld        ;
+  logic [SM_SUM_DATA_WIDTH-1:0] dvsr                  ;
+  logic [SM_SUM_DATA_WIDTH-1:0] dvsr_reg              ;
 
   logic [ALPHA_DATA_WIDTH-1:0]  out                   ;
 
   FIFO #(
     .DATA_WIDTH (SM_DATA_WIDTH        ),
     .FIFO_DEPTH (DIVIDEND_DEPTH       )
-  ) u_dividend_FIFO (
+  ) u_divd_fifo (
     .clk        (clk                  ),
     .rst_n      (rst_n                ),
-    .din        (dividend_FIFO_din    ),
-    .wr_vld     (dividend_FIFO_wr_vld ),
-    .full       (dividend_FIFO_full   ),
-    .empty      (dividend_FIFO_empty  ),
-    .dout       (dividend_FIFO_dout   ),
-    .rd_vld     (dividend_FIFO_rd_vld )
+    .din        (divd_ff_din          ),
+    .wr_vld     (divd_ff_wr_vld       ),
+    .full       (divd_ff_full         ),
+    .empty      (divd_ff_empty        ),
+    .dout       (divd_ff_dout         ),
+    .rd_vld     (divd_ff_rd_vld       )
   );
 
   FIFO #(
     .DATA_WIDTH (DIVISOR_FF_WIDTH     ),
     .FIFO_DEPTH (DIVISOR_DEPTH        )
-  ) u_divisor_FIFO (
+  ) u_dvsr_fifo (
     .clk        (clk                  ),
     .rst_n      (rst_n                ),
-    .din        (divisor_FIFO_din     ),
-    .wr_vld     (divisor_FIFO_wr_vld  ),
-    .full       (divisor_FIFO_full    ),
-    .empty      (divisor_FIFO_empty   ),
-    .dout       (divisor_FIFO_dout    ),
-    .rd_vld     (divisor_FIFO_rd_vld  )
+    .din        (dvsr_ff_din          ),
+    .wr_vld     (dvsr_ff_wr_vld       ),
+    .full       (dvsr_ff_full         ),
+    .empty      (dvsr_ff_empty        ),
+    .dout       (dvsr_ff_dout         ),
+    .rd_vld     (dvsr_ff_rd_vld       )
   );
 
   always @(posedge clk) begin
-    coef_FIFO_empty_reg <= coef_FIFO_empty;
+    coef_ff_empty_reg <= coef_ff_empty;
   end
 
-  assign subgraph_done        = (node_counter_reg == 0);
-  assign div_subgraph_done    = (div_node_counter_reg == 0);
-  assign subgraph_div_enable  = (!dividend_FIFO_empty) && ((!divisor_FIFO_empty) && (div_node_counter_reg == 0) || div_node_counter_reg != 0);
+  assign sub_grph_done        = (node_cnt_reg == 0);
+  assign div_sub_grph_done    = (div_node_cnt_reg == 0);
+  assign sub_grph_div_ena     = (!divd_ff_empty) && ((!dvsr_ff_empty) && (div_node_cnt_reg == 0) || div_node_cnt_reg != 0);
 
   //* ======================== exp & sum ==========================
-  // -- coef from FIFO
-  assign coef_FIFO_rd_vld   = (!coef_FIFO_empty) && sm_valid_i;
+  // -- coef from ff
+  assign coef_ff_rd_vld   = (!coef_ff_empty) && sm_vld_i;
 
-  // -- num_of_nodes from BRAM
-  assign num_node_BRAM_addrb  = addr_reg;
-  assign num_of_nodes         = subgraph_done ? num_node_BRAM_dout : num_of_nodes_reg;
+  // -- num_node from bram
+  assign num_node_bram_addrb  = addr_reg;
+  assign num_node             = sub_grph_done ? num_node_bram_dout : num_node_reg;
 
-  assign addr = (subgraph_done && sm_valid_i && coef_FIFO_rd_vld) ? (addr_reg + 1) : addr_reg;
+  assign addr = (sub_grph_done && sm_vld_i && coef_ff_rd_vld) ? (addr_reg + 1) : addr_reg;
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      addr_reg <= '0;
+      addr_reg <= 'b0;
     end else begin
       addr_reg <= addr;
     end
   end
 
   // -- compute 2^x
-  assign exp = (coef_FIFO_dout == ZERO) ? 1 : (1 << coef_FIFO_dout);
+  assign exp = (coef_ff_dout == ZERO) ? 1 : (1 << coef_ff_dout);
 
   always @(*) begin
-    sum           = sum_reg;
-    node_counter  = node_counter_reg;
+    sum       = sum_reg;
+    node_cnt  = node_cnt_reg;
 
-    if (coef_FIFO_rd_vld) begin
-      if (node_counter_reg == num_of_nodes_reg - 1) begin
-        node_counter  = '0;
+    if (coef_ff_rd_vld) begin
+      if (node_cnt_reg == num_node_reg - 1) begin
+        node_cnt  = '0;
       end else begin
-        node_counter  = node_counter_reg + 1;
+        node_cnt  = node_cnt_reg + 1;
       end
 
-      if (node_counter_reg == 0) begin
+      if (node_cnt_reg == 0) begin
         sum = exp;
       end else begin
         sum = sum_reg + exp;
       end
     end else begin
-      if (node_counter_reg == 0) begin
+      if (node_cnt_reg == 0) begin
         sum = '0;
       end
     end
@@ -149,66 +148,66 @@ module softmax import gat_pkg::*;
 
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      exp_reg           <= '0;
-      sum_reg           <= '0;
-      num_of_nodes_reg  <= '0;
-      node_counter_reg  <= '0;
+      exp_reg       <= 'b0;
+      sum_reg       <= 'b0;
+      num_node_reg  <= 'b0;
+      node_cnt_reg  <= 'b0;
     end else begin
-      exp_reg           <= exp;
-      sum_reg           <= sum;
-      num_of_nodes_reg  <= num_of_nodes;
-      node_counter_reg  <= node_counter;
+      exp_reg       <= exp;
+      sum_reg       <= sum;
+      num_node_reg  <= num_node;
+      node_cnt_reg  <= node_cnt;
     end
   end
   //* ==============================================================
 
 
-  //* ===================== push data to FIFO ======================
-  // -- dividend
-  assign dividend_FIFO_din    = exp;
-  assign dividend_FIFO_wr_vld = coef_FIFO_rd_vld && (!dividend_FIFO_full);
+  //* ===================== push data to ff ======================
+  // -- divd
+  assign divd_ff_din    = exp;
+  assign divd_ff_wr_vld = coef_ff_rd_vld && (!divd_ff_full);
 
-  // -- divisor
-  assign divisor_FIFO_din     = { num_of_nodes_reg, sum_reg };
-  assign divisor_FIFO_wr_vld  = subgraph_done && (!divisor_FIFO_full) && (sum_reg != 0) && (!coef_FIFO_empty_reg);
+  // -- dvsr
+  assign dvsr_ff_din     = { num_node_reg, sum_reg };
+  assign dvsr_ff_wr_vld  = sub_grph_done && (!dvsr_ff_full) && (sum_reg != 0) && (!coef_ff_empty_reg);
   //* ==============================================================
 
 
-  //* ===================== get data from FIFO =====================
-  // -- dividend
-  assign dividend_FIFO_rd_vld = subgraph_div_enable && (!dividend_FIFO_empty);
-  assign dividend             = dividend_FIFO_dout;
+  //* ===================== get data from ff =====================
+  // -- divd
+  assign divd_ff_rd_vld   = sub_grph_div_ena && (!divd_ff_empty);
+  assign divd             = divd_ff_dout;
 
-  // -- divisor
-  assign divisor_FIFO_rd_vld            = div_subgraph_done && (!divisor_FIFO_empty);
-  assign { div_num_of_nodes, divisor }  = divisor_FIFO_rd_vld ? divisor_FIFO_dout : { div_num_of_nodes_reg, divisor_reg };
+  // -- dvsr
+  assign dvsr_ff_rd_vld           = div_sub_grph_done && (!dvsr_ff_empty);
+  assign { div_num_node, dvsr }   = dvsr_ff_rd_vld ? dvsr_ff_dout : { div_num_node_reg, dvsr_reg };
 
   // -- vld signal
-  assign div_valid = subgraph_div_enable;
+  assign div_vld = sub_grph_div_ena;
 
   // -- node counter
   always @(*) begin
-    div_node_counter = div_node_counter_reg;
-    if (subgraph_div_enable) begin
-      if (div_node_counter_reg == div_num_of_nodes_reg - 1) begin
-        div_node_counter = '0;
+    div_node_cnt = div_node_cnt_reg;
+    if (sub_grph_div_ena) begin
+      if (div_node_cnt_reg == div_num_node_reg - 1) begin
+        div_node_cnt = '0;
       end else begin
-        div_node_counter = div_node_counter_reg + 1;
+        div_node_cnt = div_node_cnt_reg + 1;
       end
     end else begin
-      div_node_counter = '0;
+      div_node_cnt = '0;
     end
   end
 
   always @(posedge clk) begin
     if (!rst_n) begin
-      div_node_counter_reg <= '0;
-      div_num_of_nodes_reg <= '0;
-      divisor_reg          <= '0;
+      div_node_cnt_reg  <= 'b0;
+      div_num_node_reg  <= 'b0;
+      dvsr_reg          <= 'b0;
     end else begin
-      div_node_counter_reg <= div_node_counter;
-      div_num_of_nodes_reg <= div_num_of_nodes;
-      divisor_reg          <= divisor;
+      div_node_cnt_reg  <= div_node_cnt;
+      div_num_node_reg  <= div_num_node;
+      dvsr_reg          <= dvsr;
     end
   end
 
@@ -224,15 +223,15 @@ module softmax import gat_pkg::*;
   ) u_fxp_div_pipe (
     .clk      (clk                ),
     .rstn     (rst_n              ),
-    .valid    (div_valid          ),
-    .dividend (dividend           ),
-    .divisor  (divisor            ),
-    .ready    (div_ready          ),
+    .vld      (div_vld            ),
+    .dividend (divd               ),
+    .divisor  (dvsr               ),
+    .rdy      (div_rdy            ),
     .out      (out                )
   );
   //* ==============================================================
 
-  assign alpha_FIFO_din     = out;
-  assign alpha_FIFO_wr_vld  = div_ready && (!alpha_FIFO_full);
-  assign sm_ready_o         = div_ready && (!alpha_FIFO_full);
+  assign alpha_ff_din     = out;
+  assign alpha_ff_wr_vld  = div_rdy && (!alpha_ff_full);
+  assign sm_rdy_o         = div_rdy && (!alpha_ff_full);
 endmodule

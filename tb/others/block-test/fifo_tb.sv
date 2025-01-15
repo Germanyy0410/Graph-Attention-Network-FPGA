@@ -1,6 +1,6 @@
-module fifo_tb #(
+module ff_tb #(
   parameter DATA_WIDTH = 8,
-  parameter FIFO_DEPTH = 3
+  parameter ff_DEPTH = 3
 )();
 
   logic                                 clk;
@@ -17,7 +17,7 @@ module fifo_tb #(
   logic                                almost_full_o;
   logic                                full_o;
 
-  fifo dut(.*);
+  ff dut(.*);
 
   always #10 clk = ~clk;
 

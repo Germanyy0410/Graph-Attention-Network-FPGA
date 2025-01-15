@@ -11,11 +11,11 @@ package gat_pkg;
   parameter ALPHA_DATA_WIDTH      = 32;
 
 `ifdef SIMULATION
-  parameter H_NUM_SPARSE_DATA     = 2103;
+  parameter H_NUM_SPARSE_DATA     = 2106;
   parameter TOTAL_NODES           = 200;
   parameter NUM_FEATURE_IN        = 21;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 23;
+  parameter NUM_SUBGRAPHS         = 20;
   parameter MAX_NODES             = 18;
 
   parameter COEF_DEPTH            = 30;
@@ -41,7 +41,7 @@ package gat_pkg;
   //* ============== localparams ==============
   parameter signed ZERO           = {DMVM_DATA_WIDTH{1'b0}};
 
-  // -- [BRAMs] Depth
+  // -- [brams] Depth
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA;
   parameter NODE_INFO_DEPTH       = TOTAL_NODES;
   parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN;
@@ -123,7 +123,7 @@ package gat_pkg;
     logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]   Wh;
     logic [NUM_NODE_WIDTH-1:0]                        num_of_nodes;
     logic                                             source_node_flag;
-  } WH_t;
+  } wh_t;
 
   typedef struct packed {
     logic [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]      coef;
@@ -133,6 +133,6 @@ package gat_pkg;
   typedef struct packed {
     bit [NUM_NODE_WIDTH-1:0]      num_of_nodes;
     bit [SM_SUM_DATA_WIDTH-1:0]   divisor;
-  } divisor_t;
+  } dvsr_t;
 
 endpackage

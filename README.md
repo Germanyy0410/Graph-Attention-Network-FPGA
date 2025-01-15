@@ -10,6 +10,7 @@ FACULTY OF COMPUTER SCIENCE AND ENGINEERING
 
 **CAPSTONE PROJECT - SEMESTER 241**
 <br/>
+
 </div>
 
 # Accelerating Graph Attention Network on FPGA
@@ -31,9 +32,10 @@ This project explores hardware acceleration techniques for **Graph Attention Net
 - **Parallelized Architecture:** Implements dedicated processing elements (PEs) for parallel computation of GAT's matrix operations.
 - **Custom Softmax Algorithm:** Replaces the traditional exponential function \($e^x$\) with \($2^x$\) for hardware efficiency, utilizing bit-shift operations.
 - **Dynamic Quantization:** Reduces computation precision to INT8 for efficient processing while maintaining accuracy.
-- **Memory Optimization:** Utilizes BRAM for storing intermediate results and minimizes memory access bottlenecks.
+- **Memory Optimization:** Utilizes bram for storing intermediate results and minimizes memory access bottlenecks.
 
 ## Overall Architecture
+
 ![Alt text](docs/images/overall.png)
 
 ## Contributors
@@ -41,5 +43,3 @@ This project explores hardware acceleration techniques for **Graph Attention Net
 - **Hoang Tien Duc**
 - **Dang Hoang Gia**
 - **Nguyen Duc Bao Huy**
-
-

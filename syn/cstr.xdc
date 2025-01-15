@@ -20,20 +20,20 @@ set_clock_uncertainty [expr (1000.0 / $clk_speed)*0.01] [get_ports clk]
 
 ######################### Input Delay ##########################
 set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { rst_n }]
-set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_BRAM_din }]
-set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_BRAM_ena }]
-set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_BRAM_addra }]
-set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_BRAM_load_done }]
+set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_bram_din }]
+set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_bram_ena }]
+set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_bram_addra }]
+set_input_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_bram_load_done }]
 
 set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { rst_n }]
-set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { *_BRAM_din }]
-set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { *_BRAM_ena }]
-set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { *_BRAM_addra }]
-set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { *_BRAM_load_done }]
+set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { *_bram_din }]
+set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { *_bram_ena }]
+set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { *_bram_addra }]
+set_input_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay] [get_ports { *_bram_load_done }]
 ################################################################
 
 
 ######################## Output Delay ##########################
-set_output_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_BRAM_addrb }]
-set_output_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay * $signed] [get_ports { *_BRAM_addrb }]
+set_output_delay -clock clk -max [expr (1000.0 / $clk_speed) * $max_delay] [get_ports { *_bram_addrb }]
+set_output_delay -clock clk -min [expr (1000.0 / $clk_speed) * $min_delay * $signed] [get_ports { *_bram_addrb }]
 ################################################################

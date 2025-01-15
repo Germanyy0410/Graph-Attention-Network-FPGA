@@ -18,24 +18,24 @@ module fxp_div_pipe #(
 )(
 	input  logic                 	rstn,
 	input  logic                 	clk,
-	input  logic                 	valid,
+	input  logic                 	vld,
 	input  logic [WIIA+WIFA-1:0] 	dividend,
 	input  logic [WIIB+WIFB-1:0] 	divisor,
-	output logic                  ready,
+	output logic                  rdy,
 	output logic [WOI+WOF-1:0] 		out,
 	output logic                  overflow
 );
 
 	localparam DELAY_LENGTH = WOI + WOF + 2;
-	logic [DELAY_LENGTH-1:0] valid_shift_reg;
+	logic [DELAY_LENGTH-1:0] vld_shft_reg;
 
 	always_ff @(posedge clk or negedge rstn) begin
 		if (!rstn) begin
-			valid_shift_reg <= '0;
-			ready 					<= 1'b0;
+			vld_shft_reg 	<= '0;
+			rdy						<= 1'b0;
 		end else begin
-			valid_shift_reg <= {valid_shift_reg[DELAY_LENGTH-2:0], valid};
-			ready 					<= valid_shift_reg[DELAY_LENGTH-1];
+			vld_shft_reg 	<= {vld_shft_reg[DELAY_LENGTH-2:0], vld};
+			rdy 					<= vld_shft_reg[DELAY_LENGTH-1];
 		end
 	end
 

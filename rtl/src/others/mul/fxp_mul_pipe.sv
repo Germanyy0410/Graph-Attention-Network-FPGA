@@ -11,25 +11,25 @@ module fxp_mul_pipe # (
   input  logic                  clk,
   input  logic  [WIIA+WIFA-1:0] ina,
   input  logic  [WIIB+WIFB-1:0] inb,
-  input  logic                  valid,
-  output logic                  ready,
+  input  logic                  vld,
+  output logic                  rdy,
   output logic  [WOI+WOF-1:0]   out,
   output logic                  overflow
 );
 
   /* DELAY LENGTH = 2 */
-  logic valid_reg_q1;
-  logic valid_reg_q2;
+  logic vld_reg_q1;
+  logic vld_reg_q2;
 
 	always @(posedge clk or negedge rstn) begin
 		if (!rstn) begin
-			valid_reg_q1 <= '0;
-			valid_reg_q2 <= '0;
-      ready        <= '0;
+			vld_reg_q1  <= 'b0;
+			vld_reg_q2  <= 'b0;
+      rdy         <= 'b0;
 		end else begin
-      valid_reg_q1 <= valid;
-      valid_reg_q2 <= valid_reg_q1;
-      ready        <= valid_reg_q2;
+      vld_reg_q1  <= vld;
+      vld_reg_q2  <= vld_reg_q1;
+      rdy         <= vld_reg_q2;
 		end
 	end
 

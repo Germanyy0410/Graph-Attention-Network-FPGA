@@ -25,7 +25,7 @@ module gat_top_wrapper #(
   //* ============== localparams ==============
   parameter signed ZERO           = {DMVM_DATA_WIDTH{1'b0}},
 
-  // -- [BRAMs] Depth
+  // -- [brams] Depth
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA,
   parameter NODE_INFO_DEPTH       = TOTAL_NODES,
   parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN,
@@ -99,63 +99,63 @@ module gat_top_wrapper #(
   input                             clk                         ,
   input                             rst_n                       ,
 
-  input   [H_DATA_WIDTH-1:0]        H_data_BRAM_din             ,
-  input                             H_data_BRAM_ena             ,
-  input   [H_DATA_ADDR_W-1:0]       H_data_BRAM_addra           ,
-  output  [H_DATA_ADDR_W-1:0]       H_data_BRAM_addrb           ,
-  input                             H_data_BRAM_load_done       ,
+  input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
+  input                             h_data_bram_ena             ,
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
+  output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
+  input                             h_data_bram_load_done       ,
 
-  input   [NODE_INFO_WIDTH-1:0]     H_node_info_BRAM_din        ,
-  input                             H_node_info_BRAM_ena        ,
-  input   [NODE_INFO_ADDR_W-1:0]    H_node_info_BRAM_addra      ,
-  output  [NODE_INFO_ADDR_W-1:0]    H_node_info_BRAM_addrb      ,
-  input                             H_node_info_BRAM_load_done  ,
+  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
+  input                             h_node_info_bram_ena        ,
+  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ,
+  output  [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ,
+  input                             h_node_info_bram_load_done  ,
 
-  input   [DATA_WIDTH-1:0]          weight_BRAM_din             ,
-  input                             weight_BRAM_ena             ,
-  input   [WEIGHT_ADDR_W-1:0]       weight_BRAM_addra           ,
-  output  [WEIGHT_ADDR_W-1:0]       weight_BRAM_addrb           ,
-  input                             weight_BRAM_load_done       ,
+  input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
+  input                             wgt_bram_ena                ,
+  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ,
+  output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
+  input                             wgt_bram_load_done          ,
 
-  input   [DATA_WIDTH-1:0]          a_BRAM_din                  ,
-  input                             a_BRAM_ena                  ,
-  input   [A_ADDR_W-1:0]            a_BRAM_addra                ,
-  output  [A_ADDR_W-1:0]            a_BRAM_addrb                ,
-  input                             a_BRAM_load_done            ,
+  input   [DATA_WIDTH-1:0]          a_bram_din                  ,
+  input                             a_bram_ena                  ,
+  input   [A_ADDR_W-1:0]            a_bram_addra                ,
+  output  [A_ADDR_W-1:0]            a_bram_addrb                ,
+  input                             a_bram_load_done            ,
 
-  input   [NEW_FEATURE_ADDR_W-1:0]  feature_BRAM_addrb          ,
-  output  [DATA_WIDTH-1:0]          feature_BRAM_dout
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
+  output  [DATA_WIDTH-1:0]          feat_bram_dout
 );
 
   gat_top u_gat_top (
     .clk                          (clk                          ),
     .rst_n                        (rst_n                        ),
 
-    .H_data_BRAM_din              (H_data_BRAM_din              ),
-    .H_data_BRAM_ena              (H_data_BRAM_ena              ),
-    .H_data_BRAM_addra            (H_data_BRAM_addra            ),
-    .H_data_BRAM_addrb            (H_data_BRAM_addrb            ),
-    .H_data_BRAM_load_done        (H_data_BRAM_load_done        ),
+    .h_data_bram_din              (h_data_bram_din              ),
+    .h_data_bram_ena              (h_data_bram_ena              ),
+    .h_data_bram_addra            (h_data_bram_addra            ),
+    .h_data_bram_addrb            (h_data_bram_addrb            ),
+    .h_data_bram_load_done        (h_data_bram_load_done        ),
 
-    .H_node_info_BRAM_din         (H_node_info_BRAM_din         ),
-    .H_node_info_BRAM_ena         (H_node_info_BRAM_ena         ),
-    .H_node_info_BRAM_addra       (H_node_info_BRAM_addra       ),
-    .H_node_info_BRAM_addrb       (H_node_info_BRAM_addrb       ),
-    .H_node_info_BRAM_load_done   (H_node_info_BRAM_load_done   ),
+    .h_node_info_bram_din         (h_node_info_bram_din         ),
+    .h_node_info_bram_ena         (h_node_info_bram_ena         ),
+    .h_node_info_bram_addra       (h_node_info_bram_addra       ),
+    .h_node_info_bram_addrb       (h_node_info_bram_addrb       ),
+    .h_node_info_bram_load_done   (h_node_info_bram_load_done   ),
 
-    .weight_BRAM_din              (weight_BRAM_din              ),
-    .weight_BRAM_ena              (weight_BRAM_ena              ),
-    .weight_BRAM_addra            (weight_BRAM_addra            ),
-    .weight_BRAM_addrb            (weight_BRAM_addrb            ),
-    .weight_BRAM_load_done        (weight_BRAM_load_done        ),
+    .wgt_bram_din                 (wgt_bram_din                 ),
+    .wgt_bram_ena                 (wgt_bram_ena                 ),
+    .wgt_bram_addra               (wgt_bram_addra               ),
+    .wgt_bram_addrb               (wgt_bram_addrb               ),
+    .wgt_bram_load_done           (wgt_bram_load_done           ),
 
-    .a_BRAM_din                   (a_BRAM_din                   ),
-    .a_BRAM_ena                   (a_BRAM_ena                   ),
-    .a_BRAM_addra                 (a_BRAM_addra                 ),
-    .a_BRAM_addrb                 (a_BRAM_addrb                 ),
-    .a_BRAM_load_done             (a_BRAM_load_done             ),
+    .a_bram_din                   (a_bram_din                   ),
+    .a_bram_ena                   (a_bram_ena                   ),
+    .a_bram_addra                 (a_bram_addra                 ),
+    .a_bram_addrb                 (a_bram_addrb                 ),
+    .a_bram_load_done             (a_bram_load_done             ),
 
-    .feature_BRAM_addrb           (feature_BRAM_addrb           ),
-    .feature_BRAM_dout            (feature_BRAM_dout            )
+    .feat_bram_addrb              (feat_bram_addrb              ),
+    .feat_bram_dout               (feat_bram_dout               )
   );
 endmodule

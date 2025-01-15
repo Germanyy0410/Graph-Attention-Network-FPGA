@@ -11,7 +11,7 @@
   string reset  = "\033[0m";
 
 `ifndef VIVADO
-  `include "D:/VLSI/Capstone/rtl/others/pkgs/params_pkg.sv"
+  `include "D:/VLSI/Capstone/rtl/inc/gat_pkg.sv"
 `endif
 
 localparam string MONITOR_PATH  = { ROOT_PATH, "/monitor" };

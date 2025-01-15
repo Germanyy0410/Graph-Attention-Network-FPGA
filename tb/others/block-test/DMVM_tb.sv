@@ -4,7 +4,7 @@ module DMVM_tb #(
   //* ========== parameter ===========
   parameter A_SIZE            = 32                                      ,
   parameter DATA_WIDTH        = 8                                       ,
-  parameter BRAM_ADDR_WIDTH   = 32                                      ,
+  parameter bram_ADDR_WIDTH   = 32                                      ,
   parameter NUM_OF_NODES      = 168                                     ,
 
   //* ========= localparams ==========
@@ -12,19 +12,19 @@ module DMVM_tb #(
   parameter HALF_A_SIZE       = A_SIZE / 2                              ,
   parameter MAX_VALUE         = {DATA_WIDTH{1'b1}}                      ,
   parameter NUM_NODE_WIDTH    = $clog2(NUM_OF_NODES)                    ,
-  parameter WH_BRAM_WIDTH     = DATA_WIDTH * 16 + NUM_NODE_WIDTH + 1
+  parameter WH_bram_WIDTH     = DATA_WIDTH * 16 + NUM_NODE_WIDTH + 1
 ) ();
   logic clk;
   logic rst_n;
 
   logic                             pe_ready_i                                ;
-  // -- WH BRAM
-  logic   [WH_BRAM_WIDTH-1:0]       WH_BRAM_din                               ;
-  logic                             WH_BRAM_ena                               ;
-  logic   [BRAM_ADDR_WIDTH-1:0]     WH_BRAM_addra                             ;
-  logic   [WH_BRAM_WIDTH-1:0]       WH_BRAM_dout                              ;
-  logic                             WH_BRAM_enb                               ;
-  logic   [BRAM_ADDR_WIDTH-1:0]     WH_BRAM_addrb                             ;
+  // -- WH bram
+  logic   [WH_bram_WIDTH-1:0]       WH_bram_din                               ;
+  logic                             WH_bram_ena                               ;
+  logic   [bram_ADDR_WIDTH-1:0]     WH_bram_addra                             ;
+  logic   [WH_bram_WIDTH-1:0]       WH_bram_dout                              ;
+  logic                             WH_bram_enb                               ;
+  logic   [bram_ADDR_WIDTH-1:0]     WH_bram_addrb                             ;
   // -- a
   logic   [DATA_WIDTH-1:0]          a_i             [0:A_SIZE-1]              ;
   // -- logic
@@ -34,22 +34,22 @@ module DMVM_tb #(
   DMVM #(
     .A_SIZE(A_SIZE),
     .DATA_WIDTH(DATA_WIDTH),
-    .BRAM_ADDR_WIDTH(BRAM_ADDR_WIDTH),
+    .bram_ADDR_WIDTH(bram_ADDR_WIDTH),
     .NUM_OF_NODES(NUM_OF_NODES)
   ) dut (.*);
 
-  dual_read_BRAM #(
+  dual_read_bram #(
     .DATA_WIDTH   (WH_WIDTH             ),
     .DEPTH        (WH_DEPTH             ),
     .CLK_LATENCY  (1                    )
-  ) u_WH_BRAM (
+  ) u_WH_bram (
     .clk   (clk           ),
-    .dina  (WH_BRAM_din   ),
-    .ena   (WH_BRAM_ena   ),
-    .addra (WH_BRAM_addra ),
-    .doutb (WH_BRAM_dout  ),
-    .enb   (WH_BRAM_enb   ),
-    .addrb (WH_BRAM_addrb )
+    .dina  (WH_bram_din   ),
+    .ena   (WH_bram_ena   ),
+    .addra (WH_bram_addra ),
+    .doutb (WH_bram_dout  ),
+    .enb   (WH_bram_enb   ),
+    .addrb (WH_bram_addrb )
   );
 
   always #10 clk = ~clk;
@@ -65,41 +65,41 @@ module DMVM_tb #(
   end
 
   initial begin
-    WH_BRAM_ena = 1'b1;
+    WH_bram_ena = 1'b1;
     a_i = {8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3};
 
-    WH_BRAM_din = {8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd5, 1'd1};
-    WH_BRAM_addra = 32'd0;
+    WH_bram_din = {8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd5, 1'd1};
+    WH_bram_addra = 32'd0;
     #20.01;
-    WH_BRAM_din = {8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd5, 1'd0};
-    WH_BRAM_addra = 32'd1;
+    WH_bram_din = {8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd5, 1'd0};
+    WH_bram_addra = 32'd1;
     #20.01;
-    WH_BRAM_din = {8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd5, 1'd0};
-    WH_BRAM_addra = 32'd2;
+    WH_bram_din = {8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd5, 1'd0};
+    WH_bram_addra = 32'd2;
     #20.01;
-    WH_BRAM_din = {8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd5, 1'd0};
-    WH_BRAM_addra = 32'd3;
+    WH_bram_din = {8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd5, 1'd0};
+    WH_bram_addra = 32'd3;
     #20.01;
-    WH_BRAM_din = {8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 1'd0};
-    WH_BRAM_addra = 32'd4;
+    WH_bram_din = {8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 8'd5, 1'd0};
+    WH_bram_addra = 32'd4;
     #20.01;
     // END //
-    WH_BRAM_din = {8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd5, 1'd1};
-    WH_BRAM_addra = 32'd5;
+    WH_bram_din = {8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd5, 1'd1};
+    WH_bram_addra = 32'd5;
     #20.01;
-    WH_BRAM_din = {8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd5, 1'd0};
-    WH_BRAM_addra = 32'd6;
+    WH_bram_din = {8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd2, 8'd5, 1'd0};
+    WH_bram_addra = 32'd6;
     #20.01;
-    WH_BRAM_din = {8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd5, 1'd0};
-    WH_BRAM_addra = 32'd7;
+    WH_bram_din = {8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd3, 8'd5, 1'd0};
+    WH_bram_addra = 32'd7;
     #20.01;
-    WH_BRAM_din = {8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd5, 1'd0};
-    WH_BRAM_addra = 32'd8;
+    WH_bram_din = {8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd4, 8'd5, 1'd0};
+    WH_bram_addra = 32'd8;
     #20.01;
-    WH_BRAM_din = {8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd5, 1'd0};
-    WH_BRAM_addra = 32'd9;
+    WH_bram_din = {8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd1, 8'd5, 1'd0};
+    WH_bram_addra = 32'd9;
     #20.01;
-    WH_BRAM_ena = 1'b0;
+    WH_bram_ena = 1'b0;
   end
 
   initial begin

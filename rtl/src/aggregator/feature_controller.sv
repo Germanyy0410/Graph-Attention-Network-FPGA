@@ -1,87 +1,85 @@
-`include "./../../inc/gat_pkg.sv"
-
 module feature_controller import gat_pkg::*;
 (
   input                                               clk                 ,
   input                                               rst_n               ,
 
-  input        [NEW_FEATURE_WIDTH-1:0]                new_feature         ,
-  input                                               new_feature_vld     ,
-  output logic                                        new_feature_rdy     ,
+  input        [NEW_FEATURE_WIDTH-1:0]                new_feat            ,
+  input                                               new_feat_vld        ,
+  output logic                                        new_feat_rdy        ,
 
   // -- new features
-  output logic [NEW_FEATURE_ADDR_W-1:0]               feature_BRAM_addra  ,
-  output logic [DATA_WIDTH-1:0]                       feature_BRAM_din    ,
-  output logic                                        feature_BRAM_ena
+  output logic [NEW_FEATURE_ADDR_W-1:0]               feat_bram_addra     ,
+  output logic [DATA_WIDTH-1:0]                       feat_bram_din       ,
+  output logic                                        feat_bram_ena
 );
 
   localparam CNT_DATA_WIDTH = $clog2(NUM_FEATURE_OUT);
 
-  logic [NEW_FEATURE_WIDTH-1:0]                   feature_FIFO_din        ;
-  logic [NEW_FEATURE_WIDTH-1:0]                   feature_FIFO_dout       ;
-  logic                                           feature_FIFO_wr_vld     ;
-  logic                                           feature_FIFO_rd_vld     ;
-  logic                                           feature_FIFO_empty      ;
-  logic                                           feature_FIFO_full       ;
+  logic [NEW_FEATURE_WIDTH-1:0]                   feat_ff_din       ;
+  logic [NEW_FEATURE_WIDTH-1:0]                   feat_ff_dout      ;
+  logic                                           feat_ff_wr_vld    ;
+  logic                                           feat_ff_rd_vld    ;
+  logic                                           feat_ff_empty     ;
+  logic                                           feat_ff_full      ;
 
-  logic [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]    feature                 ;
-  logic [CNT_DATA_WIDTH-1:0]                      counter                 ;
-  logic [CNT_DATA_WIDTH-1:0]                      counter_reg             ;
+  logic [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]    feat              ;
+  logic [CNT_DATA_WIDTH-1:0]                      cnt               ;
+  logic [CNT_DATA_WIDTH-1:0]                      cnt_reg           ;
 
-  logic [NEW_FEATURE_ADDR_W-1:0]                  feature_addr            ;
-  logic [NEW_FEATURE_ADDR_W-1:0]                  feature_addr_reg        ;
+  logic [NEW_FEATURE_ADDR_W-1:0]                  feat_addr         ;
+  logic [NEW_FEATURE_ADDR_W-1:0]                  feat_addr_reg     ;
 
-  logic                                           push_feature_en         ;
+  logic                                           push_feat_ena     ;
 
   FIFO #(
     .DATA_WIDTH (NEW_FEATURE_WIDTH      ),
     .FIFO_DEPTH (NUM_FEATURE_OUT        )
-  ) u_new_feature_FIFO (
+  ) u_new_feat_fifo (
     .clk        (clk                    ),
     .rst_n      (rst_n                  ),
-    .din        (feature_FIFO_din       ),
-    .dout       (feature_FIFO_dout      ),
-    .wr_vld     (feature_FIFO_wr_vld    ),
-    .rd_vld     (feature_FIFO_rd_vld    ),
-    .empty      (feature_FIFO_empty     ),
-    .full       (feature_FIFO_full      )
+    .din        (feat_ff_din            ),
+    .dout       (feat_ff_dout           ),
+    .wr_vld     (feat_ff_wr_vld         ),
+    .rd_vld     (feat_ff_rd_vld         ),
+    .empty      (feat_ff_empty          ),
+    .full       (feat_ff_full           )
   );
 
-  //* ================== push into FIFO ==================
-  assign feature_FIFO_wr_vld = new_feature_vld;
-  assign feature_FIFO_din    = new_feature;
+  //* ================== push into ff ==================
+  assign feat_ff_wr_vld = new_feat_vld;
+  assign feat_ff_din    = new_feat;
   //* ====================================================
 
-  //* ================== pop from FIFO ===================
-  assign feature_FIFO_rd_vld = (counter_reg == 0) && (!feature_FIFO_empty);
-  assign feature             = feature_FIFO_dout;
+  //* ================== pop from ff ===================
+  assign feat_ff_rd_vld = (cnt_reg == 0) && (!feat_ff_empty);
+  assign feat           = feat_ff_dout;
   //* ====================================================
 
-  assign push_feature_en  = feature_FIFO_rd_vld || ((counter_reg > 0) && (counter_reg < NUM_FEATURE_OUT));
-  assign feature_addr     = push_feature_en ? (feature_addr_reg + 1)  : feature_addr_reg;
-  assign counter          = push_feature_en ? (counter_reg + 1)       : counter_reg;
+  assign push_feat_ena  = feat_ff_rd_vld || ((cnt_reg > 0) && (cnt_reg < NUM_FEATURE_OUT));
+  assign feat_addr      = push_feat_ena ? (feat_addr_reg + 1) : feat_addr_reg;
+  assign cnt            = push_feat_ena ? (cnt_reg + 1)       : cnt_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      counter_reg       <= '0;
-      feature_addr_reg  <= '0;
+      cnt_reg       <= 'b0;
+      feat_addr_reg <= 'b0;
     end else begin
-      counter_reg       <= counter;
-      feature_addr_reg  <= feature_addr;
+      cnt_reg         <= cnt;
+      feat_addr_reg  <= feat_addr;
     end
   end
 
-  //* ================== push into BRAM ==================
-  assign feature_BRAM_din   = feature[counter_reg];
-  assign feature_BRAM_addra = feature_addr_reg;
-  assign feature_BRAM_ena   = push_feature_en;
+  //* ================== push into bram ==================
+  assign feat_bram_din   = feat[cnt_reg];
+  assign feat_bram_addra = feat_addr_reg;
+  assign feat_bram_ena   = push_feat_ena;
   //* ====================================================
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      new_feature_rdy <= '0;
+      new_feat_rdy <= 'b0;
     end else begin
-      new_feature_rdy <= (counter_reg == NUM_FEATURE_OUT - 1);
+      new_feat_rdy <= (cnt_reg == NUM_FEATURE_OUT - 1);
     end
   end
 endmodule

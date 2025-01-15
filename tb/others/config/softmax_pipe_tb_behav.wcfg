@@ -38,17 +38,17 @@
       <obj_property name="label">coef</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/softmax_pipe_tb/dut/coef_FIFO_rd_vld" type="logic">
-         <obj_property name="ElementShortName">coef_FIFO_rd_vld</obj_property>
-         <obj_property name="ObjectShortName">coef_FIFO_rd_vld</obj_property>
+      <wvobject fp_name="/softmax_pipe_tb/dut/coef_ff_rd_vld" type="logic">
+         <obj_property name="ElementShortName">coef_ff_rd_vld</obj_property>
+         <obj_property name="ObjectShortName">coef_ff_rd_vld</obj_property>
       </wvobject>
       <wvobject fp_name="/softmax_pipe_tb/dut/exp" type="array">
          <obj_property name="ElementShortName">exp[102:0]</obj_property>
          <obj_property name="ObjectShortName">exp[102:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/softmax_pipe_tb/dut/coef_FIFO_dout" type="array">
-         <obj_property name="ElementShortName">coef_FIFO_dout[7:0]</obj_property>
-         <obj_property name="ObjectShortName">coef_FIFO_dout[7:0]</obj_property>
+      <wvobject fp_name="/softmax_pipe_tb/dut/coef_ff_dout" type="array">
+         <obj_property name="ElementShortName">coef_ff_dout[7:0]</obj_property>
+         <obj_property name="ObjectShortName">coef_ff_dout[7:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/softmax_pipe_tb/dut/num_of_nodes" type="array">
          <obj_property name="ElementShortName">num_of_nodes[2:0]</obj_property>
@@ -59,9 +59,9 @@
          <obj_property name="ElementShortName">subgraph_done</obj_property>
          <obj_property name="ObjectShortName">subgraph_done</obj_property>
       </wvobject>
-      <wvobject fp_name="/softmax_pipe_tb/num_node_BRAM_dout" type="array">
-         <obj_property name="ElementShortName">num_node_BRAM_dout[2:0]</obj_property>
-         <obj_property name="ObjectShortName">num_node_BRAM_dout[2:0]</obj_property>
+      <wvobject fp_name="/softmax_pipe_tb/num_node_bram_dout" type="array">
+         <obj_property name="ElementShortName">num_node_bram_dout[2:0]</obj_property>
+         <obj_property name="ObjectShortName">num_node_bram_dout[2:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/softmax_pipe_tb/dut/node_counter_reg" type="array">
@@ -69,46 +69,46 @@
          <obj_property name="ObjectShortName">node_counter_reg[2:0]</obj_property>
       </wvobject>
    </wvobject>
-   <wvobject fp_name="/softmax_pipe_tb/dut/num_node_BRAM_addrb" type="array">
-      <obj_property name="ElementShortName">num_node_BRAM_addrb[4:0]</obj_property>
-      <obj_property name="ObjectShortName">num_node_BRAM_addrb[4:0]</obj_property>
+   <wvobject fp_name="/softmax_pipe_tb/dut/num_node_bram_addrb" type="array">
+      <obj_property name="ElementShortName">num_node_bram_addrb[4:0]</obj_property>
+      <obj_property name="ObjectShortName">num_node_bram_addrb[4:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/softmax_pipe_tb/dut/sum" type="array">
       <obj_property name="ElementShortName">sum[102:0]</obj_property>
       <obj_property name="ObjectShortName">sum[102:0]</obj_property>
    </wvobject>
    <wvobject fp_name="group465" type="group">
-      <obj_property name="label">Write FIFO</obj_property>
+      <obj_property name="label">Write ff</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <wvobject fp_name="group353" type="group">
          <obj_property name="label">dividend</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/softmax_pipe_tb/dut/dividend_FIFO_wr_vld" type="logic">
-            <obj_property name="ElementShortName">dividend_FIFO_wr_vld</obj_property>
-            <obj_property name="ObjectShortName">dividend_FIFO_wr_vld</obj_property>
+         <wvobject fp_name="/softmax_pipe_tb/dut/dividend_ff_wr_vld" type="logic">
+            <obj_property name="ElementShortName">dividend_ff_wr_vld</obj_property>
+            <obj_property name="ObjectShortName">dividend_ff_wr_vld</obj_property>
          </wvobject>
-         <wvobject fp_name="/softmax_pipe_tb/dut/dividend_FIFO_din" type="array">
-            <obj_property name="ElementShortName">dividend_FIFO_din[102:0]</obj_property>
-            <obj_property name="ObjectShortName">dividend_FIFO_din[102:0]</obj_property>
+         <wvobject fp_name="/softmax_pipe_tb/dut/dividend_ff_din" type="array">
+            <obj_property name="ElementShortName">dividend_ff_din[102:0]</obj_property>
+            <obj_property name="ObjectShortName">dividend_ff_din[102:0]</obj_property>
          </wvobject>
       </wvobject>
       <wvobject fp_name="group354" type="group">
          <obj_property name="label">divisor</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_wr_vld" type="logic">
-            <obj_property name="ElementShortName">divisor_FIFO_wr_vld</obj_property>
-            <obj_property name="ObjectShortName">divisor_FIFO_wr_vld</obj_property>
+         <wvobject fp_name="/softmax_pipe_tb/dut/divisor_ff_wr_vld" type="logic">
+            <obj_property name="ElementShortName">divisor_ff_wr_vld</obj_property>
+            <obj_property name="ObjectShortName">divisor_ff_wr_vld</obj_property>
          </wvobject>
-         <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_din" type="array">
-            <obj_property name="ElementShortName">divisor_FIFO_din</obj_property>
-            <obj_property name="ObjectShortName">divisor_FIFO_din</obj_property>
+         <wvobject fp_name="/softmax_pipe_tb/dut/divisor_ff_din" type="array">
+            <obj_property name="ElementShortName">divisor_ff_din</obj_property>
+            <obj_property name="ObjectShortName">divisor_ff_din</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_din.num_of_nodes" type="array">
+            <wvobject fp_name="/softmax_pipe_tb/dut/divisor_ff_din.num_of_nodes" type="array">
                <obj_property name="ElementShortName">.num_of_nodes[2:0]</obj_property>
                <obj_property name="ObjectShortName">.num_of_nodes[2:0]</obj_property>
                <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_din.divisor" type="array">
+            <wvobject fp_name="/softmax_pipe_tb/dut/divisor_ff_din.divisor" type="array">
                <obj_property name="ElementShortName">.divisor[102:0]</obj_property>
                <obj_property name="ObjectShortName">.divisor[102:0]</obj_property>
             </wvobject>
@@ -116,24 +116,24 @@
       </wvobject>
    </wvobject>
    <wvobject fp_name="group466" type="group">
-      <obj_property name="label">Read FIFO</obj_property>
+      <obj_property name="label">Read ff</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/softmax_pipe_tb/dut/dividend_FIFO_dout" type="array">
-         <obj_property name="ElementShortName">dividend_FIFO_dout[102:0]</obj_property>
-         <obj_property name="ObjectShortName">dividend_FIFO_dout[102:0]</obj_property>
+      <wvobject fp_name="/softmax_pipe_tb/dut/dividend_ff_dout" type="array">
+         <obj_property name="ElementShortName">dividend_ff_dout[102:0]</obj_property>
+         <obj_property name="ObjectShortName">dividend_ff_dout[102:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/softmax_pipe_tb/dut/dividend_FIFO_rd_vld" type="logic">
-         <obj_property name="ElementShortName">dividend_FIFO_rd_vld</obj_property>
-         <obj_property name="ObjectShortName">dividend_FIFO_rd_vld</obj_property>
+      <wvobject fp_name="/softmax_pipe_tb/dut/dividend_ff_rd_vld" type="logic">
+         <obj_property name="ElementShortName">dividend_ff_rd_vld</obj_property>
+         <obj_property name="ObjectShortName">dividend_ff_rd_vld</obj_property>
       </wvobject>
-      <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_dout" type="array">
-         <obj_property name="ElementShortName">divisor_FIFO_dout</obj_property>
-         <obj_property name="ObjectShortName">divisor_FIFO_dout</obj_property>
+      <wvobject fp_name="/softmax_pipe_tb/dut/divisor_ff_dout" type="array">
+         <obj_property name="ElementShortName">divisor_ff_dout</obj_property>
+         <obj_property name="ObjectShortName">divisor_ff_dout</obj_property>
       </wvobject>
-      <wvobject fp_name="/softmax_pipe_tb/dut/divisor_FIFO_rd_vld" type="logic">
-         <obj_property name="ElementShortName">divisor_FIFO_rd_vld</obj_property>
-         <obj_property name="ObjectShortName">divisor_FIFO_rd_vld</obj_property>
+      <wvobject fp_name="/softmax_pipe_tb/dut/divisor_ff_rd_vld" type="logic">
+         <obj_property name="ElementShortName">divisor_ff_rd_vld</obj_property>
+         <obj_property name="ObjectShortName">divisor_ff_rd_vld</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="/softmax_pipe_tb/dut/dividend" type="array">
@@ -164,16 +164,16 @@
       <obj_property name="radix_fractionWidth">31</obj_property>
       <obj_property name="radix_otherWidth">0</obj_property>
    </wvobject>
-   <wvobject fp_name="/softmax_pipe_tb/dut/alpha_FIFO_din" type="array">
-      <obj_property name="ElementShortName">alpha_FIFO_din[31:0]</obj_property>
-      <obj_property name="ObjectShortName">alpha_FIFO_din[31:0]</obj_property>
+   <wvobject fp_name="/softmax_pipe_tb/dut/alpha_ff_din" type="array">
+      <obj_property name="ElementShortName">alpha_ff_din[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alpha_ff_din[31:0]</obj_property>
       <obj_property name="Radix">REALRADIX</obj_property>
       <obj_property name="radix_realType">UNSIGNEDFIXEDPOINTRADIX</obj_property>
       <obj_property name="radix_fractionWidth">31</obj_property>
       <obj_property name="radix_otherWidth">0</obj_property>
    </wvobject>
-   <wvobject fp_name="/softmax_pipe_tb/dut/alpha_FIFO_wr_vld" type="logic">
-      <obj_property name="ElementShortName">alpha_FIFO_wr_vld</obj_property>
-      <obj_property name="ObjectShortName">alpha_FIFO_wr_vld</obj_property>
+   <wvobject fp_name="/softmax_pipe_tb/dut/alpha_ff_wr_vld" type="logic">
+      <obj_property name="ElementShortName">alpha_ff_wr_vld</obj_property>
+      <obj_property name="ObjectShortName">alpha_ff_wr_vld</obj_property>
    </wvobject>
 </wave_config>
