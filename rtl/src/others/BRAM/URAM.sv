@@ -1,3 +1,10 @@
+// ===================================================================
+// File name  : URAM.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : Ultra RAM supporting three types of latency
+// Author     : @Germanyy0410
+// ===================================================================
+
 module URAM #(
   //* ========== parameter ===========
   parameter DATA_WIDTH      = 128,

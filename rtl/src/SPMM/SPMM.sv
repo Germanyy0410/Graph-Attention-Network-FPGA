@@ -1,3 +1,14 @@
+// ==================================================================
+// File name  : SPMM.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Calculate the multiplication of Feature & Weight: Wh = H x W
+// -- Pipeline stage = 1
+// -- Initialize multiple Processing Element for parallel computation
+// -- Store the result in BRAM
+// Author     : @Germanyy0410
+// ==================================================================
+
 module SPMM import gat_pkg::*;
 (
   input                                                 clk                       ,

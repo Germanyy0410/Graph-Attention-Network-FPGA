@@ -1,3 +1,10 @@
+// ==================================================================
+// File name  : gat_pkg.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : Define all parameters & structs in the project
+// Author     : @Germanyy0410
+// ==================================================================
+
 `include "gat_define.sv"
 
 package gat_pkg;

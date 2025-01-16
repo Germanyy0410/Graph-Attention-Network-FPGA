@@ -1,3 +1,10 @@
+// ==================================================================
+// File name  : gat_top_wrapper.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : Wrapper module to generate Block Design
+// Author     : @Germanyy0410
+// ==================================================================
+
 module gat_top_wrapper #(
     //* =============== parameter ===============
   // -- [Configurable] Data Width

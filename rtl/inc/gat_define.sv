@@ -1,4 +1,13 @@
-`define SIMULATION            1
+// ==================================================================
+// File name  : gat_define.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- All defines used in the project
+// -- Used to switch between Simulation, Synthesis, Dataset, etc.
+// Author     : @Germanyy0410
+// ==================================================================
+
+// `define SIMULATION            1
 
 // `define CORA                  1
 // `define CITESEER              1

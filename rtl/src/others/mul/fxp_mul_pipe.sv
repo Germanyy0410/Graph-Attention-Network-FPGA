@@ -1,3 +1,12 @@
+// ===================================================================
+// File name  : fxp_div_pipe.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Fixed-point multiplication computation
+// -- Pipeline stage = 2
+// Author     : @Germanyy0410
+// ===================================================================
+
 module fxp_mul_pipe # (
   parameter WIIA  = 12,
   parameter WIFA  = 0,

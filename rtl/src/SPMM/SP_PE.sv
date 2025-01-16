@@ -1,3 +1,12 @@
+// ==================================================================
+// File name  : SP-PE.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Fetch non-zero Feature values from BRAM
+// -- Multiply them with one specific Weight column
+// Author     : @Germanyy0410
+// ==================================================================
+
 module SP_PE import gat_pkg::*;
 (
   input                             clk                     ,

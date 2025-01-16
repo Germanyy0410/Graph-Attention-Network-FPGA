@@ -1,3 +1,14 @@
+// ======================================================================
+// File name  : DMVM.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Compute attention coefficients: a = ReLU[e x (Wh1 || Wh2)]
+// -- Pipeline stage = $clog2(NUM_FEATURE_OUT) + 1
+// -- Fetch WH vector and Attention Weight vector from BRAM
+// -- Store the coefficients in BRAM
+// Author     : @Germanyy0410
+// ======================================================================
+
 module DMVM import gat_pkg::*;
 (
   input                                         clk                 ,

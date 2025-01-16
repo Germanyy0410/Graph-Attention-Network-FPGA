@@ -1,3 +1,10 @@
+// ===================================================================
+// File name  : BRAM.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : Block RAM supporting three types of latency
+// Author     : @Germanyy0410
+// ===================================================================
+
 module BRAM #(
   //* ========== parameter ===========
   parameter DATA_WIDTH      = 128,

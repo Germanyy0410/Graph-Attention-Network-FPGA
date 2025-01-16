@@ -1,8 +1,9 @@
-# Author    : Hoang Tien Duc
-# Company   : Ho Chi Minh City University of Technology
-# Title     : Acceleration of Graph Attention Network on FPGA
-# Created   : 9th October 2024
-# Modified  : Hoang Tien Duc, date 09/01/2025
+# ==================================================================
+# File name  : cstr.xdc
+# Project    : Graph Attention Network Accelerator on FPGA
+# Function   : Define Design Constrant for Synthesis phase
+# Author     : @Germanyy0410
+# ==================================================================
 
 set clk_speed   200
 set clk_period  [expr (1000.0 / $clk_speed)]

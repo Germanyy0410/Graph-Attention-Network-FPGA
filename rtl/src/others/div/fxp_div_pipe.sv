@@ -1,11 +1,11 @@
-
-//--------------------------------------------------------------------------------------------------------
-// Module  : fxp_div_pipe
-// Type    : synthesizable
-// Standard: Verilog 2001 (IEEE1364-2001)
-// Function: division
-//           pipeline stage = WOI+WOF+3
-//--------------------------------------------------------------------------------------------------------
+// ===================================================================
+// File name  : fxp_div_pipe.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Fixed-point division computation
+// -- Pipeline stage = WOI + WOF + 3
+// Author     : @Germanyy0410
+// ===================================================================
 
 module fxp_div_pipe #(
 	parameter WIIA = 8,

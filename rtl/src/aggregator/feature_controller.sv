@@ -1,3 +1,12 @@
+// ==================================================================
+// File name  : feature_controller.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Buffer each Feature vector in FIFO
+// -- Fetch and store each value in a Feature vector in BRAM
+// Author     : @Germanyy0410
+// ==================================================================
+
 module feature_controller import gat_pkg::*;
 (
   input                                               clk                 ,

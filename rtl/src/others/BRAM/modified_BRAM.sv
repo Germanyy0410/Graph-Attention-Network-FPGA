@@ -1,3 +1,12 @@
+// ===================================================================
+// File name  : modified_BRAM.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Block RAM supporting three types of latency
+// -- Be able to retrieve the next read data via "dout_nxt" port
+// Author     : @Germanyy0410
+// ===================================================================
+
 module modified_BRAM #(
   //* ========== parameter ===========
   parameter DATA_WIDTH      = 20            ,

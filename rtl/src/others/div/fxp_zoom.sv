@@ -1,10 +1,9 @@
-//--------------------------------------------------------------------------------------------------------
-// Module  : fxp_zoom
-// Type    : synthesizable
-// Standard: Verilog 2001 (IEEE1364-2001)
-// Function: bit width conversion for fixed-point
-//           combinational logic
-//--------------------------------------------------------------------------------------------------------
+// =====================================================================
+// File name  : fxp_zoom.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : Bit width conversion for fixed-point combinational logic
+// Author     : @Germanyy0410
+// =====================================================================
 
 module fxp_zoom #(
 	parameter WII  = 8,

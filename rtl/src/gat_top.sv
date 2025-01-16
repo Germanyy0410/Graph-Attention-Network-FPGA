@@ -1,3 +1,10 @@
+// ==================================================================
+// File name  : gat_top.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : Top module of the Acceleration Core
+// Author     : @Germanyy0410
+// ==================================================================
+
 module gat_top import gat_pkg::*;
 (
   input                             clk                         ,
@@ -30,6 +37,7 @@ module gat_top import gat_pkg::*;
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [DATA_WIDTH-1:0]          feat_bram_dout
 );
+
   logic   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ;
   logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ;
   logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout_nxt   ;
@@ -75,7 +83,7 @@ module gat_top import gat_pkg::*;
   //* ==========================================================
 
 
-  //* ======================== scheduler =======================
+  //* ======================= Scheduler ========================
   logic [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_wgt_addrb      ;
   logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_wgt_dout       ;
   logic                                               w_rdy               ;

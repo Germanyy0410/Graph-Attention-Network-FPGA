@@ -1,3 +1,14 @@
+// ====================================================================
+// File name  : aggregator.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Compute the new Feature vector: H = ReLU[sum(alpha x Wh)]
+// -- Pipeline stage = 2
+// -- Fetch Wh vectors and coefficients from BRAM
+// -- Store new Feature vector in BRAM
+// Author     : @Germanyy0410
+// ====================================================================
+
 module aggregator import gat_pkg::*;
 (
   input                                               clk                 ,

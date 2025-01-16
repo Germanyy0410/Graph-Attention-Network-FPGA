@@ -1,3 +1,10 @@
+// ============================================================================
+// File name  : FIFO.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : FIFO module supporting corner cases (almost_empty, almost_full)
+// Author     : @Germanyy0410
+// ============================================================================
+
 module FIFO #(
   parameter DATA_WIDTH = 128,
   parameter FIFO_DEPTH = 13264

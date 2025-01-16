@@ -1,3 +1,10 @@
+// ====================================================================
+// File name  : fxp_div_pipe.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : Multiplication computation using add & shift function
+// Author     : @Germanyy0410
+// ====================================================================
+
 module mult_8_bit #(
   parameter MULT_MODE       = 0,
   parameter IN_DATA_WIDTH   = 8,

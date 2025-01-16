@@ -1,3 +1,14 @@
+// =============================================================
+// File name  : softmax.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Calculate softmax algorithm: alpha = 2^e / sum(2^e)
+// -- Pipeline stage = WOI + WOF + 3
+// -- Fetch the attention coefficients from BRAM
+// -- Store the normalized coefficients in BRAM
+// Author     : @Germanyy0410
+// =============================================================
+
 module softmax import gat_pkg::*;
 (
   input                               clk                 ,

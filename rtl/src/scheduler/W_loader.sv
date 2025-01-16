@@ -1,3 +1,10 @@
+//==================================================================
+// File name  : W_loader.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   : Split each column of Weight into one BRAM
+// Author     : @Germanyy0410
+//==================================================================
+
 module W_loader import gat_pkg::*;
 (
   input                                                 clk                     ,

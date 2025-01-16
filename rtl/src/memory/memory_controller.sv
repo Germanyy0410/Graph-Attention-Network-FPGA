@@ -1,3 +1,12 @@
+// ==================================================================
+// File name  : memory_controller.sv
+// Project    : Graph Attention Network Accelerator on FPGA
+// Function   :
+// -- Main memory between PS and PL
+// -- Manage the initialization of FIFO & BRAM
+// Author     : @Germanyy0410
+// ==================================================================
+
 module memory_controller import gat_pkg::*;
 (
   input                             clk                         ,
