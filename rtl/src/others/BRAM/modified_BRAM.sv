@@ -1,6 +1,6 @@
 // ===================================================================
 // File name  : modified_BRAM.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Block RAM supporting three types of latency
 // -- Be able to retrieve the next read data via "dout_nxt" port

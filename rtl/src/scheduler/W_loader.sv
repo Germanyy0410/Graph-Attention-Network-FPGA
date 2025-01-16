@@ -1,6 +1,6 @@
 //==================================================================
 // File name  : W_loader.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   : Split each column of Weight into one BRAM
 // Author     : @Germanyy0410
 //==================================================================

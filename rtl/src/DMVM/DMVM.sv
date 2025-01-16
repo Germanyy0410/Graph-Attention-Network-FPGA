@@ -1,6 +1,6 @@
 // ======================================================================
 // File name  : DMVM.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Compute attention coefficients: a = ReLU[e x (Wh1 || Wh2)]
 // -- Pipeline stage = $clog2(NUM_FEATURE_OUT) + 1

@@ -1,6 +1,6 @@
 // ==================================================================
 // File name  : memory_controller.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Main memory between PS and PL
 // -- Manage the initialization of FIFO & BRAM

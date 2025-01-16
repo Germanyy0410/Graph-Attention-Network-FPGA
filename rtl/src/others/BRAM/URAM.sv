@@ -1,6 +1,6 @@
 // ===================================================================
 // File name  : URAM.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   : Ultra RAM supporting three types of latency
 // Author     : @Germanyy0410
 // ===================================================================

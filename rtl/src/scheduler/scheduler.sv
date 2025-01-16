@@ -1,6 +1,6 @@
 // ==================================================================
 // File name  : scheduler.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Split each column of Weight into one BRAM
 // -- Fetch Attention Weight from BRAM to a register

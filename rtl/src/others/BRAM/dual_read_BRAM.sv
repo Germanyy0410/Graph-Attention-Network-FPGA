@@ -1,6 +1,6 @@
 // ===================================================================
 // File name  : dual_read_BRAM.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Block RAM supporting three types of latency
 // -- Dual read ports

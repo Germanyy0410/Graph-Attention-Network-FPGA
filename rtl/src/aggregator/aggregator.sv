@@ -1,6 +1,6 @@
 // ====================================================================
 // File name  : aggregator.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Compute the new Feature vector: H = ReLU[sum(alpha x Wh)]
 // -- Pipeline stage = 2

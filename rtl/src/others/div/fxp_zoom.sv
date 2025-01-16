@@ -1,6 +1,6 @@
 // =====================================================================
 // File name  : fxp_zoom.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   : Bit width conversion for fixed-point combinational logic
 // Author     : @Germanyy0410
 // =====================================================================

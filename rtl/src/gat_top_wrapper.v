@@ -1,6 +1,6 @@
 // ==================================================================
 // File name  : gat_top_wrapper.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   : Wrapper module to generate Block Design
 // Author     : @Germanyy0410
 // ==================================================================

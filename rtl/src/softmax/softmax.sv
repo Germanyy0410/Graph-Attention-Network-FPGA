@@ -1,6 +1,6 @@
 // =============================================================
 // File name  : softmax.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Calculate softmax algorithm: alpha = 2^e / sum(2^e)
 // -- Pipeline stage = WOI + WOF + 3

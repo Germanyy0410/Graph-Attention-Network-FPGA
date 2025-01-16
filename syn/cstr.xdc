@@ -1,6 +1,6 @@
 # ==================================================================
 # File name  : cstr.xdc
-# Project    : Graph Attention Network Accelerator on FPGA
+# Project    : Acceleration of Graph Attention Networks on FPGA
 # Function   : Define Design Constrant for Synthesis phase
 # Author     : @Germanyy0410
 # ==================================================================

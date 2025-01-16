@@ -1,6 +1,6 @@
 //==================================================================
 // File name  : a_loader.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   : Fetch Attention Weight from BRAM to a register
 // Author     : @Germanyy0410
 //==================================================================

@@ -1,6 +1,6 @@
 // ==================================================================
 // File name  : SP-PE.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Fetch non-zero Feature values from BRAM
 // -- Multiply them with one specific Weight column

@@ -1,6 +1,6 @@
 // ==================================================================
 // File name  : gat_top.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   : Top module of the Acceleration Core
 // Author     : @Germanyy0410
 // ==================================================================

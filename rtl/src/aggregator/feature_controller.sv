@@ -1,6 +1,6 @@
 // ==================================================================
 // File name  : feature_controller.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Buffer each Feature vector in FIFO
 // -- Fetch and store each value in a Feature vector in BRAM

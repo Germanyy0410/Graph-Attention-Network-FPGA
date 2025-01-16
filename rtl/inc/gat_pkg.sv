@@ -1,6 +1,6 @@
 // ==================================================================
 // File name  : gat_pkg.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   : Define all parameters & structs in the project
 // Author     : @Germanyy0410
 // ==================================================================

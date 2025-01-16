@@ -1,6 +1,6 @@
 // ========================================================================================
 // File name  : softmax.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   : Pipepline calculating exponential operation (e^x) based on CORDIC algorithm
 // Author     : @Germanyy0410
 // ========================================================================================

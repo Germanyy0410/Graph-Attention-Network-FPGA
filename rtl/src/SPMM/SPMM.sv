@@ -1,6 +1,6 @@
 // ==================================================================
 // File name  : SPMM.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Calculate the multiplication of Feature & Weight: Wh = H x W
 // -- Pipeline stage = 1

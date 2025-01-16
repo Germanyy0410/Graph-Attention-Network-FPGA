@@ -1,6 +1,6 @@
 // ===================================================================
 // File name  : fxp_div_pipe.sv
-// Project    : Graph Attention Network Accelerator on FPGA
+// Project    : Acceleration of Graph Attention Networks on FPGA
 // Function   :
 // -- Fixed-point multiplication computation
 // -- Pipeline stage = 2
