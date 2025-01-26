@@ -9,7 +9,7 @@
 
 `define SIMULATION            1
 
-// `define VIVADO                1
+`define VIVADO                1
 
 // `define TESTBENCH             1
 `define CORA                  1

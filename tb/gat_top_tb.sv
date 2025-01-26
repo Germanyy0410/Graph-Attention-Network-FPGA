@@ -93,14 +93,14 @@ module gat_top_tb import gat_pkg::*;
     dividend.header           = "SOFTMAX";
     new_feature.header        = "AGGREGATOR";
 
-    spmm.log_file             = "/SPMM/wh.ansi";
-    dmvm.log_file             = "/DMVM/dmvm.ansi";
-    coef.log_file             = "/DMVM/coef.ansi";
-    dividend.log_file         = "/softmax/dividend.ansi";
-    divisor.log_file          = "/softmax/divisor.ansi";
-    sm_num_nodes.log_file     = "/softmax/num_nodes.ansi";
-    alpha.log_file            = "/softmax/alpha.ansi";
-    new_feature.log_file      = "/aggregator/new_feature.ansi";
+    spmm.log_file             = "/SPMM/wh.log";
+    dmvm.log_file             = "/DMVM/dmvm.log";
+    coef.log_file             = "/DMVM/coef.log";
+    dividend.log_file         = "/softmax/dividend.log";
+    divisor.log_file          = "/softmax/divisor.log";
+    sm_num_nodes.log_file     = "/softmax/num_nodes.log";
+    alpha.log_file            = "/softmax/alpha.log";
+    new_feature.log_file      = "/aggregator/new_feature.log";
   end
   ///////////////////////////////////////////////////////////////////
 
