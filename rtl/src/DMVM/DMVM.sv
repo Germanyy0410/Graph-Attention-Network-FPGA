@@ -9,6 +9,8 @@
 // Author     : @Germanyy0410
 // ======================================================================
 
+`include "./../../inc/gat_define.sv"
+
 module DMVM import gat_pkg::*;
 (
   input                                         clk                 ,
@@ -31,7 +33,7 @@ module DMVM import gat_pkg::*;
 );
 
   //* ========== logic declaration ===========
-  // -- Weight vector a1 & a2
+  // -- Weight vector
   logic [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]                        a_src               ;
   logic [HALF_A_SIZE-1:0] [DATA_WIDTH-1:0]                        a_nbr               ;
 
@@ -49,12 +51,19 @@ module DMVM import gat_pkg::*;
   // -- pipeline 5 stages
   logic [NUM_STAGES-1:0]                                          pipe_src_flag       ;
   logic [NUM_STAGES:0]                                            pipe_src_flag_reg   ;
-  logic [DMVM_DATA_WIDTH-1:0]                                     source_dmvm         ;
-  logic [DMVM_DATA_WIDTH-1:0]                                     source_dmvm_reg     ;
+
+  logic [NUM_STAGES-1:0] [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]  pipe_src            ;
+  logic [NUM_STAGES-1:0] [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]  pipe_nbr            ;
+  logic [NUM_STAGES:0] [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]    pipe_src_reg        ;
+  logic [NUM_STAGES:0] [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]    pipe_nbr_reg        ;
+
+  logic [DMVM_DATA_WIDTH-1:0]                                     src_dmvm            ;
+  logic [DMVM_DATA_WIDTH-1:0]                                     nbr_dmvm            ;
+  logic [DMVM_DATA_WIDTH-1:0]                                     src_dmvm_reg        ;
+  logic [DMVM_DATA_WIDTH-1:0]                                     nbr_dmvm_reg        ;
+
   logic [DATA_WIDTH-1:0]                                          pipe_coef           ;
   logic [DATA_WIDTH-1:0]                                          pipe_coef_reg       ;
-  logic [NUM_STAGES-1:0] [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]  pipe_prod           ;
-  logic [NUM_STAGES:0] [HALF_A_SIZE-1:0] [DMVM_DATA_WIDTH-1:0]    pipe_prod_reg       ;
 
   // -- output
   logic [COEF_DELAY_LENGTH-1:0]                                   vld_shft_reg        ;
@@ -98,7 +107,7 @@ module DMVM import gat_pkg::*;
 
   //* ======= get WH data from bram =========
   assign src_flag = wh_data_reg[0];
-  assign num_node     = wh_data_reg[NUM_NODE_WIDTH:1];
+  assign num_node = wh_data_reg[NUM_NODE_WIDTH:1];
 
   generate
     for (i = 0; i < HALF_A_SIZE; i = i + 1) begin
@@ -109,13 +118,14 @@ module DMVM import gat_pkg::*;
 
 
   //* ======== Pipeline calculation =========
-  assign source_dmvm = (pipe_src_flag_reg[5] == 1'b1) ? pipe_prod_reg[5][0] : source_dmvm_reg;
-  assign pipe_coef   = (pipe_prod_reg[5][0] + source_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH);
+  assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
+  assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
+  assign pipe_coef  = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH);
 
   // -- src_flag
   generate
     for (i = 0; i < NUM_STAGES; i = i + 1) begin
-      assign pipe_src_flag[i]  = (i == 0) ? src_flag : pipe_src_flag_reg[i];
+      assign pipe_src_flag[i] = (i == 0) ? src_flag : pipe_src_flag_reg[i];
     end
   endgenerate
 
@@ -124,11 +134,13 @@ module DMVM import gat_pkg::*;
     for (i = 0; i < NUM_STAGES; i = i + 1) begin
       if (i == 0) begin
         for (k = 0; k < HALF_A_SIZE; k = k + 1) begin
-          assign pipe_prod[i][k] = (src_flag) ? ($signed(a_src[k]) * $signed(wh_arr[k])) : ($signed(a_nbr[k]) * $signed(wh_arr[k]));
+          assign pipe_src[i][k] = $signed(a_src[k]) * $signed(wh_arr[k]);
+          assign pipe_nbr[i][k] = $signed(a_nbr[k]) * $signed(wh_arr[k]);
         end
       end else begin
         for (k = 0; k < HALF_A_SIZE / (1 << i); k = k + 1) begin
-          assign pipe_prod[i][k] = $signed(pipe_prod_reg[i][2*k]) + $signed(pipe_prod_reg[i][2*k+1]);
+          assign pipe_src[i][k] = $signed(pipe_src_reg[i][2*k]) + $signed(pipe_src_reg[i][2*k+1]);
+          assign pipe_nbr[i][k] = $signed(pipe_nbr_reg[i][2*k]) + $signed(pipe_nbr_reg[i][2*k+1]);
         end
       end
     end
@@ -136,9 +148,11 @@ module DMVM import gat_pkg::*;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      source_dmvm_reg <= 'b0;
+      src_dmvm_reg <= 'b0;
+      nbr_dmvm_reg <= 'b0;
     end else begin
-      source_dmvm_reg <= source_dmvm;
+      src_dmvm_reg <= src_dmvm;
+      nbr_dmvm_reg <= nbr_dmvm;
     end
   end
 
@@ -146,10 +160,12 @@ module DMVM import gat_pkg::*;
     for (i = 0; i < NUM_STAGES; i = i + 1) begin
       always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-          pipe_prod_reg[i+1]      <= 'b0;
+          pipe_src_reg[i+1]       <= 'b0;
+          pipe_nbr_reg[i+1]       <= 'b0;
           pipe_src_flag_reg[i+1]  <= 'b0;
         end else begin
-          pipe_prod_reg[i+1]      <= pipe_prod[i];
+          pipe_src_reg[i+1]       <= pipe_src[i];
+          pipe_nbr_reg[i+1]       <= pipe_nbr[i];
           pipe_src_flag_reg[i+1]  <= pipe_src_flag[i];
         end
       end
@@ -178,9 +194,31 @@ module DMVM import gat_pkg::*;
 			vld_shft_reg  <= 'b0;
 			dmvm_rdy_reg  <= 'b0;
 		end else begin
-			vld_shft_reg <= { vld_shft_reg[COEF_DELAY_LENGTH-2:0], dmvm_vld_i };
+			vld_shft_reg  <= { vld_shft_reg[COEF_DELAY_LENGTH-2:0], dmvm_vld_i };
 			dmvm_rdy_reg  <= vld_shft_reg[COEF_DELAY_LENGTH-1];
 		end
 	end
   //* =======================================
+
+`ifdef SIMULATION
+  logic [DMVM_DATA_WIDTH-1:0] dut_dmvm_output;
+  logic                       dut_dmvm_ready;
+
+  always_comb begin
+    if (pipe_src_flag_reg[NUM_STAGES]) begin
+      if (vld_shft_reg[COEF_DELAY_LENGTH-1]) begin
+        dut_dmvm_output = src_dmvm;
+      end else if (dmvm_rdy_o) begin
+        dut_dmvm_output = nbr_dmvm_reg;
+      end else begin
+        dut_dmvm_output = nbr_dmvm;
+      end
+    end else begin
+      dut_dmvm_output = nbr_dmvm;
+    end
+  end
+
+  assign dut_dmvm_ready = (vld_shft_reg[COEF_DELAY_LENGTH-1]) || (!vld_shft_reg[COEF_DELAY_LENGTH-1] && dmvm_rdy_reg && pipe_src_flag_reg[NUM_STAGES]);
+`endif
+
 endmodule

@@ -12,24 +12,21 @@ package gat_pkg;
   // -- [Configurable] Data Width
   parameter DATA_WIDTH            = 8;
   parameter WH_DATA_WIDTH         = 12;
-  parameter DMVM_DATA_WIDTH       = 20;
-  parameter SM_DATA_WIDTH         = 103;
-  parameter SM_SUM_DATA_WIDTH     = 103;
+  parameter DMVM_DATA_WIDTH       = 19;
+  parameter SM_DATA_WIDTH         = 108;
+  parameter SM_SUM_DATA_WIDTH     = 108;
   parameter ALPHA_DATA_WIDTH      = 32;
+  parameter NEW_FEATURE_WIDTH     = WH_DATA_WIDTH + 32;
 
-`ifdef SIMULATION
-  parameter H_NUM_SPARSE_DATA     = 2106;
-  parameter TOTAL_NODES           = 200;
+`ifdef TESTBENCH
+  parameter H_NUM_SPARSE_DATA     = 1052;
+  parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 21;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 20;
+  parameter NUM_SUBGRAPHS         = 11;
   parameter MAX_NODES             = 18;
 
-  parameter COEF_DEPTH            = 30;
-  parameter ALPHA_DEPTH           = 30;
-  parameter DIVIDEND_DEPTH        = 30;
-  parameter DIVISOR_DEPTH         = 30;
-`else
+`elsif CORA
   parameter H_NUM_SPARSE_DATA     = 242101;
   parameter TOTAL_NODES           = 13264;
   parameter NUM_FEATURE_IN        = 1433;
@@ -37,11 +34,27 @@ package gat_pkg;
   parameter NUM_SUBGRAPHS         = 2708;
   parameter MAX_NODES             = 168;
 
+`elsif CITESEER
+  parameter H_NUM_SPARSE_DATA     = 242101;
+  parameter TOTAL_NODES           = 13264;
+  parameter NUM_FEATURE_IN        = 1433;
+  parameter NUM_FEATURE_OUT       = 16;
+  parameter NUM_SUBGRAPHS         = 2708;
+  parameter MAX_NODES             = 168;
+
+`elsif PUBMED
+  parameter H_NUM_SPARSE_DATA     = 242101;
+  parameter TOTAL_NODES           = 13264;
+  parameter NUM_FEATURE_IN        = 1433;
+  parameter NUM_FEATURE_OUT       = 16;
+  parameter NUM_SUBGRAPHS         = 2708;
+  parameter MAX_NODES             = 168;
+`endif
+
   parameter COEF_DEPTH            = 500;
   parameter ALPHA_DEPTH           = 500;
   parameter DIVIDEND_DEPTH        = 500;
   parameter DIVISOR_DEPTH         = 500;
-`endif
   //* =========================================
 
 
@@ -116,7 +129,6 @@ package gat_pkg;
   parameter AGGR_MULT_W           = WH_DATA_WIDTH + 32;
 
   // -- [New Feature]
-  parameter NEW_FEATURE_WIDTH     = DATA_WIDTH;
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH);
   //* =========================================
 

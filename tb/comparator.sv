@@ -1,3 +1,5 @@
+`include "./loader/output_loader.sv"
+
 `ifdef VIVADO
   string pass = "[PASSED]";
   string fail = "[FAILED]";
@@ -6,28 +8,26 @@
   string fail = "\033[31m[FAILED]\033[0m";
 `endif
 
-  string red    = "\033[31m";
-  string green  = "\033[32m";
-  string reset  = "\033[0m";
 
-`ifndef VIVADO
-  `include "D:/VLSI/Capstone/rtl/inc/gat_pkg.sv"
-`endif
+string red    = "\033[31m";
+string green  = "\033[32m";
+string reset  = "\033[0m";
 
-localparam string MONITOR_PATH  = { ROOT_PATH, "/monitor" };
+string summary_log = "";
+string log_divider = "-------------------------";
 
 class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter DEPTH = 256, parameter SPMM_DEPTH = 16);
-  logic                                           dut_ready;
+  logic dut_ready;
 
-  logic        [DATA_WIDTH-1:0]                   dut_output;
-  T                                               golden_output       [DEPTH];
+  logic [DATA_WIDTH-1:0] dut_output;
+  T golden_output [DEPTH];
 
-  logic signed [SPMM_DEPTH-1:0] [DATA_WIDTH-1:0]  dut_spmm_output;
-  T                                               golden_spmm_output  [DEPTH*SPMM_DEPTH];
+  logic signed [SPMM_DEPTH-1:0] [DATA_WIDTH-1:0] dut_spmm_output;
+  T golden_spmm_output [DEPTH*SPMM_DEPTH];
 
   string  label;
-  string  monitor;
-  string  monitor_path;
+  string  header;
+  string  log_file;
 
   longint pass_checker;
   longint total_checker;
@@ -38,11 +38,13 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
   longint comparator;
 
   longint signed_bit;
-  longint dec_dut_output;
   real    real_dut_output;
 
-  function new (string label, int int_bits, int frac_bits, int signed_bit);
-    this.monitor        = "";
+  longint node_count;
+  longint subgraph_count;
+
+  function new(string label, int int_bits, int frac_bits, int signed_bit);
+    this.header         = "";
     this.pass_checker   = 0;
     this.total_checker  = 0;
     this.comparator     = 0;
@@ -52,120 +54,215 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
     this.signed_bit     = signed_bit;
   endfunction
 
+  //=========================================================================
+  // Task Name        : output_checker
+  // Description      : Compares the DUT output with the golden output and logs results.
+  // Parameters       :
+  //    - real error (default = 0) : Allowed error margin for floating-point comparisons.
+  // Notes            : Supports both integer and floating-point comparisons, handles subgraph logic.
+  //=========================================================================
   task output_checker(real error = 0);
-    string msg = "";
+    log_checker("", "clear");
+    subgraph_count = 0;
 
     for (int i = 0; i < DEPTH; i++) begin
-      #0.1;
-      wait(dut_ready == 1'b1);
+      string msg = "";
+      if (i == 0) begin
+        msg = { msg, $sformatf("\n%s Subgraph 0 %s\n\n", log_divider, log_divider) };
+      end
+      wait(dut_ready);
 
-      real_dut_output = fxp_to_dec();
-
+      // Compare DUT & Golden
       if (error == 0) begin
-        comparator      = (signed_bit) ? ($signed(dut_output) == golden_output[i]) : (dut_output == golden_output[i]);
         real_dut_output = (signed_bit) ? $signed(dut_output) : dut_output;
+        comparator      = (signed_bit) ? ($signed(dut_output) == golden_output[i]) : (dut_output == golden_output[i]);
       end else begin
-        comparator = (real_dut_output - golden_output[i]) <= (error * golden_output[i]);
+        real_dut_output = fxp_to_dec();
+        comparator      = abs(real_dut_output - golden_output[i]) <= error;
       end
 
+      // Comparison result
       if (comparator) begin
         pass_checker++;
-      `ifdef PASSED
-        monitor = { monitor, $sformatf("\n%s -> %s - %0t ps\n", pass, rm_spc(label), $time) };
-        monitor = { monitor, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d\n", golden_output[i], real_dut_output) };
-      `endif
-      end else begin
-      `ifdef FAILED
-        monitor = { monitor, $sformatf("\n%s -> %s - %0t ps\n", fail, rm_spc(label), $time) };
+        msg = { msg, $sformatf("%s -> %s - %0tps\n", pass, rm_spc(label), $time) };
         if (frac_bits == 0) begin
-          monitor = { monitor, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d, [i] = %0d\n", golden_output[i], real_dut_output, i) };
+          msg = { msg, $sformatf("\t\t- Golden = %0f\n\t\t- DUT    = %0f, [i] = %0d\n", golden_output[i], real_dut_output, i) };
         end else begin
-          monitor = { monitor, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f\n", golden_output[i], real_dut_output) };
+          msg = { msg, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f, [i] = %0d\n", golden_output[i], real_dut_output, i) };
+          msg = { msg, $sformatf("\t\t- Diff   = %0.15f\n", abs(real_dut_output - golden_output[i])) };
         end
-      `endif
+      end else begin
+        msg = { msg, $sformatf("%s -> %s - %0tps\n", fail, rm_spc(label), $time) };
+        if (frac_bits == 0) begin
+          msg = { msg, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d, [i] = %0d\n", golden_output[i], real_dut_output, i) };
+        end else begin
+          msg = { msg, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f\n", golden_output[i], real_dut_output) };
+          msg = { msg, $sformatf("\t\t- Diff   = %0.15f\n", abs(real_dut_output - golden_output[i])) };
+        end
       end
       total_checker++;
-      #10.01;
+
+      // Split into subgraphs
+      if (label == "DMVM       ") begin
+        if (i == 0) begin
+          node_count = golden_sm_num_node[0] + 1;
+        end
+        if (i == node_count - 1) begin
+          subgraph_count++;
+          node_count += golden_sm_num_node[subgraph_count] + 1;
+          msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, subgraph_count, log_divider) };
+        end
+      end
+      else if (label == "Divisor    " || label == "SM_NUM_NODE") begin
+        msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, i + 1, log_divider) };
+      end
+      else if (label == "New Feature") begin
+        if ((i + 1) % NUM_FEATURE_OUT == 0) begin
+          msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, (i + 1) / NUM_FEATURE_OUT, log_divider) };
+        end
+      end
+      else begin
+        if (i == 0) begin
+          node_count = golden_sm_num_node[0];
+        end
+        if (i == node_count - 1) begin
+          subgraph_count++;
+          node_count += golden_sm_num_node[subgraph_count];
+          msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, subgraph_count, log_divider) };
+        end
+      end
+
+      // Log result
+    `ifdef PASSED
+      log_checker(msg);
+    `else
+      if (!comparator) log_checker(msg);
+    `endif
+
+      c1;
     end
   endtask
 
+  //=========================================================================
+  // Task Name        : packed_checker
+  // Description      : Compares packed DUT output (multi-dimensional array) with
+  //                    the golden output and logs results.
+  // Parameters       : None
+  // Usage            : Handles multi-dimensional comparisons.
+  //=========================================================================
   task packed_checker();
+    log_checker("", "clear");
+    subgraph_count  = 0;
+    node_count      = golden_sm_num_node[0];
+
     for (int i = 0; i < DEPTH; i++) begin
-      logic signed [DATA_WIDTH-1:0] golden_temp   [SPMM_DEPTH];
-      logic signed [DATA_WIDTH-1:0] dut_temp      [SPMM_DEPTH];
+      logic signed [DATA_WIDTH-1:0]   golden_temp   [SPMM_DEPTH];
+      logic signed [DATA_WIDTH-1:0]   dut_temp      [SPMM_DEPTH];
+      string msg = "";
+      int num_pass = 0, num_total = 0;
+      if (i == 0) begin
+        msg = { msg, $sformatf("\n%s Subgraph 0 %s\n\n", log_divider, log_divider) };
+      end
+      wait(dut_ready);
 
-      #0.1;
-      wait(dut_ready == 1'b1);
-
+      // Compare DUT & Golden
       for (int j = 0; j < SPMM_DEPTH; j++) begin
         dut_temp[j] = dut_spmm_output[j];
         if (dut_temp[j] == golden_spmm_output[i * SPMM_DEPTH + j]) begin
-          pass_checker++;
+          num_pass++;
         end
-        total_checker++;
+        num_total++;
         golden_temp[j] = golden_spmm_output[i * SPMM_DEPTH + j];
       end
 
-      if (pass_checker == total_checker) begin
-      `ifdef PASSED
-        monitor = { monitor, $sformatf("\n%s -> %s - %0t ps\n", pass, rm_spc(label), $time) };
-        monitor = { monitor, $sformatf("\t- Golden = %p\n\t- DUT    = %p\n", golden_temp, dut_temp) };
-      `endif
+      // Comparison result
+      if (num_pass == num_total) begin
+        pass_checker++;
+        msg = { msg, $sformatf("%s -> %s - %0tps\n", pass, rm_spc(label), $time) };
+        msg = { msg, $sformatf("\t- Golden = %p\n\t- DUT    = %p\n, [i] = %0d", golden_temp, dut_temp, i) };
       end else begin
-      `ifdef FAILED
-        monitor = { monitor, $sformatf("\n%s -> %s - %0t ps\n", fail, rm_spc(label), $time) };
-        monitor = { monitor, $sformatf("\t- Golden = %p\n\t- DUT    = %p\n", golden_temp, dut_temp) };
-      `endif
+        msg = { msg, $sformatf("%s -> %s - %0tps\n", fail, rm_spc(label), $time) };
+        msg = { msg, $sformatf("\t- Golden = %p\n\t- DUT    = %p\n, [i] = %0d", golden_temp, dut_temp, i) };
       end
-      #10.01;
+      total_checker++;
+
+      // Split into subgraphs
+      if (i == node_count - 1) begin
+        subgraph_count++;
+        node_count += golden_sm_num_node[subgraph_count];
+        msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, subgraph_count, log_divider) };
+      end
+
+      // Log result
+    `ifdef PASSED
+      log_checker(msg);
+    `else
+      if (num_pass != num_total) log_checker(msg);
+    `endif
+
+      c1;
     end
   endtask
 
-  task base_monitor();
-    if (monitor != "") begin
-      $display("\n---------------------------ooOoo----------------------------");
-      $display("%s", monitor);
-      $display("---------------------------ooOoo----------------------------\n");
-    end
-  endtask
-
+  //=========================================================================
+  // Task Name        : base_scoreboard
+  // Description      : Summarizes the pass/fail results and displays the overall accuracy.
+  // Parameters       : None
+  // Usage            : Displays and logs the pass/fail statistics for the DUT.
+  //=========================================================================
   task base_scoreboard();
-    int accuracy = pass_checker * 100 / total_checker;
-    string color = (accuracy == 100) ? green : red;
+    int     accuracy  = pass_checker * 100 / total_checker;
+    string  color     = (accuracy == 100) ? green : red;
+    string  result    = "";
+
+    // Display checker header
+    if (header != "") begin
+      header = $sformatf("\n  %s:", header);
+      $display(header);
+      summary_log = { summary_log, $sformatf("%s\n", header) };
+    end
+
+    // Simulation results
   `ifndef VIVADO
-    $display("     - %s     : %5d | %5d\t(%s%0d%%%s)", label, pass_checker, total_checker, color, accuracy, reset );
+    result = $sformatf("     - %s     : %5d | %5d\t(%s%0d%%%s)", label, pass_checker, total_checker, color, accuracy, reset );
   `else
-    $display("     - %s     : %5d | %5d\t(%0d%%)", label, pass_checker, total_checker, accuracy );
+    result = $sformatf("     - %s     : %5d | %5d\t(%0d%%)", label, pass_checker, total_checker, accuracy );
   `endif
-    export_monitor();
+
+    summary_log = { summary_log, $sformatf("%s\n", result) };
+    $display(result);
   endtask
 
-  task export_monitor();
+  //=========================================================================
+  // Task Name        : log_checker
+  // Description      : Logs messages to a file, with options to append or overwrite.
+  // Parameters       :
+  //    - string msg    : Message to be logged.
+  //    - string option : Logging mode ("update" for appending, "clear" for overwriting).
+  //=========================================================================
+  task log_checker(string msg, string option="update");
     integer file;
-    file = $fopen($sformatf("%s/%s", MONITOR_PATH, monitor_path), "w");
-    if (file == 0) $error("Monitor: Failed to open %s", monitor_path);
 
-    $fwrite(file, "%s\n", monitor);
+    if (option == "update") begin
+      file = $fopen($sformatf("%s/%s", LOG_PATH, log_file), "a");
+    end else if (option == "clear") begin
+      file = $fopen($sformatf("%s/%s", LOG_PATH, log_file), "w");
+    end
+    if (file == 0) $error("Monitor: Failed to open %s", log_file);
+
+    $fwrite(file, "%s\n", msg);
     $fclose(file);
   endtask
 
+  //=========================================================================
+  // Function Name    : fxp_to_dec
+  // Description      : Converts a fixed-point value (DUT output) into a decimal (real) value.
+  // Parameters       : None
+  // Return Value     : real : The decimal value of the DUT output.
+  //=========================================================================
   function real fxp_to_dec();
     real scaled_factor = 2.0 ** frac_bits;
     return $itor($signed(dut_output)) / scaled_factor;
-  endfunction
-
-  function real abs(real value);
-    return (value < 0.0) ? -value : value;
-  endfunction
-
-  function string rm_spc(string input_string);
-    string output_string = "";
-    for (int i = 0; i < input_string.len(); i++) begin
-      if (input_string[i] != " ") begin
-        output_string = {output_string, input_string[i]};
-      end
-    end
-    return output_string;
   endfunction
 
 endclass

@@ -35,7 +35,7 @@ module gat_top import gat_pkg::*;
   input                             a_bram_load_done            ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
-  output  [DATA_WIDTH-1:0]          feat_bram_dout
+  output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
 );
 
   logic   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ;
@@ -115,7 +115,7 @@ module gat_top import gat_pkg::*;
   logic                       spmm_rdy  ;
   logic [WH_WIDTH-1:0]        wh_data   ;
 
-  assign spmm_vld = (h_data_bram_load_done && h_node_info_bram_load_done && wgt_bram_load_done && w_rdy);
+  assign spmm_vld = w_rdy;
 
   SPMM u_SPMM (
     .clk                        (clk                        ),
@@ -170,14 +170,14 @@ module gat_top import gat_pkg::*;
 
 
   //* ======================== Softmax =========================
-  logic sm_ready;
+  logic sm_rdy;
 
   softmax u_softmax (
     .clk                  (clk                    ),
     .rst_n                (rst_n                  ),
 
     .sm_vld_i             (dmvm_rdy               ),
-    .sm_rdy_o             (sm_ready               ),
+    .sm_rdy_o             (sm_rdy                 ),
 
     .coef_ff_dout         (coef_ff_dout           ),
     .coef_ff_empty        (coef_ff_empty          ),
@@ -198,7 +198,7 @@ module gat_top import gat_pkg::*;
   logic aggr_vld;
   logic aggr_vld_reg;
 
-  assign aggr_vld = (sm_ready == 1'b1) ? 1'b1 : aggr_vld_reg;
+  assign aggr_vld = (sm_rdy == 1'b1) ? 1'b1 : aggr_vld_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin

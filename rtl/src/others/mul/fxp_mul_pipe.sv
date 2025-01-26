@@ -28,17 +28,14 @@ module fxp_mul_pipe # (
 
   /* DELAY LENGTH = 2 */
   logic vld_reg_q1;
-  logic vld_reg_q2;
 
 	always @(posedge clk or negedge rstn) begin
 		if (!rstn) begin
 			vld_reg_q1  <= 'b0;
-			vld_reg_q2  <= 'b0;
       rdy         <= 'b0;
 		end else begin
       vld_reg_q1  <= vld;
-      vld_reg_q2  <= vld_reg_q1;
-      rdy         <= vld_reg_q2;
+      rdy         <= vld_reg_q1;
 		end
 	end
 

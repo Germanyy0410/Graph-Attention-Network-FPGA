@@ -1,12 +1,11 @@
-	localparam string GOLDEN_PATH  = { ROOT_PATH, "/output" };
 
   longint   golden_spmm         [TOTAL_NODES*NUM_FEATURE_OUT];
 
   longint   golden_dmvm         [TOTAL_NODES];
   longint   golden_coef         [TOTAL_NODES];
 
-  longint   golden_dividend     [TOTAL_NODES];
-  longint   golden_divisor      [NUM_SUBGRAPHS];
+  real      golden_dividend     [TOTAL_NODES];
+  real      golden_divisor      [NUM_SUBGRAPHS];
   longint   golden_sm_num_node  [NUM_SUBGRAPHS];
   real      golden_alpha        [TOTAL_NODES];
   real      golden_exp_alpha    [TOTAL_NODES];
@@ -15,8 +14,8 @@
 
   longint status;
   longint spmm_file, dmvm_file, coef_file, alpha_file, dividend_file, divisor_file, sm_num_node_file, exp_alpha_file, new_feature_file ;
-  longint spmm_value, dmvm_value, coef_value, dividend_value, divisor_value, sm_num_node_value;
-  real    alpha_value, exp_alpha_value, new_feature_value;
+  longint spmm_value, dmvm_value, coef_value, sm_num_node_value;
+  real    dividend_value, divisor_value, alpha_value, exp_alpha_value, new_feature_value;
   string  golden_file_path;
 
   initial begin
@@ -58,7 +57,7 @@
   initial begin
     dividend_file = $fopen($sformatf("%s/softmax/dividend.txt", GOLDEN_PATH), "r");
     for (int i = 0; i < TOTAL_NODES; i++) begin
-      status = $fscanf(dividend_file, "%d\n", dividend_value);
+      status = $fscanf(dividend_file, "%f\n", dividend_value);
       golden_dividend[i] = dividend_value;
     end
     $fclose(dividend_file);
@@ -67,7 +66,7 @@
   initial begin
     divisor_file = $fopen($sformatf("%s/softmax/divisor.txt", GOLDEN_PATH), "r");
     for (int i = 0; i < TOTAL_NODES; i++) begin
-      status = $fscanf(divisor_file, "%d\n", divisor_value);
+      status = $fscanf(divisor_file, "%f\n", divisor_value);
       golden_divisor[i] = divisor_value;
     end
     $fclose(divisor_file);

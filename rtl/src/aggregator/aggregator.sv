@@ -28,7 +28,7 @@ module aggregator import gat_pkg::*;
 
   // -- new features
   output logic [NEW_FEATURE_ADDR_W-1:0]               feat_bram_addra     ,
-  output logic [DATA_WIDTH-1:0]                       feat_bram_din       ,
+  output logic [NEW_FEATURE_WIDTH-1:0]                feat_bram_din       ,
   output logic                                        feat_bram_ena
 );
   //* ============== logic declaration ==============
@@ -51,11 +51,9 @@ module aggregator import gat_pkg::*;
   logic [NUM_FEATURE_OUT-1:0] [AGGR_MULT_W-1:0]       res                 ;
   logic [NUM_FEATURE_OUT-1:0] [AGGR_MULT_W-1:0]       res_reg             ;
 
-  logic [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]        new_feat            ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0] new_feat            ;
   logic [NUM_NODE_WIDTH-1:0]                          num_node_out        ;
   logic [NUM_NODE_WIDTH-1:0]                          num_node_out_reg    ;
-  logic [NEW_FEATURE_ADDR_W-1:0]                      feat_addr           ;
-  logic [NEW_FEATURE_ADDR_W-1:0]                      feat_addr_reg       ;
 
   logic                                               new_feat_ena        ;
   //* ===============================================
@@ -98,7 +96,7 @@ module aggregator import gat_pkg::*;
   always_comb begin
     cnt = cnt_reg;
     if (&mul_rdy) begin
-      if (cnt_reg < num_node_reg) begin
+      if (cnt_reg < num_node_out_reg - 1) begin
         cnt = cnt_reg + 1;
       end else begin
         cnt = '0;
@@ -144,10 +142,10 @@ module aggregator import gat_pkg::*;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      res_reg  <= '0;
-      cnt_reg <= '0;
+      res_reg <= 'b0;
+      cnt_reg <= 'b0;
     end else begin
-      res_reg  <= res;
+      res_reg <= res;
       cnt_reg <= cnt;
     end
   end
@@ -157,23 +155,21 @@ module aggregator import gat_pkg::*;
   //* ========== push data to feature bram =========
   generate
     for (i = 0; i < NUM_FEATURE_OUT; i = i + 1) begin
-      assign new_feat[i] = (res_reg[i][AGGR_MULT_W-1] == 1'b0)
-                              ? res_reg[i][AGGR_MULT_W-1:AGGR_MULT_W-WH_DATA_WIDTH]
-                              : '0;
+      assign new_feat[i] = (res_reg[i][AGGR_MULT_W-1] == 1'b0) ? res_reg[i] : '0;
     end
   endgenerate
 
-  assign num_node_out = (aggr_rdy_o || (feat_addr_reg == 0 && aggr_vld_i)) ? num_node_reg : num_node_out_reg;
+  assign num_node_out = ((cnt_reg == num_node_out_reg - 1) || (wh_bram_addrb == 1)) ? num_node_reg : num_node_out_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      num_node_out_reg <= '0;
+      num_node_out_reg <= 'b0;
+      new_feat_ena     <= 'b0;
     end else begin
       num_node_out_reg <= num_node_out;
+      new_feat_ena     <= (cnt_reg == num_node_out_reg - 1);
     end
   end
-
-  assign new_feat_ena = (cnt_reg == (num_node_out_reg - 1));
 
   feature_controller u_feature_controller (
     .clk                (clk                ),

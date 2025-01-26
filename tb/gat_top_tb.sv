@@ -1,16 +1,20 @@
 `timescale 1ns / 1ps
 
 `ifdef CORA
-	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/cora/layer_1";
+	localparam string ROOT_PATH = { "D:/VLSI/Capstone/data/cora/layer_", `LAYER };
 `elsif CITESEER
-	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/citeseer/layer_1";
+	localparam string ROOT_PATH = { "D:/VLSI/Capstone/data/citeseer/layer_", `LAYER };
 `elsif PUBMED
-	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/pubmed/layer_1";
+	localparam string ROOT_PATH = { "D:/VLSI/Capstone/data/pubmed/layer_", `LAYER };
 `else
-	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
+	localparam string ROOT_PATH = "D:/VLSI/Capstone/tb";
 `endif
 
-`include "comparator.sv"
+localparam string INPUT_PATH    = { ROOT_PATH, "/input" };
+localparam string GOLDEN_PATH   = { ROOT_PATH, "/output" };
+localparam string LOG_PATH      = "D:/VLSI/Capstone/tb/log";
+
+// `include "../rtl/inc/gat_pkg.sv"
 
 module gat_top_tb import gat_pkg::*;
 ();
@@ -61,40 +65,42 @@ module gat_top_tb import gat_pkg::*;
   ///////////////////////////////////////////////////////////////////
 
 
-  longint start_time, end_time;
-  longint lat_start_time, lat_end_time;
-
+  `include "comparator.sv"
   `include "helper/helper.sv"
   `include "loader/input_loader.sv"
   `include "loader/output_loader.sv"
 
 
   ///////////////////////////////////////////////////////////////////
-  OutputComparator #(longint, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT)  spmm         = new("WH         ", WH_DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT)    spmm         = new("WH         ", WH_DATA_WIDTH, 0, 1);
 
-  OutputComparator #(longint, DMVM_DATA_WIDTH, TOTAL_NODES)                 dmvm         = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
-  OutputComparator #(longint, DATA_WIDTH, TOTAL_NODES)                      coef         = new("COEF       ", DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, DMVM_DATA_WIDTH, TOTAL_NODES)                   dmvm         = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, DATA_WIDTH, TOTAL_NODES)                        coef         = new("COEF       ", DATA_WIDTH, 0, 1);
 
-  OutputComparator #(longint, SM_DATA_WIDTH, TOTAL_NODES)                   dividend     = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
-  OutputComparator #(longint, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)             divisor      = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
-  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                sm_num_nodes = new("SM_NUM_NODE", NUM_NODE_WIDTH, 0, 0);
-  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                   alpha        = new("Alpha      ", WOI, WOF, 0);
-  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                   exp_alpha    = new("Exp_Alpha  ", WOI, WOF, 0);
+  OutputComparator #(real, SM_DATA_WIDTH, TOTAL_NODES)                        dividend     = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
+  OutputComparator #(real, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)                  divisor      = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
+  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                  sm_num_nodes = new("Num Node   ", NUM_NODE_WIDTH, 0, 0);
+  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                     alpha        = new("Alpha      ", WOI, WOF, 0);
 
-  OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS)                new_feature  = new("New_Feature", NEW_FEATURE_WIDTH, 8, 32);
+  OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS*NUM_FEATURE_OUT)  new_feature  = new("New Feature", WH_DATA_WIDTH, 32, 0);
   ///////////////////////////////////////////////////////////////////
 
 
   ///////////////////////////////////////////////////////////////////
   initial begin
-    spmm.monitor_path         = "/SPMM/wh.log";
-    dmvm.monitor_path         = "/DMVM/dmvm.log";
-    coef.monitor_path         = "/DMVM/coef.log";
-    dividend.monitor_path     = "/softmax/dividend.log";
-    divisor.monitor_path      = "/softmax/divisor.log";
-    sm_num_nodes.monitor_path = "/softmax/num_nodes.log";
-    alpha.monitor_path        = "/softmax/alpha.log";
-    new_feature.monitor_path  = "/aggregator/new_feature.log";
+    spmm.header               = "SPMM";
+    dmvm.header               = "DMVM";
+    dividend.header           = "SOFTMAX";
+    new_feature.header        = "AGGREGATOR";
+
+    spmm.log_file             = "/SPMM/wh.ansi";
+    dmvm.log_file             = "/DMVM/dmvm.ansi";
+    coef.log_file             = "/DMVM/coef.ansi";
+    dividend.log_file         = "/softmax/dividend.ansi";
+    divisor.log_file          = "/softmax/divisor.ansi";
+    sm_num_nodes.log_file     = "/softmax/num_nodes.ansi";
+    alpha.log_file            = "/softmax/alpha.ansi";
+    new_feature.log_file      = "/aggregator/new_feature.ansi";
   end
   ///////////////////////////////////////////////////////////////////
 
@@ -107,8 +113,8 @@ module gat_top_tb import gat_pkg::*;
   end
 
   always_comb begin
-    dmvm.dut_ready              = dut.u_DMVM.vld_shft_reg[COEF_DELAY_LENGTH-1];
-    dmvm.dut_output             = dut.u_DMVM.pipe_prod_reg[NUM_STAGES][0];
+    dmvm.dut_ready              = dut.u_DMVM.dut_dmvm_ready;
+    dmvm.dut_output             = dut.u_DMVM.dut_dmvm_output;
     dmvm.golden_output          = golden_dmvm;
 
     coef.dut_ready              = dut.u_DMVM.dmvm_rdy_o;
@@ -132,17 +138,13 @@ module gat_top_tb import gat_pkg::*;
     alpha.dut_ready             = dut.u_softmax.sm_rdy_o;
     alpha.dut_output            = dut.u_softmax.alpha_ff_din;
     alpha.golden_output         = golden_alpha;
-
-    exp_alpha.dut_ready         = dut.u_softmax.sm_rdy_o;
-    exp_alpha.dut_output        = dut.u_softmax.alpha_ff_din;
-    exp_alpha.golden_output     = golden_exp_alpha;
   end
 
-// always_comb begin
-  //   new_feature.dut_ready        = dut.u_aggregator.aggr_ready_o;
-  //   new_feature.dut_output       = dut.u_aggregator.new_feature;
-  //   new_feature.golden_output    = golden_new_feature;
-  // end
+  always_comb begin
+    new_feature.dut_ready       = dut.u_aggregator.u_feature_controller.feat_bram_ena;
+    new_feature.dut_output      = dut.u_aggregator.u_feature_controller.feat_bram_din;
+    new_feature.golden_output   = golden_new_feature;
+  end
   ///////////////////////////////////////////////////////////////////
 
 
@@ -155,8 +157,8 @@ module gat_top_tb import gat_pkg::*;
       dividend.output_checker();
       divisor.output_checker();
       sm_num_nodes.output_checker();
-      alpha.output_checker(0.005);
-      exp_alpha.output_checker(0.1);
+      alpha.output_checker(0.0001);
+      new_feature.output_checker(0.01);
     join
   end
   ///////////////////////////////////////////////////////////////////
@@ -164,51 +166,38 @@ module gat_top_tb import gat_pkg::*;
 
   ///////////////////////////////////////////////////////////////////
   initial begin
-    #0.1;
-    wait(dut.u_SPMM.spmm_vld_i == 1'b1);
+    c3;
+    wait(dut.u_SPMM.spmm_vld_i);
     start_time      = $time;
     lat_start_time  = $time;
-    for (int i = 0; i < TOTAL_NODES; i++) begin
-      #10.01;
-      wait(dut.u_softmax.sm_rdy_o == 1'b1);
+    for (int i = 0; i < NUM_SUBGRAPHS * NUM_FEATURE_OUT; i++) begin
+      c1;
+      wait(dut.u_aggregator.u_feature_controller.feat_bram_ena);
       if (i == 0) begin
         lat_end_time = $time;
       end
     end
     end_time = $time;
 
-    begin_section;
-
-    spmm.base_monitor();
-    dmvm.base_monitor();
-    coef.base_monitor();
-    dividend.base_monitor();
-    sm_num_nodes.base_monitor();
-    divisor.base_monitor();
-    alpha.base_monitor();
-
+    //////////////////////////////
     summary_section;
+    //////////////////////////////
 
-    $display("\n  SPMM:");
     spmm.base_scoreboard();
-    $display("\n  DMVM:");
     dmvm.base_scoreboard();
     coef.base_scoreboard();
-    $display("\n  SOFTMAX:");
     dividend.base_scoreboard();
     divisor.base_scoreboard();
     sm_num_nodes.base_scoreboard();
     alpha.base_scoreboard();
+    new_feature.base_scoreboard();
 
+    //////////////////////////////
     end_section;
+    //////////////////////////////
 
-  `ifndef VIVADO
-    #200;
+    c1;
     $finish();
-  `endif
   end
   ///////////////////////////////////////////////////////////////////
 endmodule
-
-
-

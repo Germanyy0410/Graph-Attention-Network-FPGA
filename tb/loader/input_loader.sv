@@ -1,8 +1,7 @@
+
   integer node_info_file, a_file, weight_file, value_file;
   integer nd_r, w_r, a_r, value_r;
   string file_path;
-
-	localparam string INPUT_PATH  = { ROOT_PATH, "/input" };
 
   initial begin
     h_node_info_bram_ena        = 1'b1;
@@ -14,7 +13,7 @@
     for (int i = 0; i < NODE_INFO_DEPTH; i++) begin
       nd_r = $fscanf(node_info_file, "%b\n", h_node_info_bram_din);
       h_node_info_bram_addra = i;
-      #10.4;
+      c1;
     end
 
 		h_node_info_bram_ena        = 1'b0;
@@ -33,7 +32,7 @@
     for (int i = 0; i < WEIGHT_DEPTH; i++) begin
       w_r = $fscanf(weight_file, "%d\n", wgt_bram_din);
       wgt_bram_addra = i;
-      #10.4;
+      c1;
     end
 
 		wgt_bram_ena       = 1'b0;
@@ -52,7 +51,7 @@
 		for (int i = 0; i < A_DEPTH; i++) begin
 			a_r = $fscanf(a_file, "%d\n", a_bram_din);
 			a_bram_addra = i;
-			#10.4;
+			c1;
 		end
 
 		a_bram_ena        = 1'b0;
@@ -70,7 +69,7 @@
 		for (int i = 0; i < H_DATA_DEPTH; i++) begin
 			value_r = $fscanf(value_file, "%b\n", h_data_bram_din);
 			h_data_bram_addra = i;
-			#10.4;
+			c1;
 		end
 
 		h_data_bram_ena       = 1'b0;

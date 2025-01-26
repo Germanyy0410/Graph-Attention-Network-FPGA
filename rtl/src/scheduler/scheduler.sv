@@ -28,7 +28,6 @@ module scheduler import gat_pkg::*;
   output                                                a_rdy_o
 );
 
-
   //* ======================== W_loader ========================
   W_loader u_W_loader (
     .clk                      (clk                    ),
