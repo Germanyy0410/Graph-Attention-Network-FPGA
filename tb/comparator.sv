@@ -66,9 +66,11 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
     subgraph_count = 0;
 
     for (int i = 0; i < DEPTH; i++) begin
-      string msg = "";
+      string msg;
       if (i == 0) begin
-        msg = { msg, $sformatf("\n%s Subgraph 0 %s\n\n", log_divider, log_divider) };
+        msg = $sformatf("\n%s Subgraph 0 %s\n\n", log_divider, log_divider);
+      end else begin
+        msg = "";
       end
       wait(dut_ready);
 
@@ -84,17 +86,17 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
       // Comparison result
       if (comparator) begin
         pass_checker++;
-        msg = { msg, $sformatf("%s -> %s - %0tps\n", pass, rm_spc(label), $time) };
+        msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d\n", pass, rm_spc(label), $time, i) };
         if (frac_bits == 0) begin
-          msg = { msg, $sformatf("\t\t- Golden = %0f\n\t\t- DUT    = %0f, [i] = %0d\n", golden_output[i], real_dut_output, i) };
+          msg = { msg, $sformatf("\t\t- Golden = %0f\n\t\t- DUT    = %0f\n", golden_output[i], real_dut_output) };
         end else begin
-          msg = { msg, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f, [i] = %0d\n", golden_output[i], real_dut_output, i) };
+          msg = { msg, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f\n", golden_output[i], real_dut_output) };
           msg = { msg, $sformatf("\t\t- Diff   = %0.15f\n", abs(real_dut_output - golden_output[i])) };
         end
       end else begin
-        msg = { msg, $sformatf("%s -> %s - %0tps\n", fail, rm_spc(label), $time) };
+        msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d\n", fail, rm_spc(label), $time, i) };
         if (frac_bits == 0) begin
-          msg = { msg, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d, [i] = %0d\n", golden_output[i], real_dut_output, i) };
+          msg = { msg, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d\n", golden_output[i], real_dut_output) };
         end else begin
           msg = { msg, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f\n", golden_output[i], real_dut_output) };
           msg = { msg, $sformatf("\t\t- Diff   = %0.15f\n", abs(real_dut_output - golden_output[i])) };
@@ -113,7 +115,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
           msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, subgraph_count, log_divider) };
         end
       end
-      else if (label == "Divisor    " || label == "SM_NUM_NODE") begin
+      else if (label == "Divisor    " || label == "Num Node   ") begin
         msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, i + 1, log_divider) };
       end
       else if (label == "New Feature") begin
@@ -178,11 +180,11 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
       // Comparison result
       if (num_pass == num_total) begin
         pass_checker++;
-        msg = { msg, $sformatf("%s -> %s - %0tps\n", pass, rm_spc(label), $time) };
-        msg = { msg, $sformatf("\t- Golden = %p\n\t- DUT    = %p\n, [i] = %0d", golden_temp, dut_temp, i) };
+        msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d\n", pass, rm_spc(label), $time, i) };
+        msg = { msg, $sformatf("\t- Golden = %p\n\t- DUT    = %p\n,", golden_temp, dut_temp) };
       end else begin
         msg = { msg, $sformatf("%s -> %s - %0tps\n", fail, rm_spc(label), $time) };
-        msg = { msg, $sformatf("\t- Golden = %p\n\t- DUT    = %p\n, [i] = %0d", golden_temp, dut_temp, i) };
+        msg = { msg, $sformatf("\t- Golden = %p\n\t- DUT    = %p\n", golden_temp, dut_temp) };
       end
       total_checker++;
 

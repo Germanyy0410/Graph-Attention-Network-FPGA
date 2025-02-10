@@ -76,14 +76,6 @@ module SPMM import gat_pkg::*;
   node_info_t                                     ff_node_info              ;
   node_info_t                                     ff_node_info_reg          ;
 
-  // -- data from ff
-  logic [ROW_LEN_WIDTH-1:0]                       ff_row_len                ;
-  logic [ROW_LEN_WIDTH-1:0]                       ff_row_len_reg            ;
-  logic                                           ff_src_flag               ;
-  logic                                           ff_src_flag_reg           ;
-  logic [NUM_NODE_WIDTH-1:0]                      ff_num_node               ;
-  logic [NUM_NODE_WIDTH-1:0]                      ff_num_node_reg           ;
-
   // -- SP-PE valid signal
   logic                                           pe_vld                    ;
   logic                                           pe_vld_reg                ;
@@ -101,22 +93,9 @@ module SPMM import gat_pkg::*;
   logic [WH_WIDTH-1:0]                            wh_data                   ;
   logic [WH_WIDTH-1:0]                            wh_data_reg               ;
 
-
-  // -- num_node bram
-  logic [NUM_NODE_ADDR_W-1:0]                     addr                      ;
-  logic [NUM_NODE_ADDR_W-1:0]                     addr_reg                  ;
-
   logic [NUM_NODE_WIDTH-1:0]                      num_node_reg              ;
-
-  logic [NODE_INFO_ADDR_W-1:0]                    cpt_nf_addr               ;
-  logic [NODE_INFO_ADDR_W-1:0]                    cpt_nf_addr_reg           ;
-
-  logic                                           nn_ena                    ;
-  logic                                           nn_ena_reg                ;
-
-  logic                                           addr_en                   ;
-  logic                                           addr_en_reg               ;
   //* =======================================
+
 
   genvar i, k;
   integer x, y;
@@ -132,19 +111,19 @@ module SPMM import gat_pkg::*;
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       SP_PE u_SP_PE (
-        .clk          (clk                  ),
-        .rst_n        (rst_n                ),
+        .clk          (clk                      ),
+        .rst_n        (rst_n                    ),
 
-        .pe_vld_i     (pe_vld               ),
-        .pe_rdy_o     (pe_rdy_o[i]          ),
+        .pe_vld_i     (pe_vld                   ),
+        .pe_rdy_o     (pe_rdy_o[i]              ),
 
-        .col_idx_i    (col_idx              ),
-        .val_i        (val                  ),
-        .row_len_i    (ff_row_len           ),
+        .col_idx_i    (col_idx                  ),
+        .val_i        (val                      ),
+        .row_len_i    (ff_node_info.row_length  ),
 
-        .wgt_addrb    (mult_wgt_addrb[i]    ),
-        .wgt_dout     (mult_wgt_dout[i]     ),
-        .res_o        (sppe[i]              )
+        .wgt_addrb    (mult_wgt_addrb[i]        ),
+        .wgt_dout     (mult_wgt_dout[i]         ),
+        .res_o        (sppe[i]                  )
       );
     end
   endgenerate
@@ -153,22 +132,22 @@ module SPMM import gat_pkg::*;
     .DATA_WIDTH (NODE_INFO_WIDTH  ),
     .FIFO_DEPTH (100              )
   ) node_info_fifo (
-    .clk        (clk                    ),
-    .rst_n      (rst_n                  ),
+    .clk        (clk              ),
+    .rst_n      (rst_n            ),
 
-    .din        (h_node_info_bram_dout  ),
-    .dout       (ff_data_o              ),
+    .din        (ff_data_i        ),
+    .dout       (ff_data_o        ),
 
-    .wr_vld     (ff_wr_vld              ),
-    .rd_vld     (ff_rd_vld              ),
+    .wr_vld     (ff_wr_vld        ),
+    .rd_vld     (ff_rd_vld        ),
 
-    .empty      (ff_empty               ),
-    .full       (ff_full                )
+    .empty      (ff_empty         ),
+    .full       (ff_full          )
   );
   //* =======================================
 
 
-  //* ====== assign sppe to WH bram =======
+  //* ======= assign SP-PE to WH bram =======
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       assign sppe_cat[WH_DATA_WIDTH*(i+1)-1-:WH_DATA_WIDTH] = sppe[W_NUM_OF_COLS-1-i];
@@ -176,10 +155,10 @@ module SPMM import gat_pkg::*;
   endgenerate
 
   // -- output from SP-PE
-  assign wh_data_i  = { sppe_cat, ff_num_node_reg, ff_src_flag_reg };
+  assign wh_data_i  = { sppe_cat, ff_node_info_reg.num_of_nodes, ff_node_info_reg.source_node_flag };
 
   // -- WH bram
-  assign wh_bram_din    = { sppe_cat, ff_num_node_reg, ff_src_flag_reg };
+  assign wh_bram_din    = { sppe_cat, ff_node_info_reg.num_of_nodes, ff_node_info_reg.source_node_flag };
   assign wh_bram_ena    = (&pe_rdy_o);
   assign wh_bram_addra  = wh_addr_reg;
 
@@ -197,7 +176,7 @@ module SPMM import gat_pkg::*;
 
 
   //* ============== WH output ==============
-  assign wh_data = (&pe_rdy_o) ? { sppe_cat, ff_num_node_reg, ff_src_flag_reg } : wh_data_reg;
+  assign wh_data = (&pe_rdy_o) ? { sppe_cat, ff_node_info_reg.num_of_nodes, ff_node_info_reg.source_node_flag } : wh_data_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -209,7 +188,7 @@ module SPMM import gat_pkg::*;
   //* =======================================
 
 
-  //* ======== pe_vld for SP-PE ===========
+  //* ========== pe_vld for SP-PE ===========
   always_comb begin
     pe_vld = pe_vld_reg;
 
@@ -246,9 +225,9 @@ module SPMM import gat_pkg::*;
                             ? (row_cnt_reg + 1)
                             : row_cnt_reg;
 
-  assign data_addr      = (spmm_vld_q1) ? (data_addr_reg + 1) : data_addr_reg;
+  assign data_addr = (spmm_vld_q1) ? (data_addr_reg + 1) : data_addr_reg;
 
-  assign node_info_addr = (((row_cnt_reg == 0 && row_len >= 2) || (row_len == 1)) && spmm_vld_q1 && (node_info_addr_reg < {NODE_INFO_ADDR_W{1'b1}}))
+  assign node_info_addr = ((((row_cnt_reg == row_len - 1) && row_len >= 2) || (row_len_nxt == 1 && row_cnt_reg == 0)) && spmm_vld_q1)
                           ? (node_info_addr_reg + 1)
                           : node_info_addr_reg;
 
@@ -258,74 +237,49 @@ module SPMM import gat_pkg::*;
 
   // -- node_info
   assign { row_len, num_node, src_flag }  = h_node_info_bram_dout;
-  assign h_node_info_bram_addrb           = node_info_addr;
+  assign h_node_info_bram_addrb           = node_info_addr_reg;
 
-  // -- next data
+  // -- node_info_next
   assign { row_len_nxt, num_node_nxt, src_flag_nxt } = h_node_info_bram_dout_nxt;
 
   // -- ff
-  assign ff_wr_vld  = new_row_en;
-  assign ff_rd_vld  = (&pe_rdy_o || data_addr_reg == 1) && !ff_empty;
+  assign ff_data_i    = h_node_info_bram_dout;
+  assign ff_wr_vld    = new_row_en;
 
-  // -- -- data_o
-  assign ff_node_info                                         = (ff_rd_vld)   ? ff_data_o : ff_node_info_reg;
-  assign { ff_row_len, ff_num_node, ff_src_flag }             = ff_node_info;
-  assign { ff_row_len_reg, ff_num_node_reg, ff_src_flag_reg } = ff_node_info_reg;
+  assign ff_rd_vld    = (&pe_rdy_o || data_addr_reg == 1) && !ff_empty;
+  assign ff_node_info = (ff_rd_vld) ? ff_data_o : ff_node_info_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      row_cnt_reg     <= 0;
+      row_cnt_reg         <= 'b0;
+      num_node_reg        <= 'b0;
       data_addr_reg       <= 'b0;
-      node_info_addr_reg  <= 'b0;
       ff_node_info_reg    <= 'b0;
+      node_info_addr_reg  <= 'b0;
     end else begin
-      row_cnt_reg     <= row_cnt;
+      row_cnt_reg         <= row_cnt;
+      num_node_reg        <= num_node;
       data_addr_reg       <= data_addr;
-      node_info_addr_reg  <= node_info_addr;
       ff_node_info_reg    <= ff_node_info;
+      node_info_addr_reg  <= node_info_addr;
     end
   end
   //* =======================================
 
 
-  //* ========== num_node bram ==========
-  // push to bram
-  assign num_node_bram_din   = num_node_reg;
-  assign num_node_bram_ena   = nn_ena_reg;
-  assign num_node_bram_addra = addr_reg;
+  //* ============ num_node bram ============
+  num_node_controller u_num_node_controller (
+    .clk                  (clk                      ),
+    .rst_n                (rst_n                    ),
 
-  assign addr_en  = (node_info_addr != node_info_addr_reg);
-  assign nn_ena   = ((cpt_nf_addr_reg == node_info_addr_reg) && (node_info_addr_reg > 0)) || (addr_en_reg && node_info_addr_reg == 1);
+    .spmm_vld_i           (spmm_vld_i               ),
 
-  always_comb begin
-    cpt_nf_addr = cpt_nf_addr_reg;
-    addr        = addr_reg;
+    .src_flag             (src_flag                 ),
+    .num_node             (num_node                 ),
 
-    if (addr_en_reg) begin
-      if ((src_flag && node_info_addr_reg > 1) || (~src_flag && node_info_addr_reg == 1)) begin
-        cpt_nf_addr = cpt_nf_addr_reg + num_node;
-      end
-    end
-
-    if (nn_ena_reg && (node_info_addr_reg > 0)) begin
-      addr = addr_reg + 1;
-    end
-  end
-
-  always_ff @(posedge clk) begin
-    if (!rst_n) begin
-      addr_en_reg       <= 'b0;
-      addr_reg          <= 'b0;
-      nn_ena_reg        <= 'b0;
-      cpt_nf_addr_reg   <= 'b0;
-      num_node_reg      <= 'b0;
-    end else begin
-      addr_reg          <= addr;
-      nn_ena_reg        <= nn_ena;
-      addr_en_reg       <= addr_en;
-      cpt_nf_addr_reg   <= cpt_nf_addr;
-      num_node_reg      <= num_node;
-    end
-  end
-  //* =======================================
+    .num_node_bram_din    (num_node_bram_din        ),
+    .num_node_bram_ena    (num_node_bram_ena        ),
+    .num_node_bram_addra  (num_node_bram_addra      )
+  );
+  //* ===========================================
 endmodule

@@ -19,12 +19,12 @@ package gat_pkg;
   parameter NEW_FEATURE_WIDTH     = WH_DATA_WIDTH + 32;
 
 `ifdef TESTBENCH
-  parameter H_NUM_SPARSE_DATA     = 1052;
+  parameter H_NUM_SPARSE_DATA     = 557;
   parameter TOTAL_NODES           = 100;
-  parameter NUM_FEATURE_IN        = 21;
+  parameter NUM_FEATURE_IN        = 11;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 11;
-  parameter MAX_NODES             = 18;
+  parameter NUM_SUBGRAPHS         = 26;
+  parameter MAX_NODES             = 6;
 
 `elsif CORA
   parameter H_NUM_SPARSE_DATA     = 242101;
@@ -35,20 +35,20 @@ package gat_pkg;
   parameter MAX_NODES             = 168;
 
 `elsif CITESEER
-  parameter H_NUM_SPARSE_DATA     = 242101;
-  parameter TOTAL_NODES           = 13264;
-  parameter NUM_FEATURE_IN        = 1433;
+  parameter H_NUM_SPARSE_DATA     = 557;
+  parameter TOTAL_NODES           = 100;
+  parameter NUM_FEATURE_IN        = 11;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 2708;
-  parameter MAX_NODES             = 168;
+  parameter NUM_SUBGRAPHS         = 26;
+  parameter MAX_NODES             = 6;
 
 `elsif PUBMED
-  parameter H_NUM_SPARSE_DATA     = 242101;
-  parameter TOTAL_NODES           = 13264;
-  parameter NUM_FEATURE_IN        = 1433;
+  parameter H_NUM_SPARSE_DATA     = 557;
+  parameter TOTAL_NODES           = 100;
+  parameter NUM_FEATURE_IN        = 11;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 2708;
-  parameter MAX_NODES             = 168;
+  parameter NUM_SUBGRAPHS         = 26;
+  parameter MAX_NODES             = 6;
 `endif
 
   parameter COEF_DEPTH            = 500;
@@ -130,6 +130,10 @@ package gat_pkg;
 
   // -- [New Feature]
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH);
+
+  parameter IDLE  = 2'b00;
+  parameter RUN   = 2'b01;
+  parameter DONE  = 2'b10;
   //* =========================================
 
   typedef struct packed {

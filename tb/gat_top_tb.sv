@@ -1,11 +1,11 @@
 `timescale 1ns / 1ps
 
 `ifdef CORA
-	localparam string ROOT_PATH = { "D:/VLSI/Capstone/data/cora/layer_", `LAYER };
+	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/cora/layer_1";
 `elsif CITESEER
-	localparam string ROOT_PATH = { "D:/VLSI/Capstone/data/citeseer/layer_", `LAYER };
+	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/citeseer/layer_1";
 `elsif PUBMED
-	localparam string ROOT_PATH = { "D:/VLSI/Capstone/data/pubmed/layer_", `LAYER };
+	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/pubmed/layer_1";
 `else
 	localparam string ROOT_PATH = "D:/VLSI/Capstone/tb";
 `endif
