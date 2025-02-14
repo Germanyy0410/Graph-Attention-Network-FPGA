@@ -76,7 +76,7 @@ module memory_controller import gat_pkg::*;
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb
 );
   //* ========================= MEMORY =========================
-  BRAM #(
+  URAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
     .DEPTH        (H_DATA_DEPTH         )
   ) u_h_data_bram (

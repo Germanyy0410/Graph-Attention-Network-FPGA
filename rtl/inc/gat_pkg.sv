@@ -131,9 +131,9 @@ package gat_pkg;
   // -- [New Feature]
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH);
 
-  parameter IDLE  = 2'b00;
-  parameter RUN   = 2'b01;
-  parameter DONE  = 2'b10;
+  parameter IDLE                  = 2'b00;
+  parameter RUN                   = 2'b01;
+  parameter DONE                  = 2'b10;
   //* =========================================
 
   typedef struct packed {
