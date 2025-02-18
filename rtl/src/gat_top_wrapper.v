@@ -134,7 +134,27 @@ module gat_top_wrapper #(
   output  [DATA_WIDTH-1:0]          feat_bram_dout
 );
 
-  gat_top u_gat_top (
+  gat_top #(
+    .DATA_WIDTH         (DATA_WIDTH         ),
+    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+
+    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+    .TOTAL_NODES        (TOTAL_NODES        ),
+    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+    .MAX_NODES          (MAX_NODES          ),
+
+    .COEF_DEPTH         (COEF_DEPTH         ),
+    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  ) u_gat_top (
     .clk                          (clk                          ),
     .rst_n                        (rst_n                        ),
 
