@@ -1,13 +1,4 @@
-// ==================================================================
-// File name  : memory_controller.sv
-// Project    : Acceleration of Graph Attention Networks on FPGA
-// Function   :
-// -- Main memory between PS and PL
-// -- Manage the initialization of FIFO & BRAM
-// Author     : @Germanyy0410
-// ==================================================================
-
-module memory_controller #(
+module bram_controller #(
   //* ======================= parameter ========================
   parameter DATA_WIDTH            = 8,
   parameter WH_DATA_WIDTH         = 12,
@@ -154,6 +145,7 @@ module memory_controller #(
   output  [DATA_WIDTH-1:0]          feat_bram_dout              ,
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb
 );
+
   //* ========================= MEMORY =========================
   BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),

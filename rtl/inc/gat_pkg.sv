@@ -134,6 +134,7 @@ package gat_pkg;
   parameter IDLE                  = 2'b00;
   parameter RUN                   = 2'b01;
   parameter DONE                  = 2'b10;
+  parameter DUMP                  = 2'b11;
   //* =========================================
 
   typedef struct packed {

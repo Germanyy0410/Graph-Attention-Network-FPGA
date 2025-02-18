@@ -107,42 +107,42 @@ module gat_top_tb import gat_pkg::*;
 
   ///////////////////////////////////////////////////////////////////
   always_comb begin
-    spmm.dut_ready              = dut.u_SPMM.spmm_rdy_o;
-    spmm.dut_spmm_output        = dut.u_SPMM.sppe;
+    spmm.dut_ready              = dut.u_gat_layer1.u_SPMM.spmm_rdy_o;
+    spmm.dut_spmm_output        = dut.u_gat_layer1.u_SPMM.sppe;
     spmm.golden_spmm_output     = golden_spmm;
   end
 
   always_comb begin
-    dmvm.dut_ready              = dut.u_DMVM.dut_dmvm_ready;
-    dmvm.dut_output             = dut.u_DMVM.dut_dmvm_output;
+    dmvm.dut_ready              = dut.u_gat_layer1.u_DMVM.dut_dmvm_ready;
+    dmvm.dut_output             = dut.u_gat_layer1.u_DMVM.dut_dmvm_output;
     dmvm.golden_output          = golden_dmvm;
 
-    coef.dut_ready              = dut.u_DMVM.dmvm_rdy_o;
-    coef.dut_output             = dut.u_DMVM.coef_ff_din;
+    coef.dut_ready              = dut.u_gat_layer1.u_DMVM.dmvm_rdy_o;
+    coef.dut_output             = dut.u_gat_layer1.u_DMVM.coef_ff_din;
     coef.golden_output          = golden_coef;
   end
 
   always_comb begin
-    dividend.dut_ready          = dut.u_softmax.divd_ff_rd_vld;
-    dividend.dut_output         = dut.u_softmax.divd_ff_dout;
+    dividend.dut_ready          = dut.u_gat_layer1.u_softmax.divd_ff_rd_vld;
+    dividend.dut_output         = dut.u_gat_layer1.u_softmax.divd_ff_dout;
     dividend.golden_output      = golden_dividend;
 
-    divisor.dut_ready           = dut.u_softmax.dvsr_ff_wr_vld;
-    divisor.dut_output          = dut.u_softmax.dvsr_ff_din.divisor;
+    divisor.dut_ready           = dut.u_gat_layer1.u_softmax.dvsr_ff_wr_vld;
+    divisor.dut_output          = dut.u_gat_layer1.u_softmax.sum_reg;
     divisor.golden_output       = golden_divisor;
 
-    sm_num_nodes.dut_ready      = dut.u_softmax.dvsr_ff_wr_vld;
-    sm_num_nodes.dut_output     = dut.u_softmax.dvsr_ff_din.num_of_nodes;
+    sm_num_nodes.dut_ready      = dut.u_gat_layer1.u_softmax.dvsr_ff_wr_vld;
+    sm_num_nodes.dut_output     = dut.u_gat_layer1.u_softmax.num_node_reg;
     sm_num_nodes.golden_output  = golden_sm_num_node;
 
-    alpha.dut_ready             = dut.u_softmax.sm_rdy_o;
-    alpha.dut_output            = dut.u_softmax.alpha_ff_din;
+    alpha.dut_ready             = dut.u_gat_layer1.u_softmax.sm_rdy_o;
+    alpha.dut_output            = dut.u_gat_layer1.u_softmax.alpha_ff_din;
     alpha.golden_output         = golden_alpha;
   end
 
   always_comb begin
-    new_feature.dut_ready       = dut.u_aggregator.u_feature_controller.feat_bram_ena;
-    new_feature.dut_output      = dut.u_aggregator.u_feature_controller.feat_bram_din;
+    new_feature.dut_ready       = dut.u_gat_layer1.u_aggregator.u_feature_controller.feat_bram_ena;
+    new_feature.dut_output      = dut.u_gat_layer1.u_aggregator.u_feature_controller.feat_bram_din;
     new_feature.golden_output   = golden_new_feature;
   end
   ///////////////////////////////////////////////////////////////////
@@ -167,12 +167,12 @@ module gat_top_tb import gat_pkg::*;
   ///////////////////////////////////////////////////////////////////
   initial begin
     c3;
-    wait(dut.u_SPMM.spmm_vld_i);
+    wait(dut.u_gat_layer1.u_SPMM.spmm_vld_i);
     start_time      = $time;
     lat_start_time  = $time;
     for (int i = 0; i < NUM_SUBGRAPHS * NUM_FEATURE_OUT; i++) begin
       c1;
-      wait(dut.u_aggregator.u_feature_controller.feat_bram_ena);
+      wait(dut.u_gat_layer1.u_aggregator.u_feature_controller.feat_bram_ena);
       if (i == 0) begin
         lat_end_time = $time;
       end
