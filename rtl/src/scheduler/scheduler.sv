@@ -124,7 +124,27 @@ module scheduler #(
 
 
   //* ======================== W_loader ========================
-  W_loader u_W_loader (
+  W_loader #(
+    .DATA_WIDTH         (DATA_WIDTH         ),
+    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+
+    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+    .TOTAL_NODES        (TOTAL_NODES        ),
+    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+    .MAX_NODES          (MAX_NODES          ),
+
+    .COEF_DEPTH         (COEF_DEPTH         ),
+    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  ) u_W_loader (
     .clk                      (clk                    ),
     .rst_n                    (rst_n                  ),
 
@@ -141,7 +161,27 @@ module scheduler #(
 
 
   //* ======================== a_loader ========================
-  a_loader u_a_loader (
+  a_loader #(
+    .DATA_WIDTH         (DATA_WIDTH         ),
+    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+
+    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+    .TOTAL_NODES        (TOTAL_NODES        ),
+    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+    .MAX_NODES          (MAX_NODES          ),
+
+    .COEF_DEPTH         (COEF_DEPTH         ),
+    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  ) u_a_loader (
     .clk              (clk                    ),
     .rst_n            (rst_n                  ),
 

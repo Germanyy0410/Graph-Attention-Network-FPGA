@@ -12,7 +12,7 @@ package gat_pkg;
   // -- [Configurable] Data Width
   parameter DATA_WIDTH            = 8;
   parameter WH_DATA_WIDTH         = 12;
-  parameter DMVM_DATA_WIDTH       = 19;
+  parameter DMVM_DATA_WIDTH       = 20;
   parameter SM_DATA_WIDTH         = 108;
   parameter SM_SUM_DATA_WIDTH     = 108;
   parameter ALPHA_DATA_WIDTH      = 32;
@@ -35,12 +35,12 @@ package gat_pkg;
   parameter MAX_NODES             = 168;
 
 `elsif CITESEER
-  parameter H_NUM_SPARSE_DATA     = 557;
-  parameter TOTAL_NODES           = 100;
-  parameter NUM_FEATURE_IN        = 11;
+  parameter H_NUM_SPARSE_DATA     = 399058;
+  parameter TOTAL_NODES           = 12383;
+  parameter NUM_FEATURE_IN        = 3703;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 26;
-  parameter MAX_NODES             = 6;
+  parameter NUM_SUBGRAPHS         = 3327;
+  parameter MAX_NODES             = 100;
 
 `elsif PUBMED
   parameter H_NUM_SPARSE_DATA     = 557;

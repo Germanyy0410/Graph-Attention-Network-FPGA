@@ -102,60 +102,141 @@ module memory_controller #(
   localparam NEW_FEATURE_ADDR_W   = $clog2(NEW_FEATURE_DEPTH)
   //* ==========================================================
 )(
-  input                             clk                         ,
-  input                             rst_n                       ,
+  input                             clk                           ,
+  input                             rst_n                         ,
+  input                             gat_layer                     ,
 
-  input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
-  input                             h_data_bram_ena             ,
-  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
-  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
-  output  [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
-  input                             h_data_bram_load_done       ,
+  //* =========================== PS ===========================
+  input   [H_DATA_WIDTH-1:0]        h_data_bram_din               ,
+  input                             h_data_bram_ena               ,
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra             ,
+  input                             h_data_bram_load_done         ,
 
-  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
-  input                             h_node_info_bram_ena        ,
-  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ,
-  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ,
-  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ,
-  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout_nxt   ,
-  input                             h_node_info_bram_load_done  ,
+  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din          ,
+  input                             h_node_info_bram_ena          ,
+  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra        ,
+  input                             h_node_info_bram_load_done    ,
 
-  input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
-  input                             wgt_bram_ena                ,
-  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ,
-  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
-  output  [DATA_WIDTH-1:0]          wgt_bram_dout               ,
-  input                             wgt_bram_load_done          ,
+  input   [DATA_WIDTH-1:0]          wgt_bram_din                  ,
+  input                             wgt_bram_ena                  ,
+  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra                ,
+  input                             wgt_bram_load_done            ,
 
-  input   [DATA_WIDTH-1:0]          a_bram_din                  ,
-  input                             a_bram_ena                  ,
-  input   [A_ADDR_W-1:0]            a_bram_addra                ,
-  input   [A_ADDR_W-1:0]            a_bram_addrb                ,
-  output  [DATA_WIDTH-1:0]          a_bram_dout                 ,
-  input                             a_bram_load_done            ,
+  input   [DATA_WIDTH-1:0]          a_bram_din                    ,
+  input                             a_bram_ena                    ,
+  input   [A_ADDR_W-1:0]            a_bram_addra                  ,
+  input                             a_bram_load_done              ,
+  //* ==========================================================
 
-  input   [WH_WIDTH-1:0]            wh_bram_din                 ,
-  input                             wh_bram_ena                 ,
-  input   [WH_ADDR_W-1:0]           wh_bram_addra               ,
-  output  [WH_WIDTH-1:0]            wh_bram_dout                ,
-  input   [WH_ADDR_W-1:0]           wh_bram_addrb               ,
 
-  input   [NUM_NODE_WIDTH-1:0]      num_node_bram_din           ,
-  input                             num_node_bram_ena           ,
-  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra         ,
-  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb         ,
-  output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb         ,
-  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc         ,
-  output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
+  //* =========================== PL ===========================
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addrb_conv1       ,
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addrb_conv2       ,
+  output  [H_DATA_WIDTH-1:0]        h_data_bram_dout              ,
 
-  input   [DATA_WIDTH-1:0]          feat_bram_din               ,
-  input                             feat_bram_ena               ,
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra             ,
-  output  [DATA_WIDTH-1:0]          feat_bram_dout              ,
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb
+  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv1  ,
+  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv2  ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout         ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout_nxt     ,
+
+  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ,
+  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ,
+  output  [DATA_WIDTH-1:0]          wgt_bram_dout                 ,
+
+  input   [A_ADDR_W-1:0]            a_bram_addrb_conv1            ,
+  input   [A_ADDR_W-1:0]            a_bram_addrb_conv2            ,
+  output  [DATA_WIDTH-1:0]          a_bram_dout                   ,
+  //* ==========================================================
+
+
+  output  [WH_WIDTH-1:0]            wh_bram_dout                  ,
+  output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb           ,
+  output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc           ,
+  output  [DATA_WIDTH-1:0]          feat_bram_dout                ,
+
+
+  //* ========================= Conv1 ==========================
+  input   [WH_WIDTH-1:0]            wh_bram_din_conv1             ,
+  input                             wh_bram_ena_conv1             ,
+  input   [WH_ADDR_W-1:0]           wh_bram_addra_conv1           ,
+  input   [WH_ADDR_W-1:0]           wh_bram_addrb_conv1           ,
+
+  input   [NUM_NODE_WIDTH-1:0]      num_node_bram_din_conv1       ,
+  input                             num_node_bram_ena_conv1       ,
+  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra_conv1     ,
+  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv1     ,
+  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1     ,
+
+  input   [DATA_WIDTH-1:0]          feat_bram_din_conv1           ,
+  input                             feat_bram_ena_conv1           ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv1         ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv1         ,
+  //* ==========================================================
+
+
+  //* ========================= Conv2 ==========================
+  input   [WH_WIDTH-1:0]            wh_bram_din_conv2             ,
+  input                             wh_bram_ena_conv2             ,
+  input   [WH_ADDR_W-1:0]           wh_bram_addra_conv2           ,
+  input   [WH_ADDR_W-1:0]           wh_bram_addrb_conv2           ,
+
+  input   [NUM_NODE_WIDTH-1:0]      num_node_bram_din_conv2       ,
+  input                             num_node_bram_ena_conv2       ,
+  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra_conv2     ,
+  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv2     ,
+  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv2     ,
+
+  input   [DATA_WIDTH-1:0]          feat_bram_din_conv2           ,
+  input                             feat_bram_ena_conv2           ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2         ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv2
+  //* ==========================================================
 );
+
+  logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb       ;
+  logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb  ;
+  logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb          ;
+  logic [A_ADDR_W-1:0]            a_bram_addrb            ;
+
+  logic [WH_WIDTH-1:0]            wh_bram_din             ;
+  logic                           wh_bram_ena             ;
+  logic [WH_ADDR_W-1:0]           wh_bram_addra           ;
+  logic [WH_ADDR_W-1:0]           wh_bram_addrb           ;
+
+  logic [NUM_NODE_WIDTH-1:0]      num_node_bram_din       ;
+  logic                           num_node_bram_ena       ;
+  logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra     ;
+  logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb     ;
+  logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc     ;
+
+  logic [DATA_WIDTH-1:0]          feat_bram_din           ;
+  logic                           feat_bram_ena           ;
+  logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra         ;
+  logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb         ;
+
+  assign h_data_bram_addrb      = (gat_layer == 0) ? h_data_bram_addrb_conv1 : h_data_bram_addrb_conv2;
+  assign h_node_info_bram_addrb = (gat_layer == 0) ? h_node_info_bram_addrb_conv1 : h_node_info_bram_addrb_conv2;
+  assign wgt_bram_addrb         = (gat_layer == 0) ? wgt_bram_addrb_conv1 : wgt_bram_addrb_conv2;
+  assign a_bram_addrb           = (gat_layer == 0) ? a_bram_addrb_conv1 : a_bram_addrb_conv2;
+
+  assign wh_bram_din            = (gat_layer == 0) ? wh_bram_din_conv1 : wh_bram_din_conv2;
+  assign wh_bram_ena            = (gat_layer == 0) ? wh_bram_ena_conv1 : wh_bram_ena_conv2;
+  assign wh_bram_addra          = (gat_layer == 0) ? wh_bram_addra_conv1 : wh_bram_addra_conv2;
+  assign wh_bram_addrb          = (gat_layer == 0) ? wh_bram_addrb_conv1 : wh_bram_addrb_conv2;
+
+  assign num_node_bram_din      = (gat_layer == 0) ? num_node_bram_din_conv1 : num_node_bram_din_conv2;
+  assign num_node_bram_ena      = (gat_layer == 0) ? num_node_bram_ena_conv1 : num_node_bram_ena_conv2;
+  assign num_node_bram_addra    = (gat_layer == 0) ? num_node_bram_addra_conv1 : num_node_bram_addra_conv2;
+  assign num_node_bram_addrb    = (gat_layer == 0) ? num_node_bram_addrb_conv1 : num_node_bram_addrb_conv2;
+  assign num_node_bram_addrc    = (gat_layer == 0) ? num_node_bram_addrc_conv1 : num_node_bram_addrc_conv2;
+
+  assign feat_bram_din          = (gat_layer == 0) ? feat_bram_din_conv1 : feat_bram_din_conv2;
+  assign feat_bram_ena          = (gat_layer == 0) ? feat_bram_ena_conv1 : feat_bram_ena_conv2;
+  assign feat_bram_addra        = (gat_layer == 0) ? feat_bram_addra_conv1 : feat_bram_addra_conv2;
+  assign feat_bram_addrb        = (gat_layer == 0) ? feat_bram_addrb_conv1 : feat_bram_addrb_conv2;
+
   //* ========================= MEMORY =========================
-  BRAM #(
+  URAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
     .DEPTH        (H_DATA_DEPTH         )
   ) u_h_data_bram (

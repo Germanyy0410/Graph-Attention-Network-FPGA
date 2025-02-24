@@ -12,8 +12,8 @@
 `define VIVADO                1
 
 // `define TESTBENCH             1
-`define CORA                  1
-// `define CITESEER              1
+// `define CORA                  1
+`define CITESEER              1
 // `define PUBMED                13
 
 `define LAYER                 "1"
