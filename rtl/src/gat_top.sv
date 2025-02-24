@@ -145,22 +145,18 @@ module gat_top #(
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
   input                             h_data_bram_ena             ,
   input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
-  output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
   input                             h_node_info_bram_ena        ,
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ,
-  output  [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
   input                             wgt_bram_ena                ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ,
-  output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
 
   input   [DATA_WIDTH-1:0]          a_bram_din                  ,
   input                             a_bram_ena                  ,
   input   [A_ADDR_W-1:0]            a_bram_addra                ,
-  output  [A_ADDR_W-1:0]            a_bram_addrb                ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
@@ -168,19 +164,23 @@ module gat_top #(
 
   //* ====================== Memory Logic ======================
   // -- PL
+  logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb             ;
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb_conv1       ;
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb_conv2       ;
   logic [H_DATA_WIDTH-1:0]        h_data_bram_dout              ;
 
+  logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb        ;
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv1  ;
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv2  ;
   logic [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout         ;
   logic [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout_nxt     ;
 
+  logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb                ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ;
   logic [DATA_WIDTH-1:0]          wgt_bram_dout                 ;
 
+  logic [A_ADDR_W-1:0]            a_bram_addrb                  ;
   logic [A_ADDR_W-1:0]            a_bram_addrb_conv1            ;
   logic [A_ADDR_W-1:0]            a_bram_addrb_conv2            ;
   logic [DATA_WIDTH-1:0]          a_bram_dout                   ;

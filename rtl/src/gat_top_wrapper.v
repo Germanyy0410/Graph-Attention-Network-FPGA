@@ -118,22 +118,18 @@ module gat_top_wrapper #(
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
   input                             h_data_bram_ena             ,
   input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
-  output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
   input                             h_node_info_bram_ena        ,
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ,
-  output  [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
   input                             wgt_bram_ena                ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ,
-  output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
 
   input   [DATA_WIDTH-1:0]          a_bram_din                  ,
   input                             a_bram_ena                  ,
   input   [A_ADDR_W-1:0]            a_bram_addra                ,
-  output  [A_ADDR_W-1:0]            a_bram_addrb                ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [DATA_WIDTH-1:0]          feat_bram_dout
@@ -174,22 +170,18 @@ module gat_top_wrapper #(
     .h_data_bram_din              (h_data_bram_din              ),
     .h_data_bram_ena              (h_data_bram_ena              ),
     .h_data_bram_addra            (h_data_bram_addra            ),
-    .h_data_bram_addrb            (h_data_bram_addrb            ),
 
     .h_node_info_bram_din         (h_node_info_bram_din         ),
     .h_node_info_bram_ena         (h_node_info_bram_ena         ),
     .h_node_info_bram_addra       (h_node_info_bram_addra       ),
-    .h_node_info_bram_addrb       (h_node_info_bram_addrb       ),
 
     .wgt_bram_din                 (wgt_bram_din                 ),
     .wgt_bram_ena                 (wgt_bram_ena                 ),
     .wgt_bram_addra               (wgt_bram_addra               ),
-    .wgt_bram_addrb               (wgt_bram_addrb               ),
 
     .a_bram_din                   (a_bram_din                   ),
     .a_bram_ena                   (a_bram_ena                   ),
     .a_bram_addra                 (a_bram_addra                 ),
-    .a_bram_addrb                 (a_bram_addrb                 ),
 
     .feat_bram_addrb              (feat_bram_addrb              ),
     .feat_bram_dout               (feat_bram_dout               )
