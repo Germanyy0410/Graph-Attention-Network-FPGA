@@ -1,53 +1,49 @@
 `timescale 1ns / 1ps
 
 `ifdef CORA
-	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/cora/layer_1";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/cora/layer_1";
 `elsif CITESEER
-	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/citeseer/layer_1";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/citeseer/layer_1";
 `elsif PUBMED
-	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/pubmed/layer_1";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/data/pubmed/layer_1";
 `else
-	localparam string ROOT_PATH = "D:/VLSI/Capstone/tb";
+	localparam string ROOT_PATH = "d:/VLSI/Capstone/tb";
 `endif
 
 localparam string INPUT_PATH    = { ROOT_PATH, "/input" };
 localparam string GOLDEN_PATH   = { ROOT_PATH, "/output" };
 localparam string LOG_PATH      = "D:/VLSI/Capstone/tb/log";
 
-// `include "../rtl/inc/gat_pkg.sv"
+`include "../rtl/inc/gat_pkg.sv"
 
 module gat_top_tb import gat_pkg::*;
 ();
   logic                             clk                         ;
   logic                             rst_n                       ;
 
+  logic                             gat_layer                   ;
+  logic                             gat_ready                   ;
+
   logic   [H_DATA_WIDTH-1:0]        h_data_bram_din             ;
   logic                             h_data_bram_ena             ;
+  logic                             h_data_bram_wea             ;
   logic   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ;
-  logic                             h_data_bram_enb             ;
   logic   [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ;
   logic                             h_data_bram_load_done       ;
 
   logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ;
   logic                             h_node_info_bram_ena        ;
+  logic                             h_node_info_bram_wea        ;
   logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ;
-  logic                             h_node_info_bram_enb        ;
   logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ;
   logic                             h_node_info_bram_load_done  ;
 
   logic   [DATA_WIDTH-1:0]          wgt_bram_din                ;
   logic                             wgt_bram_ena                ;
+  logic                             wgt_bram_wea                ;
   logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ;
-  logic                             wgt_bram_enb                ;
   logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ;
   logic                             wgt_bram_load_done          ;
-
-  logic   [DATA_WIDTH-1:0]          a_bram_din                  ;
-  logic                             a_bram_ena                  ;
-  logic   [A_ADDR_W-1:0]            a_bram_addra                ;
-  logic                             a_bram_enb                  ;
-  logic   [A_ADDR_W-1:0]            a_bram_addrb                ;
-  logic                             a_bram_load_done            ;
 
   logic   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ;
   logic   [DATA_WIDTH-1:0]          feat_bram_dout              ;
@@ -57,6 +53,7 @@ module gat_top_tb import gat_pkg::*;
   ///////////////////////////////////////////////////////////////////
   always #5 clk = ~clk;
   initial begin
+    gat_layer = 1'b0;
     clk   = 1'b1;
     rst_n = 1'b0;
     #15.01;
@@ -107,42 +104,42 @@ module gat_top_tb import gat_pkg::*;
 
   ///////////////////////////////////////////////////////////////////
   always_comb begin
-    spmm.dut_ready              = dut.u_gat_layer1.u_SPMM.spmm_rdy_o;
-    spmm.dut_spmm_output        = dut.u_gat_layer1.u_SPMM.sppe;
+    spmm.dut_ready              = dut.u_gat_conv1.u_SPMM.spmm_rdy_o;
+    spmm.dut_spmm_output        = dut.u_gat_conv1.u_SPMM.sppe;
     spmm.golden_spmm_output     = golden_spmm;
   end
 
   always_comb begin
-    dmvm.dut_ready              = dut.u_gat_layer1.u_DMVM.dut_dmvm_ready;
-    dmvm.dut_output             = dut.u_gat_layer1.u_DMVM.dut_dmvm_output;
+    dmvm.dut_ready              = dut.u_gat_conv1.u_DMVM.dut_dmvm_ready;
+    dmvm.dut_output             = dut.u_gat_conv1.u_DMVM.dut_dmvm_output;
     dmvm.golden_output          = golden_dmvm;
 
-    coef.dut_ready              = dut.u_gat_layer1.u_DMVM.dmvm_rdy_o;
-    coef.dut_output             = dut.u_gat_layer1.u_DMVM.coef_ff_din;
+    coef.dut_ready              = dut.u_gat_conv1.u_DMVM.dmvm_rdy_o;
+    coef.dut_output             = dut.u_gat_conv1.u_DMVM.coef_ff_din;
     coef.golden_output          = golden_coef;
   end
 
   always_comb begin
-    dividend.dut_ready          = dut.u_gat_layer1.u_softmax.divd_ff_rd_vld;
-    dividend.dut_output         = dut.u_gat_layer1.u_softmax.divd_ff_dout;
+    dividend.dut_ready          = dut.u_gat_conv1.u_softmax.divd_ff_rd_vld;
+    dividend.dut_output         = dut.u_gat_conv1.u_softmax.divd_ff_dout;
     dividend.golden_output      = golden_dividend;
 
-    divisor.dut_ready           = dut.u_gat_layer1.u_softmax.dvsr_ff_wr_vld;
-    divisor.dut_output          = dut.u_gat_layer1.u_softmax.sum_reg;
+    divisor.dut_ready           = dut.u_gat_conv1.u_softmax.dvsr_ff_wr_vld;
+    divisor.dut_output          = dut.u_gat_conv1.u_softmax.sum_reg;
     divisor.golden_output       = golden_divisor;
 
-    sm_num_nodes.dut_ready      = dut.u_gat_layer1.u_softmax.dvsr_ff_wr_vld;
-    sm_num_nodes.dut_output     = dut.u_gat_layer1.u_softmax.num_node_reg;
+    sm_num_nodes.dut_ready      = dut.u_gat_conv1.u_softmax.dvsr_ff_wr_vld;
+    sm_num_nodes.dut_output     = dut.u_gat_conv1.u_softmax.num_node_reg;
     sm_num_nodes.golden_output  = golden_sm_num_node;
 
-    alpha.dut_ready             = dut.u_gat_layer1.u_softmax.sm_rdy_o;
-    alpha.dut_output            = dut.u_gat_layer1.u_softmax.alpha_ff_din;
+    alpha.dut_ready             = dut.u_gat_conv1.u_softmax.sm_rdy_o;
+    alpha.dut_output            = dut.u_gat_conv1.u_softmax.alpha_ff_din;
     alpha.golden_output         = golden_alpha;
   end
 
   always_comb begin
-    new_feature.dut_ready       = dut.u_gat_layer1.u_aggregator.u_feature_controller.feat_bram_ena;
-    new_feature.dut_output      = dut.u_gat_layer1.u_aggregator.u_feature_controller.feat_bram_din;
+    new_feature.dut_ready       = dut.u_gat_conv1.u_aggregator.u_feature_controller.feat_bram_ena;
+    new_feature.dut_output      = dut.u_gat_conv1.u_aggregator.u_feature_controller.feat_bram_din;
     new_feature.golden_output   = golden_new_feature;
   end
   ///////////////////////////////////////////////////////////////////
@@ -167,17 +164,18 @@ module gat_top_tb import gat_pkg::*;
   ///////////////////////////////////////////////////////////////////
   initial begin
     c3;
-    wait(dut.u_gat_layer1.u_SPMM.spmm_vld_i);
+    wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
     start_time      = $time;
     lat_start_time  = $time;
     for (int i = 0; i < NUM_SUBGRAPHS * NUM_FEATURE_OUT; i++) begin
       c1;
-      wait(dut.u_gat_layer1.u_aggregator.u_feature_controller.feat_bram_ena);
+      wait(dut.u_gat_conv1.u_aggregator.u_feature_controller.feat_bram_ena);
       if (i == 0) begin
         lat_end_time = $time;
       end
     end
     end_time = $time;
+    // #200000;
 
     //////////////////////////////
     summary_section;

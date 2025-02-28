@@ -34,7 +34,7 @@ module SP_PE #(
   // -- [brams] Depth
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
   localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
@@ -105,6 +105,7 @@ module SP_PE #(
   input                             clk                     ,
   input                             rst_n                   ,
 
+  input                             spmm_vld_i              ,
   input                             pe_vld_i                ,
   output                            pe_rdy_o                ,
 
@@ -145,7 +146,7 @@ module SP_PE #(
 
   //* ====================== calculation ======================
   assign wgt_addrb  = col_idx_i;
-  assign calc_ena   = ((cnt_reg == 0 && (pe_vld_i || row_len_i == 1)) || (cnt_reg > 0 && cnt_reg < row_len_i && row_len_i > 1));
+  assign calc_ena   = spmm_vld_i && ((cnt_reg == 0 && (pe_vld_i || row_len_i <= 1)) || (cnt_reg > 0 && cnt_reg < row_len_i && row_len_i > 1));
 
   always_comb begin
     prod  = prod_reg;
@@ -155,7 +156,7 @@ module SP_PE #(
     if (calc_ena) begin
       prod  = $signed(val_i) * $signed(wgt_dout);
       res   = (cnt_reg != 0) ? ($signed(res_reg) + $signed(prod)) : prod;
-      cnt   = (cnt_reg == row_len_i - 1) ? 0 : (cnt_reg + 1);
+      cnt   = (cnt_reg == row_len_i - 1 || row_len_i <= 1) ? 0 : (cnt_reg + 1);
     end
   end
 
@@ -178,7 +179,7 @@ module SP_PE #(
     pe_rdy = pe_rdy_reg;
     if (pe_rdy_reg && (row_len_i > 1)) begin
       pe_rdy = 1'b0;
-    end else if ((cnt_reg == row_len_i - 1) || (row_len_i == 1)) begin
+    end else if ((cnt_reg == row_len_i - 1) || (row_len_i <= 1) && spmm_vld_i) begin
       pe_rdy = 1'b1;
     end
   end
@@ -187,7 +188,7 @@ module SP_PE #(
     if (!rst_n) begin
       pe_rdy_reg <= 'b0;
     end else begin
-      if (row_len_i == 1 && pe_vld_i) begin
+      if (row_len_i <= 1 && spmm_vld_i) begin
         pe_rdy_reg <= 1'b1;
       end else begin
         pe_rdy_reg <= pe_rdy;

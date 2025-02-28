@@ -34,7 +34,7 @@ module scheduler #(
   // -- [brams] Depth
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
   localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
@@ -116,12 +116,8 @@ module scheduler #(
   // -- a BRAM
   input   [DATA_WIDTH-1:0]                              a_bram_dout           ,
   output  [A_ADDR_W-1:0]                                a_bram_addrb          ,
-  input                                                 a_bram_load_done      ,
-  output  [A_DEPTH*DATA_WIDTH-1:0]                      a                     ,
-  output                                                a_rdy_o
+  output  [A_DEPTH*DATA_WIDTH-1:0]                      a
 );
-
-
 
   //* ======================== W_loader ========================
   W_loader #(
@@ -155,44 +151,8 @@ module scheduler #(
     .wgt_bram_addrb           (wgt_bram_addrb         ),
 
     .mult_wgt_addrb_flat      (mult_wgt_addrb         ),
-    .mult_wgt_dout_flat       (mult_wgt_dout          )
-  );
-  //* ==========================================================
-
-
-  //* ======================== a_loader ========================
-  a_loader #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
-
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
-    .TOTAL_NODES        (TOTAL_NODES        ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
-    .MAX_NODES          (MAX_NODES          ),
-
-    .COEF_DEPTH         (COEF_DEPTH         ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
-  ) u_a_loader (
-    .clk              (clk                    ),
-    .rst_n            (rst_n                  ),
-
-    .a_vld_i          (a_bram_load_done       ),
-    .a_rdy_o          (a_rdy_o                ),
-
-    .a_bram_dout      (a_bram_dout            ),
-    .a_bram_enb       (a_bram_enb             ),
-    .a_bram_addrb     (a_bram_addrb           ),
-
-    .a_flat_o         (a                      )
+    .mult_wgt_dout_flat       (mult_wgt_dout          ),
+    .a_o                      (a                      )
   );
   //* ==========================================================
 endmodule

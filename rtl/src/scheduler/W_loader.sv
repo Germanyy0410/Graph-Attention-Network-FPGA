@@ -32,7 +32,7 @@ module W_loader #(
   // -- [brams] Depth
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
   localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
@@ -59,7 +59,7 @@ module W_loader #(
   localparam W_NUM_OF_COLS        = NUM_FEATURE_OUT,
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
-  localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
+  localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH) + $clog2(A_DEPTH),
   localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
 
   // -- [WH]
@@ -110,9 +110,9 @@ module W_loader #(
   output  [WEIGHT_ADDR_W-1:0]                           wgt_bram_addrb          ,
 
   output  [W_NUM_OF_COLS*DATA_WIDTH-1:0]                mult_wgt_dout_flat      ,
-  input   [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]        mult_wgt_addrb_flat
+  input   [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]        mult_wgt_addrb_flat     ,
+  output  [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a_o
 );
-
 
   logic                                               w_rdy               ;
   logic                                               w_rdy_reg           ;
@@ -133,6 +133,14 @@ module W_loader #(
 
   logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_wgt_dout       ;
   logic [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_wgt_addrb      ;
+
+  logic [A_INDEX_WIDTH:0]                             a_idx               ;
+  logic [A_INDEX_WIDTH:0]                             a_idx_reg           ;
+  logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a                   ;
+  logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a_reg               ;
+  logic                                               a_rdy               ;
+  logic                                               a_rdy_reg           ;
+
 
   assign mult_wgt_dout_flat  = mult_wgt_dout;
   assign mult_wgt_addrb      = mult_wgt_addrb_flat;
@@ -156,6 +164,7 @@ module W_loader #(
         .din          (mult_wgt_din[i]   ),
         .addra        (mult_wgt_addra[i] ),
         .ena          (mult_wgt_ena[i]   ),
+        .wea          (mult_wgt_ena[i]   ),
         .addrb        (mult_wgt_addrb[i] ),
         .dout         (mult_wgt_dout[i]  )
       );
@@ -166,7 +175,8 @@ module W_loader #(
 
   //* =================== output assignment ===================
   assign wgt_bram_addrb = addr_reg;
-  assign w_rdy_o        = w_rdy_reg;
+  assign w_rdy_o        = a_rdy_reg;
+  assign a_o            = a_reg;
   //* =========================================================
 
 
@@ -184,7 +194,7 @@ module W_loader #(
     col_idx = col_idx_reg;
     row_idx = row_idx_reg;
 
-    if (w_vld_i && addr_reg < W_NUM_OF_COLS * W_NUM_OF_ROWS) begin
+    if (w_vld_i && addr_reg < W_NUM_OF_COLS * W_NUM_OF_ROWS + A_DEPTH) begin
       addr = addr_reg + 1;
     end
 
@@ -238,4 +248,29 @@ module W_loader #(
     end
   end
   //* =========================================================
+
+
+  //* ========================= [a] ===========================
+  assign a_idx = ((addr_reg > W_NUM_OF_COLS * W_NUM_OF_ROWS) && (a_idx_reg < A_DEPTH)) ? (a_idx_reg + 1) : a_idx_reg;
+  assign a_rdy = ((a_idx_reg == A_DEPTH) && w_rdy_reg) ? 1'b1: a_rdy_reg;
+
+  generate
+    for (i = 0; i < A_DEPTH; i = i + 1) begin
+      assign a[i] = (i == a_idx_reg) ? wgt_bram_dout : a_reg[i];
+    end
+  endgenerate
+
+  always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      a_idx_reg <= 'b0;
+      a_reg   <= 'b0;
+      a_rdy_reg <= 'b0;
+    end else begin
+      a_idx_reg <= a_idx;
+      a_reg   <= a;
+      a_rdy_reg <= a_rdy;
+    end
+  end
+  //* =========================================================
+
 endmodule

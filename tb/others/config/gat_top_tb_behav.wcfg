@@ -25,11 +25,11 @@
    <wave_markers>
       <marker time="23550000" label="" />
    </wave_markers>
-   <wvobject fp_name="/top_tb/dut/u_gat_layer1/clk" type="logic">
+   <wvobject fp_name="/top_tb/dut/u_gat_conv1/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/top_tb/dut/u_gat_layer1/rst_n" type="logic">
+   <wvobject fp_name="/top_tb/dut/u_gat_conv1/rst_n" type="logic">
       <obj_property name="ElementShortName">rst_n</obj_property>
       <obj_property name="ObjectShortName">rst_n</obj_property>
    </wvobject>
@@ -40,14 +40,14 @@
          <obj_property name="label">Feature Matrix H</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="ElementShortName">col_idx_i[4:0]</obj_property>
             <obj_property name="ObjectShortName">col_idx_i[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             <obj_property name="label">col_idx[2:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="ElementShortName">value_i[7:0]</obj_property>
             <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
@@ -58,19 +58,19 @@
             <obj_property name="label">node_info</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/ff_row_length" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/ff_row_length" type="array">
                <obj_property name="DisplayName">label</obj_property>
                <obj_property name="ElementShortName">ff_row_length[4:0]</obj_property>
                <obj_property name="ObjectShortName">ff_row_length[4:0]</obj_property>
                <obj_property name="label">row_length[2:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/ff_num_of_nodes" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/ff_num_of_nodes" type="array">
                <obj_property name="DisplayName">label</obj_property>
                <obj_property name="ElementShortName">ff_num_of_nodes[4:0]</obj_property>
                <obj_property name="ObjectShortName">ff_num_of_nodes[4:0]</obj_property>
                <obj_property name="label">num_of_nodes[2:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/ff_source_node_flag" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/ff_source_node_flag" type="logic">
                <obj_property name="DisplayName">label</obj_property>
                <obj_property name="ElementShortName">ff_source_node_flag</obj_property>
                <obj_property name="ObjectShortName">ff_source_node_flag</obj_property>
@@ -82,7 +82,7 @@
          <obj_property name="label">Weight Matrix W (col = 1)</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
             <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
          </wvobject>
@@ -91,7 +91,7 @@
          <obj_property name="label">Weight Matrix W (col = 2)</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[1].u_SP_PE /weight_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[1].u_SP_PE /weight_dout" type="array">
             <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
          </wvobject>
@@ -100,7 +100,7 @@
          <obj_property name="label">Weight Matrix W (col = 3)</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[2].u_SP_PE /weight_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[2].u_SP_PE /weight_dout" type="array">
             <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
          </wvobject>
@@ -109,7 +109,7 @@
          <obj_property name="label">Weight Matrix W (col = 4)</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[3].u_SP_PE /weight_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[3].u_SP_PE /weight_dout" type="array">
             <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
          </wvobject>
@@ -118,7 +118,7 @@
          <obj_property name="label">Weight Matrix W (col = 5)</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[5].u_SP_PE /weight_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[5].u_SP_PE /weight_dout" type="array">
             <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
          </wvobject>
@@ -127,7 +127,7 @@
          <obj_property name="label">Weight Matrix W (col = 6)</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[4].u_SP_PE /weight_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[4].u_SP_PE /weight_dout" type="array">
             <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
          </wvobject>
@@ -136,7 +136,7 @@
    <wvobject fp_name="group212" type="group">
       <obj_property name="label">Output</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
          <obj_property name="ElementShortName">pe_ready_o</obj_property>
          <obj_property name="ObjectShortName">pe_ready_o</obj_property>
          <obj_property name="CustomSignalColor">#00FF00</obj_property>
@@ -146,7 +146,7 @@
    <wvobject fp_name="group354" type="group">
       <obj_property name="label">SP-PE</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /pe_valid_i" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /pe_valid_i" type="logic">
          <obj_property name="ElementShortName">pe_valid_i</obj_property>
          <obj_property name="ObjectShortName">pe_valid_i</obj_property>
       </wvobject>
@@ -154,7 +154,7 @@
          <obj_property name="label">Feature H</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
             <obj_property name="ElementShortName">value_i[7:0]</obj_property>
             <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
          </wvobject>
@@ -163,15 +163,15 @@
          <obj_property name="label">Weight W</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
             <obj_property name="ElementShortName">col_idx_i[4:0]</obj_property>
             <obj_property name="ObjectShortName">col_idx_i[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /weight_addrb" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /weight_addrb" type="array">
             <obj_property name="ElementShortName">weight_addrb[4:0]</obj_property>
             <obj_property name="ObjectShortName">weight_addrb[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
             <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
          </wvobject>
@@ -180,15 +180,15 @@
          <obj_property name="label">Calculation</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
             <obj_property name="ElementShortName">value_i[7:0]</obj_property>
             <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /weight_dout" type="array">
             <obj_property name="ElementShortName">weight_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">weight_dout[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /result" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /result" type="array">
             <obj_property name="ElementShortName">result[11:0]</obj_property>
             <obj_property name="ObjectShortName">result[11:0]</obj_property>
          </wvobject>
@@ -197,11 +197,11 @@
          <obj_property name="label">Condition</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /row_length_i" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /row_length_i" type="array">
             <obj_property name="ElementShortName">row_length_i[4:0]</obj_property>
             <obj_property name="ObjectShortName">row_length_i[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /counter_reg" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /counter_reg" type="array">
             <obj_property name="ElementShortName">counter_reg[5:0]</obj_property>
             <obj_property name="ObjectShortName">counter_reg[5:0]</obj_property>
          </wvobject>
@@ -210,11 +210,11 @@
          <obj_property name="label">Output</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
             <obj_property name="ElementShortName">pe_ready_o</obj_property>
             <obj_property name="ObjectShortName">pe_ready_o</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /result_o" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /result_o" type="array">
             <obj_property name="ElementShortName">result_o[11:0]</obj_property>
             <obj_property name="ObjectShortName">result_o[11:0]</obj_property>
          </wvobject>
@@ -223,11 +223,11 @@
    <wvobject fp_name="group544" type="group">
       <obj_property name="label">W LOADER</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/w_valid_i" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/w_valid_i" type="logic">
          <obj_property name="ElementShortName">w_valid_i</obj_property>
          <obj_property name="ObjectShortName">w_valid_i</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/w_ready_o" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/w_ready_o" type="logic">
          <obj_property name="ElementShortName">w_ready_o</obj_property>
          <obj_property name="ObjectShortName">w_ready_o</obj_property>
       </wvobject>
@@ -235,52 +235,52 @@
          <obj_property name="label">Weight</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/Weight_bram_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/Weight_bram_dout" type="array">
             <obj_property name="ElementShortName">Weight_bram_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">Weight_bram_dout[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/Weight_bram_addrb" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/Weight_bram_addrb" type="array">
             <obj_property name="ElementShortName">Weight_bram_addrb[8:0]</obj_property>
             <obj_property name="ObjectShortName">Weight_bram_addrb[8:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/row_idx" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/row_idx" type="array">
          <obj_property name="ElementShortName">row_idx[4:0]</obj_property>
          <obj_property name="ObjectShortName">row_idx[4:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/col_idx" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/col_idx" type="array">
          <obj_property name="ElementShortName">col_idx[3:0]</obj_property>
          <obj_property name="ObjectShortName">col_idx[3:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/row_idx_reg" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/row_idx_reg" type="array">
          <obj_property name="ElementShortName">row_idx_reg[4:0]</obj_property>
          <obj_property name="ObjectShortName">row_idx_reg[4:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/col_idx_reg" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/col_idx_reg" type="array">
          <obj_property name="ElementShortName">col_idx_reg[3:0]</obj_property>
          <obj_property name="ObjectShortName">col_idx_reg[3:0]</obj_property>
       </wvobject>
       <wvobject fp_name="group197" type="group">
          <obj_property name="label">Weight Memory</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_bram /memory" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_bram /memory" type="array">
             <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
             <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_bram /memory" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_bram /memory" type="array">
             <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
             <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_bram /memory" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/\genblk1[0].u_mult_weight_bram /memory" type="array">
             <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
             <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_bram /memory" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/\genblk1[1].u_mult_weight_bram /memory" type="array">
             <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
             <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_W_loader/\genblk1[3].u_mult_weight_bram /memory" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_W_loader/\genblk1[3].u_mult_weight_bram /memory" type="array">
             <obj_property name="ElementShortName">memory[0:20][7:0]</obj_property>
             <obj_property name="ObjectShortName">memory[0:20][7:0]</obj_property>
          </wvobject>
@@ -289,11 +289,11 @@
    <wvobject fp_name="group59" type="group">
       <obj_property name="label">A LOADER</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_a_loader/a_valid_i" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_a_loader/a_valid_i" type="logic">
          <obj_property name="ElementShortName">a_valid_i</obj_property>
          <obj_property name="ObjectShortName">a_valid_i</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_a_loader/a_ready_o" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_a_loader/a_ready_o" type="logic">
          <obj_property name="ElementShortName">a_ready_o</obj_property>
          <obj_property name="ObjectShortName">a_ready_o</obj_property>
       </wvobject>
@@ -301,28 +301,28 @@
          <obj_property name="label">a</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_a_loader/a_bram_addrb" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_a_loader/a_bram_addrb" type="array">
             <obj_property name="ElementShortName">a_bram_addrb[4:0]</obj_property>
             <obj_property name="ObjectShortName">a_bram_addrb[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_a_loader/a_bram_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_a_loader/a_bram_dout" type="array">
             <obj_property name="ElementShortName">a_bram_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">a_bram_dout[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_a_loader/idx_reg" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_a_loader/idx_reg" type="array">
             <obj_property name="ElementShortName">idx_reg[4:0]</obj_property>
             <obj_property name="ObjectShortName">idx_reg[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_a_loader/a_bram_enb" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_a_loader/a_bram_enb" type="logic">
             <obj_property name="ElementShortName">a_bram_enb</obj_property>
             <obj_property name="ObjectShortName">a_bram_enb</obj_property>
          </wvobject>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_a_loader/a" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_a_loader/a" type="array">
          <obj_property name="ElementShortName">a[31:0][7:0]</obj_property>
          <obj_property name="ObjectShortName">a[31:0][7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_scheduler/u_a_loader/a_o" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_scheduler/u_a_loader/a_o" type="array">
          <obj_property name="ElementShortName">a_o[31:0][7:0]</obj_property>
          <obj_property name="ObjectShortName">a_o[31:0][7:0]</obj_property>
       </wvobject>
@@ -330,18 +330,18 @@
    <wvobject fp_name="group75" type="group">
       <obj_property name="label">SPMM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/spmm_valid_i" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/spmm_valid_i" type="logic">
          <obj_property name="ElementShortName">spmm_valid_i</obj_property>
          <obj_property name="ObjectShortName">spmm_valid_i</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/spmm_valid_q1" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/spmm_valid_q1" type="logic">
          <obj_property name="ElementShortName">spmm_valid_q1</obj_property>
          <obj_property name="ObjectShortName">spmm_valid_q1</obj_property>
       </wvobject>
       <wvobject fp_name="group94" type="group">
          <obj_property name="label">col_idx</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/col_idx" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/col_idx" type="array">
             <obj_property name="ElementShortName">col_idx[4:0]</obj_property>
             <obj_property name="ObjectShortName">col_idx[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
@@ -351,7 +351,7 @@
          <obj_property name="label">value</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="CellHeight">37</obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/value" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/value" type="array">
             <obj_property name="ElementShortName">value[7:0]</obj_property>
             <obj_property name="ObjectShortName">value[7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
@@ -361,74 +361,74 @@
          <obj_property name="label">node_info</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/num_node_bram_din" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/num_node_bram_din" type="array">
             <obj_property name="ElementShortName">num_node_bram_din[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_din[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/num_node_bram_ena" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/num_node_bram_ena" type="logic">
             <obj_property name="ElementShortName">num_node_bram_ena</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_ena</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/num_node_bram_addra" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/num_node_bram_addra" type="array">
             <obj_property name="ElementShortName">num_node_bram_addra[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_addra[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/row_length" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/row_length" type="array">
             <obj_property name="ElementShortName">row_length[4:0]</obj_property>
             <obj_property name="ObjectShortName">row_length[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/num_of_nodes" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/num_of_nodes" type="array">
             <obj_property name="ElementShortName">num_of_nodes[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_of_nodes[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/source_node_flag" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/source_node_flag" type="logic">
             <obj_property name="ElementShortName">source_node_flag</obj_property>
             <obj_property name="ObjectShortName">source_node_flag</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_mem_ctrl/u_num_node_bram/din" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_mem_ctrl/u_num_node_bram/din" type="array">
             <obj_property name="ElementShortName">din[4:0]</obj_property>
             <obj_property name="ObjectShortName">din[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_mem_ctrl/u_num_node_bram/addra" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_mem_ctrl/u_num_node_bram/addra" type="array">
             <obj_property name="ElementShortName">addra[4:0]</obj_property>
             <obj_property name="ObjectShortName">addra[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_mem_ctrl/u_num_node_bram/ena" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_mem_ctrl/u_num_node_bram/ena" type="logic">
             <obj_property name="ElementShortName">ena</obj_property>
             <obj_property name="ObjectShortName">ena</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/node_info_addr_reg" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/node_info_addr_reg" type="array">
             <obj_property name="ElementShortName">node_info_addr_reg[7:0]</obj_property>
             <obj_property name="ObjectShortName">node_info_addr_reg[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/num_of_nodes" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/num_of_nodes" type="array">
             <obj_property name="ElementShortName">num_of_nodes[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_of_nodes[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/addr_en" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/addr_en" type="logic">
             <obj_property name="ElementShortName">addr_en</obj_property>
             <obj_property name="ObjectShortName">addr_en</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/num_node_bram_din" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/num_node_bram_din" type="array">
             <obj_property name="ElementShortName">num_node_bram_din[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_din[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/num_node_bram_ena" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/num_node_bram_ena" type="logic">
             <obj_property name="ElementShortName">num_node_bram_ena</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_ena</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/num_node_bram_addra" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/num_node_bram_addra" type="array">
             <obj_property name="ElementShortName">num_node_bram_addra[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_addra[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/cpt_nf_addr" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/cpt_nf_addr" type="array">
             <obj_property name="ElementShortName">cpt_nf_addr[7:0]</obj_property>
             <obj_property name="ObjectShortName">cpt_nf_addr[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/cpt_nf_addr_reg" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/cpt_nf_addr_reg" type="array">
             <obj_property name="ElementShortName">cpt_nf_addr_reg[7:0]</obj_property>
             <obj_property name="ObjectShortName">cpt_nf_addr_reg[7:0]</obj_property>
          </wvobject>
@@ -436,35 +436,35 @@
             <obj_property name="label">Check</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/H_node_info_bram_addrb" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/H_node_info_bram_addrb" type="array">
                <obj_property name="ElementShortName">H_node_info_bram_addrb[7:0]</obj_property>
                <obj_property name="ObjectShortName">H_node_info_bram_addrb[7:0]</obj_property>
                <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/row_counter_reg" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/row_counter_reg" type="array">
                <obj_property name="ElementShortName">row_counter_reg[4:0]</obj_property>
                <obj_property name="ObjectShortName">row_counter_reg[4:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/row_length" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/row_length" type="array">
                <obj_property name="ElementShortName">row_length[4:0]</obj_property>
                <obj_property name="ObjectShortName">row_length[4:0]</obj_property>
                <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/row_length_nxt" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/row_length_nxt" type="array">
                <obj_property name="ElementShortName">row_length_nxt[4:0]</obj_property>
                <obj_property name="ObjectShortName">row_length_nxt[4:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/ff_wr_valid" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/ff_wr_valid" type="logic">
                <obj_property name="ElementShortName">ff_wr_valid</obj_property>
                <obj_property name="ObjectShortName">ff_wr_valid</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/ff_rd_valid" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/ff_rd_valid" type="logic">
                <obj_property name="ElementShortName">ff_rd_valid</obj_property>
                <obj_property name="ObjectShortName">ff_rd_valid</obj_property>
             </wvobject>
          </wvobject>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/ff_num_of_nodes" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/ff_num_of_nodes" type="array">
          <obj_property name="ElementShortName">ff_num_of_nodes[4:0]</obj_property>
          <obj_property name="ObjectShortName">ff_num_of_nodes[4:0]</obj_property>
       </wvobject>
@@ -476,29 +476,29 @@
             <obj_property name="label">SP-PE 1</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /row_length_i" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /row_length_i" type="array">
                <obj_property name="ElementShortName">row_length_i[4:0]</obj_property>
                <obj_property name="ObjectShortName">row_length_i[4:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /pe_valid_i" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /pe_valid_i" type="logic">
                <obj_property name="ElementShortName">pe_valid_i</obj_property>
                <obj_property name="ObjectShortName">pe_valid_i</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
                <obj_property name="ElementShortName">pe_ready_o</obj_property>
                <obj_property name="ObjectShortName">pe_ready_o</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
                <obj_property name="ElementShortName">value_i[7:0]</obj_property>
                <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
                <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /col_idx_i" type="array">
                <obj_property name="ElementShortName">col_idx_i[4:0]</obj_property>
                <obj_property name="ObjectShortName">col_idx_i[4:0]</obj_property>
                <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /counter_reg" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /counter_reg" type="array">
                <obj_property name="ElementShortName">counter_reg[5:0]</obj_property>
                <obj_property name="ObjectShortName">counter_reg[5:0]</obj_property>
             </wvobject>
@@ -506,17 +506,17 @@
                <obj_property name="label">Calc</obj_property>
                <obj_property name="DisplayName">label</obj_property>
                <obj_property name="isExpanded"></obj_property>
-               <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
+               <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /value_i" type="array">
                   <obj_property name="ElementShortName">value_i[7:0]</obj_property>
                   <obj_property name="ObjectShortName">value_i[7:0]</obj_property>
                   <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
                </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /products" type="array">
+               <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /products" type="array">
                   <obj_property name="ElementShortName">products[11:0]</obj_property>
                   <obj_property name="ObjectShortName">products[11:0]</obj_property>
                   <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
                </wvobject>
-               <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /result" type="array">
+               <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /result" type="array">
                   <obj_property name="ElementShortName">result[11:0]</obj_property>
                   <obj_property name="ObjectShortName">result[11:0]</obj_property>
                   <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
@@ -524,7 +524,7 @@
             </wvobject>
          </wvobject>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/result" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/result" type="array">
          <obj_property name="ElementShortName">result[15:0][11:0]</obj_property>
          <obj_property name="ObjectShortName">result[15:0][11:0]</obj_property>
       </wvobject>
@@ -532,18 +532,18 @@
          <obj_property name="label">Result</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/\genblk1[0].u_SP_PE /pe_ready_o" type="logic">
             <obj_property name="ElementShortName">pe_ready_o</obj_property>
             <obj_property name="ObjectShortName">pe_ready_o</obj_property>
             <obj_property name="CustomSignalColor">#00FF00</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/WH_data_i.num_of_nodes" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/WH_data_i.num_of_nodes" type="array">
             <obj_property name="ElementShortName">.num_of_nodes[4:0]</obj_property>
             <obj_property name="ObjectShortName">.num_of_nodes[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/WH_data_i.source_node_flag" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/WH_data_i.source_node_flag" type="logic">
             <obj_property name="ElementShortName">.source_node_flag</obj_property>
             <obj_property name="ObjectShortName">.source_node_flag</obj_property>
          </wvobject>
@@ -552,7 +552,7 @@
          <obj_property name="label">WH</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_SPMM/WH_data_i" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_SPMM/WH_data_i" type="array">
             <obj_property name="ElementShortName">WH_data_i</obj_property>
             <obj_property name="ObjectShortName">WH_data_i</obj_property>
             <obj_property name="isExpanded"></obj_property>
@@ -566,19 +566,19 @@
          <obj_property name="label">Input</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/dmvm_valid_i" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/dmvm_valid_i" type="logic">
             <obj_property name="ElementShortName">dmvm_valid_i</obj_property>
             <obj_property name="ObjectShortName">dmvm_valid_i</obj_property>
          </wvobject>
          <wvobject fp_name="group207" type="group">
             <obj_property name="label">Attention Weight</obj_property>
             <obj_property name="DisplayName">label</obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/a_source" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/a_source" type="array">
                <obj_property name="ElementShortName">a_source[15:0][7:0]</obj_property>
                <obj_property name="ObjectShortName">a_source[15:0][7:0]</obj_property>
                <obj_property name="isExpanded"></obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/a_neighbor" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/a_neighbor" type="array">
                <obj_property name="ElementShortName">a_neighbor[15:0][7:0]</obj_property>
                <obj_property name="ObjectShortName">a_neighbor[15:0][7:0]</obj_property>
             </wvobject>
@@ -587,21 +587,21 @@
             <obj_property name="label">WH</obj_property>
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/WH_arr" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/WH_arr" type="array">
                <obj_property name="ElementShortName">WH_arr[15:0][11:0]</obj_property>
                <obj_property name="ObjectShortName">WH_arr[15:0][11:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/dmvm_ready_o" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/dmvm_ready_o" type="logic">
                <obj_property name="ElementShortName">dmvm_ready_o</obj_property>
                <obj_property name="ObjectShortName">dmvm_ready_o</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/dmvm_ready_o" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/dmvm_ready_o" type="logic">
                <obj_property name="ElementShortName">dmvm_ready_o</obj_property>
                <obj_property name="ObjectShortName">dmvm_ready_o</obj_property>
             </wvobject>
          </wvobject>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/pipe_product" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/pipe_product" type="array">
          <obj_property name="ElementShortName">pipe_product[4:0][15:0][19:0]</obj_property>
          <obj_property name="ObjectShortName">pipe_product[4:0][15:0][19:0]</obj_property>
       </wvobject>
@@ -609,36 +609,36 @@
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/dmvm_valid_i" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/dmvm_valid_i" type="logic">
          <obj_property name="ElementShortName">dmvm_valid_i</obj_property>
          <obj_property name="ObjectShortName">dmvm_valid_i</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/pipe_product_reg[5][0]" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/pipe_product_reg[5][0]" type="array">
          <obj_property name="ElementShortName">[0][19:0]</obj_property>
          <obj_property name="ObjectShortName">[0][19:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/pipe_product_reg" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/pipe_product_reg" type="array">
          <obj_property name="ElementShortName">pipe_product_reg[5:0][15:0][19:0]</obj_property>
          <obj_property name="ObjectShortName">pipe_product_reg[5:0][15:0][19:0]</obj_property>
          <obj_property name="isExpanded"></obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/pipe_src_flag" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/pipe_src_flag" type="array">
          <obj_property name="ElementShortName">pipe_src_flag[4:0]</obj_property>
          <obj_property name="ObjectShortName">pipe_src_flag[4:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/pipe_src_flag_reg" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/pipe_src_flag_reg" type="array">
          <obj_property name="ElementShortName">pipe_src_flag_reg[5:0]</obj_property>
          <obj_property name="ObjectShortName">pipe_src_flag_reg[5:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/source_dmvm" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/source_dmvm" type="array">
          <obj_property name="ElementShortName">source_dmvm[19:0]</obj_property>
          <obj_property name="ObjectShortName">source_dmvm[19:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/pipe_coef" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/pipe_coef" type="array">
          <obj_property name="ElementShortName">pipe_coef[7:0]</obj_property>
          <obj_property name="ObjectShortName">pipe_coef[7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_DMVM/dmvm_ready_o" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_DMVM/dmvm_ready_o" type="logic">
          <obj_property name="ElementShortName">dmvm_ready_o</obj_property>
          <obj_property name="ObjectShortName">dmvm_ready_o</obj_property>
       </wvobject>
@@ -650,61 +650,61 @@
          <obj_property name="label">Input</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/sm_valid_i" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/sm_valid_i" type="logic">
             <obj_property name="ElementShortName">sm_valid_i</obj_property>
             <obj_property name="ObjectShortName">sm_valid_i</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/coef_ff_rd_vld" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/coef_ff_rd_vld" type="logic">
             <obj_property name="ElementShortName">coef_ff_rd_vld</obj_property>
             <obj_property name="ObjectShortName">coef_ff_rd_vld</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/num_node_bram_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/num_node_bram_dout" type="array">
             <obj_property name="ElementShortName">num_node_bram_dout[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_dout[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/num_node_bram_addrb" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/num_node_bram_addrb" type="array">
             <obj_property name="ElementShortName">num_node_bram_addrb[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_addrb[4:0]</obj_property>
          </wvobject>
          <wvobject fp_name="group324" type="group">
             <obj_property name="label">num_of_nodes</obj_property>
             <obj_property name="DisplayName">label</obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/num_node_bram_addrb" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/num_node_bram_addrb" type="array">
                <obj_property name="ElementShortName">num_node_bram_addrb[4:0]</obj_property>
                <obj_property name="ObjectShortName">num_node_bram_addrb[4:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/num_node_bram_dout" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/num_node_bram_dout" type="array">
                <obj_property name="ElementShortName">num_node_bram_dout[4:0]</obj_property>
                <obj_property name="ObjectShortName">num_node_bram_dout[4:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/addr" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/addr" type="array">
                <obj_property name="ElementShortName">addr[4:0]</obj_property>
                <obj_property name="ObjectShortName">addr[4:0]</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/sm_valid_i" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/sm_valid_i" type="logic">
                <obj_property name="ElementShortName">sm_valid_i</obj_property>
                <obj_property name="ObjectShortName">sm_valid_i</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/subgraph_done" type="logic">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/subgraph_done" type="logic">
                <obj_property name="ElementShortName">subgraph_done</obj_property>
                <obj_property name="ObjectShortName">subgraph_done</obj_property>
             </wvobject>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/num_of_nodes" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/num_of_nodes" type="array">
             <obj_property name="ElementShortName">num_of_nodes[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_of_nodes[4:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/coef_ff_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/coef_ff_dout" type="array">
             <obj_property name="ElementShortName">coef_ff_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">coef_ff_dout[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/coef_ff_empty" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/coef_ff_empty" type="logic">
             <obj_property name="ElementShortName">coef_ff_empty</obj_property>
             <obj_property name="ObjectShortName">coef_ff_empty</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/coef_ff_rd_vld" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/coef_ff_rd_vld" type="logic">
             <obj_property name="ElementShortName">coef_ff_rd_vld</obj_property>
             <obj_property name="ObjectShortName">coef_ff_rd_vld</obj_property>
          </wvobject>
@@ -713,31 +713,31 @@
          <obj_property name="label">Dividend</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_mem_ctrl/u_coef_ff/din" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_mem_ctrl/u_coef_ff/din" type="array">
             <obj_property name="ElementShortName">din[7:0]</obj_property>
             <obj_property name="ObjectShortName">din[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/coef_ff_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/coef_ff_dout" type="array">
             <obj_property name="ElementShortName">coef_ff_dout[7:0]</obj_property>
             <obj_property name="ObjectShortName">coef_ff_dout[7:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/coef_ff_empty" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/coef_ff_empty" type="logic">
             <obj_property name="ElementShortName">coef_ff_empty</obj_property>
             <obj_property name="ObjectShortName">coef_ff_empty</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/coef_ff_rd_vld" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/coef_ff_rd_vld" type="logic">
             <obj_property name="ElementShortName">coef_ff_rd_vld</obj_property>
             <obj_property name="ObjectShortName">coef_ff_rd_vld</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/exp" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/exp" type="array">
             <obj_property name="ElementShortName">exp[102:0]</obj_property>
             <obj_property name="ObjectShortName">exp[102:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/dividend_ff_din" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/dividend_ff_din" type="array">
             <obj_property name="ElementShortName">dividend_ff_din[102:0]</obj_property>
             <obj_property name="ObjectShortName">dividend_ff_din[102:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/dividend_ff_wr_vld" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/dividend_ff_wr_vld" type="logic">
             <obj_property name="ElementShortName">dividend_ff_wr_vld</obj_property>
             <obj_property name="ObjectShortName">dividend_ff_wr_vld</obj_property>
          </wvobject>
@@ -746,34 +746,34 @@
          <obj_property name="label">Divisor</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/sum_reg" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/sum_reg" type="array">
             <obj_property name="ElementShortName">sum_reg[102:0]</obj_property>
             <obj_property name="ObjectShortName">sum_reg[102:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/divisor_ff_din" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/divisor_ff_din" type="array">
             <obj_property name="ElementShortName">divisor_ff_din</obj_property>
             <obj_property name="ObjectShortName">divisor_ff_din</obj_property>
             <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             <obj_property name="isExpanded"></obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/divisor_ff_wr_vld" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/divisor_ff_wr_vld" type="logic">
             <obj_property name="ElementShortName">divisor_ff_wr_vld</obj_property>
             <obj_property name="ObjectShortName">divisor_ff_wr_vld</obj_property>
          </wvobject>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/divisor_ff_dout" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/divisor_ff_dout" type="array">
          <obj_property name="ElementShortName">divisor_ff_dout</obj_property>
          <obj_property name="ObjectShortName">divisor_ff_dout</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/divisor_ff_rd_vld" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/divisor_ff_rd_vld" type="logic">
          <obj_property name="ElementShortName">divisor_ff_rd_vld</obj_property>
          <obj_property name="ObjectShortName">divisor_ff_rd_vld</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/dividend_ff_dout" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/dividend_ff_dout" type="array">
          <obj_property name="ElementShortName">dividend_ff_dout[102:0]</obj_property>
          <obj_property name="ObjectShortName">dividend_ff_dout[102:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/dividend_ff_rd_vld" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/dividend_ff_rd_vld" type="logic">
          <obj_property name="ElementShortName">dividend_ff_rd_vld</obj_property>
          <obj_property name="ObjectShortName">dividend_ff_rd_vld</obj_property>
       </wvobject>
@@ -781,11 +781,11 @@
          <obj_property name="label">Output</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/sm_ready_o" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/sm_ready_o" type="logic">
             <obj_property name="ElementShortName">sm_ready_o</obj_property>
             <obj_property name="ObjectShortName">sm_ready_o</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/alpha_ff_din" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/alpha_ff_din" type="array">
             <obj_property name="ElementShortName">alpha_ff_din[31:0]</obj_property>
             <obj_property name="ObjectShortName">alpha_ff_din[31:0]</obj_property>
             <obj_property name="Radix">REALRADIX</obj_property>
@@ -793,15 +793,15 @@
             <obj_property name="radix_fractionWidth">31</obj_property>
             <obj_property name="radix_otherWidth">0</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/alpha_ff_full" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/alpha_ff_full" type="logic">
             <obj_property name="ElementShortName">alpha_ff_full</obj_property>
             <obj_property name="ObjectShortName">alpha_ff_full</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/alpha_ff_wr_vld" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/alpha_ff_wr_vld" type="logic">
             <obj_property name="ElementShortName">alpha_ff_wr_vld</obj_property>
             <obj_property name="ObjectShortName">alpha_ff_wr_vld</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_softmax/num_node_bram_addrb" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_softmax/num_node_bram_addrb" type="array">
             <obj_property name="ElementShortName">num_node_bram_addrb[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_node_bram_addrb[4:0]</obj_property>
          </wvobject>
@@ -839,7 +839,7 @@
       <obj_property name="label">Aggregator</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/aggr_valid_i" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/aggr_valid_i" type="logic">
          <obj_property name="ElementShortName">aggr_valid_i</obj_property>
          <obj_property name="ObjectShortName">aggr_valid_i</obj_property>
       </wvobject>
@@ -847,23 +847,23 @@
          <obj_property name="label">WH</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_bram_addrb" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_bram_addrb" type="array">
             <obj_property name="ElementShortName">WH_bram_addrb[9:0]</obj_property>
             <obj_property name="ObjectShortName">WH_bram_addrb[9:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_bram_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_bram_dout" type="array">
             <obj_property name="ElementShortName">WH_bram_dout[197:0]</obj_property>
             <obj_property name="ObjectShortName">WH_bram_dout[197:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout" type="array">
             <obj_property name="ElementShortName">WH_dout[15:0][11:0]</obj_property>
             <obj_property name="ObjectShortName">WH_dout[15:0][11:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_num_of_nodes" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_num_of_nodes" type="array">
             <obj_property name="ElementShortName">WH_num_of_nodes[4:0]</obj_property>
             <obj_property name="ObjectShortName">WH_num_of_nodes[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/source_node_flag" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/source_node_flag" type="logic">
             <obj_property name="ElementShortName">source_node_flag</obj_property>
             <obj_property name="ObjectShortName">source_node_flag</obj_property>
          </wvobject>
@@ -872,11 +872,11 @@
          <obj_property name="label">Alpha</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/alpha_ff_rd_vld" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/alpha_ff_rd_vld" type="logic">
             <obj_property name="ElementShortName">alpha_ff_rd_vld</obj_property>
             <obj_property name="ObjectShortName">alpha_ff_rd_vld</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/alpha_ff_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/alpha_ff_dout" type="array">
             <obj_property name="ElementShortName">alpha_ff_dout[31:0]</obj_property>
             <obj_property name="ObjectShortName">alpha_ff_dout[31:0]</obj_property>
             <obj_property name="Radix">REALRADIX</obj_property>
@@ -889,11 +889,11 @@
          <obj_property name="label"> Multiplication</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/\genblk1[0].u_mul_pipe /valid" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/\genblk1[0].u_mul_pipe /valid" type="logic">
             <obj_property name="ElementShortName">valid</obj_property>
             <obj_property name="ObjectShortName">valid</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/alpha" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/alpha" type="array">
             <obj_property name="ElementShortName">alpha[31:0]</obj_property>
             <obj_property name="ObjectShortName">alpha[31:0]</obj_property>
             <obj_property name="Radix">REALRADIX</obj_property>
@@ -901,102 +901,102 @@
             <obj_property name="radix_fractionWidth">31</obj_property>
             <obj_property name="radix_otherWidth">0</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout" type="array">
             <obj_property name="ElementShortName">WH_dout[15:0][11:0]</obj_property>
             <obj_property name="ObjectShortName">WH_dout[15:0][11:0]</obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[15]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[15]" type="array">
                <obj_property name="ElementShortName">[15][11:0]</obj_property>
                <obj_property name="ObjectShortName">[15][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[14]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[14]" type="array">
                <obj_property name="ElementShortName">[14][11:0]</obj_property>
                <obj_property name="ObjectShortName">[14][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[13]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[13]" type="array">
                <obj_property name="ElementShortName">[13][11:0]</obj_property>
                <obj_property name="ObjectShortName">[13][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[12]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[12]" type="array">
                <obj_property name="ElementShortName">[12][11:0]</obj_property>
                <obj_property name="ObjectShortName">[12][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[11]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[11]" type="array">
                <obj_property name="ElementShortName">[11][11:0]</obj_property>
                <obj_property name="ObjectShortName">[11][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[10]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[10]" type="array">
                <obj_property name="ElementShortName">[10][11:0]</obj_property>
                <obj_property name="ObjectShortName">[10][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[9]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[9]" type="array">
                <obj_property name="ElementShortName">[9][11:0]</obj_property>
                <obj_property name="ObjectShortName">[9][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[8]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[8]" type="array">
                <obj_property name="ElementShortName">[8][11:0]</obj_property>
                <obj_property name="ObjectShortName">[8][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[7]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[7]" type="array">
                <obj_property name="ElementShortName">[7][11:0]</obj_property>
                <obj_property name="ObjectShortName">[7][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[6]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[6]" type="array">
                <obj_property name="ElementShortName">[6][11:0]</obj_property>
                <obj_property name="ObjectShortName">[6][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[5]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[5]" type="array">
                <obj_property name="ElementShortName">[5][11:0]</obj_property>
                <obj_property name="ObjectShortName">[5][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[4]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[4]" type="array">
                <obj_property name="ElementShortName">[4][11:0]</obj_property>
                <obj_property name="ObjectShortName">[4][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[3]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[3]" type="array">
                <obj_property name="ElementShortName">[3][11:0]</obj_property>
                <obj_property name="ObjectShortName">[3][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[2]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[2]" type="array">
                <obj_property name="ElementShortName">[2][11:0]</obj_property>
                <obj_property name="ObjectShortName">[2][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[1]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[1]" type="array">
                <obj_property name="ElementShortName">[1][11:0]</obj_property>
                <obj_property name="ObjectShortName">[1][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/WH_dout[0]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/WH_dout[0]" type="array">
                <obj_property name="ElementShortName">[0][11:0]</obj_property>
                <obj_property name="ObjectShortName">[0][11:0]</obj_property>
                <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
             </wvobject>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/\genblk1[0].u_mul_pipe /ready" type="logic">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/\genblk1[0].u_mul_pipe /ready" type="logic">
             <obj_property name="ElementShortName">ready</obj_property>
             <obj_property name="ObjectShortName">ready</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product" type="array">
             <obj_property name="ElementShortName">product[15:0][43:0]</obj_property>
             <obj_property name="ObjectShortName">product[15:0][43:0]</obj_property>
             <obj_property name="Radix">REALRADIX</obj_property>
             <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
             <obj_property name="radix_fractionWidth">32</obj_property>
             <obj_property name="radix_otherWidth">0</obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[15]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[15]" type="array">
                <obj_property name="ElementShortName">[15][43:0]</obj_property>
                <obj_property name="ObjectShortName">[15][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1004,7 +1004,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[14]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[14]" type="array">
                <obj_property name="ElementShortName">[14][43:0]</obj_property>
                <obj_property name="ObjectShortName">[14][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1012,7 +1012,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[13]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[13]" type="array">
                <obj_property name="ElementShortName">[13][43:0]</obj_property>
                <obj_property name="ObjectShortName">[13][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1020,7 +1020,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[12]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[12]" type="array">
                <obj_property name="ElementShortName">[12][43:0]</obj_property>
                <obj_property name="ObjectShortName">[12][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1028,7 +1028,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[11]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[11]" type="array">
                <obj_property name="ElementShortName">[11][43:0]</obj_property>
                <obj_property name="ObjectShortName">[11][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1036,7 +1036,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[10]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[10]" type="array">
                <obj_property name="ElementShortName">[10][43:0]</obj_property>
                <obj_property name="ObjectShortName">[10][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1044,7 +1044,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[9]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[9]" type="array">
                <obj_property name="ElementShortName">[9][43:0]</obj_property>
                <obj_property name="ObjectShortName">[9][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1052,7 +1052,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[8]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[8]" type="array">
                <obj_property name="ElementShortName">[8][43:0]</obj_property>
                <obj_property name="ObjectShortName">[8][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1060,7 +1060,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[7]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[7]" type="array">
                <obj_property name="ElementShortName">[7][43:0]</obj_property>
                <obj_property name="ObjectShortName">[7][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1068,7 +1068,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[6]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[6]" type="array">
                <obj_property name="ElementShortName">[6][43:0]</obj_property>
                <obj_property name="ObjectShortName">[6][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1076,7 +1076,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[5]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[5]" type="array">
                <obj_property name="ElementShortName">[5][43:0]</obj_property>
                <obj_property name="ObjectShortName">[5][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1084,7 +1084,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[4]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[4]" type="array">
                <obj_property name="ElementShortName">[4][43:0]</obj_property>
                <obj_property name="ObjectShortName">[4][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1092,7 +1092,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[3]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[3]" type="array">
                <obj_property name="ElementShortName">[3][43:0]</obj_property>
                <obj_property name="ObjectShortName">[3][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1100,7 +1100,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[2]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[2]" type="array">
                <obj_property name="ElementShortName">[2][43:0]</obj_property>
                <obj_property name="ObjectShortName">[2][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1108,7 +1108,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[1]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[1]" type="array">
                <obj_property name="ElementShortName">[1][43:0]</obj_property>
                <obj_property name="ObjectShortName">[1][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1116,7 +1116,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/product[0]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/product[0]" type="array">
                <obj_property name="ElementShortName">[0][43:0]</obj_property>
                <obj_property name="ObjectShortName">[0][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1130,15 +1130,15 @@
          <obj_property name="label">Result</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/num_of_nodes_reg" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/num_of_nodes_reg" type="array">
             <obj_property name="ElementShortName">num_of_nodes_reg[4:0]</obj_property>
             <obj_property name="ObjectShortName">num_of_nodes_reg[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/counter_reg" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/counter_reg" type="array">
             <obj_property name="ElementShortName">counter_reg[4:0]</obj_property>
             <obj_property name="ObjectShortName">counter_reg[4:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg" type="array">
             <obj_property name="ElementShortName">result_reg[15:0][43:0]</obj_property>
             <obj_property name="ObjectShortName">result_reg[15:0][43:0]</obj_property>
             <obj_property name="Radix">REALRADIX</obj_property>
@@ -1146,7 +1146,7 @@
             <obj_property name="radix_fractionWidth">32</obj_property>
             <obj_property name="radix_otherWidth">0</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[15]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[15]" type="array">
                <obj_property name="ElementShortName">[15][43:0]</obj_property>
                <obj_property name="ObjectShortName">[15][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1154,7 +1154,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[14]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[14]" type="array">
                <obj_property name="ElementShortName">[14][43:0]</obj_property>
                <obj_property name="ObjectShortName">[14][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1162,7 +1162,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[13]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[13]" type="array">
                <obj_property name="ElementShortName">[13][43:0]</obj_property>
                <obj_property name="ObjectShortName">[13][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1170,7 +1170,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[12]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[12]" type="array">
                <obj_property name="ElementShortName">[12][43:0]</obj_property>
                <obj_property name="ObjectShortName">[12][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1178,7 +1178,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[11]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[11]" type="array">
                <obj_property name="ElementShortName">[11][43:0]</obj_property>
                <obj_property name="ObjectShortName">[11][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1186,7 +1186,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[10]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[10]" type="array">
                <obj_property name="ElementShortName">[10][43:0]</obj_property>
                <obj_property name="ObjectShortName">[10][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1194,7 +1194,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[9]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[9]" type="array">
                <obj_property name="ElementShortName">[9][43:0]</obj_property>
                <obj_property name="ObjectShortName">[9][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1202,7 +1202,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[8]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[8]" type="array">
                <obj_property name="ElementShortName">[8][43:0]</obj_property>
                <obj_property name="ObjectShortName">[8][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1210,7 +1210,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[7]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[7]" type="array">
                <obj_property name="ElementShortName">[7][43:0]</obj_property>
                <obj_property name="ObjectShortName">[7][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1218,7 +1218,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[6]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[6]" type="array">
                <obj_property name="ElementShortName">[6][43:0]</obj_property>
                <obj_property name="ObjectShortName">[6][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1226,7 +1226,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[5]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[5]" type="array">
                <obj_property name="ElementShortName">[5][43:0]</obj_property>
                <obj_property name="ObjectShortName">[5][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1234,7 +1234,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[4]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[4]" type="array">
                <obj_property name="ElementShortName">[4][43:0]</obj_property>
                <obj_property name="ObjectShortName">[4][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1242,7 +1242,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[3]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[3]" type="array">
                <obj_property name="ElementShortName">[3][43:0]</obj_property>
                <obj_property name="ObjectShortName">[3][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1250,7 +1250,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[2]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[2]" type="array">
                <obj_property name="ElementShortName">[2][43:0]</obj_property>
                <obj_property name="ObjectShortName">[2][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1258,7 +1258,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[1]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[1]" type="array">
                <obj_property name="ElementShortName">[1][43:0]</obj_property>
                <obj_property name="ObjectShortName">[1][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1266,7 +1266,7 @@
                <obj_property name="radix_fractionWidth">32</obj_property>
                <obj_property name="radix_otherWidth">0</obj_property>
             </wvobject>
-            <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/result_reg[0]" type="array">
+            <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/result_reg[0]" type="array">
                <obj_property name="ElementShortName">[0][43:0]</obj_property>
                <obj_property name="ObjectShortName">[0][43:0]</obj_property>
                <obj_property name="Radix">REALRADIX</obj_property>
@@ -1276,112 +1276,112 @@
             </wvobject>
          </wvobject>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature" type="array">
          <obj_property name="ElementShortName">new_feature[15:0][7:0]</obj_property>
          <obj_property name="ObjectShortName">new_feature[15:0][7:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[15]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[15]" type="array">
             <obj_property name="ElementShortName">[15][7:0]</obj_property>
             <obj_property name="ObjectShortName">[15][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[14]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[14]" type="array">
             <obj_property name="ElementShortName">[14][7:0]</obj_property>
             <obj_property name="ObjectShortName">[14][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[13]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[13]" type="array">
             <obj_property name="ElementShortName">[13][7:0]</obj_property>
             <obj_property name="ObjectShortName">[13][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[12]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[12]" type="array">
             <obj_property name="ElementShortName">[12][7:0]</obj_property>
             <obj_property name="ObjectShortName">[12][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[11]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[11]" type="array">
             <obj_property name="ElementShortName">[11][7:0]</obj_property>
             <obj_property name="ObjectShortName">[11][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[10]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[10]" type="array">
             <obj_property name="ElementShortName">[10][7:0]</obj_property>
             <obj_property name="ObjectShortName">[10][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[9]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[9]" type="array">
             <obj_property name="ElementShortName">[9][7:0]</obj_property>
             <obj_property name="ObjectShortName">[9][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[8]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[8]" type="array">
             <obj_property name="ElementShortName">[8][7:0]</obj_property>
             <obj_property name="ObjectShortName">[8][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[7]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[7]" type="array">
             <obj_property name="ElementShortName">[7][7:0]</obj_property>
             <obj_property name="ObjectShortName">[7][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[6]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[6]" type="array">
             <obj_property name="ElementShortName">[6][7:0]</obj_property>
             <obj_property name="ObjectShortName">[6][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[5]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[5]" type="array">
             <obj_property name="ElementShortName">[5][7:0]</obj_property>
             <obj_property name="ObjectShortName">[5][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[4]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[4]" type="array">
             <obj_property name="ElementShortName">[4][7:0]</obj_property>
             <obj_property name="ObjectShortName">[4][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[3]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[3]" type="array">
             <obj_property name="ElementShortName">[3][7:0]</obj_property>
             <obj_property name="ObjectShortName">[3][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[2]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[2]" type="array">
             <obj_property name="ElementShortName">[2][7:0]</obj_property>
             <obj_property name="ObjectShortName">[2][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[1]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[1]" type="array">
             <obj_property name="ElementShortName">[1][7:0]</obj_property>
             <obj_property name="ObjectShortName">[1][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
-         <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/new_feature[0]" type="array">
+         <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/new_feature[0]" type="array">
             <obj_property name="ElementShortName">[0][7:0]</obj_property>
             <obj_property name="ObjectShortName">[0][7:0]</obj_property>
             <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/Feature_bram_addra" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/Feature_bram_addra" type="array">
          <obj_property name="ElementShortName">Feature_bram_addra[7:0]</obj_property>
          <obj_property name="ObjectShortName">Feature_bram_addra[7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/Feature_bram_din" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/Feature_bram_din" type="array">
          <obj_property name="ElementShortName">Feature_bram_din[127:0]</obj_property>
          <obj_property name="ObjectShortName">Feature_bram_din[127:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/Feature_bram_ena" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/Feature_bram_ena" type="logic">
          <obj_property name="ElementShortName">Feature_bram_ena</obj_property>
          <obj_property name="ObjectShortName">Feature_bram_ena</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/feature_addr" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/feature_addr" type="array">
          <obj_property name="ElementShortName">feature_addr[7:0]</obj_property>
          <obj_property name="ObjectShortName">feature_addr[7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/feature_addr_reg" type="array">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/feature_addr_reg" type="array">
          <obj_property name="ElementShortName">feature_addr_reg[7:0]</obj_property>
          <obj_property name="ObjectShortName">feature_addr_reg[7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/top_tb/dut/u_gat_layer1/u_aggregator/aggr_ready_o" type="logic">
+      <wvobject fp_name="/top_tb/dut/u_gat_conv1/u_aggregator/aggr_ready_o" type="logic">
          <obj_property name="ElementShortName">aggr_ready_o</obj_property>
          <obj_property name="ObjectShortName">aggr_ready_o</obj_property>
       </wvobject>

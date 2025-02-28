@@ -1,11 +1,4 @@
-// ==================================================================
-// File name  : gat_top_wrapper.sv
-// Project    : Acceleration of Graph Attention Networks on FPGA
-// Function   : Wrapper module to generate Block Design
-// Author     : @Germanyy0410
-// ==================================================================
-
-module gat_top_wrapper #(
+module top_wrapper #(
   //* ====================== parameter ======================
   parameter DATA_WIDTH            = 8,
   parameter WH_DATA_WIDTH         = 12,
@@ -103,83 +96,135 @@ module gat_top_wrapper #(
   input                             clk                         ,
   input                             rst_n                       ,
 
-
   //* ===================== Register Bank ======================
   input                             gat_layer                   ,
   output                            gat_ready                   ,
   input                             h_data_bram_load_done       ,
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
+  input                             a_bram_load_done            ,
   //* ==========================================================
-
 
   //* ===================== BRAM Interface =====================
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
   input                             h_data_bram_ena             ,
   input                             h_data_bram_wea             ,
-  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
+  input   [H_DATA_ADDR_W+1:0]       h_data_bram_addra           ,
+  input   [H_DATA_ADDR_W+1:0]       h_data_bram_addrb           ,
+  output  [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
   input                             h_node_info_bram_ena        ,
   input                             h_node_info_bram_wea        ,
-  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ,
+  input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addra      ,
+  input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addrb      ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ,
+
+  input   [DATA_WIDTH-1:0]          a_bram_din                  ,
+  input                             a_bram_ena                  ,
+  input                             a_bram_wea                  ,
+  input   [11:0]                    a_bram_addra                ,
+  input   [11:0]                    a_bram_addrb                ,
+  output  [DATA_WIDTH-1:0]          a_bram_dout                 ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
   input                             wgt_bram_ena                ,
   input                             wgt_bram_wea                ,
-  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ,
+  input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addrb              ,
+  input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
+  output  [DATA_WIDTH-1:0]          wgt_bram_dout               ,
 
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
+  input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
   output  [DATA_WIDTH-1:0]          feat_bram_dout
   //* ==========================================================
 );
-
-  gat_top #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
-
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
-    .TOTAL_NODES        (TOTAL_NODES        ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
-    .MAX_NODES          (MAX_NODES          ),
-
-    .COEF_DEPTH         (COEF_DEPTH         ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
-  ) u_gat_top (
-    .clk                          (clk                          ),
-    .rst_n                        (rst_n                        ),
-
-    .gat_layer                    (gat_layer                    ),
-    .gat_ready                    (gat_ready                    ),
-    .h_data_bram_load_done        (h_data_bram_load_done        ),
-    .h_node_info_bram_load_done   (h_node_info_bram_load_done   ),
-    .wgt_bram_load_done           (wgt_bram_load_done           ),
-
-    .h_data_bram_din              (h_data_bram_din              ),
-    .h_data_bram_ena              (h_data_bram_ena              ),
-    .h_data_bram_wea              (h_data_bram_wea              ),
-    .h_data_bram_addra            (h_data_bram_addra            ),
-
-    .h_node_info_bram_din         (h_node_info_bram_din         ),
-    .h_node_info_bram_ena         (h_node_info_bram_ena         ),
-    .h_node_info_bram_wea         (h_node_info_bram_wea         ),
-    .h_node_info_bram_addra       (h_node_info_bram_addra       ),
-
-    .wgt_bram_din                 (wgt_bram_din                 ),
-    .wgt_bram_ena                 (wgt_bram_ena                 ),
-    .wgt_bram_wea                 (wgt_bram_wea                 ),
-    .wgt_bram_addra               (wgt_bram_addra               ),
-
-    .feat_bram_addrb              (feat_bram_addrb              ),
-    .feat_bram_dout               (feat_bram_dout               )
+  BRAM #(
+    .DATA_WIDTH (H_DATA_WIDTH),
+    .DEPTH      (H_DATA_DEPTH)
+  ) u_h_data_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (h_data_bram_din),
+    .ena        (h_data_bram_ena),
+    .wea        (h_data_bram_wea),
+    .addra      (h_data_bram_addra[H_DATA_ADDR_W+1:2]),
+    .addrb      (h_data_bram_addrb[H_DATA_ADDR_W+1:2]),
+    .dout       (h_data_bram_dout)
   );
+
+  modified_BRAM #(
+    .DATA_WIDTH (NODE_INFO_WIDTH),
+    .DEPTH      (NODE_INFO_DEPTH)
+  ) u_h_node_info_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (h_node_info_bram_din),
+    .ena        (h_node_info_bram_ena),
+    .wea        (h_node_info_bram_wea),
+    .addra      (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2]),
+    .addrb      (h_node_info_bram_addrb[NODE_INFO_ADDR_W+1:2]),
+    .dout       (h_node_info_bram_dout)
+  );
+
+  BRAM #(
+    .DATA_WIDTH (DATA_WIDTH),
+    .DEPTH      (WEIGHT_DEPTH)
+  ) u_wgt_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (wgt_bram_din),
+    .ena        (wgt_bram_ena),
+    .wea        (wgt_bram_wea),
+    .addra      (wgt_bram_addra[WH_ADDR_W+1:2]),
+    .addrb      (wgt_bram_addrb[WH_ADDR_W+1:2]),
+    .dout       (wgt_bram_dout)
+  );
+
+  BRAM #(
+    .DATA_WIDTH (DATA_WIDTH),
+    .DEPTH      (A_DEPTH)
+  ) u_a_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (a_bram_din),
+    .ena        (a_bram_ena),
+    .wea        (a_bram_wea),
+    .addra      (a_bram_addra[6:2]),
+    .addrb      (a_bram_addrb[6:2]),
+    .dout       (a_bram_dout)
+  );
+
+  wire [DATA_WIDTH-1:0]           feat_bram_din       ;
+  wire                            feat_bram_ena       ;
+  wire [NEW_FEATURE_ADDR_W+1:0]   feat_bram_addra     ;
+  wire [NEW_FEATURE_ADDR_W-1:0]   addr                ;
+  reg  [NEW_FEATURE_ADDR_W-1:0]   addr_reg            ;
+
+  BRAM #(
+    .DATA_WIDTH (DATA_WIDTH),
+    .DEPTH      (NEW_FEATURE_DEPTH)
+  ) u_new_feat_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (feat_bram_din),
+    .ena        (feat_bram_ena),
+    .wea        (feat_bram_ena),
+    .addra      (feat_bram_addra),
+    .addrb      (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]),
+    .dout       (feat_bram_dout)
+  );
+
+  assign feat_bram_ena    = (addr_reg < NEW_FEATURE_DEPTH);
+  assign feat_bram_addra  = addr_reg;
+  assign feat_bram_din    = 50;
+
+  assign addr = (addr_reg < NEW_FEATURE_DEPTH) ? (addr_reg + 1) : addr_reg;
+
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      addr_reg <= '0;
+    end else begin
+      addr_reg <= addr;
+    end
+  end
 endmodule

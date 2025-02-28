@@ -34,7 +34,7 @@ module memory_controller #(
   // -- [brams] Depth
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
   localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
@@ -109,23 +109,21 @@ module memory_controller #(
   //* =========================== PS ===========================
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din               ,
   input                             h_data_bram_ena               ,
+  input                             h_data_bram_wea               ,
   input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra             ,
   input                             h_data_bram_load_done         ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din          ,
   input                             h_node_info_bram_ena          ,
+  input                             h_node_info_bram_wea          ,
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra        ,
   input                             h_node_info_bram_load_done    ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                  ,
   input                             wgt_bram_ena                  ,
+  input                             wgt_bram_wea                  ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra                ,
   input                             wgt_bram_load_done            ,
-
-  input   [DATA_WIDTH-1:0]          a_bram_din                    ,
-  input                             a_bram_ena                    ,
-  input   [A_ADDR_W-1:0]            a_bram_addra                  ,
-  input                             a_bram_load_done              ,
   //* ==========================================================
 
 
@@ -142,10 +140,6 @@ module memory_controller #(
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ,
   output  [DATA_WIDTH-1:0]          wgt_bram_dout                 ,
-
-  input   [A_ADDR_W-1:0]            a_bram_addrb_conv1            ,
-  input   [A_ADDR_W-1:0]            a_bram_addrb_conv2            ,
-  output  [DATA_WIDTH-1:0]          a_bram_dout                   ,
   //* ==========================================================
 
 
@@ -196,7 +190,6 @@ module memory_controller #(
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb       ;
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb  ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb          ;
-  logic [A_ADDR_W-1:0]            a_bram_addrb            ;
 
   logic [WH_WIDTH-1:0]            wh_bram_din             ;
   logic                           wh_bram_ena             ;
@@ -214,29 +207,28 @@ module memory_controller #(
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra         ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb         ;
 
-  assign h_data_bram_addrb      = (gat_layer == 0) ? h_data_bram_addrb_conv1 : h_data_bram_addrb_conv2;
+  assign h_data_bram_addrb      = (gat_layer == 0) ? h_data_bram_addrb_conv1      : h_data_bram_addrb_conv2;
   assign h_node_info_bram_addrb = (gat_layer == 0) ? h_node_info_bram_addrb_conv1 : h_node_info_bram_addrb_conv2;
-  assign wgt_bram_addrb         = (gat_layer == 0) ? wgt_bram_addrb_conv1 : wgt_bram_addrb_conv2;
-  assign a_bram_addrb           = (gat_layer == 0) ? a_bram_addrb_conv1 : a_bram_addrb_conv2;
+  assign wgt_bram_addrb         = (gat_layer == 0) ? wgt_bram_addrb_conv1         : wgt_bram_addrb_conv2;
 
-  assign wh_bram_din            = (gat_layer == 0) ? wh_bram_din_conv1 : wh_bram_din_conv2;
-  assign wh_bram_ena            = (gat_layer == 0) ? wh_bram_ena_conv1 : wh_bram_ena_conv2;
-  assign wh_bram_addra          = (gat_layer == 0) ? wh_bram_addra_conv1 : wh_bram_addra_conv2;
-  assign wh_bram_addrb          = (gat_layer == 0) ? wh_bram_addrb_conv1 : wh_bram_addrb_conv2;
+  assign wh_bram_din            = (gat_layer == 0) ? wh_bram_din_conv1            : wh_bram_din_conv2;
+  assign wh_bram_ena            = (gat_layer == 0) ? wh_bram_ena_conv1            : wh_bram_ena_conv2;
+  assign wh_bram_addra          = (gat_layer == 0) ? wh_bram_addra_conv1          : wh_bram_addra_conv2;
+  assign wh_bram_addrb          = (gat_layer == 0) ? wh_bram_addrb_conv1          : wh_bram_addrb_conv2;
 
-  assign num_node_bram_din      = (gat_layer == 0) ? num_node_bram_din_conv1 : num_node_bram_din_conv2;
-  assign num_node_bram_ena      = (gat_layer == 0) ? num_node_bram_ena_conv1 : num_node_bram_ena_conv2;
-  assign num_node_bram_addra    = (gat_layer == 0) ? num_node_bram_addra_conv1 : num_node_bram_addra_conv2;
-  assign num_node_bram_addrb    = (gat_layer == 0) ? num_node_bram_addrb_conv1 : num_node_bram_addrb_conv2;
-  assign num_node_bram_addrc    = (gat_layer == 0) ? num_node_bram_addrc_conv1 : num_node_bram_addrc_conv2;
+  assign num_node_bram_din      = (gat_layer == 0) ? num_node_bram_din_conv1      : num_node_bram_din_conv2;
+  assign num_node_bram_ena      = (gat_layer == 0) ? num_node_bram_ena_conv1      : num_node_bram_ena_conv2;
+  assign num_node_bram_addra    = (gat_layer == 0) ? num_node_bram_addra_conv1    : num_node_bram_addra_conv2;
+  assign num_node_bram_addrb    = (gat_layer == 0) ? num_node_bram_addrb_conv1    : num_node_bram_addrb_conv2;
+  assign num_node_bram_addrc    = (gat_layer == 0) ? num_node_bram_addrc_conv1    : num_node_bram_addrc_conv2;
 
-  assign feat_bram_din          = (gat_layer == 0) ? feat_bram_din_conv1 : feat_bram_din_conv2;
-  assign feat_bram_ena          = (gat_layer == 0) ? feat_bram_ena_conv1 : feat_bram_ena_conv2;
-  assign feat_bram_addra        = (gat_layer == 0) ? feat_bram_addra_conv1 : feat_bram_addra_conv2;
-  assign feat_bram_addrb        = (gat_layer == 0) ? feat_bram_addrb_conv1 : feat_bram_addrb_conv2;
+  assign feat_bram_din          = (gat_layer == 0) ? feat_bram_din_conv1          : feat_bram_din_conv2;
+  assign feat_bram_ena          = (gat_layer == 0) ? feat_bram_ena_conv1          : feat_bram_ena_conv2;
+  assign feat_bram_addra        = (gat_layer == 0) ? feat_bram_addra_conv1        : feat_bram_addra_conv2;
+  assign feat_bram_addrb        = (gat_layer == 0) ? feat_bram_addrb_conv1        : feat_bram_addrb_conv2;
 
   //* ========================= MEMORY =========================
-  URAM #(
+  BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
     .DEPTH        (H_DATA_DEPTH         )
   ) u_h_data_bram (
@@ -245,6 +237,7 @@ module memory_controller #(
     .din          (h_data_bram_din      ),
     .addra        (h_data_bram_addra    ),
     .ena          (h_data_bram_ena      ),
+    .wea          (h_data_bram_wea      ),
     .addrb        (h_data_bram_addrb    ),
     .dout         (h_data_bram_dout     )
   );
@@ -258,6 +251,7 @@ module memory_controller #(
     .din          (h_node_info_bram_din       ),
     .addra        (h_node_info_bram_addra     ),
     .ena          (h_node_info_bram_ena       ),
+    .wea          (h_node_info_bram_wea       ),
     .addrb        (h_node_info_bram_addrb     ),
     .dout         (h_node_info_bram_dout      ),
     .dout_nxt     (h_node_info_bram_dout_nxt  )
@@ -272,6 +266,7 @@ module memory_controller #(
     .din          (wgt_bram_din         ),
     .addra        (wgt_bram_addra       ),
     .ena          (wgt_bram_ena         ),
+    .wea          (wgt_bram_wea         ),
     .addrb        (wgt_bram_addrb       ),
     .dout         (wgt_bram_dout        )
   );
@@ -286,21 +281,9 @@ module memory_controller #(
     .din          (wh_bram_din          ),
     .addra        (wh_bram_addra        ),
     .ena          (wh_bram_ena          ),
+    .wea          (wh_bram_ena          ),
     .addrb        (wh_bram_addrb        ),
     .dout         (wh_bram_dout         )
-  );
-
-  BRAM #(
-    .DATA_WIDTH   (DATA_WIDTH           ),
-    .DEPTH        (A_DEPTH              )
-  ) u_a_bram (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (a_bram_din           ),
-    .addra        (a_bram_addra         ),
-    .ena          (a_bram_ena           ),
-    .addrb        (a_bram_addrb         ),
-    .dout         (a_bram_dout          )
   );
 
   dual_read_BRAM #(
@@ -312,6 +295,7 @@ module memory_controller #(
     .din          (num_node_bram_din    ),
     .addra        (num_node_bram_addra  ),
     .ena          (num_node_bram_ena    ),
+    .wea          (num_node_bram_ena    ),
     .addrb        (num_node_bram_addrb  ),
     .doutb        (num_node_bram_doutb  ),
     .addrc        (num_node_bram_addrc  ),
@@ -328,6 +312,7 @@ module memory_controller #(
     .din            (feat_bram_din        ),
     .addra          (feat_bram_addra      ),
     .ena            (feat_bram_ena        ),
+    .wea            (feat_bram_ena        ),
     .addrb          (feat_bram_addrb      ),
     .dout           (feat_bram_dout       )
   );

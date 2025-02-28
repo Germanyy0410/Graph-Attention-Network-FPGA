@@ -36,7 +36,7 @@ module SPMM #(
   // -- [brams] Depth
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
   localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
@@ -140,6 +140,11 @@ module SPMM #(
   logic                                           new_row_en                ;
   logic [ROW_LEN_WIDTH-1:0]                       row_cnt                   ;
   logic [ROW_LEN_WIDTH-1:0]                       row_cnt_reg               ;
+  logic                                           sparse_row                ;
+  logic                                           sparse_row_nxt            ;
+  logic                                           dense_row                 ;
+  logic                                           dense_row_nxt             ;
+
 
   // -- Address for H_bram
   logic [H_DATA_ADDR_W-1:0]                       data_addr                 ;
@@ -234,6 +239,7 @@ module SPMM #(
         .clk          (clk                      ),
         .rst_n        (rst_n                    ),
 
+        .spmm_vld_i   (spmm_vld_q1 && h_data_bram_addrb >= 1  ),
         .pe_vld_i     (pe_vld                   ),
         .pe_rdy_o     (pe_rdy_o[i]              ),
 
@@ -336,18 +342,23 @@ module SPMM #(
 
 
   //* ================== Pop data into SP-PE ===================
-  assign new_row_en = ((row_cnt_reg == 1 && row_len >= 2) || (row_len == 1)) && spmm_vld_q1;
+  assign sparse_row     = ~|row_len[ROW_LEN_WIDTH-1:1];
+  assign dense_row      =  |row_len[ROW_LEN_WIDTH-1:1];
+  assign sparse_row_nxt = ~|row_len_nxt[ROW_LEN_WIDTH-1:1];
+  assign dense_row_nxt  =  |row_len_nxt[ROW_LEN_WIDTH-1:1];
 
-  assign row_cnt    = (((row_cnt_reg == row_len - 1 && row_len > 1) || (row_cnt_reg == 0 && row_len_nxt == 1)) && spmm_vld_q1)
-                          || (row_cnt_reg == 0 && row_len == 1 && (spmm_vld_i ^ spmm_vld_q1))
+  assign new_row_en = ((row_cnt_reg == 1 && dense_row) || sparse_row) && spmm_vld_q1;
+
+  assign row_cnt    = (((row_cnt_reg == row_len - 1 && dense_row) || (row_cnt_reg == 0 && sparse_row_nxt)) && spmm_vld_q1)
+                          || (row_cnt_reg == 0 && sparse_row && (spmm_vld_i ^ spmm_vld_q1))
                           ? 0
-                          : ((((row_cnt_reg < row_len - 1) && (row_len > 1)) || (row_len == 1 && row_len_nxt > 1)) && spmm_vld_i)
+                          : ((((row_cnt_reg < row_len - 1) && (dense_row)) || (sparse_row && dense_row_nxt)) && spmm_vld_i)
                             ? (row_cnt_reg + 1)
                             : row_cnt_reg;
 
   assign data_addr = (spmm_vld_q1) ? (data_addr_reg + 1) : data_addr_reg;
 
-  assign node_info_addr = ((((row_cnt_reg == row_len - 1) && row_len >= 2) || (row_len_nxt == 1 && row_cnt_reg == 0)) && spmm_vld_q1)
+  assign node_info_addr = ((((row_cnt_reg == row_len - 1) && dense_row) || (sparse_row_nxt && row_cnt_reg == 0)) && spmm_vld_q1)
                           ? (node_info_addr_reg + 1)
                           : node_info_addr_reg;
 

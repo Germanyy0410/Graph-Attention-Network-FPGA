@@ -25,7 +25,7 @@ module gat_conv1 #(
   // -- [brams] Depth
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
   localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
@@ -109,10 +109,6 @@ module gat_conv1 #(
   output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
   input                             wgt_bram_load_done          ,
 
-  input   [DATA_WIDTH-1:0]          a_bram_dout                 ,
-  output  [A_ADDR_W-1:0]            a_bram_addrb                ,
-  input                             a_bram_load_done            ,
-
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ,
 
@@ -187,7 +183,6 @@ module gat_conv1 #(
   logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_wgt_dout       ;
   logic                                               w_rdy               ;
   logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a                   ;
-  logic                                               a_rdy               ;
 
   scheduler #(
     .DATA_WIDTH         (DATA_WIDTH         ),
@@ -220,11 +215,7 @@ module gat_conv1 #(
     .mult_wgt_dout              (mult_wgt_dout              ),
     .w_rdy_o                    (w_rdy                      ),
 
-    .a_bram_dout                (a_bram_dout                ),
-    .a_bram_addrb               (a_bram_addrb               ),
-    .a_bram_load_done           (a_bram_load_done           ),
-    .a                          (a                          ),
-    .a_rdy_o                    (a_rdy                      )
+    .a                          (a                          )
   );
   //* ==========================================================
 
@@ -316,7 +307,7 @@ module gat_conv1 #(
     .dmvm_vld_i         (spmm_rdy             ),
     .dmvm_rdy_o         (dmvm_rdy             ),
 
-    .a_vld_i            (a_bram_load_done     ),
+    .a_vld_i            (w_rdy                ),
     .a_i                (a                    ),
 
     .wh_data_i          (wh_data              ),
