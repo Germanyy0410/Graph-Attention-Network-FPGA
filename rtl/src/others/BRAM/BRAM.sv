@@ -7,8 +7,8 @@
 
 module BRAM #(
   //* ========== parameter ===========
-  parameter DATA_WIDTH      = 128,
-  parameter DEPTH           = 2708,
+  parameter DATA_WIDTH      = 19,
+  parameter DEPTH           = 242101,
   parameter CLK_LATENCY     = 1,
 
   //* ========= localparams ==========
@@ -20,6 +20,7 @@ module BRAM #(
   input   [DATA_WIDTH-1:0]        din           ,
   input   [DATA_ADDR_W-1:0]       addra         ,
   input                           ena           ,
+  input                           wea           ,
   // -- Data Fetch
   input   [DATA_ADDR_W-1:0]       addrb         ,
   output  [DATA_WIDTH-1:0]        dout
@@ -42,11 +43,10 @@ module BRAM #(
   endgenerate
 
   always_ff @(posedge clk) begin
-    if (ena) begin
+    if (ena && wea) begin
       memory[addra] <= din;
     end
     data    <= memory[addrb];
     data_q1 <= data;
   end
 endmodule
-

@@ -1,0 +1,230 @@
+module top_wrapper #(
+  //* ====================== parameter ======================
+  parameter DATA_WIDTH            = 8,
+  parameter WH_DATA_WIDTH         = 12,
+  parameter DMVM_DATA_WIDTH       = 20,
+  parameter SM_DATA_WIDTH         = 103,
+  parameter SM_SUM_DATA_WIDTH     = 103,
+  parameter ALPHA_DATA_WIDTH      = 32,
+
+  parameter H_NUM_SPARSE_DATA     = 242101,
+  parameter TOTAL_NODES           = 13264,
+  parameter NUM_FEATURE_IN        = 1433,
+  parameter NUM_FEATURE_OUT       = 16,
+  parameter NUM_SUBGRAPHS         = 2708,
+  parameter MAX_NODES             = 168,
+
+  parameter COEF_DEPTH            = 200,
+  parameter ALPHA_DEPTH           = 200,
+  parameter DIVIDEND_DEPTH        = 200,
+  parameter DIVISOR_DEPTH         = 200,
+  //* ==========================================================
+
+  //* ======================= localparam =======================
+  // -- [brams] Depth
+  parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA,
+  parameter NODE_INFO_DEPTH       = TOTAL_NODES,
+  parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN,
+  parameter WH_DEPTH              = TOTAL_NODES,
+  parameter A_DEPTH               = NUM_FEATURE_OUT * 2,
+  parameter NUM_NODES_DEPTH       = NUM_SUBGRAPHS,
+  parameter NEW_FEATURE_DEPTH     = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
+
+  // -- [H]
+  parameter H_NUM_OF_ROWS         = TOTAL_NODES,
+  parameter H_NUM_OF_COLS         = NUM_FEATURE_IN,
+
+  // -- [H] data
+  parameter COL_IDX_WIDTH         = $clog2(H_NUM_OF_COLS),
+  parameter H_DATA_WIDTH          = DATA_WIDTH + COL_IDX_WIDTH,
+  parameter H_DATA_ADDR_W         = $clog2(H_DATA_DEPTH),
+
+  // -- [H] node_info
+  parameter ROW_LEN_WIDTH         = $clog2(H_NUM_OF_COLS),
+  parameter NUM_NODE_WIDTH        = $clog2(MAX_NODES),
+  parameter FLAG_WIDTH            = 1,
+  parameter NODE_INFO_WIDTH       = ROW_LEN_WIDTH + NUM_NODE_WIDTH + FLAG_WIDTH,
+  parameter NODE_INFO_ADDR_W      = $clog2(NODE_INFO_DEPTH),
+
+  // -- [W]
+  parameter W_NUM_OF_ROWS         = NUM_FEATURE_IN,
+  parameter W_NUM_OF_COLS         = NUM_FEATURE_OUT,
+  parameter W_ROW_WIDTH           = $clog2(W_NUM_OF_ROWS),
+  parameter W_COL_WIDTH           = $clog2(W_NUM_OF_COLS),
+  parameter WEIGHT_ADDR_W         = $clog2(WEIGHT_DEPTH),
+  parameter MULT_WEIGHT_ADDR_W    = $clog2(W_NUM_OF_ROWS),
+
+  // -- [WH]
+  parameter DOT_PRODUCT_SIZE      = H_NUM_OF_COLS,
+  parameter WH_ADDR_W             = $clog2(WH_DEPTH),
+  parameter WH_RESULT_WIDTH       = WH_DATA_WIDTH * W_NUM_OF_COLS,
+  parameter WH_WIDTH              = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH,
+
+  // -- [a]
+  parameter A_ADDR_W              = $clog2(A_DEPTH),
+  parameter HALF_A_SIZE           = A_DEPTH / 2,
+  parameter A_INDEX_WIDTH         = $clog2(A_DEPTH),
+
+  // -- [DMVM]
+  parameter DMVM_PRODUCT_WIDTH    = $clog2(HALF_A_SIZE),
+  parameter COEF_W                = DATA_WIDTH * MAX_NODES,
+  parameter ALPHA_W               = ALPHA_DATA_WIDTH * MAX_NODES,
+  parameter NUM_NODE_ADDR_W       = $clog2(NUM_NODES_DEPTH),
+  parameter NUM_STAGES            = $clog2(NUM_FEATURE_OUT) + 1,
+  parameter COEF_DELAY_LENGTH     = NUM_STAGES + 1,
+
+  // -- [Softmax]
+  parameter SOFTMAX_WIDTH         = MAX_NODES * DATA_WIDTH + NUM_NODE_WIDTH,
+  parameter SOFTMAX_DEPTH         = NUM_SUBGRAPHS,
+  parameter SOFTMAX_ADDR_W        = $clog2(SOFTMAX_DEPTH),
+  parameter WOI                   = 1,
+  parameter WOF                   = ALPHA_DATA_WIDTH - WOI,
+  parameter DL_DATA_WIDTH         = $clog2(WOI + WOF + 3) + 1,
+  parameter DIVISOR_FF_WIDTH      = NUM_NODE_WIDTH + SM_SUM_DATA_WIDTH,
+
+  // -- [Aggregator]
+  parameter AGGR_WIDTH            = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH,
+  parameter AGGR_DEPTH            = NUM_SUBGRAPHS,
+  parameter AGGR_ADDR_W           = $clog2(AGGR_DEPTH),
+  parameter AGGR_MULT_W           = WH_DATA_WIDTH + 32,
+
+  // -- [New Feature]
+  parameter NEW_FEATURE_WIDTH     = DATA_WIDTH,
+  parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH)
+  //* ==========================================================
+)(
+  input                             clk                         ,
+  input                             rst_n                       ,
+
+  //* ===================== Register Bank ======================
+  input                             gat_layer                   ,
+  output                            gat_ready                   ,
+  input                             h_data_bram_load_done       ,
+  input                             h_node_info_bram_load_done  ,
+  input                             wgt_bram_load_done          ,
+  input                             a_bram_load_done            ,
+  //* ==========================================================
+
+  //* ===================== BRAM Interface =====================
+  input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
+  input                             h_data_bram_ena             ,
+  input                             h_data_bram_wea             ,
+  input   [H_DATA_ADDR_W+1:0]       h_data_bram_addra           ,
+  input   [H_DATA_ADDR_W+1:0]       h_data_bram_addrb           ,
+  output  [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
+
+  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
+  input                             h_node_info_bram_ena        ,
+  input                             h_node_info_bram_wea        ,
+  input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addra      ,
+  input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addrb      ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ,
+
+  input   [DATA_WIDTH-1:0]          a_bram_din                  ,
+  input                             a_bram_ena                  ,
+  input                             a_bram_wea                  ,
+  input   [11:0]                    a_bram_addra                ,
+  input   [11:0]                    a_bram_addrb                ,
+  output  [DATA_WIDTH-1:0]          a_bram_dout                 ,
+
+  input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
+  input                             wgt_bram_ena                ,
+  input                             wgt_bram_wea                ,
+  input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addrb              ,
+  input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
+  output  [DATA_WIDTH-1:0]          wgt_bram_dout               ,
+
+  input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
+  output  [DATA_WIDTH-1:0]          feat_bram_dout
+  //* ==========================================================
+);
+  BRAM #(
+    .DATA_WIDTH (H_DATA_WIDTH),
+    .DEPTH      (H_DATA_DEPTH)
+  ) u_h_data_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (h_data_bram_din),
+    .ena        (h_data_bram_ena),
+    .wea        (h_data_bram_wea),
+    .addra      (h_data_bram_addra[H_DATA_ADDR_W+1:2]),
+    .addrb      (h_data_bram_addrb[H_DATA_ADDR_W+1:2]),
+    .dout       (h_data_bram_dout)
+  );
+
+  modified_BRAM #(
+    .DATA_WIDTH (NODE_INFO_WIDTH),
+    .DEPTH      (NODE_INFO_DEPTH)
+  ) u_h_node_info_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (h_node_info_bram_din),
+    .ena        (h_node_info_bram_ena),
+    .wea        (h_node_info_bram_wea),
+    .addra      (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2]),
+    .addrb      (h_node_info_bram_addrb[NODE_INFO_ADDR_W+1:2]),
+    .dout       (h_node_info_bram_dout)
+  );
+
+  BRAM #(
+    .DATA_WIDTH (DATA_WIDTH),
+    .DEPTH      (WEIGHT_DEPTH)
+  ) u_wgt_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (wgt_bram_din),
+    .ena        (wgt_bram_ena),
+    .wea        (wgt_bram_wea),
+    .addra      (wgt_bram_addra[WH_ADDR_W+1:2]),
+    .addrb      (wgt_bram_addrb[WH_ADDR_W+1:2]),
+    .dout       (wgt_bram_dout)
+  );
+
+  BRAM #(
+    .DATA_WIDTH (DATA_WIDTH),
+    .DEPTH      (A_DEPTH)
+  ) u_a_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (a_bram_din),
+    .ena        (a_bram_ena),
+    .wea        (a_bram_wea),
+    .addra      (a_bram_addra[6:2]),
+    .addrb      (a_bram_addrb[6:2]),
+    .dout       (a_bram_dout)
+  );
+
+  wire [DATA_WIDTH-1:0]           feat_bram_din       ;
+  wire                            feat_bram_ena       ;
+  wire [NEW_FEATURE_ADDR_W+1:0]   feat_bram_addra     ;
+  wire [NEW_FEATURE_ADDR_W-1:0]   addr                ;
+  reg  [NEW_FEATURE_ADDR_W-1:0]   addr_reg            ;
+
+  BRAM #(
+    .DATA_WIDTH (DATA_WIDTH),
+    .DEPTH      (NEW_FEATURE_DEPTH)
+  ) u_new_feat_bram (
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .din        (feat_bram_din),
+    .ena        (feat_bram_ena),
+    .wea        (feat_bram_ena),
+    .addra      (feat_bram_addra),
+    .addrb      (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]),
+    .dout       (feat_bram_dout)
+  );
+
+  assign feat_bram_ena    = (addr_reg < NEW_FEATURE_DEPTH);
+  assign feat_bram_addra  = addr_reg;
+  assign feat_bram_din    = 50;
+
+  assign addr = (addr_reg < NEW_FEATURE_DEPTH) ? (addr_reg + 1) : addr_reg;
+
+  always @(posedge clk) begin
+    if (!rst_n) begin
+      addr_reg <= '0;
+    end else begin
+      addr_reg <= addr;
+    end
+  end
+endmodule

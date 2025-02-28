@@ -1,7 +1,7 @@
 task automatic c1;
   begin
-      @(posedge clk);
-      #0.1;
+    @(posedge clk);
+    #0.1;
   end
 endtask
 
@@ -22,7 +22,7 @@ function real abs(real value);
   return (value < 0.0) ? -value : value;
 endfunction
 
-function string rm_spc(string input_string);
+function automatic string rm_spc(string input_string);
   string output_string = "";
   for (int i = 0; i < input_string.len(); i++) begin
     if (input_string[i] != " ") begin

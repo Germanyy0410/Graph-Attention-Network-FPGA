@@ -22,6 +22,7 @@ module modified_BRAM #(
   input   [DATA_WIDTH-1:0]        din           ,
   input   [DATA_ADDR_W-1:0]       addra         ,
   input                           ena           ,
+  input                           wea           ,
   // -- Data Fetch
   input   [DATA_ADDR_W-1:0]       addrb         ,
   output  [DATA_WIDTH-1:0]        dout          ,
@@ -36,18 +37,18 @@ module modified_BRAM #(
   generate
     if (CLK_LATENCY == 0) begin
       assign dout     = memory[addrb];
-      assign dout_nxt = (addrb + 1 < DEPTH - 1) ? memory[addrb+1] : 0;
+      assign dout_nxt = (addrb < DEPTH - 1) ? memory[addrb+1] : data;
     end else if (CLK_LATENCY == 1) begin
       assign dout     = data;
-      assign dout_nxt = (addrb + 1 < DEPTH - 1) ? data_nxt : 0;
+      assign dout_nxt = (addrb < DEPTH - 1) ? data_nxt : data;
     end else if (CLK_LATENCY == 2) begin
       assign dout     = data_q1;
-      assign dout_nxt = (addrb + 1 < DEPTH - 1) ? data_nxt_q1 : 0;
+      assign dout_nxt = (addrb < DEPTH - 1) ? data_nxt_q1 : data;
     end
   endgenerate
 
   always_ff @(posedge clk) begin
-    if (ena) begin
+    if (ena && wea) begin
       memory[addra] <= din;
     end
     data        <= memory[addrb];

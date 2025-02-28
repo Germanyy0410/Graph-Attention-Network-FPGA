@@ -6,8 +6,7 @@
 // ==================================================================
 
 module gat_top_wrapper #(
-    //* =============== parameter ===============
-  // -- [Configurable] Data Width
+  //* ====================== parameter ======================
   parameter DATA_WIDTH            = 8,
   parameter WH_DATA_WIDTH         = 12,
   parameter DMVM_DATA_WIDTH       = 20,
@@ -26,12 +25,9 @@ module gat_top_wrapper #(
   parameter ALPHA_DEPTH           = 200,
   parameter DIVIDEND_DEPTH        = 200,
   parameter DIVISOR_DEPTH         = 200,
-  //* =========================================
+  //* ==========================================================
 
-
-  //* ============== localparams ==============
-  parameter signed ZERO           = {DMVM_DATA_WIDTH{1'b0}},
-
+  //* ======================= localparam =======================
   // -- [brams] Depth
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA,
   parameter NODE_INFO_DEPTH       = TOTAL_NODES,
@@ -102,65 +98,86 @@ module gat_top_wrapper #(
   // -- [New Feature]
   parameter NEW_FEATURE_WIDTH     = DATA_WIDTH,
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH)
+  //* ==========================================================
 )(
   input                             clk                         ,
   input                             rst_n                       ,
 
+
+  //* ===================== Register Bank ======================
+  input                             gat_layer                   ,
+  output                            gat_ready                   ,
+  input                             h_data_bram_load_done       ,
+  input                             h_node_info_bram_load_done  ,
+  input                             wgt_bram_load_done          ,
+  //* ==========================================================
+
+
+  //* ===================== BRAM Interface =====================
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
   input                             h_data_bram_ena             ,
+  input                             h_data_bram_wea             ,
   input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
-  output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
-  input                             h_data_bram_load_done       ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
   input                             h_node_info_bram_ena        ,
+  input                             h_node_info_bram_wea        ,
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ,
-  output  [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ,
-  input                             h_node_info_bram_load_done  ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
   input                             wgt_bram_ena                ,
+  input                             wgt_bram_wea                ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ,
-  output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
-  input                             wgt_bram_load_done          ,
-
-  input   [DATA_WIDTH-1:0]          a_bram_din                  ,
-  input                             a_bram_ena                  ,
-  input   [A_ADDR_W-1:0]            a_bram_addra                ,
-  output  [A_ADDR_W-1:0]            a_bram_addrb                ,
-  input                             a_bram_load_done            ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [DATA_WIDTH-1:0]          feat_bram_dout
+  //* ==========================================================
 );
 
-  gat_top u_gat_top (
+  gat_top #(
+    .DATA_WIDTH         (DATA_WIDTH         ),
+    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+
+    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+    .TOTAL_NODES        (TOTAL_NODES        ),
+    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+    .MAX_NODES          (MAX_NODES          ),
+
+    .COEF_DEPTH         (COEF_DEPTH         ),
+    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  ) u_gat_top (
     .clk                          (clk                          ),
     .rst_n                        (rst_n                        ),
 
+    .gat_layer                    (gat_layer                    ),
+    .gat_ready                    (gat_ready                    ),
+    .h_data_bram_load_done        (h_data_bram_load_done        ),
+    .h_node_info_bram_load_done   (h_node_info_bram_load_done   ),
+    .wgt_bram_load_done           (wgt_bram_load_done           ),
+
     .h_data_bram_din              (h_data_bram_din              ),
     .h_data_bram_ena              (h_data_bram_ena              ),
+    .h_data_bram_wea              (h_data_bram_wea              ),
     .h_data_bram_addra            (h_data_bram_addra            ),
-    .h_data_bram_addrb            (h_data_bram_addrb            ),
-    .h_data_bram_load_done        (h_data_bram_load_done        ),
 
     .h_node_info_bram_din         (h_node_info_bram_din         ),
     .h_node_info_bram_ena         (h_node_info_bram_ena         ),
+    .h_node_info_bram_wea         (h_node_info_bram_wea         ),
     .h_node_info_bram_addra       (h_node_info_bram_addra       ),
-    .h_node_info_bram_addrb       (h_node_info_bram_addrb       ),
-    .h_node_info_bram_load_done   (h_node_info_bram_load_done   ),
 
     .wgt_bram_din                 (wgt_bram_din                 ),
     .wgt_bram_ena                 (wgt_bram_ena                 ),
+    .wgt_bram_wea                 (wgt_bram_wea                 ),
     .wgt_bram_addra               (wgt_bram_addra               ),
-    .wgt_bram_addrb               (wgt_bram_addrb               ),
-    .wgt_bram_load_done           (wgt_bram_load_done           ),
-
-    .a_bram_din                   (a_bram_din                   ),
-    .a_bram_ena                   (a_bram_ena                   ),
-    .a_bram_addra                 (a_bram_addra                 ),
-    .a_bram_addrb                 (a_bram_addrb                 ),
-    .a_bram_load_done             (a_bram_load_done             ),
 
     .feat_bram_addrb              (feat_bram_addrb              ),
     .feat_bram_dout               (feat_bram_dout               )

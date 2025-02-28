@@ -19,11 +19,11 @@ package gat_pkg;
   parameter NEW_FEATURE_WIDTH     = WH_DATA_WIDTH + 32;
 
 `ifdef TESTBENCH
-  parameter H_NUM_SPARSE_DATA     = 557;
+  parameter H_NUM_SPARSE_DATA     = 556;
   parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 11;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 26;
+  parameter NUM_SUBGRAPHS         = 23;
   parameter MAX_NODES             = 6;
 
 `elsif CORA
@@ -32,22 +32,22 @@ package gat_pkg;
   parameter NUM_FEATURE_IN        = 1433;
   parameter NUM_FEATURE_OUT       = 16;
   parameter NUM_SUBGRAPHS         = 2708;
-  parameter MAX_NODES             = 168;
+  parameter MAX_NODES             = 169;
 
 `elsif CITESEER
-  parameter H_NUM_SPARSE_DATA     = 557;
+  parameter H_NUM_SPARSE_DATA     = 553;
   parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 11;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 26;
+  parameter NUM_SUBGRAPHS         = 25;
   parameter MAX_NODES             = 6;
 
 `elsif PUBMED
-  parameter H_NUM_SPARSE_DATA     = 557;
+  parameter H_NUM_SPARSE_DATA     = 553;
   parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 11;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 26;
+  parameter NUM_SUBGRAPHS         = 25;
   parameter MAX_NODES             = 6;
 `endif
 
@@ -64,7 +64,7 @@ package gat_pkg;
   // -- [brams] Depth
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA;
   parameter NODE_INFO_DEPTH       = TOTAL_NODES;
-  parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN;
+  parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2;
   parameter WH_DEPTH              = TOTAL_NODES;
   parameter A_DEPTH               = NUM_FEATURE_OUT * 2;
   parameter NUM_NODES_DEPTH       = NUM_SUBGRAPHS;
@@ -131,9 +131,10 @@ package gat_pkg;
   // -- [New Feature]
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH);
 
-  parameter IDLE  = 2'b00;
-  parameter RUN   = 2'b01;
-  parameter DONE  = 2'b10;
+  parameter IDLE                  = 2'b00;
+  parameter RUN                   = 2'b01;
+  parameter DONE                  = 2'b10;
+  parameter DUMP                  = 2'b11;
   //* =========================================
 
   typedef struct packed {
