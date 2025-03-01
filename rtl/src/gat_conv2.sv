@@ -109,10 +109,6 @@ module gat_conv2 #(
   output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
   input                             wgt_bram_load_done          ,
 
-  input   [DATA_WIDTH-1:0]          a_bram_dout                 ,
-  output  [A_ADDR_W-1:0]            a_bram_addrb                ,
-  input                             a_bram_load_done            ,
-
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ,
 
@@ -183,13 +179,11 @@ module gat_conv2 #(
 
 
   //* ======================= Scheduler ========================
-  logic [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_wgt_addrb      ;
-  logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_wgt_dout       ;
-  logic                                               w_rdy               ;
-  logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a                   ;
-  logic                                               a_rdy               ;
+  logic [W_NUM_OF_COLS-1:0] [W_NUM_OF_ROWS-1:0] [DATA_WIDTH-1:0]  wgt     ;
+  logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                            a       ;
+  logic                                                           w_rdy   ;
 
-  scheduler #(
+  scheduler_conv2 #(
     .DATA_WIDTH         (DATA_WIDTH         ),
     .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
     .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
@@ -216,27 +210,23 @@ module gat_conv2 #(
     .wgt_bram_dout              (wgt_bram_dout              ),
     .wgt_bram_addrb             (wgt_bram_addrb             ),
     .wgt_bram_load_done         (wgt_bram_load_done         ),
-    .mult_wgt_addrb             (mult_wgt_addrb             ),
-    .mult_wgt_dout              (mult_wgt_dout              ),
-    .w_rdy_o                    (w_rdy                      ),
 
-    .a_bram_dout                (a_bram_dout                ),
-    .a_bram_addrb               (a_bram_addrb               ),
-    .a_bram_load_done           (a_bram_load_done           ),
-    .a                          (a                          ),
-    .a_rdy_o                    (a_rdy                      )
+    .wgt_o                      (wgt                        ),
+    .a_o                        (a                          ),
+    .w_rdy_o                    (w_rdy                      )
+
   );
   //* ==========================================================
 
 
   //* ========================== SPMM ==========================
-  logic                       spmm_vld  ;
-  logic                       spmm_rdy  ;
+  logic                       wh_vld    ;
+  logic                       wh_rdy    ;
   logic [WH_WIDTH-1:0]        wh_data   ;
 
-  assign spmm_vld = w_rdy;
+  assign wh_vld = w_rdy;
 
-  SPMM #(
+  WH #(
     .DATA_WIDTH         (DATA_WIDTH         ),
     .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
     .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
@@ -256,32 +246,25 @@ module gat_conv2 #(
     .ALPHA_DEPTH        (ALPHA_DEPTH        ),
     .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
     .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
-  ) u_SPMM (
-    .clk                        (clk                        ),
-    .rst_n                      (rst_n                      ),
+  ) u_WH (
+    .clk                  (clk                    ),
+    .rst_n                (rst_n                  ),
 
-    .h_data_bram_dout           (h_data_bram_dout           ),
-    .h_data_bram_addrb          (h_data_bram_addrb          ),
+    .wh_vld_i             (wh_vld_i               ),
+    .wh_rdy_o             (wh_rdy_o               ),
 
-    .h_node_info_bram_dout      (h_node_info_bram_dout      ),
-    .h_node_info_bram_dout_nxt  (h_node_info_bram_dout_nxt  ),
-    .h_node_info_bram_addrb     (h_node_info_bram_addrb     ),
+    .num_node_bram_dout   (num_node_bram_dout     ),
+    .num_node_bram_addrb  (num_node_bram_addrb    ),
 
-    .mult_wgt_addrb             (mult_wgt_addrb             ),
-    .mult_wgt_dout              (mult_wgt_dout              ),
+    .h_data_bram_dout     (h_data_bram_dout       ),
+    .h_data_bram_addrb    (h_data_bram_addrb      ),
 
-    .spmm_vld_i                 (spmm_vld                   ),
-    .spmm_rdy_o                 (spmm_rdy                   ),
+    .wgt                  (wgt                    ),
 
-    .wh_data_o                  (wh_data                    ),
-
-    .num_node_bram_addra        (num_node_bram_addra        ),
-    .num_node_bram_ena          (num_node_bram_ena          ),
-    .num_node_bram_din          (num_node_bram_din          ),
-
-    .wh_bram_din                (wh_bram_din                ),
-    .wh_bram_ena                (wh_bram_ena                ),
-    .wh_bram_addra              (wh_bram_addra              )
+    .wh_data_o            (wh_data                ),
+    .wh_bram_din          (wh_bram_din            ),
+    .wh_bram_ena          (wh_bram_ena            ),
+    .wh_bram_addra        (wh_bram_addra          )
   );
   //* ==========================================================
 
@@ -316,7 +299,7 @@ module gat_conv2 #(
     .dmvm_vld_i         (spmm_rdy             ),
     .dmvm_rdy_o         (dmvm_rdy             ),
 
-    .a_vld_i            (a_bram_load_done     ),
+    .a_vld_i            (w_rdy                ),
     .a_i                (a                    ),
 
     .wh_data_i          (wh_data              ),

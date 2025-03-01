@@ -102,7 +102,6 @@ module top_wrapper #(
   input                             h_data_bram_load_done       ,
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
-  input                             a_bram_load_done            ,
   //* ==========================================================
 
   //* ===================== BRAM Interface =====================
@@ -119,13 +118,6 @@ module top_wrapper #(
   input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addra      ,
   input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addrb      ,
   output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ,
-
-  input   [DATA_WIDTH-1:0]          a_bram_din                  ,
-  input                             a_bram_ena                  ,
-  input                             a_bram_wea                  ,
-  input   [11:0]                    a_bram_addra                ,
-  input   [11:0]                    a_bram_addrb                ,
-  output  [DATA_WIDTH-1:0]          a_bram_dout                 ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
   input                             wgt_bram_ena                ,
@@ -208,7 +200,7 @@ module top_wrapper #(
 
   always @(posedge clk) begin
     if (!rst_n) begin
-      addr_reg <= '0;
+      addr_reg <= 0;
     end else begin
       addr_reg <= addr;
     end
