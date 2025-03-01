@@ -105,29 +105,29 @@ module top_wrapper #(
   //* ==========================================================
 
   //* ===================== BRAM Interface =====================
-  input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
+  input   [31:0]                    h_data_bram_din             ,
   input                             h_data_bram_ena             ,
   input                             h_data_bram_wea             ,
   input   [H_DATA_ADDR_W+1:0]       h_data_bram_addra           ,
   input   [H_DATA_ADDR_W+1:0]       h_data_bram_addrb           ,
-  output  [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
+  output  [31:0]                    h_data_bram_dout            ,
 
-  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
+  input   [31:0]                    h_node_info_bram_din        ,
   input                             h_node_info_bram_ena        ,
   input                             h_node_info_bram_wea        ,
   input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addra      ,
   input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addrb      ,
-  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ,
+  output  [31:0]                    h_node_info_bram_dout       ,
 
-  input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
+  input   [31:0]                    wgt_bram_din                ,
   input                             wgt_bram_ena                ,
   input                             wgt_bram_wea                ,
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addrb              ,
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
-  output  [DATA_WIDTH-1:0]          wgt_bram_dout               ,
+  output  [31:0]                    wgt_bram_dout               ,
 
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
-  output  [DATA_WIDTH-1:0]          feat_bram_dout
+  output  [31:0]                    feat_bram_dout
   //* ==========================================================
 );
   BRAM #(
@@ -136,12 +136,12 @@ module top_wrapper #(
   ) u_h_data_bram (
     .clk        (clk),
     .rst_n      (rst_n),
-    .din        (h_data_bram_din),
+    .din        (h_data_bram_din[H_DATA_WIDTH-1:0]),
     .ena        (h_data_bram_ena),
     .wea        (h_data_bram_wea),
     .addra      (h_data_bram_addra[H_DATA_ADDR_W+1:2]),
     .addrb      (h_data_bram_addrb[H_DATA_ADDR_W+1:2]),
-    .dout       (h_data_bram_dout)
+    .dout       (h_data_bram_dout[H_DATA_WIDTH-1:0]),
   );
 
   modified_BRAM #(
@@ -150,12 +150,12 @@ module top_wrapper #(
   ) u_h_node_info_bram (
     .clk        (clk),
     .rst_n      (rst_n),
-    .din        (h_node_info_bram_din),
+    .din        (h_node_info_bram_din[NODE_INFO_WIDTH-1:0]),
     .ena        (h_node_info_bram_ena),
     .wea        (h_node_info_bram_wea),
     .addra      (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2]),
     .addrb      (h_node_info_bram_addrb[NODE_INFO_ADDR_W+1:2]),
-    .dout       (h_node_info_bram_dout)
+    .dout       (h_node_info_bram_dout[NODE_INFO_WIDTH-1:0]),
   );
 
   BRAM #(
@@ -164,12 +164,12 @@ module top_wrapper #(
   ) u_wgt_bram (
     .clk        (clk),
     .rst_n      (rst_n),
-    .din        (wgt_bram_din),
+    .din        (wgt_bram_din[DATA_WIDTH-1:0]),
     .ena        (wgt_bram_ena),
     .wea        (wgt_bram_wea),
     .addra      (wgt_bram_addra[WH_ADDR_W+1:2]),
     .addrb      (wgt_bram_addrb[WH_ADDR_W+1:2]),
-    .dout       (wgt_bram_dout)
+    .dout       (wgt_bram_dout[DATA_WIDTH-1:0])
   );
 
   wire [DATA_WIDTH-1:0]           feat_bram_din       ;
@@ -184,12 +184,12 @@ module top_wrapper #(
   ) u_new_feat_bram (
     .clk        (clk),
     .rst_n      (rst_n),
-    .din        (feat_bram_din),
+    .din        (feat_bram_din[DATA_WIDTH-1:0]),
     .ena        (feat_bram_ena),
     .wea        (feat_bram_ena),
     .addra      (feat_bram_addra),
     .addrb      (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]),
-    .dout       (feat_bram_dout)
+    .dout       (feat_bram_dout[DATA_WIDTH-1:0])
   );
 
   assign feat_bram_ena    = (addr_reg < NEW_FEATURE_DEPTH);
