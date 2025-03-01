@@ -24,7 +24,7 @@ module top_wrapper #(
   // -- [brams] Depth
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA,
   parameter NODE_INFO_DEPTH       = TOTAL_NODES,
-  parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN,
+  parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
   parameter WH_DEPTH              = TOTAL_NODES,
   parameter A_DEPTH               = NUM_FEATURE_OUT * 2,
   parameter NUM_NODES_DEPTH       = NUM_SUBGRAPHS,
@@ -178,20 +178,6 @@ module top_wrapper #(
     .addra      (wgt_bram_addra[WH_ADDR_W+1:2]),
     .addrb      (wgt_bram_addrb[WH_ADDR_W+1:2]),
     .dout       (wgt_bram_dout)
-  );
-
-  BRAM #(
-    .DATA_WIDTH (DATA_WIDTH),
-    .DEPTH      (A_DEPTH)
-  ) u_a_bram (
-    .clk        (clk),
-    .rst_n      (rst_n),
-    .din        (a_bram_din),
-    .ena        (a_bram_ena),
-    .wea        (a_bram_wea),
-    .addra      (a_bram_addra[6:2]),
-    .addrb      (a_bram_addrb[6:2]),
-    .dout       (a_bram_dout)
   );
 
   wire [DATA_WIDTH-1:0]           feat_bram_din       ;

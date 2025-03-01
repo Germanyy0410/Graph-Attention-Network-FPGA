@@ -5,7 +5,7 @@
 # Author     : @Germanyy0410
 # ==================================================================
 
-set clk_speed   200
+set clk_speed   225
 set clk_period  [expr (1000.0 / $clk_speed)]
 
 set max_delay   0.2
