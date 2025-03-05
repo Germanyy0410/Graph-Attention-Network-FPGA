@@ -114,23 +114,23 @@ module gat_top_wrapper #(
 
 
   //* ===================== BRAM Interface =====================
-  input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
+  input   [31:0]                    h_data_bram_din             ,
   input                             h_data_bram_ena             ,
   input                             h_data_bram_wea             ,
   input   [H_DATA_ADDR_W+1:0]       h_data_bram_addra           ,
 
-  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
+  input   [31:0]                    h_node_info_bram_din        ,
   input                             h_node_info_bram_ena        ,
   input                             h_node_info_bram_wea        ,
   input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addra      ,
 
-  input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
+  input   [31:0]                    wgt_bram_din                ,
   input                             wgt_bram_ena                ,
   input                             wgt_bram_wea                ,
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
 
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
-  output  [DATA_WIDTH-1:0]          feat_bram_dout
+  output  [31:0]                    feat_bram_dout
   //* ==========================================================
 );
 
@@ -164,22 +164,22 @@ module gat_top_wrapper #(
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                   ),
     .wgt_bram_load_done           (wgt_bram_load_done                           ),
 
-    .h_data_bram_din              (h_data_bram_din                              ),
+    .h_data_bram_din              (h_data_bram_din[H_DATA_WIDTH-1:0]            ),
     .h_data_bram_ena              (h_data_bram_ena                              ),
     .h_data_bram_wea              (h_data_bram_wea                              ),
     .h_data_bram_addra            (h_data_bram_addra[H_DATA_ADDR_W+1:2]         ),
 
-    .h_node_info_bram_din         (h_node_info_bram_din                         ),
+    .h_node_info_bram_din         (h_node_info_bram_din[NODE_INFO_WIDTH-1:0]    ),
     .h_node_info_bram_ena         (h_node_info_bram_ena                         ),
     .h_node_info_bram_wea         (h_node_info_bram_wea                         ),
     .h_node_info_bram_addra       (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2] ),
 
-    .wgt_bram_din                 (wgt_bram_din                                 ),
+    .wgt_bram_din                 (wgt_bram_din[DATA_WIDTH-1:0]                 ),
     .wgt_bram_ena                 (wgt_bram_ena                                 ),
     .wgt_bram_wea                 (wgt_bram_wea                                 ),
     .wgt_bram_addra               (wgt_bram_addra[WEIGHT_ADDR_W+1:2]            ),
 
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]      ),
-    .feat_bram_dout               (feat_bram_dout                               )
+    .feat_bram_dout               (feat_bram_dout[DATA_WIDTH-1:0]               )
   );
 endmodule

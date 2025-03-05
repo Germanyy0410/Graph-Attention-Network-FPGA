@@ -453,16 +453,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 // ==================================================================
 // File name  : SPMM.sv
 // Project    : Acceleration of Graph Attention Networks on FPGA
