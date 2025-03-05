@@ -175,7 +175,6 @@ module gat_top_tb import gat_pkg::*;
       end
     end
     end_time = $time;
-    // #200000;
 
     //////////////////////////////
     summary_section;

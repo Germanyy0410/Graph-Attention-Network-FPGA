@@ -7,7 +7,8 @@
 
 module FIFO #(
   parameter DATA_WIDTH = 128,
-  parameter FIFO_DEPTH = 13264
+  parameter FIFO_DEPTH = 13264,
+  parameter FIFO_TYPE  = 0
 )(
   input                                 clk,
   input                                 rst_n,
@@ -39,10 +40,19 @@ module FIFO #(
   logic [ADDR_WIDTH:0]        rd_addr                       ;
   // ------------------------------------------------------
 
+
+  generate
+    if (FIFO_TYPE == 0) begin
+      assign wr_addr_inc  = wr_addr < (FIFO_DEPTH - 1) ? (wr_addr + 1'b1) : 'b0;
+      assign rd_addr_inc  = rd_addr < (FIFO_DEPTH - 1) ? (rd_addr + 1'b1) : 'b0;
+    end else if (FIFO_TYPE == 1) begin
+      assign wr_addr_inc  = wr_addr + 1'b1;
+      assign rd_addr_inc  = rd_addr + 1'b1;
+    end
+  endgenerate
+
   assign dout = buffer[rd_addr_map];
 
-  assign wr_addr_inc  = wr_addr < (FIFO_DEPTH - 1) ? (wr_addr + 1'b1) : 'b0;
-  assign rd_addr_inc  = rd_addr < (FIFO_DEPTH - 1) ? (rd_addr + 1'b1) : 'b0;
   assign wr_addr_map  = wr_addr[ADDR_WIDTH-1:0];
   assign rd_addr_map  = rd_addr[ADDR_WIDTH-1:0];
 
@@ -89,5 +99,4 @@ module FIFO #(
     end
   end
   // -----------------------------------------------------
-
 endmodule

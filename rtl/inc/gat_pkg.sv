@@ -19,11 +19,11 @@ package gat_pkg;
   parameter NEW_FEATURE_WIDTH     = WH_DATA_WIDTH + 32;
 
 `ifdef TESTBENCH
-  parameter H_NUM_SPARSE_DATA     = 556;
+  parameter H_NUM_SPARSE_DATA     = 555;
   parameter TOTAL_NODES           = 100;
   parameter NUM_FEATURE_IN        = 11;
   parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 23;
+  parameter NUM_SUBGRAPHS         = 25;
   parameter MAX_NODES             = 6;
 
 `elsif CORA
