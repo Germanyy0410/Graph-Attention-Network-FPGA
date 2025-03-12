@@ -397,7 +397,7 @@ module gat_top #(
     .feat_bram_addrb            (feat_bram_addrb_conv2            ),
     .feat_bram_dout             (feat_bram_dout                   ),
 
-    .gat_ready                  (gat_ready_conv1                  )
+    .gat_ready                  (gat_ready_conv2                  )
   );
   //* ==========================================================
 endmodule
