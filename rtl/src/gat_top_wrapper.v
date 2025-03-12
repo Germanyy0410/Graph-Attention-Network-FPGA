@@ -28,7 +28,7 @@ module gat_top_wrapper #(
   //* ==========================================================
 
   //* ======================= localparam =======================
-  // -- [brams] Depth
+  // -- [BRAM]
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA,
   parameter NODE_INFO_DEPTH       = TOTAL_NODES,
   parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN,
@@ -67,7 +67,7 @@ module gat_top_wrapper #(
   parameter WH_RESULT_WIDTH       = WH_DATA_WIDTH * W_NUM_OF_COLS,
   parameter WH_WIDTH              = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH,
 
-  // -- [a]
+  // -- [A]
   parameter A_ADDR_W              = $clog2(A_DEPTH),
   parameter HALF_A_SIZE           = A_DEPTH / 2,
   parameter A_INDEX_WIDTH         = $clog2(A_DEPTH),
@@ -80,7 +80,7 @@ module gat_top_wrapper #(
   parameter NUM_STAGES            = $clog2(NUM_FEATURE_OUT) + 1,
   parameter COEF_DELAY_LENGTH     = NUM_STAGES + 1,
 
-  // -- [Softmax]
+  // -- [SOFTMAX]
   parameter SOFTMAX_WIDTH         = MAX_NODES * DATA_WIDTH + NUM_NODE_WIDTH,
   parameter SOFTMAX_DEPTH         = NUM_SUBGRAPHS,
   parameter SOFTMAX_ADDR_W        = $clog2(SOFTMAX_DEPTH),
@@ -89,13 +89,13 @@ module gat_top_wrapper #(
   parameter DL_DATA_WIDTH         = $clog2(WOI + WOF + 3) + 1,
   parameter DIVISOR_FF_WIDTH      = NUM_NODE_WIDTH + SM_SUM_DATA_WIDTH,
 
-  // -- [Aggregator]
+  // -- [AGGREGATOR]
   parameter AGGR_WIDTH            = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH,
   parameter AGGR_DEPTH            = NUM_SUBGRAPHS,
   parameter AGGR_ADDR_W           = $clog2(AGGR_DEPTH),
   parameter AGGR_MULT_W           = WH_DATA_WIDTH + 32,
 
-  // -- [New Feature]
+  // -- [NEW FEATURE]
   parameter NEW_FEATURE_WIDTH     = DATA_WIDTH,
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH)
   //* ==========================================================

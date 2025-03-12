@@ -9,59 +9,88 @@
 
 package gat_pkg;
   //* =============== parameter ===============
-  // -- [Configurable] Data Width
-  parameter DATA_WIDTH            = 8;
-  parameter WH_DATA_WIDTH         = 12;
-  parameter DMVM_DATA_WIDTH       = 19;
-  parameter SM_DATA_WIDTH         = 108;
-  parameter SM_SUM_DATA_WIDTH     = 108;
-  parameter ALPHA_DATA_WIDTH      = 32;
-  parameter NEW_FEATURE_WIDTH     = WH_DATA_WIDTH + 32;
-
 `ifdef TESTBENCH
-  parameter H_NUM_SPARSE_DATA     = 555;
-  parameter TOTAL_NODES           = 100;
-  parameter NUM_FEATURE_IN        = 11;
-  parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 25;
-  parameter MAX_NODES             = 6;
+  parameter H_NUM_SPARSE_DATA       = 555;
+  parameter TOTAL_NODES             = 100;
+  parameter NUM_FEATURE_IN          = 11;
+  parameter NUM_FEATURE_OUT         = 16;
+  parameter NUM_FEATURE_FINAL       = 7;
+  parameter NUM_SUBGRAPHS           = 25;
+  parameter MAX_NODES               = 6;
+
+  parameter WH_DATA_WIDTH_CONV1     = 11;
+  parameter WH_DATA_WIDTH_CONV2     = 16;
+
+  parameter DMVM_DATA_WIDTH_CONV1   = 19;
+  parameter DMVM_DATA_WIDTH_CONV2   = 24;
 
 `elsif CORA
-  parameter H_NUM_SPARSE_DATA     = 242101;
-  parameter TOTAL_NODES           = 13264;
-  parameter NUM_FEATURE_IN        = 1433;
-  parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 2708;
-  parameter MAX_NODES             = 169;
+  parameter H_NUM_SPARSE_DATA       = 242101;
+  parameter TOTAL_NODES             = 13264;
+  parameter NUM_FEATURE_IN          = 1433;
+  parameter NUM_FEATURE_OUT         = 16;
+  parameter NUM_FEATURE_FINAL       = 7;
+  parameter NUM_SUBGRAPHS           = 2708;
+  parameter MAX_NODES               = 169;
+
+  parameter WH_DATA_WIDTH_CONV1     = 12;
+  parameter WH_DATA_WIDTH_CONV2     = 16;
+
+  parameter DMVM_DATA_WIDTH_CONV1   = 19;
+  parameter DMVM_DATA_WIDTH_CONV2   = 24;
 
 `elsif CITESEER
-  parameter H_NUM_SPARSE_DATA     = 553;
-  parameter TOTAL_NODES           = 100;
-  parameter NUM_FEATURE_IN        = 11;
-  parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 25;
-  parameter MAX_NODES             = 6;
+  parameter H_NUM_SPARSE_DATA       = 399058;
+  parameter TOTAL_NODES             = 12383;
+  parameter NUM_FEATURE_IN          = 3703;
+  parameter NUM_FEATURE_OUT         = 16;
+  parameter NUM_FEATURE_FINAL       = 6;
+  parameter NUM_SUBGRAPHS           = 3327;
+  parameter MAX_NODES               = 100;
+  parameter DMVM_DATA_WIDTH         = 20;
+
+  parameter WH_DATA_WIDTH_CONV1     = 10;
+  parameter WH_DATA_WIDTH_CONV2     = 16;
+
+  parameter DMVM_DATA_WIDTH_CONV1   = 20;
+  parameter DMVM_DATA_WIDTH_CONV2   = 23;
 
 `elsif PUBMED
-  parameter H_NUM_SPARSE_DATA     = 553;
-  parameter TOTAL_NODES           = 100;
-  parameter NUM_FEATURE_IN        = 11;
-  parameter NUM_FEATURE_OUT       = 16;
-  parameter NUM_SUBGRAPHS         = 25;
-  parameter MAX_NODES             = 6;
+  parameter H_NUM_SPARSE_DATA       = 557;
+  parameter TOTAL_NODES             = 100;
+  parameter NUM_FEATURE_IN          = 11;
+  parameter NUM_FEATURE_OUT         = 16;
+  parameter NUM_FEATURE_FINAL       = 3;
+  parameter NUM_SUBGRAPHS           = 26;
+  parameter MAX_NODES               = 6;
+  parameter DMVM_DATA_WIDTH         = 20;
+
+  parameter WH_DATA_WIDTH_CONV1     = 10;
+  parameter WH_DATA_WIDTH_CONV2     = 16;
+
+  parameter DMVM_DATA_WIDTH_CONV1   = 20;
+  parameter DMVM_DATA_WIDTH_CONV2   = 23;
 `endif
 
-  parameter COEF_DEPTH            = 500;
-  parameter ALPHA_DEPTH           = 500;
-  parameter DIVIDEND_DEPTH        = 500;
-  parameter DIVISOR_DEPTH         = 500;
+  parameter DATA_WIDTH              = 8;
+  parameter WH_DATA_WIDTH           = 12;
+  parameter DMVM_DATA_WIDTH         = 19;
+  parameter SM_DATA_WIDTH           = 108;
+  parameter SM_SUM_DATA_WIDTH       = 108;
+  parameter ALPHA_DATA_WIDTH        = 32;
+  parameter NEW_FEATURE_WIDTH       = 32;
+
+  parameter COEF_DEPTH              = 500;
+  parameter ALPHA_DEPTH             = 500;
+  parameter DIVIDEND_DEPTH          = 500;
+  parameter DIVISOR_DEPTH           = 500;
   //* =========================================
 
 
   //* ============== localparams ==============
   parameter signed ZERO           = {DMVM_DATA_WIDTH{1'b0}};
 
-  // -- [brams] Depth
+  // -- [BRAM]
   parameter H_DATA_DEPTH          = H_NUM_SPARSE_DATA;
   parameter NODE_INFO_DEPTH       = TOTAL_NODES;
   parameter WEIGHT_DEPTH          = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2;
@@ -100,7 +129,7 @@ package gat_pkg;
   parameter WH_RESULT_WIDTH       = WH_DATA_WIDTH * W_NUM_OF_COLS;
   parameter WH_WIDTH              = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH;
 
-  // -- [a]
+  // -- [A]
   parameter A_ADDR_W              = $clog2(A_DEPTH);
   parameter HALF_A_SIZE           = A_DEPTH / 2;
   parameter A_INDEX_WIDTH         = $clog2(A_DEPTH);
@@ -113,7 +142,7 @@ package gat_pkg;
   parameter NUM_STAGES            = $clog2(NUM_FEATURE_OUT) + 1;
   parameter COEF_DELAY_LENGTH     = NUM_STAGES + 1;
 
-  // -- [Softmax]
+  // -- [SOFTMAX]
   parameter SOFTMAX_WIDTH         = MAX_NODES * DATA_WIDTH + NUM_NODE_WIDTH;
   parameter SOFTMAX_DEPTH         = NUM_SUBGRAPHS;
   parameter SOFTMAX_ADDR_W        = $clog2(SOFTMAX_DEPTH);
@@ -122,13 +151,13 @@ package gat_pkg;
   parameter DL_DATA_WIDTH         = $clog2(WOI + WOF + 3) + 1;
   parameter DIVISOR_FF_WIDTH      = NUM_NODE_WIDTH + SM_SUM_DATA_WIDTH;
 
-  // -- [Aggregator]
+  // -- [AGGREGATOR]
   parameter AGGR_WIDTH            = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH;
   parameter AGGR_DEPTH            = NUM_SUBGRAPHS;
   parameter AGGR_ADDR_W           = $clog2(AGGR_DEPTH);
   parameter AGGR_MULT_W           = WH_DATA_WIDTH + 32;
 
-  // -- [New Feature]
+  // -- [NEW FEATURE]
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH);
 
   parameter IDLE                  = 2'b00;

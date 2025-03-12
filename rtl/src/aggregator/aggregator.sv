@@ -17,7 +17,7 @@ module aggregator #(
   parameter SM_DATA_WIDTH         = 108,
   parameter SM_SUM_DATA_WIDTH     = 108,
   parameter ALPHA_DATA_WIDTH      = 32,
-  parameter NEW_FEATURE_WIDTH     = WH_DATA_WIDTH + 32,
+  parameter NEW_FEATURE_WIDTH     = 32,
 
   parameter H_NUM_SPARSE_DATA     = 242101,
   parameter TOTAL_NODES           = 13264,
@@ -33,7 +33,7 @@ module aggregator #(
   //* ==========================================================
 
   //* ======================= localparams ======================
-  // -- [brams] Depth
+  // -- [BRAM]
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
@@ -72,7 +72,7 @@ module aggregator #(
   localparam WH_RESULT_WIDTH      = WH_DATA_WIDTH * W_NUM_OF_COLS,
   localparam WH_WIDTH             = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH,
 
-  // -- [a]
+  // -- [A]
   localparam A_ADDR_W             = $clog2(A_DEPTH),
   localparam HALF_A_SIZE          = A_DEPTH / 2,
   localparam A_INDEX_WIDTH        = $clog2(A_DEPTH),
@@ -85,7 +85,7 @@ module aggregator #(
   localparam NUM_STAGES           = $clog2(NUM_FEATURE_OUT) + 1,
   localparam COEF_DELAY_LENGTH    = NUM_STAGES + 1,
 
-  // -- [Softmax]
+  // -- [SOFTMAX]
   localparam SOFTMAX_WIDTH        = MAX_NODES * DATA_WIDTH + NUM_NODE_WIDTH,
   localparam SOFTMAX_DEPTH        = NUM_SUBGRAPHS,
   localparam SOFTMAX_ADDR_W       = $clog2(SOFTMAX_DEPTH),
@@ -94,13 +94,13 @@ module aggregator #(
   localparam DL_DATA_WIDTH        = $clog2(WOI + WOF + 3) + 1,
   localparam DIVISOR_FF_WIDTH     = NUM_NODE_WIDTH + SM_SUM_DATA_WIDTH,
 
-  // -- [Aggregator]
+  // -- [AGGREGATOR]
   localparam AGGR_WIDTH           = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH,
   localparam AGGR_DEPTH           = NUM_SUBGRAPHS,
   localparam AGGR_ADDR_W          = $clog2(AGGR_DEPTH),
   localparam AGGR_MULT_W          = WH_DATA_WIDTH + 32,
 
-  // -- [New Feature]
+  // -- [NEW FEATURE]
   localparam NEW_FEATURE_ADDR_W   = $clog2(NEW_FEATURE_DEPTH)
   //* ==========================================================
 )(
@@ -122,7 +122,9 @@ module aggregator #(
   // -- new features
   output logic [NEW_FEATURE_ADDR_W-1:0]               feat_bram_addra     ,
   output logic [NEW_FEATURE_WIDTH-1:0]                feat_bram_din       ,
-  output logic                                        feat_bram_ena
+  output logic                                        feat_bram_ena       ,
+
+  output                                              gat_ready
 );
 
 
@@ -142,9 +144,9 @@ module aggregator #(
 
   logic                                               mul_vld             ;
   logic [NUM_FEATURE_OUT-1:0]                         mul_rdy             ;
-  logic [NUM_FEATURE_OUT-1:0] [AGGR_MULT_W-1:0]       prod                ;
-  logic [NUM_FEATURE_OUT-1:0] [AGGR_MULT_W-1:0]       res                 ;
-  logic [NUM_FEATURE_OUT-1:0] [AGGR_MULT_W-1:0]       res_reg             ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH:0]   prod                ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH:0]   res                 ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH:0]   res_reg             ;
 
   logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0] new_feat            ;
   logic [NUM_NODE_WIDTH-1:0]                          num_node_out        ;
@@ -214,8 +216,8 @@ module aggregator #(
         .WIFA   (0                ),
         .WIIB   (WOI              ),
         .WIFB   (WOF              ),
-        .WOI    (WH_DATA_WIDTH    ),
-        .WOF    (32               ),
+        .WOI    (17               ),
+        .WOF    (16               ),
         .ROUND  (1                )
       ) u_mul_pipe (
         .clk    (clk              ),
@@ -250,7 +252,7 @@ module aggregator #(
   //* ========== push data to feature bram =========
   generate
     for (i = 0; i < NUM_FEATURE_OUT; i = i + 1) begin
-      assign new_feat[i] = (res_reg[i][AGGR_MULT_W-1] == 1'b0) ? res_reg[i] : '0;
+      assign new_feat[i] = (res_reg[i][NEW_FEATURE_WIDTH] == 1'b0) ? res_reg[i][NEW_FEATURE_WIDTH-1:0] : '0;
     end
   endgenerate
 
@@ -296,7 +298,9 @@ module aggregator #(
 
     .feat_bram_addra    (feat_bram_addra    ),
     .feat_bram_din      (feat_bram_din      ),
-    .feat_bram_ena      (feat_bram_ena      )
+    .feat_bram_ena      (feat_bram_ena      ),
+
+    .gat_ready          (gat_ready          )
   );
   //* ==============================================
 endmodule

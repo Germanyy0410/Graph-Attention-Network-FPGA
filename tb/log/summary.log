@@ -6,14 +6,14 @@
   NUM_SUBGRAPHS =   2708	NUM_FEATURE_OUT = 16
   MAX_NODES     =    169	NUM_SPARSE_DATA = 242101
 ------------------------------------------------------------
-  Time    = 242186 cycles   (459 us - 2881 us)  
+  Time    = 242173 cycles   (459 us - 2881 us)  
   Latency =    140 cycles
 
-  F = 100 MHz -> Time = 2421.86 us -> Latency = 1.40 us
-  F = 150 MHz -> Time = 1615.38 us -> Latency = 0.93 us
-  F = 200 MHz -> Time = 1210.93 us -> Latency = 0.70 us
-  F = 225 MHz -> Time = 1075.31 us -> Latency = 0.62 us
-  F = 300 MHz -> Time =  806.48 us -> Latency = 0.47 us
+  F = 100 MHz -> Time = 2421.73 us -> Latency = 1.40 us
+  F = 150 MHz -> Time = 1615.29 us -> Latency = 0.93 us
+  F = 200 MHz -> Time = 1210.87 us -> Latency = 0.70 us
+  F = 225 MHz -> Time = 1075.25 us -> Latency = 0.62 us
+  F = 300 MHz -> Time =  806.44 us -> Latency = 0.47 us
 ------------------------------------------------------------
   SPMM:
      - WH              : 13264 | 13264	(100%)
@@ -29,7 +29,7 @@
      - Alpha           : 13264 | 13264	(100%)
 
   AGGREGATOR:
-     - New Feature     : 43328 | 43328	(100%)
+     - New Feature     : 43327 | 43327	(100%)
 
 ------------------------------------------------------------
 |                          END                             |

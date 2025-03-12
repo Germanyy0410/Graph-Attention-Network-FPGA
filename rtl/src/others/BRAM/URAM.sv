@@ -20,6 +20,7 @@ module URAM #(
   input   [DATA_WIDTH-1:0]        din           ,
   input   [DATA_ADDR_W-1:0]       addra         ,
   input                           ena           ,
+  input                           wea           ,
   // -- Data Fetch
   input   [DATA_ADDR_W-1:0]       addrb         ,
   output  [DATA_WIDTH-1:0]        dout
@@ -42,7 +43,7 @@ module URAM #(
   endgenerate
 
   always_ff @(posedge clk) begin
-    if (ena) begin
+    if (ena && wea) begin
       memory[addra] <= din;
     end
     data    <= memory[addrb];

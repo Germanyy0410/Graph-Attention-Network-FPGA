@@ -4,6 +4,7 @@
   string file_path;
 
   initial begin
+		c1;
     h_node_info_bram_ena        = 1'b1;
     h_node_info_bram_wea        = 1'b1;
 		h_node_info_bram_load_done  = 1'b0;
@@ -46,6 +47,7 @@
 	end
 
 	initial begin
+		c1;
 		h_data_bram_ena       = 1'b1;
 		h_data_bram_wea       = 1'b1;
 		h_data_bram_load_done = 1'b0;
@@ -53,10 +55,18 @@
 		file_path   = $sformatf("%s/h_data.txt", INPUT_PATH);
 		value_file  = $fopen(file_path, "r");
 
-		for (int i = 0; i < H_DATA_DEPTH; i++) begin
-			value_r = $fscanf(value_file, "%b\n", h_data_bram_din);
-			h_data_bram_addra = i;
-			c1;
+		if (gat_layer == 1'b0) begin
+			for (int i = 0; i < H_DATA_DEPTH; i++) begin
+				value_r = $fscanf(value_file, "%b\n", h_data_bram_din);
+				h_data_bram_addra = i;
+				c1;
+			end
+		end else if (gat_layer == 1'b1) begin
+			for (int i = 0; i < H_NUM_OF_COLS * H_NUM_OF_ROWS; i++) begin
+				value_r = $fscanf(value_file, "%b\n", h_data_bram_din);
+				h_data_bram_addrb = i;
+				c1;
+			end
 		end
 
 		h_data_bram_ena       = 1'b0;

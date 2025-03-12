@@ -19,7 +19,7 @@ module DMVM #(
   parameter SM_DATA_WIDTH         = 108,
   parameter SM_SUM_DATA_WIDTH     = 108,
   parameter ALPHA_DATA_WIDTH      = 32,
-  parameter NEW_FEATURE_WIDTH     = WH_DATA_WIDTH + 32,
+  parameter NEW_FEATURE_WIDTH     = 32,
 
   parameter H_NUM_SPARSE_DATA     = 242101,
   parameter TOTAL_NODES           = 13264,
@@ -35,7 +35,7 @@ module DMVM #(
   //* ==========================================================
 
   //* ======================= localparams ======================
-  // -- [brams] Depth
+  // -- [BRAM]
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
@@ -74,7 +74,7 @@ module DMVM #(
   localparam WH_RESULT_WIDTH      = WH_DATA_WIDTH * W_NUM_OF_COLS,
   localparam WH_WIDTH             = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH,
 
-  // -- [a]
+  // -- [A]
   localparam A_ADDR_W             = $clog2(A_DEPTH),
   localparam HALF_A_SIZE          = A_DEPTH / 2,
   localparam A_INDEX_WIDTH        = $clog2(A_DEPTH),
@@ -87,7 +87,7 @@ module DMVM #(
   localparam NUM_STAGES           = $clog2(NUM_FEATURE_OUT) + 1,
   localparam COEF_DELAY_LENGTH    = NUM_STAGES + 1,
 
-  // -- [Softmax]
+  // -- [SOFTMAX]
   localparam SOFTMAX_WIDTH        = MAX_NODES * DATA_WIDTH + NUM_NODE_WIDTH,
   localparam SOFTMAX_DEPTH        = NUM_SUBGRAPHS,
   localparam SOFTMAX_ADDR_W       = $clog2(SOFTMAX_DEPTH),
@@ -96,13 +96,13 @@ module DMVM #(
   localparam DL_DATA_WIDTH        = $clog2(WOI + WOF + 3) + 1,
   localparam DIVISOR_FF_WIDTH     = NUM_NODE_WIDTH + SM_SUM_DATA_WIDTH,
 
-  // -- [Aggregator]
+  // -- [AGGREGATOR]
   localparam AGGR_WIDTH           = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH,
   localparam AGGR_DEPTH           = NUM_SUBGRAPHS,
   localparam AGGR_ADDR_W          = $clog2(AGGR_DEPTH),
   localparam AGGR_MULT_W          = WH_DATA_WIDTH + 32,
 
-  // -- [New Feature]
+  // -- [NEW FEATURE]
   localparam NEW_FEATURE_ADDR_W   = $clog2(NEW_FEATURE_DEPTH)
   //* ==========================================================
 )(

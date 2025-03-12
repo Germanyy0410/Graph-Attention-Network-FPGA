@@ -17,7 +17,7 @@ module SPMM #(
   parameter SM_DATA_WIDTH         = 108,
   parameter SM_SUM_DATA_WIDTH     = 108,
   parameter ALPHA_DATA_WIDTH      = 32,
-  parameter NEW_FEATURE_WIDTH     = WH_DATA_WIDTH + 32,
+  parameter NEW_FEATURE_WIDTH     = 32,
 
   parameter H_NUM_SPARSE_DATA     = 242101,
   parameter TOTAL_NODES           = 13264,
@@ -33,7 +33,7 @@ module SPMM #(
   //* ==========================================================
 
   //* ======================= localparams ======================
-  // -- [brams] Depth
+  // -- [BRAM]
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
@@ -72,7 +72,7 @@ module SPMM #(
   localparam WH_RESULT_WIDTH      = WH_DATA_WIDTH * W_NUM_OF_COLS,
   localparam WH_WIDTH             = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH,
 
-  // -- [a]
+  // -- [A]
   localparam A_ADDR_W             = $clog2(A_DEPTH),
   localparam HALF_A_SIZE          = A_DEPTH / 2,
   localparam A_INDEX_WIDTH        = $clog2(A_DEPTH),
@@ -85,7 +85,7 @@ module SPMM #(
   localparam NUM_STAGES           = $clog2(NUM_FEATURE_OUT) + 1,
   localparam COEF_DELAY_LENGTH    = NUM_STAGES + 1,
 
-  // -- [Softmax]
+  // -- [SOFTMAX]
   localparam SOFTMAX_WIDTH        = MAX_NODES * DATA_WIDTH + NUM_NODE_WIDTH,
   localparam SOFTMAX_DEPTH        = NUM_SUBGRAPHS,
   localparam SOFTMAX_ADDR_W       = $clog2(SOFTMAX_DEPTH),
@@ -94,13 +94,13 @@ module SPMM #(
   localparam DL_DATA_WIDTH        = $clog2(WOI + WOF + 3) + 1,
   localparam DIVISOR_FF_WIDTH     = NUM_NODE_WIDTH + SM_SUM_DATA_WIDTH,
 
-  // -- [Aggregator]
+  // -- [AGGREGATOR]
   localparam AGGR_WIDTH           = MAX_NODES * ALPHA_DATA_WIDTH + NUM_NODE_WIDTH,
   localparam AGGR_DEPTH           = NUM_SUBGRAPHS,
   localparam AGGR_ADDR_W          = $clog2(AGGR_DEPTH),
   localparam AGGR_MULT_W          = WH_DATA_WIDTH + 32,
 
-  // -- [New Feature]
+  // -- [NEW FEATURE]
   localparam NEW_FEATURE_ADDR_W   = $clog2(NEW_FEATURE_DEPTH)
   //* ==========================================================
 )(
@@ -135,6 +135,7 @@ module SPMM #(
   output                                                wh_bram_ena               ,
   output  [WH_ADDR_W-1:0]                               wh_bram_addra
 );
+  localparam START_CALC = 5;
 
   //* =================== logic declaration ====================
   logic                                           new_row_en                ;
@@ -171,6 +172,7 @@ module SPMM #(
   logic                                           ff_full                   ;
   logic                                           ff_wr_vld                 ;
   logic                                           ff_rd_vld                 ;
+  logic                                           ff_rd_vld_q1              ;
   logic [NODE_INFO_WIDTH-1:0]                     ff_node_info              ;
   logic [ROW_LEN_WIDTH-1:0]                       ff_row_len                ;
   logic                                           ff_src_flag               ;
@@ -185,7 +187,10 @@ module SPMM #(
   logic                                           pe_vld                    ;
   logic                                           pe_vld_reg                ;
   logic                                           spmm_vld_q1               ;
+  logic                                           spmm_vld_q2               ;
   logic [W_NUM_OF_COLS-1:0]                       pe_rdy_o                  ;
+  logic [NUM_NODE_WIDTH-1:0]                      pe_num_node               ;
+  logic                                           pe_src_flag               ;
 
   // -- SP-PE results
   logic [WH_RESULT_WIDTH-1:0]                     sppe_cat                  ;
@@ -193,6 +198,9 @@ module SPMM #(
   logic [WH_WIDTH-1:0]                            wh_data_i                 ;
   logic [WH_ADDR_W-1:0]                           wh_addr                   ;
   logic [WH_ADDR_W-1:0]                           wh_addr_reg               ;
+
+  logic                                           addr_flag                 ;
+  logic                                           addr_flag_reg             ;
 
   // -- output
   logic [WH_WIDTH-1:0]                            wh_data                   ;
@@ -245,7 +253,12 @@ module SPMM #(
 
         .col_idx_i    (col_idx                  ),
         .val_i        (val                      ),
-        .row_len_i    (ff_row_len               ),
+        .row_len_i    (row_len                  ),
+        .num_node_i   (num_node                 ),
+        .src_flag_i   (src_flag                 ),
+
+        .num_node_o   (pe_num_node              ),
+        .src_flag_o   (pe_src_flag              ),
 
         .wgt_addrb    (mult_wgt_addrb[i]        ),
         .wgt_dout     (mult_wgt_dout[i]         ),
@@ -256,7 +269,8 @@ module SPMM #(
 
   FIFO #(
     .DATA_WIDTH (NODE_INFO_WIDTH  ),
-    .FIFO_DEPTH (100              )
+    .FIFO_DEPTH (10               ),
+    .FIFO_TYPE  (0                )
   ) node_info_fifo (
     .clk        (clk              ),
     .rst_n      (rst_n            ),
@@ -281,10 +295,10 @@ module SPMM #(
   endgenerate
 
   // -- output from SP-PE
-  assign wh_data_i  = { sppe_cat, ff_num_node_reg, ff_src_flag_reg };
+  assign wh_data_i  = { sppe_cat, pe_num_node, pe_src_flag };
 
   // -- WH bram
-  assign wh_bram_din    = { sppe_cat, ff_num_node_reg, ff_src_flag_reg };
+  assign wh_bram_din    = { sppe_cat, pe_num_node, pe_src_flag };
   assign wh_bram_ena    = (&pe_rdy_o);
   assign wh_bram_addra  = wh_addr_reg;
 
@@ -302,7 +316,7 @@ module SPMM #(
 
 
   //* ======================= WH output ========================
-  assign wh_data = (&pe_rdy_o) ? { sppe_cat, ff_num_node_reg, ff_src_flag_reg } : wh_data_reg;
+  assign wh_data = (&pe_rdy_o) ? { sppe_cat, pe_num_node, pe_src_flag } : wh_data_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -318,8 +332,8 @@ module SPMM #(
   always_comb begin
     pe_vld = pe_vld_reg;
 
-    if (spmm_vld_q1) begin
-      if (data_addr_reg == 1) begin
+    if (spmm_vld_q2) begin
+      if (row_cnt_reg == 1'b0) begin
         pe_vld = 1'b1;
       end else begin
         pe_vld = &pe_rdy_o;
@@ -337,72 +351,60 @@ module SPMM #(
 
   always_ff @(posedge clk) begin
     spmm_vld_q1 <= spmm_vld_i;
+    spmm_vld_q2 <= spmm_vld_q1;
   end
   //* ==========================================================
 
 
   //* ================== Pop data into SP-PE ===================
-  assign sparse_row     = ~|row_len[ROW_LEN_WIDTH-1:1];
-  assign dense_row      =  |row_len[ROW_LEN_WIDTH-1:1];
-  assign sparse_row_nxt = ~|row_len_nxt[ROW_LEN_WIDTH-1:1];
-  assign dense_row_nxt  =  |row_len_nxt[ROW_LEN_WIDTH-1:1];
-
-  assign new_row_en = ((row_cnt_reg == 1 && dense_row) || sparse_row) && spmm_vld_q1;
-
-  assign row_cnt    = (((row_cnt_reg == row_len - 1 && dense_row) || (row_cnt_reg == 0 && sparse_row_nxt)) && spmm_vld_q1)
-                          || (row_cnt_reg == 0 && sparse_row && (spmm_vld_i ^ spmm_vld_q1))
-                          ? 0
-                          : ((((row_cnt_reg < row_len - 1) && (dense_row)) || (sparse_row && dense_row_nxt)) && spmm_vld_i)
-                            ? (row_cnt_reg + 1)
-                            : row_cnt_reg;
-
-  assign data_addr = (spmm_vld_q1) ? (data_addr_reg + 1) : data_addr_reg;
-
-  assign node_info_addr = ((((row_cnt_reg == row_len - 1) && dense_row) || (sparse_row_nxt && row_cnt_reg == 0)) && spmm_vld_q1)
-                          ? (node_info_addr_reg + 1)
-                          : node_info_addr_reg;
-
   // -- col_idx & val
   assign { col_idx, val }   = h_data_bram_dout;
   assign h_data_bram_addrb  = data_addr_reg;
+  assign data_addr          = (spmm_vld_q1) ? (data_addr_reg + 1) : data_addr_reg;
 
   // -- node_info
-  assign { row_len, num_node, src_flag }  = h_node_info_bram_dout;
-  assign h_node_info_bram_addrb           = node_info_addr_reg;
+  assign h_node_info_bram_addrb = node_info_addr_reg;
+  assign addr_flag              = (node_info_addr == START_CALC + 1) && (node_info_addr_reg == START_CALC);
+  assign node_info_addr         = (spmm_vld_i && ((node_info_addr_reg <= START_CALC) || ff_rd_vld)) ? (node_info_addr_reg + 1) : node_info_addr_reg;
 
-  // -- node_info_next
-  assign { row_len_nxt, num_node_nxt, src_flag_nxt } = h_node_info_bram_dout_nxt;
+  // -- write to fifo
+  assign ff_data_i = h_node_info_bram_dout;
+  assign ff_wr_vld = (spmm_vld_q1 && ((node_info_addr_reg <= START_CALC) || addr_flag_reg || (node_info_addr >= START_CALC + 1 && ff_rd_vld_q1)));
 
-  // -- FF
-  assign ff_data_i    = h_node_info_bram_dout;
-  assign ff_wr_vld    = new_row_en;
+  // -- read from fifo
+  assign { row_len, num_node, src_flag } = ff_data_o;
+  assign ff_rd_vld = spmm_vld_q2 && ((row_cnt_reg == row_len - 1) || row_len <= 1);
 
-  assign ff_rd_vld    = (&pe_rdy_o || data_addr_reg == 1) && !ff_empty;
-  assign ff_node_info = (ff_rd_vld) ? ff_data_o : ff_node_info_reg;
-
-  // -- node_info from FF
-  assign { ff_row_len, ff_num_node, ff_src_flag } = ff_node_info;
-  assign { ff_row_len_reg, ff_num_node_reg, ff_src_flag_reg } = ff_node_info_reg;
+  always_comb begin
+    row_cnt = row_cnt_reg;
+    if (spmm_vld_q2) begin
+      if (ff_rd_vld || row_len <= 1) begin
+        row_cnt = 'b0;
+      end else if (row_len >= 2) begin
+        row_cnt = row_cnt_reg + 1;
+      end
+    end
+  end
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      row_cnt_reg         <= 'b0;
-      num_node_reg        <= 'b0;
-      data_addr_reg       <= 'b0;
-      ff_node_info_reg    <= 'b0;
-      node_info_addr_reg  <= 'b0;
+      ff_rd_vld_q1        <= '0;
+      addr_flag_reg       <= '0;
+      row_cnt_reg         <= '0;
+      data_addr_reg       <= '0;
+      node_info_addr_reg  <= '0;
     end else begin
+      ff_rd_vld_q1        <= ff_rd_vld;
+      addr_flag_reg       <= addr_flag;
       row_cnt_reg         <= row_cnt;
-      num_node_reg        <= num_node;
       data_addr_reg       <= data_addr;
-      ff_node_info_reg    <= ff_node_info;
       node_info_addr_reg  <= node_info_addr;
     end
   end
-  //* ============================================================
+  //* ==========================================================
 
 
-  //* ====================== num_node bram =======================
+  //* ===================== num_node bram ======================
   num_node_controller #(
     .DATA_WIDTH         (DATA_WIDTH         ),
     .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
@@ -436,5 +438,5 @@ module SPMM #(
     .num_node_bram_ena    (num_node_bram_ena        ),
     .num_node_bram_addra  (num_node_bram_addra      )
   );
-  //* ================================================================
+  //* ==========================================================
 endmodule
