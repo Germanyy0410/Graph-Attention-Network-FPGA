@@ -136,8 +136,7 @@ module gat_top_wrapper #(
 
   gat_top #(
     .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+    
     .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
     .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
     .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
