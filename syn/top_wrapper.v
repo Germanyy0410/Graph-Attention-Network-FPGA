@@ -141,7 +141,7 @@ module top_wrapper #(
     .wea        (h_data_bram_wea),
     .addra      (h_data_bram_addra[H_DATA_ADDR_W+1:2]),
     .addrb      (h_data_bram_addrb[H_DATA_ADDR_W+1:2]),
-    .dout       (h_data_bram_dout[H_DATA_WIDTH-1:0]),
+    .dout       (h_data_bram_dout[H_DATA_WIDTH-1:0])
   );
 
   modified_BRAM #(
@@ -155,7 +155,7 @@ module top_wrapper #(
     .wea        (h_node_info_bram_wea),
     .addra      (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2]),
     .addrb      (h_node_info_bram_addrb[NODE_INFO_ADDR_W+1:2]),
-    .dout       (h_node_info_bram_dout[NODE_INFO_WIDTH-1:0]),
+    .dout       (h_node_info_bram_dout[NODE_INFO_WIDTH-1:0])
   );
 
   BRAM #(
