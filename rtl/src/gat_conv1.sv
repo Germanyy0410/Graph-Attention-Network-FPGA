@@ -97,6 +97,7 @@ module gat_conv1 #(
   input                             rst_n                       ,
 
   input                             gat_layer                   ,
+  output  [7:0]                     gat_debug                   ,
 
   input   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
   output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
@@ -419,6 +420,23 @@ module gat_conv1 #(
     .feat_bram_ena        (feat_bram_ena            ),
 
     .gat_ready            (gat_ready                )
+  );
+  //* ==========================================================
+
+
+  //* ======================= Aggregator =======================
+  debugger u_debugger (
+    .clk        (clk          ),
+    .rst_n      (rst_n        ),
+    .spmm_vld_i (spmm_vld     ),
+    .spmm_rdy_i (spmm_rdy     ),
+    .dmvm_vld_i (spmm_rdy     ),
+    .dmvm_rdy_i (dmvm_rdy     ),
+    .sm_vld_i   (dmvm_rdy     ),
+    .sm_rdy_i   (sm_rdy       ),
+    .aggr_vld_i (aggr_vld_reg ),
+    .aggr_rdy_i (aggr_rdy     ),
+    .debug      (gat_debug    )
   );
   //* ==========================================================
 endmodule

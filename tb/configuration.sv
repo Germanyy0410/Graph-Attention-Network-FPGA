@@ -90,41 +90,41 @@
   always_comb begin
     spmm_conv2.dut_ready              = dut.u_gat_conv2.u_WH.wh_rdy_o;
     spmm_conv2.dut_spmm_output        = dut.u_gat_conv2.u_WH.res_reg;
-    spmm_conv2.golden_spmm_output     = golden_spmm;
+    spmm_conv2.golden_spmm_output     = golden_spmm_conv2;
   end
 
   always_comb begin
     dmvm_conv2.dut_ready              = dut.u_gat_conv2.u_DMVM.dut_dmvm_ready;
     dmvm_conv2.dut_output             = dut.u_gat_conv2.u_DMVM.dut_dmvm_output;
-    dmvm_conv2.golden_output          = golden_dmvm;
+    dmvm_conv2.golden_output          = golden_dmvm_conv2;
 
     coef_conv2.dut_ready              = dut.u_gat_conv2.u_DMVM.dmvm_rdy_o;
     coef_conv2.dut_output             = dut.u_gat_conv2.u_DMVM.coef_ff_din;
-    coef_conv2.golden_output          = golden_coef;
+    coef_conv2.golden_output          = golden_coef_conv2;
   end
 
   always_comb begin
     dividend_conv2.dut_ready          = dut.u_gat_conv2.u_softmax.divd_ff_rd_vld;
     dividend_conv2.dut_output         = dut.u_gat_conv2.u_softmax.divd_ff_dout;
-    dividend_conv2.golden_output      = golden_dividend;
+    dividend_conv2.golden_output      = golden_dividend_conv2;
 
     divisor_conv2.dut_ready           = dut.u_gat_conv2.u_softmax.dvsr_ff_wr_vld;
     divisor_conv2.dut_output          = dut.u_gat_conv2.u_softmax.sum_reg;
-    divisor_conv2.golden_output       = golden_divisor;
+    divisor_conv2.golden_output       = golden_divisor_conv2;
 
     sm_num_nodes_conv2.dut_ready      = dut.u_gat_conv2.u_softmax.dvsr_ff_wr_vld;
     sm_num_nodes_conv2.dut_output     = dut.u_gat_conv2.u_softmax.num_node_reg;
-    sm_num_nodes_conv2.golden_output  = golden_sm_num_node;
+    sm_num_nodes_conv2.golden_output  = golden_sm_num_node_conv2;
 
     alpha_conv2.dut_ready             = dut.u_gat_conv2.u_softmax.sm_rdy_o;
     alpha_conv2.dut_output            = dut.u_gat_conv2.u_softmax.alpha_ff_din;
-    alpha_conv2.golden_output         = golden_alpha;
+    alpha_conv2.golden_output         = golden_alpha_conv2;
   end
 
   always_comb begin
     new_feature_conv2.dut_ready       = dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena;
     new_feature_conv2.dut_output      = dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_din;
-    new_feature_conv2.golden_output   = golden_new_feature;
+    new_feature_conv2.golden_output   = golden_new_feature_conv2;
   end
 
   initial begin

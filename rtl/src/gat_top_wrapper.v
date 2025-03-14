@@ -107,6 +107,7 @@ module gat_top_wrapper #(
   //* ===================== Register Bank ======================
   input                             gat_layer                   ,
   output                            gat_ready                   ,
+  output  [7:0]                     gat_debug                   ,
   input                             h_data_bram_load_done       ,
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
@@ -136,7 +137,7 @@ module gat_top_wrapper #(
 
   gat_top #(
     .DATA_WIDTH         (DATA_WIDTH         ),
-    
+
     .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
     .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
     .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
@@ -159,6 +160,7 @@ module gat_top_wrapper #(
 
     .gat_layer                    (gat_layer                                    ),
     .gat_ready                    (gat_ready                                    ),
+    .gat_debug                    (gat_debug                                    ),
     .h_data_bram_load_done        (h_data_bram_load_done                        ),
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                   ),
     .wgt_bram_load_done           (wgt_bram_load_done                           ),
