@@ -12,7 +12,7 @@
 	localparam string ROOT_PATH = "D:/VLSI/Capstone/tb";
 `endif
 
-localparam string LOG_PATH = "D:/VLSI/Capstone/tb/log";
+string LOG_PATH;
 
 module gat_top_tb #(
   //* ======================= parameter ========================
@@ -150,6 +150,7 @@ module gat_top_tb #(
   //* ==========================================================
 ) ();
 
+  //* =================== DUT Initialization ===================
   logic                             clk                         ;
   logic                             rst_n                       ;
 
@@ -178,8 +179,10 @@ module gat_top_tb #(
   logic   [DATA_WIDTH-1:0]          feat_bram_dout              ;
 
   gat_top dut (.*);
+  //* ==========================================================
 
-  ///////////////////////////////////////////////////////////////////
+
+  //* =================== CLK Initialization ===================
   always #5 clk = ~clk;
   initial begin
     clk       = 1'b1;
@@ -187,7 +190,16 @@ module gat_top_tb #(
     #15.01;
     rst_n     = 1'b1;
   end
-  ///////////////////////////////////////////////////////////////////
+  //* ==========================================================
+
+
+  //* ==================== Update Log Path =====================
+  initial begin
+    LOG_PATH = $sformatf("%s/log/conv1", ROOT_PATH);
+    wait(dut.gat_ready == 1'b1);
+    LOG_PATH = $sformatf("%s/log/conv2", ROOT_PATH);
+  end
+  //* ==========================================================
 
 
   `include "comparator.sv"
@@ -196,7 +208,7 @@ module gat_top_tb #(
   `include "loader/output_loader.sv"
 
 
-  ///////////////////////////////////////////////////////////////////
+  //* ================= Output Comparator - Layer 1 =================
   OutputComparator #(longint, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT)    spmm          = new("WH         ", WH_DATA_WIDTH, 0, 1);
 
   OutputComparator #(longint, DMVM_DATA_WIDTH, TOTAL_NODES)                   dmvm          = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
@@ -208,22 +220,38 @@ module gat_top_tb #(
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                     alpha         = new("Alpha      ", WOI, WOF, 0);
 
   OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS*NUM_FEATURE_OUT)  new_feature   = new("New Feature", 16, 16, 0);
-  ///////////////////////////////////////////////////////////////////
+  //* ===============================================================
+
+
+  //* ================= Output Comparator - Layer 2 =================
+  OutputComparator #(longint, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT)    spmm_conv2          = new("WH         ", WH_DATA_WIDTH, 0, 1);
+
+  OutputComparator #(longint, DMVM_DATA_WIDTH, TOTAL_NODES)                   dmvm_conv2          = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, DATA_WIDTH, TOTAL_NODES)                        coef_conv2          = new("COEF       ", DATA_WIDTH, 0, 1);
+
+  OutputComparator #(real, SM_DATA_WIDTH, TOTAL_NODES)                        dividend_conv2      = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
+  OutputComparator #(real, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)                  divisor_conv2       = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
+  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                  sm_num_nodes_conv2  = new("Num Node   ", NUM_NODE_WIDTH, 0, 0);
+  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                     alpha_conv2         = new("Alpha      ", WOI, WOF, 0);
+
+  OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS*NUM_FEATURE_OUT)  new_feature_conv2   = new("New Feature", 16, 16, 0);
+  //* ===============================================================
 
   `include "configuration.sv"
 
-  ///////////////////////////////////////////////////////////////////
+  //* =========================== Layer 1 ===========================
   initial begin
     gat_layer = 1'b0;
 
-    //////////////////////////////
+    // ================ Load IO ================
     fork
-      input_loader($sformatf("%s/layer_1/input", ROOT_PATH));
-      output_loader($sformatf("%s/layer_1/output", ROOT_PATH), NUM_FEATURE_OUT);
+      input_loader();
+      output_loader();
     join
-    //////////////////////////////
+    // =========================================
 
-    //////////////////////////////
+
+    // =========== Start Simulation ============
     c3;
     wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
     start_time      = $time;
@@ -236,11 +264,11 @@ module gat_top_tb #(
     // -- Total
     wait(dut.u_gat_conv1.gat_ready);
     end_time = $time;
-    //////////////////////////////
+    // =========================================
 
-    //////////////////////////////
+
+    // ================ Report =================
     summary_section;
-    //////////////////////////////
 
     spmm.base_scoreboard();
     dmvm.base_scoreboard();
@@ -251,12 +279,58 @@ module gat_top_tb #(
     alpha.base_scoreboard();
     new_feature.base_scoreboard();
 
-    //////////////////////////////
     end_section;
-    //////////////////////////////
+    // =========================================
+  end
+  //* ===============================================================
 
+
+  //* =========================== Layer 2 ===========================
+  initial begin
+    wait(dut.gat_ready == 1'b1);
     c1;
+    gat_layer = 1'b1;
+
+    // ================ Load IO ================
+    fork
+      input_loader();
+      output_loader();
+    join
+    // =========================================
+
+
+    // =========== Start Simulation ============
+    c3;
+    wait(dut.u_gat_conv2.u_WH.wh_vld_i);
+    start_time      = $time;
+    lat_start_time  = $time;
+
+    // -- Latency
+    wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
+    lat_end_time = $time;
+
+    // -- Total
+    wait(dut.u_gat_conv2.gat_ready);
+    end_time = $time;
+    // =========================================
+
+
+    // ================ Report =================
+    summary_section;
+
+    spmm_conv2.base_scoreboard();
+    dmvm_conv2.base_scoreboard();
+    coef_conv2.base_scoreboard();
+    dividend_conv2.base_scoreboard();
+    divisor_conv2.base_scoreboard();
+    sm_num_nodes_conv2.base_scoreboard();
+    alpha_conv2.base_scoreboard();
+    new_feature_conv2.base_scoreboard();
+
+    end_section;
+    // =========================================
+
     $finish();
   end
-  ///////////////////////////////////////////////////////////////////
+  //* ===============================================================
 endmodule

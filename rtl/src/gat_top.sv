@@ -299,6 +299,8 @@ module gat_top #(
     .clk                        (clk                              ),
     .rst_n                      (rst_n                            ),
 
+    .gat_layer                  (gat_layer                        ),
+
     .h_data_bram_dout           (h_data_bram_dout                 ),
     .h_data_bram_addrb          (h_data_bram_addrb_conv1          ),
     .h_data_bram_load_done      (h_data_bram_load_done            ),
@@ -361,6 +363,8 @@ module gat_top #(
   ) u_gat_conv2 (
     .clk                        (clk                              ),
     .rst_n                      (rst_n                            ),
+
+    .gat_layer                  (gat_layer                        ),
 
     .h_data_bram_dout           (h_data_bram_dout                 ),
     .h_data_bram_addrb          (h_data_bram_addrb_conv2          ),

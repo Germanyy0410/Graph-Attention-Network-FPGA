@@ -96,6 +96,8 @@ module gat_conv1 #(
   input                             clk                         ,
   input                             rst_n                       ,
 
+  input                             gat_layer                   ,
+
   input   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
   output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
   input                             h_data_bram_load_done       ,
@@ -226,7 +228,7 @@ module gat_conv1 #(
   logic                       spmm_rdy  ;
   logic [WH_WIDTH-1:0]        wh_data   ;
 
-  assign spmm_vld = w_rdy;
+  assign spmm_vld = w_rdy && (gat_layer == 1'b0);
 
   SPMM #(
     .DATA_WIDTH         (DATA_WIDTH         ),
