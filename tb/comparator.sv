@@ -1,4 +1,4 @@
-`include "./loader/output_loader.sv"
+// `include "./loader/output_loader.sv"
 
 `ifdef VIVADO
   string pass = "[PASSED]";
@@ -107,11 +107,11 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
       // Split into subgraphs
       if (label == "DMVM       ") begin
         if (i == 0) begin
-          node_count = golden_sm_num_node[0] + 1;
+          node_count = golden_sm_num_node_conv1[0] + 1;
         end
         if (i == node_count - 1) begin
           subgraph_count++;
-          node_count += golden_sm_num_node[subgraph_count] + 1;
+          node_count += golden_sm_num_node_conv1[subgraph_count] + 1;
           msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, subgraph_count, log_divider) };
         end
       end
@@ -125,11 +125,11 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
       end
       else begin
         if (i == 0) begin
-          node_count = golden_sm_num_node[0];
+          node_count = golden_sm_num_node_conv1[0];
         end
         if (i == node_count - 1) begin
           subgraph_count++;
-          node_count += golden_sm_num_node[subgraph_count];
+          node_count += golden_sm_num_node_conv1[subgraph_count];
           msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, subgraph_count, log_divider) };
         end
       end
@@ -155,7 +155,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
   task packed_checker();
     log_checker("", "clear");
     subgraph_count  = 0;
-    node_count      = golden_sm_num_node[0];
+    node_count      = golden_sm_num_node_conv1[0];
 
     for (int i = 0; i < DEPTH; i++) begin
       logic signed [DATA_WIDTH-1:0]   golden_temp   [SPMM_DEPTH];
@@ -191,7 +191,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
       // Split into subgraphs
       if (i == node_count - 1) begin
         subgraph_count++;
-        node_count += golden_sm_num_node[subgraph_count];
+        node_count += golden_sm_num_node_conv1[subgraph_count];
         msg = { msg, $sformatf("\n%s Subgraph %0d %s\n", log_divider, subgraph_count, log_divider) };
       end
 

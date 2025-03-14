@@ -116,7 +116,6 @@ module SPMM #(
 
   // -- h_node_info BRAM
   input   [NODE_INFO_WIDTH-1:0]                         h_node_info_bram_dout     ,
-  input   [NODE_INFO_WIDTH-1:0]                         h_node_info_bram_dout_nxt ,
   output  [NODE_INFO_ADDR_W-1:0]                        h_node_info_bram_addrb    ,
 
   // -- Weight
@@ -189,8 +188,8 @@ module SPMM #(
   logic                                           spmm_vld_q1               ;
   logic                                           spmm_vld_q2               ;
   logic [W_NUM_OF_COLS-1:0]                       pe_rdy_o                  ;
-  logic [NUM_NODE_WIDTH-1:0]                      pe_num_node               ;
-  logic                                           pe_src_flag               ;
+  logic [W_NUM_OF_COLS-1:0][NUM_NODE_WIDTH-1:0]   pe_num_node               ;
+  logic [W_NUM_OF_COLS-1:0]                       pe_src_flag               ;
 
   // -- SP-PE results
   logic [WH_RESULT_WIDTH-1:0]                     sppe_cat                  ;
@@ -257,8 +256,8 @@ module SPMM #(
         .num_node_i   (num_node                 ),
         .src_flag_i   (src_flag                 ),
 
-        .num_node_o   (pe_num_node              ),
-        .src_flag_o   (pe_src_flag              ),
+        .num_node_o   (pe_num_node[0]           ),
+        .src_flag_o   (pe_src_flag[0]           ),
 
         .wgt_addrb    (mult_wgt_addrb[i]        ),
         .wgt_dout     (mult_wgt_dout[i]         ),
@@ -295,10 +294,10 @@ module SPMM #(
   endgenerate
 
   // -- output from SP-PE
-  assign wh_data_i  = { sppe_cat, pe_num_node, pe_src_flag };
+  assign wh_data_i  = { sppe_cat, pe_num_node[0], pe_src_flag[0] };
 
   // -- WH bram
-  assign wh_bram_din    = { sppe_cat, pe_num_node, pe_src_flag };
+  assign wh_bram_din    = { sppe_cat, pe_num_node[0], pe_src_flag[0] };
   assign wh_bram_ena    = (&pe_rdy_o);
   assign wh_bram_addra  = wh_addr_reg;
 
@@ -316,7 +315,7 @@ module SPMM #(
 
 
   //* ======================= WH output ========================
-  assign wh_data = (&pe_rdy_o) ? { sppe_cat, pe_num_node, pe_src_flag } : wh_data_reg;
+  assign wh_data = (&pe_rdy_o) ? { sppe_cat, pe_num_node[0], pe_src_flag[0] } : wh_data_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin

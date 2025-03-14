@@ -101,7 +101,6 @@ module gat_conv2 #(
   input                             h_data_bram_load_done       ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ,
-  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout_nxt   ,
   output  [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ,
   input                             h_node_info_bram_load_done  ,
 
@@ -225,7 +224,7 @@ module gat_conv2 #(
   //* ========================== SPMM ==========================
   logic                       wh_vld    ;
   logic                       wh_rdy    ;
-  
+
   logic [WH_WIDTH-1:0]        wh_data   ;
 
   assign wh_vld = w_rdy;
@@ -254,8 +253,8 @@ module gat_conv2 #(
     .clk                  (clk                    ),
     .rst_n                (rst_n                  ),
 
-    .wh_vld_i             (wh_vld_i               ),
-    .wh_rdy_o             (wh_rdy_o               ),
+    .wh_vld_i             (wh_vld                 ),
+    .wh_rdy_o             (wh_rdy                 ),
 
     .num_node_bram_dout   (num_node_bram_dout     ),
     .num_node_bram_addrb  (num_node_bram_addrb    ),
@@ -300,7 +299,7 @@ module gat_conv2 #(
     .clk                (clk                  ),
     .rst_n              (rst_n                ),
 
-    .dmvm_vld_i         (spmm_rdy             ),
+    .dmvm_vld_i         (wh_rdy               ),
     .dmvm_rdy_o         (dmvm_rdy             ),
 
     .a_vld_i            (w_rdy                ),

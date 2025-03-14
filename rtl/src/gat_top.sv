@@ -45,7 +45,7 @@ module gat_top #(
   parameter NUM_FEATURE_IN          = 3703,
   parameter NUM_FEATURE_OUT         = 16,
   parameter NUM_FEATURE_FINAL       = 6,
-  parameter NUM_SUBGRAPHS           = 3327,
+  parameter NUM_SUBGRAPHS           = 3279,
   parameter MAX_NODES               = 100,
   parameter DMVM_DATA_WIDTH         = 20,
 
@@ -193,7 +193,6 @@ module gat_top #(
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv1  ;
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv2  ;
   logic [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout         ;
-  logic [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout_nxt     ;
 
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb                ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ;
@@ -305,7 +304,6 @@ module gat_top #(
     .h_data_bram_load_done      (h_data_bram_load_done            ),
 
     .h_node_info_bram_dout      (h_node_info_bram_dout            ),
-    .h_node_info_bram_dout_nxt  (h_node_info_bram_dout_nxt        ),
     .h_node_info_bram_addrb     (h_node_info_bram_addrb_conv1     ),
     .h_node_info_bram_load_done (h_node_info_bram_load_done       ),
 
@@ -369,7 +367,6 @@ module gat_top #(
     .h_data_bram_load_done      (h_data_bram_load_done            ),
 
     .h_node_info_bram_dout      (h_node_info_bram_dout            ),
-    .h_node_info_bram_dout_nxt  (h_node_info_bram_dout_nxt        ),
     .h_node_info_bram_addrb     (h_node_info_bram_addrb_conv2     ),
     .h_node_info_bram_load_done (h_node_info_bram_load_done       ),
 

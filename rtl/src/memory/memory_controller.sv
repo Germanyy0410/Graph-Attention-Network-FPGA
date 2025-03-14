@@ -135,7 +135,6 @@ module memory_controller #(
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv1  ,
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv2  ,
   output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout         ,
-  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout_nxt     ,
 
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ,
@@ -242,7 +241,7 @@ module memory_controller #(
     .dout         (h_data_bram_dout     )
   );
 
-  modified_BRAM #(
+  BRAM #(
     .DATA_WIDTH   (NODE_INFO_WIDTH            ),
     .DEPTH        (NODE_INFO_DEPTH            )
   ) u_h_node_info_bram (
@@ -253,8 +252,7 @@ module memory_controller #(
     .ena          (h_node_info_bram_ena       ),
     .wea          (h_node_info_bram_wea       ),
     .addrb        (h_node_info_bram_addrb     ),
-    .dout         (h_node_info_bram_dout      ),
-    .dout_nxt     (h_node_info_bram_dout_nxt  )
+    .dout         (h_node_info_bram_dout      )
   );
 
   BRAM #(

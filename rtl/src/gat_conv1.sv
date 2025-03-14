@@ -101,7 +101,6 @@ module gat_conv1 #(
   input                             h_data_bram_load_done       ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ,
-  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout_nxt   ,
   output  [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ,
   input                             h_node_info_bram_load_done  ,
 
@@ -257,7 +256,6 @@ module gat_conv1 #(
     .h_data_bram_addrb          (h_data_bram_addrb          ),
 
     .h_node_info_bram_dout      (h_node_info_bram_dout      ),
-    .h_node_info_bram_dout_nxt  (h_node_info_bram_dout_nxt  ),
     .h_node_info_bram_addrb     (h_node_info_bram_addrb     ),
 
     .mult_wgt_addrb             (mult_wgt_addrb             ),

@@ -146,6 +146,8 @@ module gat_top_conv2_tb #(
   //* ==========================================================
 ) ();
 
+  localparam WEIGHT_ADDR_W_2 = $clog2(1433*16+16*2);
+
   logic                             clk                         ;
   logic                             rst_n                       ;
 
@@ -169,8 +171,8 @@ module gat_top_conv2_tb #(
   logic   [DATA_WIDTH-1:0]          wgt_bram_din                ;
   logic                             wgt_bram_ena                ;
   logic                             wgt_bram_wea                ;
-  logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ;
-  logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ;
+  logic   [WEIGHT_ADDR_W_2-1:0]     wgt_bram_addra              ;
+  logic   [WEIGHT_ADDR_W_2-1:0]     wgt_bram_addrb              ;
   logic                             wgt_bram_load_done          ;
 
   logic   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ;
