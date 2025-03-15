@@ -71,7 +71,7 @@ module gat_conv2 #(
   localparam COEF_W               = DATA_WIDTH * MAX_NODES,
   localparam ALPHA_W              = ALPHA_DATA_WIDTH * MAX_NODES,
   localparam NUM_NODE_ADDR_W      = $clog2(NUM_NODES_DEPTH),
-  localparam NUM_STAGES           = $clog2(NUM_FEATURE_OUT) + 1,
+  localparam NUM_STAGES           = $clog2(NUM_FEATURE_OUT),
   localparam COEF_DELAY_LENGTH    = NUM_STAGES + 1,
 
   // -- [SOFTMAX]
@@ -184,7 +184,10 @@ module gat_conv2 #(
   //* ======================= Scheduler ========================
   logic [W_NUM_OF_COLS-1:0] [W_NUM_OF_ROWS-1:0] [DATA_WIDTH-1:0]  wgt     ;
   logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                            a       ;
+  logic                                                           w_vld   ;
   logic                                                           w_rdy   ;
+
+  assign w_vld = (gat_layer == 1'b1) && wgt_bram_load_done;
 
   scheduler_conv2 #(
     .DATA_WIDTH         (DATA_WIDTH         ),
@@ -210,10 +213,10 @@ module gat_conv2 #(
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
 
-    .w_vld_i                    (wgt_bram_load_done         ),
+    .w_vld_i                    (w_vld                      ),
     .wgt_bram_dout              (wgt_bram_dout              ),
     .wgt_bram_addrb             (wgt_bram_addrb             ),
-    .wgt_bram_load_done         (wgt_bram_load_done         ),
+    .wgt_bram_load_done         (w_vld                      ),
 
     .wgt_o                      (wgt                        ),
     .a_o                        (a                          ),
@@ -258,7 +261,7 @@ module gat_conv2 #(
     .wh_vld_i             (wh_vld                 ),
     .wh_rdy_o             (wh_rdy                 ),
 
-    .num_node_bram_dout   (num_node_bram_dout     ),
+    .num_node_bram_dout   (num_node_bram_doutb    ),
     .num_node_bram_addrb  (num_node_bram_addrb    ),
 
     .h_data_bram_dout     (h_data_bram_dout       ),
@@ -296,7 +299,9 @@ module gat_conv2 #(
     .COEF_DEPTH         (COEF_DEPTH         ),
     .ALPHA_DEPTH        (ALPHA_DEPTH        ),
     .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+    .DIVISOR_DEPTH      (DIVISOR_DEPTH      ),
+
+    .NUM_STAGES         (NUM_STAGES         )
   ) u_DMVM (
     .clk                (clk                  ),
     .rst_n              (rst_n                ),
@@ -350,8 +355,8 @@ module gat_conv2 #(
     .coef_ff_empty        (coef_ff_empty          ),
     .coef_ff_rd_vld       (coef_ff_rd_vld         ),
 
-    .num_node_bram_dout   (num_node_bram_doutb    ),
-    .num_node_bram_addrb  (num_node_bram_addrb    ),
+    .num_node_bram_dout   (num_node_bram_doutc    ),
+    .num_node_bram_addrb  (num_node_bram_addrc    ),
 
     .alpha_ff_din         (alpha_ff_din           ),
     .alpha_ff_full        (alpha_ff_full          ),

@@ -32,6 +32,8 @@ module DMVM #(
   parameter ALPHA_DEPTH           = 500,
   parameter DIVIDEND_DEPTH        = 500,
   parameter DIVISOR_DEPTH         = 500,
+
+  parameter NUM_STAGES           = $clog2(NUM_FEATURE_OUT) + 1,
   //* ==========================================================
 
   //* ======================= localparams ======================
@@ -84,7 +86,6 @@ module DMVM #(
   localparam COEF_W               = DATA_WIDTH * MAX_NODES,
   localparam ALPHA_W              = ALPHA_DATA_WIDTH * MAX_NODES,
   localparam NUM_NODE_ADDR_W      = $clog2(NUM_NODES_DEPTH),
-  localparam NUM_STAGES           = $clog2(NUM_FEATURE_OUT) + 1,
   localparam COEF_DELAY_LENGTH    = NUM_STAGES + 1,
 
   // -- [SOFTMAX]
@@ -124,7 +125,6 @@ module DMVM #(
   input                                         coef_ff_full        ,
   output                                        coef_ff_wr_vld
 );
-
 
   //* ========== logic declaration ===========
   // -- Weight vector

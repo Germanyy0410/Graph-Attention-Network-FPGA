@@ -172,7 +172,6 @@ module WH #(
     end
   end
 
-
   //* ==================== num_node loader =====================
   assign num_node_bram_addrb = num_node_addr_reg;
   assign num_node            = num_node_bram_dout;

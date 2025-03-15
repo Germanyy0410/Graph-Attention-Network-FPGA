@@ -166,6 +166,8 @@ module scheduler_conv2 #(
 
 
   //* =============== Generate mul-weight bram ================
+  assign wgt_bram_addrb = addr_reg;
+
   always @(*) begin
     addr    = addr_reg;
     col_idx = col_idx_reg;

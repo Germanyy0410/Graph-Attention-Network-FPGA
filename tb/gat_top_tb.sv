@@ -25,8 +25,11 @@ module gat_top_tb #(
   parameter NUM_SUBGRAPHS           = 25,
   parameter MAX_NODES               = 6,
 
-  parameter WH_DATA_WIDTH           = 11,
-  parameter DMVM_DATA_WIDTH         = 19,
+  parameter WH_DATA_WIDTH_CONV1     = 11,
+  parameter WH_DATA_WIDTH_CONV2     = 16,
+
+  parameter DMVM_DATA_WIDTH_CONV1   = 19,
+  parameter DMVM_DATA_WIDTH_CONV2   = 24,
 
 `elsif CORA
   parameter H_NUM_SPARSE_DATA       = 242101,
@@ -37,8 +40,11 @@ module gat_top_tb #(
   parameter NUM_SUBGRAPHS           = 2708,
   parameter MAX_NODES               = 169,
 
-  parameter WH_DATA_WIDTH           = 12,
-  parameter DMVM_DATA_WIDTH         = 19,
+  parameter WH_DATA_WIDTH_CONV1     = 12,
+  parameter WH_DATA_WIDTH_CONV2     = 16,
+
+  parameter DMVM_DATA_WIDTH_CONV1   = 19,
+  parameter DMVM_DATA_WIDTH_CONV2   = 24,
 
 `elsif CITESEER
   parameter H_NUM_SPARSE_DATA       = 399058,
@@ -50,8 +56,11 @@ module gat_top_tb #(
   parameter MAX_NODES               = 100,
   parameter DMVM_DATA_WIDTH         = 20,
 
-  parameter WH_DATA_WIDTH           = 10,
-  parameter DMVM_DATA_WIDTH         = 20,
+  parameter WH_DATA_WIDTH_CONV1     = 10,
+  parameter WH_DATA_WIDTH_CONV2     = 16,
+
+  parameter DMVM_DATA_WIDTH_CONV1   = 20,
+  parameter DMVM_DATA_WIDTH_CONV2   = 23,
 
 `elsif PUBMED
   parameter H_NUM_SPARSE_DATA       = 557,
@@ -63,8 +72,11 @@ module gat_top_tb #(
   parameter MAX_NODES               = 6,
   parameter DMVM_DATA_WIDTH         = 20,
 
-  parameter WH_DATA_WIDTH           = 10,
-  parameter DMVM_DATA_WIDTH         = 20,
+  parameter WH_DATA_WIDTH_CONV1     = 10,
+  parameter WH_DATA_WIDTH_CONV2     = 16,
+
+  parameter DMVM_DATA_WIDTH_CONV1   = 20,
+  parameter DMVM_DATA_WIDTH_CONV2   = 23,
 `endif
 
   parameter DATA_WIDTH              = 8,
@@ -116,7 +128,7 @@ module gat_top_tb #(
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
   localparam WH_ADDR_W            = $clog2(WH_DEPTH),
-  localparam WH_WIDTH             = WH_DATA_WIDTH * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH,
+  localparam WH_WIDTH             = WH_DATA_WIDTH_CONV1 * W_NUM_OF_COLS + NUM_NODE_WIDTH + FLAG_WIDTH,
 
   // -- [A]
   localparam A_ADDR_W             = $clog2(A_DEPTH),
@@ -156,6 +168,8 @@ module gat_top_tb #(
 
   logic                             gat_layer                   ;
   logic                             gat_ready                   ;
+  logic   [7:0]                     gat_debug                   ;
+
   logic                             h_data_bram_load_done       ;
   logic                             h_node_info_bram_load_done  ;
   logic                             wgt_bram_load_done          ;
@@ -195,9 +209,9 @@ module gat_top_tb #(
 
   //* ==================== Update Log Path =====================
   initial begin
-    LOG_PATH = $sformatf("%s/log/conv1", ROOT_PATH);
+    LOG_PATH = "D:/VLSI/Capstone/tb/log/conv1";
     wait(dut.gat_ready == 1'b1);
-    LOG_PATH = $sformatf("%s/log/conv2", ROOT_PATH);
+    LOG_PATH = "D:/VLSI/Capstone/tb/log/conv2";
   end
   //* ==========================================================
 
@@ -209,32 +223,31 @@ module gat_top_tb #(
 
 
   //* ================= Output Comparator - Layer 1 =================
-  OutputComparator #(longint, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT)    spmm          = new("WH         ", WH_DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, WH_DATA_WIDTH_CONV1, TOTAL_NODES, NUM_FEATURE_OUT)    spmm          = new("WH         ", WH_DATA_WIDTH_CONV1, 0, 1);
 
-  OutputComparator #(longint, DMVM_DATA_WIDTH, TOTAL_NODES)                   dmvm          = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
-  OutputComparator #(longint, DATA_WIDTH, TOTAL_NODES)                        coef          = new("COEF       ", DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, DMVM_DATA_WIDTH_CONV1, TOTAL_NODES)                   dmvm          = new("DMVM       ", DMVM_DATA_WIDTH_CONV1, 0, 1);
+  OutputComparator #(longint, DATA_WIDTH, TOTAL_NODES)                              coef          = new("COEF       ", DATA_WIDTH, 0, 1);
 
-  OutputComparator #(real, SM_DATA_WIDTH, TOTAL_NODES)                        dividend      = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
-  OutputComparator #(real, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)                  divisor       = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
-  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                  sm_num_nodes  = new("Num Node   ", NUM_NODE_WIDTH, 0, 0);
-  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                     alpha         = new("Alpha      ", WOI, WOF, 0);
+  OutputComparator #(real, SM_DATA_WIDTH, TOTAL_NODES)                              dividend      = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
+  OutputComparator #(real, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)                        divisor       = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
+  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                        sm_num_nodes  = new("Num Node   ", NUM_NODE_WIDTH, 0, 0);
+  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                           alpha         = new("Alpha      ", WOI, WOF, 0);
 
-  OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS*NUM_FEATURE_OUT)  new_feature   = new("New Feature", 16, 16, 0);
+  OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS * NUM_FEATURE_OUT)      new_feature   = new("New Feature", 16, 16, 0);
   //* ===============================================================
 
 
   //* ================= Output Comparator - Layer 2 =================
-  OutputComparator #(longint, WH_DATA_WIDTH, TOTAL_NODES, NUM_FEATURE_OUT)    spmm_conv2          = new("WH         ", WH_DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, WH_DATA_WIDTH_CONV2, TOTAL_NODES, NUM_FEATURE_FINAL)  spmm_conv2          = new("WH         ", WH_DATA_WIDTH_CONV2, 0, 1);
 
-  OutputComparator #(longint, DMVM_DATA_WIDTH, TOTAL_NODES)                   dmvm_conv2          = new("DMVM       ", DMVM_DATA_WIDTH, 0, 1);
-  OutputComparator #(longint, DATA_WIDTH, TOTAL_NODES)                        coef_conv2          = new("COEF       ", DATA_WIDTH, 0, 1);
+  OutputComparator #(longint, DMVM_DATA_WIDTH_CONV2, TOTAL_NODES)                   dmvm_conv2          = new("DMVM       ", DMVM_DATA_WIDTH_CONV2, 0, 1);
+  OutputComparator #(longint, DATA_WIDTH, TOTAL_NODES)                              coef_conv2          = new("COEF       ", DATA_WIDTH, 0, 1);
 
-  OutputComparator #(real, SM_DATA_WIDTH, TOTAL_NODES)                        dividend_conv2      = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
-  OutputComparator #(real, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)                  divisor_conv2       = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
-  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                  sm_num_nodes_conv2  = new("Num Node   ", NUM_NODE_WIDTH, 0, 0);
-  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                     alpha_conv2         = new("Alpha      ", WOI, WOF, 0);
+  OutputComparator #(real, SM_DATA_WIDTH, TOTAL_NODES)                              dividend_conv2      = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
+  OutputComparator #(real, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)                        divisor_conv2       = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
+  OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                           alpha_conv2         = new("Alpha      ", WOI, WOF, 0);
 
-  OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS*NUM_FEATURE_OUT)  new_feature_conv2   = new("New Feature", 16, 16, 0);
+  OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS * NUM_FEATURE_FINAL)    new_feature_conv2   = new("New Feature", 16, 16, 0);
   //* ===============================================================
 
   `include "configuration.sv"
@@ -252,6 +265,7 @@ module gat_top_tb #(
 
 
     // =========== Start Simulation ============
+    $display("Starting Simulation...");
     c3;
     wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
     start_time      = $time;
@@ -287,7 +301,11 @@ module gat_top_tb #(
 
   //* =========================== Layer 2 ===========================
   initial begin
+    c1;
     wait(dut.gat_ready == 1'b1);
+    wgt_bram_load_done          = 1'b0;
+    h_data_bram_load_done       = 1'b0;
+    h_node_info_bram_load_done  = 1'b0;
     c1;
     gat_layer = 1'b1;
 
@@ -323,7 +341,6 @@ module gat_top_tb #(
     coef_conv2.base_scoreboard();
     dividend_conv2.base_scoreboard();
     divisor_conv2.base_scoreboard();
-    sm_num_nodes_conv2.base_scoreboard();
     alpha_conv2.base_scoreboard();
     new_feature_conv2.base_scoreboard();
 

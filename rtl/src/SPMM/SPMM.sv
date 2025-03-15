@@ -256,8 +256,8 @@ module SPMM #(
         .num_node_i   (num_node                 ),
         .src_flag_i   (src_flag                 ),
 
-        .num_node_o   (pe_num_node[0]           ),
-        .src_flag_o   (pe_src_flag[0]           ),
+        .num_node_o   (pe_num_node[i]           ),
+        .src_flag_o   (pe_src_flag[i]           ),
 
         .wgt_addrb    (mult_wgt_addrb[i]        ),
         .wgt_dout     (mult_wgt_dout[i]         ),

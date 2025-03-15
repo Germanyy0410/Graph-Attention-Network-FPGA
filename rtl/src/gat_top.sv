@@ -183,6 +183,10 @@ module gat_top #(
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
 );
 
+  localparam WGT_ADDR_W_CONV1 = $clog2(NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2);
+  localparam WGT_ADDR_W_CONV2 = $clog2(NUM_FEATURE_OUT * NUM_FEATURE_FINAL + NUM_FEATURE_FINAL * 2);
+  localparam WGT_ADDR_W_DIFF  = WGT_ADDR_W_CONV1 - WGT_ADDR_W_CONV2;
+
   //* ====================== Memory Logic ======================
   // -- PL
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb             ;
@@ -198,6 +202,8 @@ module gat_top #(
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb                ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ;
+  logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ;
+  logic [WGT_ADDR_W_CONV2-1:0]    wgt_bram_addrb_conv2_raw      ;
   logic [DATA_WIDTH-1:0]          wgt_bram_dout                 ;
 
   // -- Output
@@ -246,6 +252,7 @@ module gat_top #(
 
 
   assign gat_ready = (gat_layer == 1'b0) ? gat_ready_conv1 : gat_ready_conv2;
+  assign wgt_bram_addrb_conv2 = { {WGT_ADDR_W_DIFF{1'b0}}, wgt_bram_addrb_conv2_raw };
 
 
   //* ==================== Memory Controller ===================
@@ -377,7 +384,7 @@ module gat_top #(
     .h_node_info_bram_load_done (h_node_info_bram_load_done       ),
 
     .wgt_bram_dout              (wgt_bram_dout                    ),
-    .wgt_bram_addrb             (wgt_bram_addrb_conv2             ),
+    .wgt_bram_addrb             (wgt_bram_addrb_conv2_raw         ),
     .wgt_bram_load_done         (wgt_bram_load_done               ),
 
     .wh_bram_din                (wh_bram_din_conv2                ),

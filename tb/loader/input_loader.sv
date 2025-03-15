@@ -25,6 +25,9 @@ task input_loader();
 				c1;
 			end
 
+			$display("NODE_INFO FINISH");
+
+
 			h_node_info_bram_ena        = 1'b0;
 			h_node_info_bram_wea        = 1'b0;
 			h_node_info_bram_load_done  = 1'b1;
@@ -42,9 +45,9 @@ task input_loader();
 			weight_file = $fopen(file_path, "r");
 
 			if (gat_layer == 1'b0) begin
-				weight_depth = NUM_FEATURE_IN*NUM_FEATURE_OUT + NUM_FEATURE_OUT*2;
+				weight_depth = NUM_FEATURE_IN * NUM_FEATURE_OUT + NUM_FEATURE_OUT * 2;
 			end else if (gat_layer == 1'b1) begin
-				weight_depth = NUM_FEATURE_OUT*NUM_FEATURE_FINAL + NUM_FEATURE_FINAL*2;
+				weight_depth = NUM_FEATURE_OUT * NUM_FEATURE_FINAL + NUM_FEATURE_FINAL * 2;
 			end
 
 			for (int i = 0; i < weight_depth; i++) begin
@@ -52,6 +55,8 @@ task input_loader();
 				wgt_bram_addra = i;
 				c1;
 			end
+
+			$display("WEIGHT FINISH");
 
 			wgt_bram_ena       = 1'b0;
 			wgt_bram_wea       = 1'b0;
@@ -81,6 +86,8 @@ task input_loader();
 				h_data_bram_addra = i;
 				c1;
 			end
+
+			$display("H_DATA FINISH");
 
 			h_data_bram_ena       = 1'b0;
 			h_data_bram_wea       = 1'b0;
