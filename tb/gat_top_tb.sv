@@ -284,7 +284,7 @@ module gat_top_tb #(
 
 
     // ================ Report =================
-    summary_section;
+    summary_section();
 
     spmm.base_scoreboard();
     dmvm.base_scoreboard();
@@ -295,7 +295,7 @@ module gat_top_tb #(
     alpha.base_scoreboard();
     new_feature.base_scoreboard();
 
-    end_section;
+    end_section();
     // =========================================
   end
   //* ===============================================================
@@ -332,14 +332,14 @@ module gat_top_tb #(
 
     // -- Total
     c3;
-    wait(dut.u_gat_conv2.gat_ready);
+    wait(dut.gat_ready == 1'b1);
     end_time = $time;
     // =========================================
 
     $finish();
 
     // ================ Report =================
-    summary_section;
+    summary_section();
 
     spmm_conv2.base_scoreboard();
     dmvm_conv2.base_scoreboard();
@@ -349,7 +349,7 @@ module gat_top_tb #(
     alpha_conv2.base_scoreboard();
     new_feature_conv2.base_scoreboard();
 
-    end_section;
+    end_section();
     // =========================================
 
     $finish();
