@@ -428,21 +428,25 @@ module gat_conv1 #(
 
   //* ======================= Aggregator =======================
   debugger u_debugger (
-    .clk              (clk                  ),
-    .rst_n            (rst_n                ),
-    .spmm_vld_i       (spmm_vld             ),
-    .spmm_rdy_i       (spmm_rdy             ),
-    .dmvm_vld_i       (spmm_rdy             ),
-    .dmvm_rdy_i       (dmvm_rdy             ),
-    .sm_vld_i         (dmvm_rdy             ),
-    .sm_rdy_i         (sm_rdy               ),
-    .aggr_vld_i       (aggr_vld_reg         ),
-    .aggr_rdy_i       (aggr_rdy             ),
-    .feat_bram_addra  (feat_bram_addra      ),
-    .feat_bram_ena    (feat_bram_ena        ),
-    .debug_1          (gat_debug_1          ),
-    .debug_2          (gat_debug_2          ),
-    .debug_3          (gat_debug_3          )
+    .clk                      (clk                      ),
+    .rst_n                    (rst_n                    ),
+    .spmm_vld_i               (spmm_vld                 ),
+    .spmm_rdy_i               (spmm_rdy                 ),
+    .dmvm_vld_i               (spmm_rdy                 ),
+    .dmvm_rdy_i               (dmvm_rdy                 ),
+    .sm_vld_i                 (dmvm_rdy                 ),
+    .sm_rdy_i                 (sm_rdy                   ),
+    .aggr_vld_i               (aggr_vld_reg             ),
+    .aggr_rdy_i               (aggr_rdy                 ),
+    .feat_bram_addra          (feat_bram_addra          ),
+    .feat_bram_ena            (feat_bram_ena            ),
+    .h_data_bram_addrb        (h_data_bram_addrb        ),
+    .wgt_bram_addrb           (wgt_bram_addrb           ),
+    .h_node_info_bram_addrb   (h_node_info_bram_addrb   ),
+
+    .debug_1                  (gat_debug_1              ),
+    .debug_2                  (gat_debug_2              ),
+    .debug_3                  (gat_debug_3              )
   );
   //* ==========================================================
 endmodule

@@ -88,7 +88,7 @@
 
   always_comb begin
     spmm_conv2.dut_ready              = dut.u_gat_conv2.u_WH.wh_rdy_o;
-    spmm_conv2.dut_spmm_output        = dut.u_gat_conv2.u_WH.res_reg;
+    spmm_conv2.dut_spmm_output        = dut.u_gat_conv2.u_WH.res;
     spmm_conv2.golden_spmm_output     = golden_spmm_conv2;
   end
 

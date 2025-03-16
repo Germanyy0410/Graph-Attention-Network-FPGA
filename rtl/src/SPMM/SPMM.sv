@@ -359,12 +359,12 @@ module SPMM #(
   // -- col_idx & val
   assign { col_idx, val }   = h_data_bram_dout;
   assign h_data_bram_addrb  = data_addr_reg;
-  assign data_addr          = (spmm_vld_q1) ? (data_addr_reg + 1) : data_addr_reg;
+  assign data_addr          = (spmm_vld_q1 && data_addr_reg < H_DATA_DEPTH - 1) ? (data_addr_reg + 1) : data_addr_reg;
 
   // -- node_info
   assign h_node_info_bram_addrb = node_info_addr_reg;
   assign addr_flag              = (node_info_addr == START_CALC + 1) && (node_info_addr_reg == START_CALC);
-  assign node_info_addr         = (spmm_vld_i && ((node_info_addr_reg <= START_CALC) || ff_rd_vld)) ? (node_info_addr_reg + 1) : node_info_addr_reg;
+  assign node_info_addr         = (spmm_vld_i && ((node_info_addr_reg <= START_CALC) || ff_rd_vld) && (node_info_addr_reg < NODE_INFO_DEPTH - 1)) ? (node_info_addr_reg + 1) : node_info_addr_reg;
 
   // -- write to fifo
   assign ff_data_i = h_node_info_bram_dout;
