@@ -162,7 +162,17 @@ module feature_controller #(
 
   assign push_feat_ena  = feat_ff_rd_vld || ((cnt_reg > 0) && (cnt_reg < NUM_FEATURE_OUT));
   assign feat_addr      = push_feat_ena ? (feat_addr_reg + 1) : feat_addr_reg;
-  assign cnt            = push_feat_ena ? (cnt_reg + 1)       : cnt_reg;
+
+  always_comb begin
+    cnt = cnt_reg;
+    if (push_feat_ena) begin
+      if (cnt_reg == NUM_FEATURE_OUT - 1) begin
+        cnt = 'b0;
+      end else begin
+        cnt = cnt_reg + 1;
+      end
+    end
+  end
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin

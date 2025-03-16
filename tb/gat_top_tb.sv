@@ -326,14 +326,17 @@ module gat_top_tb #(
     lat_start_time  = $time;
 
     // -- Latency
+    c3;
     wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
     lat_end_time = $time;
 
     // -- Total
+    c3;
     wait(dut.u_gat_conv2.gat_ready);
     end_time = $time;
     // =========================================
 
+    $finish();
 
     // ================ Report =================
     summary_section;
