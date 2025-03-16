@@ -6172,3 +6172,3692 @@
 		- Golden = -1196706
 		- DUT    = 373275
 
+
+------------------------- Subgraph 0 -------------------------
+
+[FAILED] -> DMVM - 2883700000ps | [i] = 0
+		- Golden = -1036546
+		- DUT    = 15755079
+
+[FAILED] -> DMVM - 2883710000ps | [i] = 1
+		- Golden = -925149
+		- DUT    = 15747798
+
+[FAILED] -> DMVM - 2883860000ps | [i] = 2
+		- Golden = -1205555
+		- DUT    = 237997
+
+[FAILED] -> DMVM - 2884020000ps | [i] = 3
+		- Golden = -841475
+		- DUT    = 381085
+
+[FAILED] -> DMVM - 2884180000ps | [i] = 4
+		- Golden = -735303
+		- DUT    = 16733551
+
+------------------------- Subgraph 1 -------------------------
+
+[FAILED] -> DMVM - 2884340000ps | [i] = 5
+		- Golden = -282165
+		- DUT    = 15784278
+
+[FAILED] -> DMVM - 2884350000ps | [i] = 6
+		- Golden = -1148137
+		- DUT    = 15765846
+
+[FAILED] -> DMVM - 2884500000ps | [i] = 7
+		- Golden = -305179
+		- DUT    = 16092738
+
+[FAILED] -> DMVM - 2884660000ps | [i] = 8
+		- Golden = -244415
+		- DUT    = 3997
+
+[FAILED] -> DMVM - 2884820000ps | [i] = 9
+		- Golden = -1148137
+		- DUT    = 15981850
+
+------------------------- Subgraph 2 -------------------------
+
+[FAILED] -> DMVM - 2884980000ps | [i] = 10
+		- Golden = 351340
+		- DUT    = 15652941
+
+[FAILED] -> DMVM - 2884990000ps | [i] = 11
+		- Golden = -305179
+		- DUT    = 15778143
+
+[FAILED] -> DMVM - 2885140000ps | [i] = 12
+		- Golden = -1148137
+		- DUT    = 16034524
+
+[FAILED] -> DMVM - 2885300000ps | [i] = 13
+		- Golden = -1013920
+		- DUT    = 15568027
+
+[FAILED] -> DMVM - 2885460000ps | [i] = 14
+		- Golden = -1323888
+		- DUT    = 16488762
+
+[FAILED] -> DMVM - 2885620000ps | [i] = 15
+		- Golden = -1276394
+		- DUT    = 93103
+
+[FAILED] -> DMVM - 2885780000ps | [i] = 16
+		- Golden = -461027
+		- DUT    = 15600447
+
+------------------------- Subgraph 3 -------------------------
+
+[FAILED] -> DMVM - 2885940000ps | [i] = 17
+		- Golden = 1408459
+		- DUT    = 14879715
+
+[FAILED] -> DMVM - 2885950000ps | [i] = 18
+		- Golden = -1152644
+		- DUT    = 14687080
+
+[FAILED] -> DMVM - 2886100000ps | [i] = 19
+		- Golden = -1152644
+		- DUT    = 15327386
+
+------------------------- Subgraph 4 -------------------------
+
+[FAILED] -> DMVM - 2886260000ps | [i] = 20
+		- Golden = -1265887
+		- DUT    = 16640354
+
+[FAILED] -> DMVM - 2886270000ps | [i] = 21
+		- Golden = -818390
+		- DUT    = 16524323
+
+[FAILED] -> DMVM - 2886420000ps | [i] = 22
+		- Golden = -895188
+		- DUT    = 15477010
+
+[FAILED] -> DMVM - 2886580000ps | [i] = 23
+		- Golden = -803401
+		- DUT    = 15831104
+
+[FAILED] -> DMVM - 2886740000ps | [i] = 24
+		- Golden = -793004
+		- DUT    = 14788651
+
+[FAILED] -> DMVM - 2886900000ps | [i] = 25
+		- Golden = -677009
+		- DUT    = 4167
+
+[FAILED] -> DMVM - 2887060000ps | [i] = 26
+		- Golden = -874872
+		- DUT    = 16517654
+
+------------------------- Subgraph 5 -------------------------
+
+[FAILED] -> DMVM - 2887220000ps | [i] = 27
+		- Golden = -116776
+		- DUT    = 90892
+
+[FAILED] -> DMVM - 2887230000ps | [i] = 28
+		- Golden = -956817
+		- DUT    = 398971
+
+[FAILED] -> DMVM - 2887380000ps | [i] = 29
+		- Golden = -1206635
+		- DUT    = 16153437
+
+[FAILED] -> DMVM - 2887540000ps | [i] = 30
+		- Golden = -1420631
+		- DUT    = 15145875
+
+[FAILED] -> DMVM - 2887700000ps | [i] = 31
+		- Golden = -861931
+		- DUT    = 15425660
+
+------------------------- Subgraph 6 -------------------------
+
+[FAILED] -> DMVM - 2887860000ps | [i] = 32
+		- Golden = 471037
+		- DUT    = 505030
+
+[FAILED] -> DMVM - 2887870000ps | [i] = 33
+		- Golden = -1176137
+		- DUT    = 139893
+
+[FAILED] -> DMVM - 2888020000ps | [i] = 34
+		- Golden = -220436
+		- DUT    = 15434222
+
+[FAILED] -> DMVM - 2888180000ps | [i] = 35
+		- Golden = -256661
+		- DUT    = 16079491
+
+[FAILED] -> DMVM - 2888340000ps | [i] = 36
+		- Golden = -2812503
+		- DUT    = 431049
+
+[FAILED] -> DMVM - 2888500000ps | [i] = 37
+		- Golden = -3916245
+		- DUT    = 15589134
+
+------------------------- Subgraph 7 -------------------------
+
+[FAILED] -> DMVM - 2888660000ps | [i] = 38
+		- Golden = -676475
+		- DUT    = 389872
+
+[FAILED] -> DMVM - 2888670000ps | [i] = 39
+		- Golden = -860661
+		- DUT    = 16220087
+
+[FAILED] -> DMVM - 2888820000ps | [i] = 40
+		- Golden = -860661
+		- DUT    = 194434
+
+------------------------- Subgraph 8 -------------------------
+
+[FAILED] -> DMVM - 2888980000ps | [i] = 41
+		- Golden = -1324495
+		- DUT    = 373555
+
+[FAILED] -> DMVM - 2888990000ps | [i] = 42
+		- Golden = -1589224
+		- DUT    = 528237
+
+[FAILED] -> DMVM - 2889140000ps | [i] = 43
+		- Golden = -1391386
+		- DUT    = 15262527
+
+[FAILED] -> DMVM - 2889300000ps | [i] = 44
+		- Golden = -1110997
+		- DUT    = 128244
+
+[FAILED] -> DMVM - 2889460000ps | [i] = 45
+		- Golden = -1150599
+		- DUT    = 16384294
+
+------------------------- Subgraph 9 -------------------------
+
+[FAILED] -> DMVM - 2889620000ps | [i] = 46
+		- Golden = -691097
+		- DUT    = 25589
+
+[FAILED] -> DMVM - 2889630000ps | [i] = 47
+		- Golden = -1056049
+		- DUT    = 16475279
+
+[FAILED] -> DMVM - 2889780000ps | [i] = 48
+		- Golden = -1056049
+		- DUT    = 111110
+
+[FAILED] -> DMVM - 2889940000ps | [i] = 49
+		- Golden = -698903
+		- DUT    = 573490
+
+------------------------- Subgraph 10 -------------------------
+
+[FAILED] -> DMVM - 2890100000ps | [i] = 50
+		- Golden = 891368
+		- DUT    = 15383951
+
+[FAILED] -> DMVM - 2890110000ps | [i] = 51
+		- Golden = -3297324
+		- DUT    = 15535195
+
+[FAILED] -> DMVM - 2890260000ps | [i] = 52
+		- Golden = -2317435
+		- DUT    = 16228058
+
+[FAILED] -> DMVM - 2890420000ps | [i] = 53
+		- Golden = -2562046
+		- DUT    = 16444789
+
+------------------------- Subgraph 11 -------------------------
+
+[FAILED] -> DMVM - 2890580000ps | [i] = 54
+		- Golden = 1557727
+		- DUT    = 144868
+
+[FAILED] -> DMVM - 2890590000ps | [i] = 55
+		- Golden = -2679995
+		- DUT    = 378111
+
+[FAILED] -> DMVM - 2890740000ps | [i] = 56
+		- Golden = -1778514
+		- DUT    = 15635893
+
+[FAILED] -> DMVM - 2890900000ps | [i] = 57
+		- Golden = -2419863
+		- DUT    = 16700266
+
+------------------------- Subgraph 12 -------------------------
+
+[FAILED] -> DMVM - 2891060000ps | [i] = 58
+		- Golden = -280108
+		- DUT    = 16521989
+
+[FAILED] -> DMVM - 2891070000ps | [i] = 59
+		- Golden = -407681
+		- DUT    = 16344288
+
+[FAILED] -> DMVM - 2891220000ps | [i] = 60
+		- Golden = -46747
+		- DUT    = 102650
+
+[FAILED] -> DMVM - 2891380000ps | [i] = 61
+		- Golden = -407681
+		- DUT    = 16120166
+
+[FAILED] -> DMVM - 2891540000ps | [i] = 62
+		- Golden = -407681
+		- DUT    = 16752733
+
+[FAILED] -> DMVM - 2891700000ps | [i] = 63
+		- Golden = -133673
+		- DUT    = 16681118
+
+------------------------- Subgraph 13 -------------------------
+
+[FAILED] -> DMVM - 2891860000ps | [i] = 64
+		- Golden = -1718385
+		- DUT    = 15917556
+
+[FAILED] -> DMVM - 2891870000ps | [i] = 65
+		- Golden = -1362217
+		- DUT    = 15935557
+
+[FAILED] -> DMVM - 2892020000ps | [i] = 66
+		- Golden = -907272
+		- DUT    = 15765909
+
+[FAILED] -> DMVM - 2892180000ps | [i] = 67
+		- Golden = -358171
+		- DUT    = 15532317
+
+------------------------- Subgraph 14 -------------------------
+
+[FAILED] -> DMVM - 2892340000ps | [i] = 68
+		- Golden = -1575850
+		- DUT    = 16497825
+
+[FAILED] -> DMVM - 2892350000ps | [i] = 69
+		- Golden = -1168985
+		- DUT    = 16085584
+
+[FAILED] -> DMVM - 2892500000ps | [i] = 70
+		- Golden = -1116911
+		- DUT    = 491618
+
+[FAILED] -> DMVM - 2892660000ps | [i] = 71
+		- Golden = 301431
+		- DUT    = 16491705
+
+[FAILED] -> DMVM - 2892820000ps | [i] = 72
+		- Golden = -966337
+		- DUT    = 14556726
+
+[FAILED] -> DMVM - 2892980000ps | [i] = 73
+		- Golden = -1348806
+		- DUT    = 16252749
+
+[FAILED] -> DMVM - 2893140000ps | [i] = 74
+		- Golden = -1181005
+		- DUT    = 15892411
+
+------------------------- Subgraph 15 -------------------------
+
+[FAILED] -> DMVM - 2893300000ps | [i] = 75
+		- Golden = -1958004
+		- DUT    = 16222756
+
+[FAILED] -> DMVM - 2893310000ps | [i] = 76
+		- Golden = -1758878
+		- DUT    = 16213469
+
+[FAILED] -> DMVM - 2893460000ps | [i] = 77
+		- Golden = -1135934
+		- DUT    = 16097344
+
+[FAILED] -> DMVM - 2893620000ps | [i] = 78
+		- Golden = -1181379
+		- DUT    = 15702642
+
+[FAILED] -> DMVM - 2893780000ps | [i] = 79
+		- Golden = -1427909
+		- DUT    = 416178
+
+[FAILED] -> DMVM - 2893940000ps | [i] = 80
+		- Golden = -394203
+		- DUT    = 16188822
+
+------------------------- Subgraph 16 -------------------------
+
+[FAILED] -> DMVM - 2894100000ps | [i] = 81
+		- Golden = -44025
+		- DUT    = 22129
+
+[FAILED] -> DMVM - 2894110000ps | [i] = 82
+		- Golden = -589449
+		- DUT    = 47732
+
+[FAILED] -> DMVM - 2894260000ps | [i] = 83
+		- Golden = -1377247
+		- DUT    = 113036
+
+[FAILED] -> DMVM - 2894420000ps | [i] = 84
+		- Golden = -1102100
+		- DUT    = 265685
+
+[FAILED] -> DMVM - 2894580000ps | [i] = 85
+		- Golden = -1106451
+		- DUT    = 15799576
+
+[FAILED] -> DMVM - 2894740000ps | [i] = 86
+		- Golden = -1138613
+		- DUT    = 180121
+
+------------------------- Subgraph 17 -------------------------
+
+[FAILED] -> DMVM - 2894900000ps | [i] = 87
+		- Golden = -1716813
+		- DUT    = 16426932
+
+[FAILED] -> DMVM - 2894910000ps | [i] = 88
+		- Golden = -1979583
+		- DUT    = 16557492
+
+[FAILED] -> DMVM - 2895060000ps | [i] = 89
+		- Golden = -2195305
+		- DUT    = 16005363
+
+[FAILED] -> DMVM - 2895220000ps | [i] = 90
+		- Golden = -1541849
+		- DUT    = 15779397
+
+[FAILED] -> DMVM - 2895380000ps | [i] = 91
+		- Golden = -1741140
+		- DUT    = 15386907
+
+[FAILED] -> DMVM - 2895540000ps | [i] = 92
+		- Golden = -1453403
+		- DUT    = 16122983
+
+[FAILED] -> DMVM - 2895700000ps | [i] = 93
+		- Golden = -1761696
+		- DUT    = 195649
+
+------------------------- Subgraph 18 -------------------------
+
+[FAILED] -> DMVM - 2895860000ps | [i] = 94
+		- Golden = 49585
+		- DUT    = 138786
+
+[FAILED] -> DMVM - 2895870000ps | [i] = 95
+		- Golden = -788178
+		- DUT    = 84892
+
+[FAILED] -> DMVM - 2896020000ps | [i] = 96
+		- Golden = -788178
+		- DUT    = 16453842
+
+[FAILED] -> DMVM - 2896180000ps | [i] = 97
+		- Golden = -612375
+		- DUT    = 16732079
+
+[FAILED] -> DMVM - 2896340000ps | [i] = 98
+		- Golden = -672273
+		- DUT    = 15706550
+
+[FAILED] -> DMVM - 2896500000ps | [i] = 99
+		- Golden = -335965
+		- DUT    = 16169063
+
+[FAILED] -> DMVM - 2896660000ps | [i] = 100
+		- Golden = -569461
+		- DUT    = 16348251
+
+------------------------- Subgraph 19 -------------------------
+
+[FAILED] -> DMVM - 2896820000ps | [i] = 101
+		- Golden = -2141241
+		- DUT    = 121275
+
+[FAILED] -> DMVM - 2896830000ps | [i] = 102
+		- Golden = -3398698
+		- DUT    = 312188
+
+[FAILED] -> DMVM - 2896980000ps | [i] = 103
+		- Golden = -2564477
+		- DUT    = 16016758
+
+------------------------- Subgraph 20 -------------------------
+
+[FAILED] -> DMVM - 2897140000ps | [i] = 104
+		- Golden = -189844
+		- DUT    = 205240
+
+[FAILED] -> DMVM - 2897150000ps | [i] = 105
+		- Golden = -2020741
+		- DUT    = 296056
+
+[FAILED] -> DMVM - 2897300000ps | [i] = 106
+		- Golden = -24213
+		- DUT    = 15635658
+
+[FAILED] -> DMVM - 2897460000ps | [i] = 107
+		- Golden = -2022690
+		- DUT    = 16674930
+
+[FAILED] -> DMVM - 2897620000ps | [i] = 108
+		- Golden = -1769520
+		- DUT    = 16444789
+
+[FAILED] -> DMVM - 2897780000ps | [i] = 109
+		- Golden = -893244
+		- DUT    = 84892
+
+[FAILED] -> DMVM - 2897940000ps | [i] = 110
+		- Golden = -2145667
+		- DUT    = 288470
+
+------------------------- Subgraph 21 -------------------------
+
+[FAILED] -> DMVM - 2898100000ps | [i] = 111
+		- Golden = -43342
+		- DUT    = 16217958
+
+[FAILED] -> DMVM - 2898110000ps | [i] = 112
+		- Golden = -337554
+		- DUT    = 15973098
+
+[FAILED] -> DMVM - 2898260000ps | [i] = 113
+		- Golden = -370063
+		- DUT    = 16732839
+
+[FAILED] -> DMVM - 2898420000ps | [i] = 114
+		- Golden = -781385
+		- DUT    = 15816643
+
+------------------------- Subgraph 22 -------------------------
+
+[FAILED] -> DMVM - 2898580000ps | [i] = 115
+		- Golden = 49763
+		- DUT    = 371000
+
+[FAILED] -> DMVM - 2898590000ps | [i] = 116
+		- Golden = -439224
+		- DUT    = 16560312
+
+[FAILED] -> DMVM - 2898740000ps | [i] = 117
+		- Golden = -500286
+		- DUT    = 813958
+
+[FAILED] -> DMVM - 2898900000ps | [i] = 118
+		- Golden = -439224
+		- DUT    = 15915540
+
+[FAILED] -> DMVM - 2899060000ps | [i] = 119
+		- Golden = -439224
+		- DUT    = 16165627
+
+[FAILED] -> DMVM - 2899220000ps | [i] = 120
+		- Golden = -439224
+		- DUT    = 117669
+
+[FAILED] -> DMVM - 2899380000ps | [i] = 121
+		- Golden = -279827
+		- DUT    = 16550211
+
+------------------------- Subgraph 23 -------------------------
+
+[FAILED] -> DMVM - 2899540000ps | [i] = 122
+		- Golden = 985225
+		- DUT    = 505030
+
+[FAILED] -> DMVM - 2899550000ps | [i] = 123
+		- Golden = -1001719
+		- DUT    = 139893
+
+[FAILED] -> DMVM - 2899700000ps | [i] = 124
+		- Golden = -263895
+		- DUT    = 16197078
+
+------------------------- Subgraph 24 -------------------------
+
+[FAILED] -> DMVM - 2899860000ps | [i] = 125
+		- Golden = -1630513
+		- DUT    = 15508410
+
+[FAILED] -> DMVM - 2899870000ps | [i] = 126
+		- Golden = -2195305
+		- DUT    = 15323116
+
+[FAILED] -> DMVM - 2900020000ps | [i] = 127
+		- Golden = -1979583
+		- DUT    = 16466530
+
+[FAILED] -> DMVM - 2900180000ps | [i] = 128
+		- Golden = -1231210
+		- DUT    = 15831104
+
+[FAILED] -> DMVM - 2900340000ps | [i] = 129
+		- Golden = -461027
+		- DUT    = 15940255
+
+[FAILED] -> DMVM - 2900500000ps | [i] = 130
+		- Golden = -2294443
+		- DUT    = 15920857
+
+[FAILED] -> DMVM - 2900660000ps | [i] = 131
+		- Golden = -907272
+		- DUT    = 16349553
+
+[FAILED] -> DMVM - 2900820000ps | [i] = 132
+		- Golden = -2394559
+		- DUT    = 294154
+
+[FAILED] -> DMVM - 2900980000ps | [i] = 133
+		- Golden = -2474473
+		- DUT    = 16512614
+
+------------------------- Subgraph 25 -------------------------
+
+[FAILED] -> DMVM - 2901140000ps | [i] = 134
+		- Golden = -1204623
+		- DUT    = 16101244
+
+[FAILED] -> DMVM - 2901150000ps | [i] = 135
+		- Golden = -1842989
+		- DUT    = 16084392
+
+[FAILED] -> DMVM - 2901300000ps | [i] = 136
+		- Golden = -1572263
+		- DUT    = 15822477
+
+[FAILED] -> DMVM - 2901460000ps | [i] = 137
+		- Golden = -1209009
+		- DUT    = 15819850
+
+[FAILED] -> DMVM - 2901620000ps | [i] = 138
+		- Golden = -4252916
+		- DUT    = 16157617
+
+[FAILED] -> DMVM - 2901780000ps | [i] = 139
+		- Golden = -1120706
+		- DUT    = 216343
+
+------------------------- Subgraph 26 -------------------------
+
+[FAILED] -> DMVM - 2901940000ps | [i] = 140
+		- Golden = 723147
+		- DUT    = 16253552
+
+[FAILED] -> DMVM - 2901950000ps | [i] = 141
+		- Golden = 35889
+		- DUT    = 16254514
+
+[FAILED] -> DMVM - 2902100000ps | [i] = 142
+		- Golden = 35889
+		- DUT    = 166070
+
+[FAILED] -> DMVM - 2902260000ps | [i] = 143
+		- Golden = 35889
+		- DUT    = 16569988
+
+[FAILED] -> DMVM - 2902420000ps | [i] = 144
+		- Golden = 115711
+		- DUT    = 115009
+
+[FAILED] -> DMVM - 2902580000ps | [i] = 145
+		- Golden = 35889
+		- DUT    = 16391824
+
+[FAILED] -> DMVM - 2902740000ps | [i] = 146
+		- Golden = 35889
+		- DUT    = 16513412
+
+------------------------- Subgraph 27 -------------------------
+
+[FAILED] -> DMVM - 2902900000ps | [i] = 147
+		- Golden = -1651335
+		- DUT    = 92623
+
+[FAILED] -> DMVM - 2902910000ps | [i] = 148
+		- Golden = -1545729
+		- DUT    = 16735854
+
+[FAILED] -> DMVM - 2903060000ps | [i] = 149
+		- Golden = -946452
+		- DUT    = 15465265
+
+[FAILED] -> DMVM - 2903220000ps | [i] = 150
+		- Golden = -358171
+		- DUT    = 139893
+
+[FAILED] -> DMVM - 2903380000ps | [i] = 151
+		- Golden = -1273211
+		- DUT    = 16462176
+
+[FAILED] -> DMVM - 2903540000ps | [i] = 152
+		- Golden = -1459436
+		- DUT    = 16244406
+
+------------------------- Subgraph 28 -------------------------
+
+[FAILED] -> DMVM - 2903700000ps | [i] = 153
+		- Golden = -546577
+		- DUT    = 16529951
+
+[FAILED] -> DMVM - 2903710000ps | [i] = 154
+		- Golden = -1536418
+		- DUT    = 16524456
+
+[FAILED] -> DMVM - 2903860000ps | [i] = 155
+		- Golden = -1135817
+		- DUT    = 16444389
+
+------------------------- Subgraph 29 -------------------------
+
+[FAILED] -> DMVM - 2904020000ps | [i] = 156
+		- Golden = 241778
+		- DUT    = 351377
+
+[FAILED] -> DMVM - 2904030000ps | [i] = 157
+		- Golden = -152006
+		- DUT    = 16236079
+
+[FAILED] -> DMVM - 2904180000ps | [i] = 158
+		- Golden = -1786644
+		- DUT    = 16757279
+
+[FAILED] -> DMVM - 2904340000ps | [i] = 159
+		- Golden = -475041
+		- DUT    = 348719
+
+------------------------- Subgraph 30 -------------------------
+
+[FAILED] -> DMVM - 2904500000ps | [i] = 160
+		- Golden = -1034770
+		- DUT    = 74446
+
+[FAILED] -> DMVM - 2904510000ps | [i] = 161
+		- Golden = -1960859
+		- DUT    = 264387
+
+[FAILED] -> DMVM - 2904660000ps | [i] = 162
+		- Golden = -3211984
+		- DUT    = 15014394
+
+[FAILED] -> DMVM - 2904820000ps | [i] = 163
+		- Golden = -2957067
+		- DUT    = 16753104
+
+[FAILED] -> DMVM - 2904980000ps | [i] = 164
+		- Golden = -557506
+		- DUT    = 16311967
+
+[FAILED] -> DMVM - 2905140000ps | [i] = 165
+		- Golden = -2812503
+		- DUT    = 16439867
+
+[FAILED] -> DMVM - 2905300000ps | [i] = 166
+		- Golden = -3151410
+		- DUT    = 16219252
+
+[FAILED] -> DMVM - 2905460000ps | [i] = 167
+		- Golden = -1592185
+		- DUT    = 15535361
+
+------------------------- Subgraph 31 -------------------------
+
+[FAILED] -> DMVM - 2905620000ps | [i] = 168
+		- Golden = 507026
+		- DUT    = 16272535
+
+[FAILED] -> DMVM - 2905630000ps | [i] = 169
+		- Golden = -109457
+		- DUT    = 16219252
+
+[FAILED] -> DMVM - 2905780000ps | [i] = 170
+		- Golden = -109457
+		- DUT    = 15799522
+
+------------------------- Subgraph 32 -------------------------
+
+[FAILED] -> DMVM - 2905940000ps | [i] = 171
+		- Golden = 1374339
+		- DUT    = 15822955
+
+[FAILED] -> DMVM - 2905950000ps | [i] = 172
+		- Golden = -1220398
+		- DUT    = 15831104
+
+[FAILED] -> DMVM - 2906100000ps | [i] = 173
+		- Golden = -2167667
+		- DUT    = 27212
+
+[FAILED] -> DMVM - 2906260000ps | [i] = 174
+		- Golden = -2823432
+		- DUT    = 184012
+
+[FAILED] -> DMVM - 2906420000ps | [i] = 175
+		- Golden = -1648436
+		- DUT    = 15861535
+
+[FAILED] -> DMVM - 2906580000ps | [i] = 176
+		- Golden = -1181192
+		- DUT    = 15558700
+
+------------------------- Subgraph 33 -------------------------
+
+[FAILED] -> DMVM - 2906740000ps | [i] = 177
+		- Golden = 412300
+		- DUT    = 116053
+
+[FAILED] -> DMVM - 2906750000ps | [i] = 178
+		- Golden = 301431
+		- DUT    = 16612116
+
+[FAILED] -> DMVM - 2906900000ps | [i] = 179
+		- Golden = -350984
+		- DUT    = 16447072
+
+[FAILED] -> DMVM - 2907060000ps | [i] = 180
+		- Golden = -350984
+		- DUT    = 433686
+
+[FAILED] -> DMVM - 2907220000ps | [i] = 181
+		- Golden = -350984
+		- DUT    = 16676323
+
+[FAILED] -> DMVM - 2907380000ps | [i] = 182
+		- Golden = -362955
+		- DUT    = 236338
+
+[FAILED] -> DMVM - 2907540000ps | [i] = 183
+		- Golden = -362955
+		- DUT    = 204325
+
+[FAILED] -> DMVM - 2907700000ps | [i] = 184
+		- Golden = 301431
+		- DUT    = 16036724
+
+[FAILED] -> DMVM - 2907860000ps | [i] = 185
+		- Golden = -350984
+		- DUT    = 144906
+
+[FAILED] -> DMVM - 2908020000ps | [i] = 186
+		- Golden = 301431
+		- DUT    = 121549
+
+[FAILED] -> DMVM - 2908180000ps | [i] = 187
+		- Golden = -350843
+		- DUT    = 16511066
+
+------------------------- Subgraph 34 -------------------------
+
+[FAILED] -> DMVM - 2908340000ps | [i] = 188
+		- Golden = -1215192
+		- DUT    = 16206518
+
+[FAILED] -> DMVM - 2908350000ps | [i] = 189
+		- Golden = -2369920
+		- DUT    = 16057424
+
+[FAILED] -> DMVM - 2908500000ps | [i] = 190
+		- Golden = -557506
+		- DUT    = 15996085
+
+------------------------- Subgraph 35 -------------------------
+
+[FAILED] -> DMVM - 2908660000ps | [i] = 191
+		- Golden = 2367001
+		- DUT    = 16241367
+
+[FAILED] -> DMVM - 2908670000ps | [i] = 192
+		- Golden = -2257436
+		- DUT    = 16012698
+
+[FAILED] -> DMVM - 2908820000ps | [i] = 193
+		- Golden = -2257436
+		- DUT    = 16576488
+
+[FAILED] -> DMVM - 2908980000ps | [i] = 194
+		- Golden = -2257436
+		- DUT    = 14800390
+
+[FAILED] -> DMVM - 2909140000ps | [i] = 195
+		- Golden = -2257436
+		- DUT    = 15533195
+
+------------------------- Subgraph 36 -------------------------
+
+[FAILED] -> DMVM - 2909300000ps | [i] = 196
+		- Golden = 231745
+		- DUT    = 16526704
+
+[FAILED] -> DMVM - 2909310000ps | [i] = 197
+		- Golden = -24213
+		- DUT    = 16526211
+
+[FAILED] -> DMVM - 2909460000ps | [i] = 198
+		- Golden = -24213
+		- DUT    = 16475822
+
+[FAILED] -> DMVM - 2909620000ps | [i] = 199
+		- Golden = -24213
+		- DUT    = 80494
+
+[FAILED] -> DMVM - 2909780000ps | [i] = 200
+		- Golden = -24213
+		- DUT    = 94075
+
+[FAILED] -> DMVM - 2909940000ps | [i] = 201
+		- Golden = -10069
+		- DUT    = 16557558
+
+[FAILED] -> DMVM - 2910100000ps | [i] = 202
+		- Golden = 926
+		- DUT    = 16132856
+
+[FAILED] -> DMVM - 2910260000ps | [i] = 203
+		- Golden = -281593
+		- DUT    = 134966
+
+[FAILED] -> DMVM - 2910420000ps | [i] = 204
+		- Golden = 7410
+		- DUT    = 16246068
+
+[FAILED] -> DMVM - 2910580000ps | [i] = 205
+		- Golden = -24213
+		- DUT    = 16280702
+
+------------------------- Subgraph 37 -------------------------
+
+[FAILED] -> DMVM - 2910740000ps | [i] = 206
+		- Golden = 521656
+		- DUT    = 16282867
+
+[FAILED] -> DMVM - 2910750000ps | [i] = 207
+		- Golden = -1972607
+		- DUT    = 16469610
+
+[FAILED] -> DMVM - 2910900000ps | [i] = 208
+		- Golden = -2226128
+		- DUT    = 15453214
+
+[FAILED] -> DMVM - 2911060000ps | [i] = 209
+		- Golden = -2345736
+		- DUT    = 16735598
+
+[FAILED] -> DMVM - 2911220000ps | [i] = 210
+		- Golden = -1960636
+		- DUT    = 219684
+
+------------------------- Subgraph 38 -------------------------
+
+[FAILED] -> DMVM - 2911380000ps | [i] = 211
+		- Golden = -626034
+		- DUT    = 15792753
+
+[FAILED] -> DMVM - 2911390000ps | [i] = 212
+		- Golden = -414577
+		- DUT    = 15779605
+
+[FAILED] -> DMVM - 2911540000ps | [i] = 213
+		- Golden = -632640
+		- DUT    = 15819276
+
+[FAILED] -> DMVM - 2911700000ps | [i] = 214
+		- Golden = -416356
+		- DUT    = 16653414
+
+[FAILED] -> DMVM - 2911860000ps | [i] = 215
+		- Golden = -420902
+		- DUT    = 16538828
+
+[FAILED] -> DMVM - 2912020000ps | [i] = 216
+		- Golden = -420902
+		- DUT    = 373275
+
+------------------------- Subgraph 39 -------------------------
+
+[FAILED] -> DMVM - 2912180000ps | [i] = 217
+		- Golden = 120528
+		- DUT    = 16156714
+
+[FAILED] -> DMVM - 2912190000ps | [i] = 218
+		- Golden = -500286
+		- DUT    = 16317160
+
+[FAILED] -> DMVM - 2912340000ps | [i] = 219
+		- Golden = -439224
+		- DUT    = 16291687
+
+[FAILED] -> DMVM - 2912500000ps | [i] = 220
+		- Golden = -500286
+		- DUT    = 150885
+
+[FAILED] -> DMVM - 2912660000ps | [i] = 221
+		- Golden = -500286
+		- DUT    = 16482259
+
+[FAILED] -> DMVM - 2912820000ps | [i] = 222
+		- Golden = -500286
+		- DUT    = 16512470
+
+[FAILED] -> DMVM - 2912980000ps | [i] = 223
+		- Golden = -500286
+		- DUT    = 16541745
+
+[FAILED] -> DMVM - 2913140000ps | [i] = 224
+		- Golden = -500286
+		- DUT    = 16486929
+
+[FAILED] -> DMVM - 2913300000ps | [i] = 225
+		- Golden = -500286
+		- DUT    = 16244952
+
+------------------------- Subgraph 40 -------------------------
+
+[FAILED] -> DMVM - 2913460000ps | [i] = 226
+		- Golden = -1034293
+		- DUT    = 16050550
+
+[FAILED] -> DMVM - 2913470000ps | [i] = 227
+		- Golden = -2086806
+		- DUT    = 16134552
+
+[FAILED] -> DMVM - 2913620000ps | [i] = 228
+		- Golden = -1329221
+		- DUT    = 34847
+
+[FAILED] -> DMVM - 2913780000ps | [i] = 229
+		- Golden = -1725043
+		- DUT    = 16059244
+
+[FAILED] -> DMVM - 2913940000ps | [i] = 230
+		- Golden = -1847282
+		- DUT    = 16344723
+
+------------------------- Subgraph 41 -------------------------
+
+[FAILED] -> DMVM - 2914100000ps | [i] = 231
+		- Golden = 501186
+		- DUT    = 926680
+
+[FAILED] -> DMVM - 2914110000ps | [i] = 232
+		- Golden = -480733
+		- DUT    = 481951
+
+[FAILED] -> DMVM - 2914260000ps | [i] = 233
+		- Golden = -1194389
+		- DUT    = 16410854
+
+[FAILED] -> DMVM - 2914420000ps | [i] = 234
+		- Golden = -1896566
+		- DUT    = 16639480
+
+[FAILED] -> DMVM - 2914580000ps | [i] = 235
+		- Golden = -266797
+		- DUT    = 36477
+
+[FAILED] -> DMVM - 2914740000ps | [i] = 236
+		- Golden = -1235329
+		- DUT    = 187928
+
+------------------------- Subgraph 42 -------------------------
+
+[FAILED] -> DMVM - 2914900000ps | [i] = 237
+		- Golden = 549707
+		- DUT    = 95943
+
+[FAILED] -> DMVM - 2914910000ps | [i] = 238
+		- Golden = 154055
+		- DUT    = 28691
+
+[FAILED] -> DMVM - 2915060000ps | [i] = 239
+		- Golden = 154055
+		- DUT    = 16685082
+
+[FAILED] -> DMVM - 2915220000ps | [i] = 240
+		- Golden = 154055
+		- DUT    = 16510233
+
+------------------------- Subgraph 43 -------------------------
+
+[FAILED] -> DMVM - 2915380000ps | [i] = 241
+		- Golden = 193839
+		- DUT    = 401447
+
+[FAILED] -> DMVM - 2915390000ps | [i] = 242
+		- Golden = -129983
+		- DUT    = 457570
+
+[FAILED] -> DMVM - 2915540000ps | [i] = 243
+		- Golden = -128212
+		- DUT    = 245927
+
+[FAILED] -> DMVM - 2915700000ps | [i] = 244
+		- Golden = -1786644
+		- DUT    = 16248917
+
+[FAILED] -> DMVM - 2915860000ps | [i] = 245
+		- Golden = -844796
+		- DUT    = 15695777
+
+[FAILED] -> DMVM - 2916020000ps | [i] = 246
+		- Golden = -270929
+		- DUT    = 209084
+
+[FAILED] -> DMVM - 2916180000ps | [i] = 247
+		- Golden = -808265
+		- DUT    = 16768641
+
+[FAILED] -> DMVM - 2916340000ps | [i] = 248
+		- Golden = -152006
+		- DUT    = 15705296
+
+------------------------- Subgraph 44 -------------------------
+
+[FAILED] -> DMVM - 2916500000ps | [i] = 249
+		- Golden = -1562398
+		- DUT    = 16075027
+
+[FAILED] -> DMVM - 2916510000ps | [i] = 250
+		- Golden = -1550649
+		- DUT    = 16096587
+
+[FAILED] -> DMVM - 2916660000ps | [i] = 251
+		- Golden = -1786788
+		- DUT    = 15938875
+
+[FAILED] -> DMVM - 2916820000ps | [i] = 252
+		- Golden = -1659979
+		- DUT    = 16270980
+
+[FAILED] -> DMVM - 2916980000ps | [i] = 253
+		- Golden = -1659979
+		- DUT    = 15981850
+
+------------------------- Subgraph 45 -------------------------
+
+[FAILED] -> DMVM - 2917140000ps | [i] = 254
+		- Golden = -117577
+		- DUT    = 258992
+
+[FAILED] -> DMVM - 2917150000ps | [i] = 255
+		- Golden = -307898
+		- DUT    = 187451
+
+[FAILED] -> DMVM - 2917300000ps | [i] = 256
+		- Golden = -395667
+		- DUT    = 503634
+
+[FAILED] -> DMVM - 2917460000ps | [i] = 257
+		- Golden = -285549
+		- DUT    = 16570813
+
+[FAILED] -> DMVM - 2917620000ps | [i] = 258
+		- Golden = -461027
+		- DUT    = 16149540
+
+[FAILED] -> DMVM - 2917780000ps | [i] = 259
+		- Golden = -866043
+		- DUT    = 16624839
+
+[FAILED] -> DMVM - 2917940000ps | [i] = 260
+		- Golden = -1834394
+		- DUT    = 16368848
+
+[FAILED] -> DMVM - 2918100000ps | [i] = 261
+		- Golden = -1181005
+		- DUT    = 15935194
+
+------------------------- Subgraph 46 -------------------------
+
+[FAILED] -> DMVM - 2918260000ps | [i] = 262
+		- Golden = -173264
+		- DUT    = 15626370
+
+[FAILED] -> DMVM - 2918270000ps | [i] = 263
+		- Golden = -814125
+		- DUT    = 15714438
+
+[FAILED] -> DMVM - 2918420000ps | [i] = 264
+		- Golden = -1511707
+		- DUT    = 16316058
+
+[FAILED] -> DMVM - 2918580000ps | [i] = 265
+		- Golden = -594615
+		- DUT    = 16583739
+
+------------------------- Subgraph 47 -------------------------
+
+[FAILED] -> DMVM - 2918740000ps | [i] = 266
+		- Golden = -1815
+		- DUT    = 15697609
+
+[FAILED] -> DMVM - 2918750000ps | [i] = 267
+		- Golden = -1718371
+		- DUT    = 15875628
+
+[FAILED] -> DMVM - 2918900000ps | [i] = 268
+		- Golden = -1704230
+		- DUT    = 161151
+
+[FAILED] -> DMVM - 2919060000ps | [i] = 269
+		- Golden = -1871691
+		- DUT    = 16135883
+
+------------------------- Subgraph 48 -------------------------
+
+[FAILED] -> DMVM - 2919220000ps | [i] = 270
+		- Golden = -1053735
+		- DUT    = 16517076
+
+[FAILED] -> DMVM - 2919230000ps | [i] = 271
+		- Golden = -1520799
+		- DUT    = 16546866
+
+[FAILED] -> DMVM - 2919380000ps | [i] = 272
+		- Golden = -461027
+		- DUT    = 15869352
+
+[FAILED] -> DMVM - 2919540000ps | [i] = 273
+		- Golden = -641801
+		- DUT    = 16507399
+
+[FAILED] -> DMVM - 2919700000ps | [i] = 274
+		- Golden = -2022953
+		- DUT    = 27148
+
+[FAILED] -> DMVM - 2919860000ps | [i] = 275
+		- Golden = -1325028
+		- DUT    = 15926084
+
+[FAILED] -> DMVM - 2920020000ps | [i] = 276
+		- Golden = -1276394
+		- DUT    = 16254095
+
+[FAILED] -> DMVM - 2920180000ps | [i] = 277
+		- Golden = -1154417
+		- DUT    = 15540886
+
+[FAILED] -> DMVM - 2920340000ps | [i] = 278
+		- Golden = -2022953
+		- DUT    = 16217648
+
+[FAILED] -> DMVM - 2920500000ps | [i] = 279
+		- Golden = -1790544
+		- DUT    = 15790280
+
+[FAILED] -> DMVM - 2920660000ps | [i] = 280
+		- Golden = -1015138
+		- DUT    = 16638634
+
+------------------------- Subgraph 49 -------------------------
+
+[FAILED] -> DMVM - 2920820000ps | [i] = 281
+		- Golden = -679156
+		- DUT    = 15899585
+
+[FAILED] -> DMVM - 2920830000ps | [i] = 282
+		- Golden = -1276253
+		- DUT    = 15932699
+
+[FAILED] -> DMVM - 2920980000ps | [i] = 283
+		- Golden = -1276394
+		- DUT    = 16612498
+
+[FAILED] -> DMVM - 2921140000ps | [i] = 284
+		- Golden = 301431
+		- DUT    = 16254514
+
+------------------------- Subgraph 50 -------------------------
+
+[FAILED] -> DMVM - 2921300000ps | [i] = 285
+		- Golden = 712986
+		- DUT    = 15587534
+
+[FAILED] -> DMVM - 2921310000ps | [i] = 286
+		- Golden = -1803089
+		- DUT    = 15556992
+
+[FAILED] -> DMVM - 2921460000ps | [i] = 287
+		- Golden = -863892
+		- DUT    = 16510134
+
+------------------------- Subgraph 51 -------------------------
+
+[FAILED] -> DMVM - 2921620000ps | [i] = 288
+		- Golden = -447377
+		- DUT    = 16336730
+
+[FAILED] -> DMVM - 2921630000ps | [i] = 289
+		- Golden = -27275
+		- DUT    = 16314214
+
+[FAILED] -> DMVM - 2921780000ps | [i] = 290
+		- Golden = -1775305
+		- DUT    = 172287
+
+[FAILED] -> DMVM - 2921940000ps | [i] = 291
+		- Golden = -27275
+		- DUT    = 16279546
+
+[FAILED] -> DMVM - 2922100000ps | [i] = 292
+		- Golden = -27275
+		- DUT    = 219684
+
+[FAILED] -> DMVM - 2922260000ps | [i] = 293
+		- Golden = -1252750
+		- DUT    = 205166
+
+[FAILED] -> DMVM - 2922420000ps | [i] = 294
+		- Golden = -2160041
+		- DUT    = 310286
+
+[FAILED] -> DMVM - 2922580000ps | [i] = 295
+		- Golden = -1591166
+		- DUT    = 252438
+
+------------------------- Subgraph 52 -------------------------
+
+[FAILED] -> DMVM - 2922740000ps | [i] = 296
+		- Golden = 1050931
+		- DUT    = 16732625
+
+[FAILED] -> DMVM - 2922750000ps | [i] = 297
+		- Golden = -3032719
+		- DUT    = 16603436
+
+[FAILED] -> DMVM - 2922900000ps | [i] = 298
+		- Golden = -2462022
+		- DUT    = 123256
+
+[FAILED] -> DMVM - 2923060000ps | [i] = 299
+		- Golden = -983047
+		- DUT    = 16445794
+
+[FAILED] -> DMVM - 2923220000ps | [i] = 300
+		- Golden = -1448084
+		- DUT    = 42779
+
+[FAILED] -> DMVM - 2923380000ps | [i] = 301
+		- Golden = -2370097
+		- DUT    = 16478826
+
+[FAILED] -> DMVM - 2923540000ps | [i] = 302
+		- Golden = -3916245
+		- DUT    = 402287
+
+------------------------- Subgraph 53 -------------------------
+
+[FAILED] -> DMVM - 2923700000ps | [i] = 303
+		- Golden = -945458
+		- DUT    = 16297581
+
+[FAILED] -> DMVM - 2923710000ps | [i] = 304
+		- Golden = -1405346
+		- DUT    = 16269008
+
+[FAILED] -> DMVM - 2923860000ps | [i] = 305
+		- Golden = -179347
+		- DUT    = 15717049
+
+[FAILED] -> DMVM - 2924020000ps | [i] = 306
+		- Golden = -557506
+		- DUT    = 27131
+
+[FAILED] -> DMVM - 2924180000ps | [i] = 307
+		- Golden = -1368132
+		- DUT    = 15706155
+
+------------------------- Subgraph 54 -------------------------
+
+[FAILED] -> DMVM - 2924340000ps | [i] = 308
+		- Golden = -149118
+		- DUT    = 15800507
+
+[FAILED] -> DMVM - 2924350000ps | [i] = 309
+		- Golden = 272156
+		- DUT    = 15895443
+
+[FAILED] -> DMVM - 2924500000ps | [i] = 310
+		- Golden = -357283
+		- DUT    = 16186629
+
+[FAILED] -> DMVM - 2924660000ps | [i] = 311
+		- Golden = 255469
+		- DUT    = 66646
+
+------------------------- Subgraph 55 -------------------------
+
+[FAILED] -> DMVM - 2924820000ps | [i] = 312
+		- Golden = 599376
+		- DUT    = 16108647
+
+[FAILED] -> DMVM - 2924830000ps | [i] = 313
+		- Golden = -708165
+		- DUT    = 16126843
+
+[FAILED] -> DMVM - 2924980000ps | [i] = 314
+		- Golden = -2226128
+		- DUT    = 184693
+
+[FAILED] -> DMVM - 2925140000ps | [i] = 315
+		- Golden = -746847
+		- DUT    = 115009
+
+[FAILED] -> DMVM - 2925300000ps | [i] = 316
+		- Golden = -746847
+		- DUT    = 16379330
+
+[FAILED] -> DMVM - 2925460000ps | [i] = 317
+		- Golden = -619560
+		- DUT    = 15544027
+
+[FAILED] -> DMVM - 2925620000ps | [i] = 318
+		- Golden = -725842
+		- DUT    = 16481312
+
+[FAILED] -> DMVM - 2925780000ps | [i] = 319
+		- Golden = -746847
+		- DUT    = 16771979
+
+[FAILED] -> DMVM - 2925940000ps | [i] = 320
+		- Golden = -454867
+		- DUT    = 47857
+
+[FAILED] -> DMVM - 2926100000ps | [i] = 321
+		- Golden = -746847
+		- DUT    = 16681118
+
+[FAILED] -> DMVM - 2926260000ps | [i] = 322
+		- Golden = -662758
+		- DUT    = 301940
+
+[FAILED] -> DMVM - 2926420000ps | [i] = 323
+		- Golden = -708165
+		- DUT    = 16442869
+
+[FAILED] -> DMVM - 2926580000ps | [i] = 324
+		- Golden = -746847
+		- DUT    = 16404397
+
+[FAILED] -> DMVM - 2926740000ps | [i] = 325
+		- Golden = -746847
+		- DUT    = 15904265
+
+------------------------- Subgraph 56 -------------------------
+
+[FAILED] -> DMVM - 2926900000ps | [i] = 326
+		- Golden = 1163791
+		- DUT    = 280864
+
+[FAILED] -> DMVM - 2926910000ps | [i] = 327
+		- Golden = -828824
+		- DUT    = 121885
+
+[FAILED] -> DMVM - 2927060000ps | [i] = 328
+		- Golden = -924567
+		- DUT    = 129818
+
+[FAILED] -> DMVM - 2927220000ps | [i] = 329
+		- Golden = -828824
+		- DUT    = 16591810
+
+[FAILED] -> DMVM - 2927380000ps | [i] = 330
+		- Golden = -785375
+		- DUT    = 16278286
+
+[FAILED] -> DMVM - 2927540000ps | [i] = 331
+		- Golden = -102221
+		- DUT    = 45919
+
+------------------------- Subgraph 57 -------------------------
+
+[FAILED] -> DMVM - 2927700000ps | [i] = 332
+		- Golden = -3214203
+		- DUT    = 16575505
+
+[FAILED] -> DMVM - 2927710000ps | [i] = 333
+		- Golden = -3600622
+		- DUT    = 16615272
+
+[FAILED] -> DMVM - 2927860000ps | [i] = 334
+		- Golden = -2359735
+		- DUT    = 16498240
+
+------------------------- Subgraph 58 -------------------------
+
+[FAILED] -> DMVM - 2928020000ps | [i] = 335
+		- Golden = -407660
+		- DUT    = 473358
+
+[FAILED] -> DMVM - 2928030000ps | [i] = 336
+		- Golden = -969517
+		- DUT    = 166070
+
+[FAILED] -> DMVM - 2928180000ps | [i] = 337
+		- Golden = -1360351
+		- DUT    = 16688230
+
+------------------------- Subgraph 59 -------------------------
+
+[FAILED] -> DMVM - 2928340000ps | [i] = 338
+		- Golden = -644236
+		- DUT    = 276651
+
+[FAILED] -> DMVM - 2928350000ps | [i] = 339
+		- Golden = -1205095
+		- DUT    = 97563
+
+[FAILED] -> DMVM - 2928500000ps | [i] = 340
+		- Golden = -1360565
+		- DUT    = 556816
+
+[FAILED] -> DMVM - 2928660000ps | [i] = 341
+		- Golden = -1120493
+		- DUT    = 16120930
+
+[FAILED] -> DMVM - 2928820000ps | [i] = 342
+		- Golden = -826221
+		- DUT    = 422935
+
+[FAILED] -> DMVM - 2928980000ps | [i] = 343
+		- Golden = -148714
+		- DUT    = 16534494
+
+[FAILED] -> DMVM - 2929140000ps | [i] = 344
+		- Golden = -835547
+		- DUT    = 324062
+
+[FAILED] -> DMVM - 2929300000ps | [i] = 345
+		- Golden = -1511941
+		- DUT    = 16322629
+
+[FAILED] -> DMVM - 2929460000ps | [i] = 346
+		- Golden = -557506
+		- DUT    = 302332
+
+[FAILED] -> DMVM - 2929620000ps | [i] = 347
+		- Golden = -767766
+		- DUT    = 16463360
+
+[FAILED] -> DMVM - 2929780000ps | [i] = 348
+		- Golden = -906223
+		- DUT    = 15989416
+
+[FAILED] -> DMVM - 2929940000ps | [i] = 349
+		- Golden = -1245998
+		- DUT    = 16549172
+
+------------------------- Subgraph 60 -------------------------
+
+[FAILED] -> DMVM - 2930100000ps | [i] = 350
+		- Golden = 418067
+		- DUT    = 16088822
+
+[FAILED] -> DMVM - 2930110000ps | [i] = 351
+		- Golden = -2226128
+		- DUT    = 16059575
+
+[FAILED] -> DMVM - 2930260000ps | [i] = 352
+		- Golden = -1972607
+		- DUT    = 206851
+
+[FAILED] -> DMVM - 2930420000ps | [i] = 353
+		- Golden = -708165
+		- DUT    = 16751203
+
+[FAILED] -> DMVM - 2930580000ps | [i] = 354
+		- Golden = -2346784
+		- DUT    = 16592755
+
+------------------------- Subgraph 61 -------------------------
+
+[FAILED] -> DMVM - 2930740000ps | [i] = 355
+		- Golden = 520783
+		- DUT    = 16394176
+
+[FAILED] -> DMVM - 2930750000ps | [i] = 356
+		- Golden = -2300218
+		- DUT    = 16331764
+
+[FAILED] -> DMVM - 2930900000ps | [i] = 357
+		- Golden = -2149050
+		- DUT    = 15415248
+
+[FAILED] -> DMVM - 2931060000ps | [i] = 358
+		- Golden = -2415896
+		- DUT    = 16285705
+
+[FAILED] -> DMVM - 2931220000ps | [i] = 359
+		- Golden = -2812503
+		- DUT    = 15709367
+
+[FAILED] -> DMVM - 2931380000ps | [i] = 360
+		- Golden = -3151410
+		- DUT    = 16180267
+
+[FAILED] -> DMVM - 2931540000ps | [i] = 361
+		- Golden = -2032420
+		- DUT    = 15984323
+
+------------------------- Subgraph 62 -------------------------
+
+[FAILED] -> DMVM - 2931700000ps | [i] = 362
+		- Golden = 1877674
+		- DUT    = 15982831
+
+[FAILED] -> DMVM - 2931710000ps | [i] = 363
+		- Golden = -4205296
+		- DUT    = 16018719
+
+[FAILED] -> DMVM - 2931860000ps | [i] = 364
+		- Golden = -4205296
+		- DUT    = 16115251
+
+------------------------- Subgraph 63 -------------------------
+
+[FAILED] -> DMVM - 2932020000ps | [i] = 365
+		- Golden = 408492
+		- DUT    = 16181156
+
+[FAILED] -> DMVM - 2932030000ps | [i] = 366
+		- Golden = -232968
+		- DUT    = 16221896
+
+[FAILED] -> DMVM - 2932180000ps | [i] = 367
+		- Golden = -267528
+		- DUT    = 16238773
+
+------------------------- Subgraph 64 -------------------------
+
+[FAILED] -> DMVM - 2932340000ps | [i] = 368
+		- Golden = -466797
+		- DUT    = 777387
+
+[FAILED] -> DMVM - 2932350000ps | [i] = 369
+		- Golden = -859556
+		- DUT    = 553032
+
+[FAILED] -> DMVM - 2932500000ps | [i] = 370
+		- Golden = -1613198
+		- DUT    = 16525231
+
+[FAILED] -> DMVM - 2932660000ps | [i] = 371
+		- Golden = -929671
+		- DUT    = 15838288
+
+[FAILED] -> DMVM - 2932820000ps | [i] = 372
+		- Golden = -886486
+		- DUT    = 16357226
+
+------------------------- Subgraph 65 -------------------------
+
+[FAILED] -> DMVM - 2932980000ps | [i] = 373
+		- Golden = 447612
+		- DUT    = 16181156
+
+[FAILED] -> DMVM - 2932990000ps | [i] = 374
+		- Golden = -515299
+		- DUT    = 16221896
+
+[FAILED] -> DMVM - 2933140000ps | [i] = 375
+		- Golden = -612509
+		- DUT    = 16705049
+
+[FAILED] -> DMVM - 2933300000ps | [i] = 376
+		- Golden = -592188
+		- DUT    = 135211
+
+[FAILED] -> DMVM - 2933460000ps | [i] = 377
+		- Golden = -1870063
+		- DUT    = 16028810
+
+[FAILED] -> DMVM - 2933620000ps | [i] = 378
+		- Golden = -725842
+		- DUT    = 16045004
+
+[FAILED] -> DMVM - 2933780000ps | [i] = 379
+		- Golden = -662758
+		- DUT    = 16490804
+
+[FAILED] -> DMVM - 2933940000ps | [i] = 380
+		- Golden = -1931284
+		- DUT    = 16184319
+
+[FAILED] -> DMVM - 2934100000ps | [i] = 381
+		- Golden = -3916245
+		- DUT    = 16348251
+
+[FAILED] -> DMVM - 2934260000ps | [i] = 382
+		- Golden = -746847
+		- DUT    = 16056361
+
+[FAILED] -> DMVM - 2934420000ps | [i] = 383
+		- Golden = -2359735
+		- DUT    = 16109494
+
+[FAILED] -> DMVM - 2934580000ps | [i] = 384
+		- Golden = -3247586
+		- DUT    = 16209500
+
+------------------------- Subgraph 66 -------------------------
+
+[FAILED] -> DMVM - 2934740000ps | [i] = 385
+		- Golden = 31115
+		- DUT    = 16200842
+
+[FAILED] -> DMVM - 2934750000ps | [i] = 386
+		- Golden = -124120
+		- DUT    = 16226694
+
+[FAILED] -> DMVM - 2934900000ps | [i] = 387
+		- Golden = -124120
+		- DUT    = 307459
+
+------------------------- Subgraph 67 -------------------------
+
+[FAILED] -> DMVM - 2935060000ps | [i] = 388
+		- Golden = 48671
+		- DUT    = 15506709
+
+[FAILED] -> DMVM - 2935070000ps | [i] = 389
+		- Golden = -827535
+		- DUT    = 15721208
+
+[FAILED] -> DMVM - 2935220000ps | [i] = 390
+		- Golden = -779652
+		- DUT    = 15519251
+
+[FAILED] -> DMVM - 2935380000ps | [i] = 391
+		- Golden = -863892
+		- DUT    = 503634
+
+[FAILED] -> DMVM - 2935540000ps | [i] = 392
+		- Golden = -2342450
+		- DUT    = 16444450
+
+------------------------- Subgraph 68 -------------------------
+
+[FAILED] -> DMVM - 2935700000ps | [i] = 393
+		- Golden = -818641
+		- DUT    = 16557743
+
+[FAILED] -> DMVM - 2935710000ps | [i] = 394
+		- Golden = -1395695
+		- DUT    = 16615852
+
+[FAILED] -> DMVM - 2935860000ps | [i] = 395
+		- Golden = -949659
+		- DUT    = 15764645
+
+[FAILED] -> DMVM - 2936020000ps | [i] = 396
+		- Golden = -557506
+		- DUT    = 16111962
+
+[FAILED] -> DMVM - 2936180000ps | [i] = 397
+		- Golden = -461027
+		- DUT    = 16061272
+
+------------------------- Subgraph 69 -------------------------
+
+[FAILED] -> DMVM - 2936340000ps | [i] = 398
+		- Golden = 1055892
+		- DUT    = 16373492
+
+[FAILED] -> DMVM - 2936350000ps | [i] = 399
+		- Golden = -624723
+		- DUT    = 16240241
+
+[FAILED] -> DMVM - 2936500000ps | [i] = 400
+		- Golden = -1145678
+		- DUT    = 16384294
+
+[FAILED] -> DMVM - 2936660000ps | [i] = 401
+		- Golden = -978039
+		- DUT    = 499973
+
+[FAILED] -> DMVM - 2936820000ps | [i] = 402
+		- Golden = 422184
+		- DUT    = 113706
+
+[FAILED] -> DMVM - 2936980000ps | [i] = 403
+		- Golden = -1235329
+		- DUT    = 15917721
+
+[FAILED] -> DMVM - 2937140000ps | [i] = 404
+		- Golden = -265173
+		- DUT    = 15915540
+
+[FAILED] -> DMVM - 2937300000ps | [i] = 405
+		- Golden = -472309
+		- DUT    = 15905669
+
+[FAILED] -> DMVM - 2937460000ps | [i] = 406
+		- Golden = -75061
+		- DUT    = 16220069
+
+------------------------- Subgraph 70 -------------------------
+
+[FAILED] -> DMVM - 2937620000ps | [i] = 407
+		- Golden = -625167
+		- DUT    = 16343375
+
+[FAILED] -> DMVM - 2937630000ps | [i] = 408
+		- Golden = -2103083
+		- DUT    = 16131839
+
+[FAILED] -> DMVM - 2937780000ps | [i] = 409
+		- Golden = -2968434
+		- DUT    = 15838526
+
+[FAILED] -> DMVM - 2937940000ps | [i] = 410
+		- Golden = -2084872
+		- DUT    = 16069080
+
+------------------------- Subgraph 71 -------------------------
+
+[FAILED] -> DMVM - 2938100000ps | [i] = 411
+		- Golden = -564390
+		- DUT    = 16753768
+
+[FAILED] -> DMVM - 2938110000ps | [i] = 412
+		- Golden = -1155653
+		- DUT    = 93925
+
+[FAILED] -> DMVM - 2938260000ps | [i] = 413
+		- Golden = -1340798
+		- DUT    = 15881657
+
+[FAILED] -> DMVM - 2938420000ps | [i] = 414
+		- Golden = -461027
+		- DUT    = 239843
+
+[FAILED] -> DMVM - 2938580000ps | [i] = 415
+		- Golden = -1340798
+		- DUT    = 15887409
+
+------------------------- Subgraph 72 -------------------------
+
+[FAILED] -> DMVM - 2938740000ps | [i] = 416
+		- Golden = -874138
+		- DUT    = 140220
+
+[FAILED] -> DMVM - 2938750000ps | [i] = 417
+		- Golden = -1098839
+		- DUT    = 179490
+
+[FAILED] -> DMVM - 2938900000ps | [i] = 418
+		- Golden = -179347
+		- DUT    = 16428039
+
+[FAILED] -> DMVM - 2939060000ps | [i] = 419
+		- Golden = -557506
+		- DUT    = 15474822
+
+------------------------- Subgraph 73 -------------------------
+
+[FAILED] -> DMVM - 2939220000ps | [i] = 420
+		- Golden = -55506
+		- DUT    = 16257772
+
+[FAILED] -> DMVM - 2939230000ps | [i] = 421
+		- Golden = -706370
+		- DUT    = 16348251
+
+[FAILED] -> DMVM - 2939380000ps | [i] = 422
+		- Golden = -615476
+		- DUT    = 274094
+
+[FAILED] -> DMVM - 2939540000ps | [i] = 423
+		- Golden = -706370
+		- DUT    = 16497477
+
+[FAILED] -> DMVM - 2939700000ps | [i] = 424
+		- Golden = -1444328
+		- DUT    = 16466536
+
+[FAILED] -> DMVM - 2939860000ps | [i] = 425
+		- Golden = -360621
+		- DUT    = 15659644
+
+[FAILED] -> DMVM - 2940020000ps | [i] = 426
+		- Golden = -250396
+		- DUT    = 16371940
+
+[FAILED] -> DMVM - 2940180000ps | [i] = 427
+		- Golden = -551565
+		- DUT    = 163643
+
+[FAILED] -> DMVM - 2940340000ps | [i] = 428
+		- Golden = -1028310
+		- DUT    = 16611803
+
+[FAILED] -> DMVM - 2940500000ps | [i] = 429
+		- Golden = -697735
+		- DUT    = 16508669
+
+[FAILED] -> DMVM - 2940660000ps | [i] = 430
+		- Golden = -557506
+		- DUT    = 67666
+
+[FAILED] -> DMVM - 2940820000ps | [i] = 431
+		- Golden = -368445
+		- DUT    = 15986551
+
+[FAILED] -> DMVM - 2940980000ps | [i] = 432
+		- Golden = -1427865
+		- DUT    = 16111195
+
+[FAILED] -> DMVM - 2941140000ps | [i] = 433
+		- Golden = -1297232
+		- DUT    = 16330553
+
+------------------------- Subgraph 74 -------------------------
+
+[FAILED] -> DMVM - 2941300000ps | [i] = 434
+		- Golden = 750857
+		- DUT    = 16352816
+
+[FAILED] -> DMVM - 2941310000ps | [i] = 435
+		- Golden = -1187624
+		- DUT    = 16388727
+
+[FAILED] -> DMVM - 2941460000ps | [i] = 436
+		- Golden = -861490
+		- DUT    = 333837
+
+[FAILED] -> DMVM - 2941620000ps | [i] = 437
+		- Golden = -1187624
+		- DUT    = 16577286
+
+[FAILED] -> DMVM - 2941780000ps | [i] = 438
+		- Golden = -256661
+		- DUT    = 16216382
+
+[FAILED] -> DMVM - 2941940000ps | [i] = 439
+		- Golden = -3247586
+		- DUT    = 6853
+
+[FAILED] -> DMVM - 2942100000ps | [i] = 440
+		- Golden = -2812503
+		- DUT    = 16519698
+
+[FAILED] -> DMVM - 2942260000ps | [i] = 441
+		- Golden = -3247586
+		- DUT    = 74465
+
+[FAILED] -> DMVM - 2942420000ps | [i] = 442
+		- Golden = -3224112
+		- DUT    = 16190052
+
+[FAILED] -> DMVM - 2942580000ps | [i] = 443
+		- Golden = -1179606
+		- DUT    = 312714
+
+[FAILED] -> DMVM - 2942740000ps | [i] = 444
+		- Golden = -3247586
+		- DUT    = 16703791
+
+------------------------- Subgraph 75 -------------------------
+
+[FAILED] -> DMVM - 2942900000ps | [i] = 445
+		- Golden = -602369
+		- DUT    = 16612895
+
+[FAILED] -> DMVM - 2942910000ps | [i] = 446
+		- Golden = -844583
+		- DUT    = 16721073
+
+[FAILED] -> DMVM - 2943060000ps | [i] = 447
+		- Golden = -381714
+		- DUT    = 16522806
+
+[FAILED] -> DMVM - 2943220000ps | [i] = 448
+		- Golden = -324886
+		- DUT    = 15880638
+
+[FAILED] -> DMVM - 2943380000ps | [i] = 449
+		- Golden = -282514
+		- DUT    = 35333
+
+[FAILED] -> DMVM - 2943540000ps | [i] = 450
+		- Golden = -376534
+		- DUT    = 120399
+
+[FAILED] -> DMVM - 2943700000ps | [i] = 451
+		- Golden = -316539
+		- DUT    = 367119
+
+[FAILED] -> DMVM - 2943860000ps | [i] = 452
+		- Golden = -282514
+		- DUT    = 161151
+
+------------------------- Subgraph 76 -------------------------
+
+[FAILED] -> DMVM - 2944020000ps | [i] = 453
+		- Golden = 1027247
+		- DUT    = 16540532
+
+[FAILED] -> DMVM - 2944030000ps | [i] = 454
+		- Golden = -2389833
+		- DUT    = 16669565
+
+[FAILED] -> DMVM - 2944180000ps | [i] = 455
+		- Golden = -2389833
+		- DUT    = 172784
+
+[FAILED] -> DMVM - 2944340000ps | [i] = 456
+		- Golden = -953335
+		- DUT    = 16767058
+
+[FAILED] -> DMVM - 2944500000ps | [i] = 457
+		- Golden = -2389833
+		- DUT    = 16765684
+
+------------------------- Subgraph 77 -------------------------
+
+[FAILED] -> DMVM - 2944660000ps | [i] = 458
+		- Golden = 573797
+		- DUT    = 41938
+
+[FAILED] -> DMVM - 2944670000ps | [i] = 459
+		- Golden = -224967
+		- DUT    = 236338
+
+[FAILED] -> DMVM - 2944820000ps | [i] = 460
+		- Golden = 7893
+		- DUT    = 183430
+
+[FAILED] -> DMVM - 2944980000ps | [i] = 461
+		- Golden = 88594
+		- DUT    = 31532
+
+------------------------- Subgraph 78 -------------------------
+
+[FAILED] -> DMVM - 2945140000ps | [i] = 462
+		- Golden = -13436
+		- DUT    = 16082954
+
+[FAILED] -> DMVM - 2945150000ps | [i] = 463
+		- Golden = -215133
+		- DUT    = 16109494
+
+[FAILED] -> DMVM - 2945300000ps | [i] = 464
+		- Golden = -285549
+		- DUT    = 16584727
+
+[FAILED] -> DMVM - 2945460000ps | [i] = 465
+		- Golden = -803203
+		- DUT    = 16386854
+
+[FAILED] -> DMVM - 2945620000ps | [i] = 466
+		- Golden = -1315176
+		- DUT    = 16176950
+
+------------------------- Subgraph 79 -------------------------
+
+[FAILED] -> DMVM - 2945780000ps | [i] = 467
+		- Golden = 2574105
+		- DUT    = 710101
+
+[FAILED] -> DMVM - 2945790000ps | [i] = 468
+		- Golden = -5100827
+		- DUT    = 318810
+
+[FAILED] -> DMVM - 2945940000ps | [i] = 469
+		- Golden = -5110004
+		- DUT    = 36701
+
+[FAILED] -> DMVM - 2946100000ps | [i] = 470
+		- Golden = -5100827
+		- DUT    = 15908173
+
+------------------------- Subgraph 80 -------------------------
+
+[FAILED] -> DMVM - 2946260000ps | [i] = 471
+		- Golden = 287934
+		- DUT    = 16249469
+
+[FAILED] -> DMVM - 2946270000ps | [i] = 472
+		- Golden = -895912
+		- DUT    = 16191139
+
+[FAILED] -> DMVM - 2946420000ps | [i] = 473
+		- Golden = -2375264
+		- DUT    = 4167
+
+[FAILED] -> DMVM - 2946580000ps | [i] = 474
+		- Golden = -2243914
+		- DUT    = 16679618
+
+[FAILED] -> DMVM - 2946740000ps | [i] = 475
+		- Golden = -2707764
+		- DUT    = 91893
+
+------------------------- Subgraph 81 -------------------------
+
+[FAILED] -> DMVM - 2946900000ps | [i] = 476
+		- Golden = 274072
+		- DUT    = 15837364
+
+[FAILED] -> DMVM - 2946910000ps | [i] = 477
+		- Golden = -1166677
+		- DUT    = 15785736
+
+[FAILED] -> DMVM - 2947060000ps | [i] = 478
+		- Golden = -1166677
+		- DUT    = 15951634
+
+[FAILED] -> DMVM - 2947220000ps | [i] = 479
+		- Golden = -1166677
+		- DUT    = 16712009
+
+[FAILED] -> DMVM - 2947380000ps | [i] = 480
+		- Golden = -1166677
+		- DUT    = 15894872
+
+[FAILED] -> DMVM - 2947540000ps | [i] = 481
+		- Golden = -4973139
+		- DUT    = 16265541
+
+------------------------- Subgraph 82 -------------------------
+
+[FAILED] -> DMVM - 2947700000ps | [i] = 482
+		- Golden = 196435
+		- DUT    = 16702923
+
+[FAILED] -> DMVM - 2947710000ps | [i] = 483
+		- Golden = -459741
+		- DUT    = 16684343
+
+[FAILED] -> DMVM - 2947860000ps | [i] = 484
+		- Golden = -459741
+		- DUT    = 15668515
+
+[FAILED] -> DMVM - 2948020000ps | [i] = 485
+		- Golden = -500286
+		- DUT    = 15849891
+
+------------------------- Subgraph 83 -------------------------
+
+[FAILED] -> DMVM - 2948180000ps | [i] = 486
+		- Golden = -777429
+		- DUT    = 16618843
+
+[FAILED] -> DMVM - 2948190000ps | [i] = 487
+		- Golden = -799496
+		- DUT    = 16442845
+
+[FAILED] -> DMVM - 2948340000ps | [i] = 488
+		- Golden = -913335
+		- DUT    = 67694
+
+[FAILED] -> DMVM - 2948500000ps | [i] = 489
+		- Golden = -788935
+		- DUT    = 16532612
+
+------------------------- Subgraph 84 -------------------------
+
+[FAILED] -> DMVM - 2948660000ps | [i] = 490
+		- Golden = -34252
+		- DUT    = 16119124
+
+[FAILED] -> DMVM - 2948670000ps | [i] = 491
+		- Golden = -381714
+		- DUT    = 16151515
+
+[FAILED] -> DMVM - 2948820000ps | [i] = 492
+		- Golden = -844583
+		- DUT    = 16193280
+
+[FAILED] -> DMVM - 2948980000ps | [i] = 493
+		- Golden = -293115
+		- DUT    = 15876567
+
+[FAILED] -> DMVM - 2949140000ps | [i] = 494
+		- Golden = -376534
+		- DUT    = 16109494
+
+[FAILED] -> DMVM - 2949300000ps | [i] = 495
+		- Golden = -316539
+		- DUT    = 77777
+
+[FAILED] -> DMVM - 2949460000ps | [i] = 496
+		- Golden = -293115
+		- DUT    = 16546776
+
+------------------------- Subgraph 85 -------------------------
+
+[FAILED] -> DMVM - 2949620000ps | [i] = 497
+		- Golden = -588866
+		- DUT    = 658008
+
+[FAILED] -> DMVM - 2949630000ps | [i] = 498
+		- Golden = -48470
+		- DUT    = 16446238
+
+[FAILED] -> DMVM - 2949780000ps | [i] = 499
+		- Golden = 117878
+		- DUT    = 16324223
+
+[FAILED] -> DMVM - 2949940000ps | [i] = 500
+		- Golden = -783485
+		- DUT    = 16465913
+
+[FAILED] -> DMVM - 2950100000ps | [i] = 501
+		- Golden = -48470
+		- DUT    = 93252
+
+------------------------- Subgraph 86 -------------------------
+
+[FAILED] -> DMVM - 2950260000ps | [i] = 502
+		- Golden = -338642
+		- DUT    = 16209795
+
+[FAILED] -> DMVM - 2950270000ps | [i] = 503
+		- Golden = -981700
+		- DUT    = 16176950
+
+[FAILED] -> DMVM - 2950420000ps | [i] = 504
+		- Golden = -632640
+		- DUT    = 15833754
+
+[FAILED] -> DMVM - 2950580000ps | [i] = 505
+		- Golden = -981559
+		- DUT    = 15801054
+
+[FAILED] -> DMVM - 2950740000ps | [i] = 506
+		- Golden = 301431
+		- DUT    = 187859
+
+[FAILED] -> DMVM - 2950900000ps | [i] = 507
+		- Golden = -342931
+		- DUT    = 236635
+
+------------------------- Subgraph 87 -------------------------
+
+[FAILED] -> DMVM - 2951060000ps | [i] = 508
+		- Golden = 549707
+		- DUT    = 16218325
+
+[FAILED] -> DMVM - 2951070000ps | [i] = 509
+		- Golden = 154055
+		- DUT    = 16289265
+
+[FAILED] -> DMVM - 2951220000ps | [i] = 510
+		- Golden = 154055
+		- DUT    = 16365054
+
+[FAILED] -> DMVM - 2951380000ps | [i] = 511
+		- Golden = -395836
+		- DUT    = 16348251
+
+[FAILED] -> DMVM - 2951540000ps | [i] = 512
+		- Golden = -10824
+		- DUT    = 201238
+
+------------------------- Subgraph 88 -------------------------
+
+[FAILED] -> DMVM - 2951700000ps | [i] = 513
+		- Golden = 1027247
+		- DUT    = 195202
+
+[FAILED] -> DMVM - 2951710000ps | [i] = 514
+		- Golden = -2389833
+		- DUT    = 15755
+
+[FAILED] -> DMVM - 2951860000ps | [i] = 515
+		- Golden = -2389833
+		- DUT    = 16374598
+
+[FAILED] -> DMVM - 2952020000ps | [i] = 516
+		- Golden = -2011322
+		- DUT    = 16603436
+
+[FAILED] -> DMVM - 2952180000ps | [i] = 517
+		- Golden = -830493
+		- DUT    = 312714
+
+[FAILED] -> DMVM - 2952340000ps | [i] = 518
+		- Golden = -3132851
+		- DUT    = 16735203
+
+[FAILED] -> DMVM - 2952500000ps | [i] = 519
+		- Golden = -2415896
+		- DUT    = 16612338
+
+[FAILED] -> DMVM - 2952660000ps | [i] = 520
+		- Golden = -971970
+		- DUT    = 149795
+
+[FAILED] -> DMVM - 2952820000ps | [i] = 521
+		- Golden = -3418370
+		- DUT    = 16502452
+
+[FAILED] -> DMVM - 2952980000ps | [i] = 522
+		- Golden = -2398867
+		- DUT    = 253209
+
+[FAILED] -> DMVM - 2953140000ps | [i] = 523
+		- Golden = -4252916
+		- DUT    = 116568
+
+[FAILED] -> DMVM - 2953300000ps | [i] = 524
+		- Golden = -454867
+		- DUT    = 16008952
+
+[FAILED] -> DMVM - 2953460000ps | [i] = 525
+		- Golden = -4209710
+		- DUT    = 257136
+
+[FAILED] -> DMVM - 2953620000ps | [i] = 526
+		- Golden = -268075
+		- DUT    = 159182
+
+[FAILED] -> DMVM - 2953780000ps | [i] = 527
+		- Golden = -2607652
+		- DUT    = 16298189
+
+[FAILED] -> DMVM - 2953940000ps | [i] = 528
+		- Golden = -4190484
+		- DUT    = 16098796
+
+[FAILED] -> DMVM - 2954100000ps | [i] = 529
+		- Golden = -2415896
+		- DUT    = 128244
+
+[FAILED] -> DMVM - 2954260000ps | [i] = 530
+		- Golden = -4178513
+		- DUT    = 140957
+
+[FAILED] -> DMVM - 2954420000ps | [i] = 531
+		- Golden = -694709
+		- DUT    = 16463172
+
+[FAILED] -> DMVM - 2954580000ps | [i] = 532
+		- Golden = -2346784
+		- DUT    = 254815
+
+[FAILED] -> DMVM - 2954740000ps | [i] = 533
+		- Golden = -268075
+		- DUT    = 16753601
+
+[FAILED] -> DMVM - 2954900000ps | [i] = 534
+		- Golden = -1289912
+		- DUT    = 16343817
+
+[FAILED] -> DMVM - 2955060000ps | [i] = 535
+		- Golden = -4077118
+		- DUT    = 115044
+
+[FAILED] -> DMVM - 2955220000ps | [i] = 536
+		- Golden = -3382524
+		- DUT    = 16491705
+
+[FAILED] -> DMVM - 2955380000ps | [i] = 537
+		- Golden = -3871138
+		- DUT    = 47857
+
+[FAILED] -> DMVM - 2955540000ps | [i] = 538
+		- Golden = -3490758
+		- DUT    = 16104111
+
+[FAILED] -> DMVM - 2955700000ps | [i] = 539
+		- Golden = -2135237
+		- DUT    = 16159231
+
+[FAILED] -> DMVM - 2955860000ps | [i] = 540
+		- Golden = -1211314
+		- DUT    = 140957
+
+[FAILED] -> DMVM - 2956020000ps | [i] = 541
+		- Golden = -2685391
+		- DUT    = 15991173
+
+[FAILED] -> DMVM - 2956180000ps | [i] = 542
+		- Golden = -4252916
+		- DUT    = 39993
+
+[FAILED] -> DMVM - 2956340000ps | [i] = 543
+		- Golden = -4252916
+		- DUT    = 16736864
+
+[FAILED] -> DMVM - 2956500000ps | [i] = 544
+		- Golden = -4252916
+		- DUT    = 16093135
+
+[FAILED] -> DMVM - 2956660000ps | [i] = 545
+		- Golden = -3759696
+		- DUT    = 15915540
+
+[FAILED] -> DMVM - 2956820000ps | [i] = 546
+		- Golden = -3882268
+		- DUT    = 15813723
+
+[FAILED] -> DMVM - 2956980000ps | [i] = 547
+		- Golden = -2073275
+		- DUT    = 186737
+
+[FAILED] -> DMVM - 2957140000ps | [i] = 548
+		- Golden = -995437
+		- DUT    = 16488328
+
+[FAILED] -> DMVM - 2957300000ps | [i] = 549
+		- Golden = -2389833
+		- DUT    = 15127503
+
+[FAILED] -> DMVM - 2957460000ps | [i] = 550
+		- Golden = -1181192
+		- DUT    = 183430
+
+------------------------- Subgraph 89 -------------------------
+
+[FAILED] -> DMVM - 2957620000ps | [i] = 551
+		- Golden = 8041
+		- DUT    = 16513312
+
+[FAILED] -> DMVM - 2957630000ps | [i] = 552
+		- Golden = -325252
+		- DUT    = 16391061
+
+[FAILED] -> DMVM - 2957780000ps | [i] = 553
+		- Golden = -588862
+		- DUT    = 365140
+
+[FAILED] -> DMVM - 2957940000ps | [i] = 554
+		- Golden = -844796
+		- DUT    = 16496834
+
+[FAILED] -> DMVM - 2958100000ps | [i] = 555
+		- Golden = -844796
+		- DUT    = 180764
+
+[FAILED] -> DMVM - 2958260000ps | [i] = 556
+		- Golden = -405395
+		- DUT    = 16069875
+
+[FAILED] -> DMVM - 2958420000ps | [i] = 557
+		- Golden = -844796
+		- DUT    = 59569
+
+[FAILED] -> DMVM - 2958580000ps | [i] = 558
+		- Golden = -588862
+		- DUT    = 16635118
+
+[FAILED] -> DMVM - 2958740000ps | [i] = 559
+		- Golden = -844796
+		- DUT    = 4228
+
+[FAILED] -> DMVM - 2958900000ps | [i] = 560
+		- Golden = -270929
+		- DUT    = 192039
+
+[FAILED] -> DMVM - 2959060000ps | [i] = 561
+		- Golden = -270929
+		- DUT    = 16271152
+
+[FAILED] -> DMVM - 2959220000ps | [i] = 562
+		- Golden = -844796
+		- DUT    = 88432
+
+------------------------- Subgraph 90 -------------------------
+
+[FAILED] -> DMVM - 2959380000ps | [i] = 563
+		- Golden = -562349
+		- DUT    = 137488
+
+[FAILED] -> DMVM - 2959390000ps | [i] = 564
+		- Golden = -996280
+		- DUT    = 68989
+
+[FAILED] -> DMVM - 2959540000ps | [i] = 565
+		- Golden = -925511
+		- DUT    = 16594689
+
+[FAILED] -> DMVM - 2959700000ps | [i] = 566
+		- Golden = -897049
+		- DUT    = 16001314
+
+[FAILED] -> DMVM - 2959860000ps | [i] = 567
+		- Golden = -1955599
+		- DUT    = 15930898
+
+[FAILED] -> DMVM - 2960020000ps | [i] = 568
+		- Golden = -557506
+		- DUT    = 16764752
+
+------------------------- Subgraph 91 -------------------------
+
+[FAILED] -> DMVM - 2960180000ps | [i] = 569
+		- Golden = -627184
+		- DUT    = 116083
+
+[FAILED] -> DMVM - 2960190000ps | [i] = 570
+		- Golden = -906937
+		- DUT    = 16746922
+
+[FAILED] -> DMVM - 2960340000ps | [i] = 571
+		- Golden = -24213
+		- DUT    = 16683300
+
+[FAILED] -> DMVM - 2960500000ps | [i] = 572
+		- Golden = -108488
+		- DUT    = 16044021
+
+[FAILED] -> DMVM - 2960660000ps | [i] = 573
+		- Golden = -263705
+		- DUT    = 16266497
+
+[FAILED] -> DMVM - 2960820000ps | [i] = 574
+		- Golden = 301431
+		- DUT    = 16699000
+
+[FAILED] -> DMVM - 2960980000ps | [i] = 575
+		- Golden = -906937
+		- DUT    = 246689
+
+[FAILED] -> DMVM - 2961140000ps | [i] = 576
+		- Golden = -609498
+		- DUT    = 16319559
+
+------------------------- Subgraph 92 -------------------------
+
+[FAILED] -> DMVM - 2961300000ps | [i] = 577
+		- Golden = 169594
+		- DUT    = 15703966
+
+[FAILED] -> DMVM - 2961310000ps | [i] = 578
+		- Golden = -466651
+		- DUT    = 15702642
+
+[FAILED] -> DMVM - 2961460000ps | [i] = 579
+		- Golden = 253544
+		- DUT    = 15592022
+
+[FAILED] -> DMVM - 2961620000ps | [i] = 580
+		- Golden = -128163
+		- DUT    = 16402848
+
+------------------------- Subgraph 93 -------------------------
+
+[FAILED] -> DMVM - 2961780000ps | [i] = 581
+		- Golden = 782981
+		- DUT    = 207739
+
+[FAILED] -> DMVM - 2961790000ps | [i] = 582
+		- Golden = -291655
+		- DUT    = 191540
+
+[FAILED] -> DMVM - 2961940000ps | [i] = 583
+		- Golden = -465711
+		- DUT    = 15903014
+
+[FAILED] -> DMVM - 2962100000ps | [i] = 584
+		- Golden = -1212632
+		- DUT    = 16413279
+
+[FAILED] -> DMVM - 2962260000ps | [i] = 585
+		- Golden = -1212632
+		- DUT    = 481951
+
+[FAILED] -> DMVM - 2962420000ps | [i] = 586
+		- Golden = -334885
+		- DUT    = 162671
+
+------------------------- Subgraph 94 -------------------------
+
+[FAILED] -> DMVM - 2962580000ps | [i] = 587
+		- Golden = 1578075
+		- DUT    = 15539307
+
+[FAILED] -> DMVM - 2962590000ps | [i] = 588
+		- Golden = -644263
+		- DUT    = 15668868
+
+[FAILED] -> DMVM - 2962740000ps | [i] = 589
+		- Golden = -665755
+		- DUT    = 16035476
+
+[FAILED] -> DMVM - 2962900000ps | [i] = 590
+		- Golden = -1187624
+		- DUT    = 16247207
+
+[FAILED] -> DMVM - 2963060000ps | [i] = 591
+		- Golden = -1899714
+		- DUT    = 60430
+
+[FAILED] -> DMVM - 2963220000ps | [i] = 592
+		- Golden = -395667
+		- DUT    = 16268097
+
+[FAILED] -> DMVM - 2963380000ps | [i] = 593
+		- Golden = -1836172
+		- DUT    = 314697
+
+[FAILED] -> DMVM - 2963540000ps | [i] = 594
+		- Golden = -672979
+		- DUT    = 107098
+
+[FAILED] -> DMVM - 2963700000ps | [i] = 595
+		- Golden = -439224
+		- DUT    = 16160782
+
+[FAILED] -> DMVM - 2963860000ps | [i] = 596
+		- Golden = -999216
+		- DUT    = 15797551
+
+[FAILED] -> DMVM - 2964020000ps | [i] = 597
+		- Golden = -1808314
+		- DUT    = 103816
+
+[FAILED] -> DMVM - 2964180000ps | [i] = 598
+		- Golden = -500286
+		- DUT    = 219684
+
+[FAILED] -> DMVM - 2964340000ps | [i] = 599
+		- Golden = -999216
+		- DUT    = 295463
+
+------------------------- Subgraph 95 -------------------------
+
+[FAILED] -> DMVM - 2964500000ps | [i] = 600
+		- Golden = 2493389
+		- DUT    = 15964762
+
+[FAILED] -> DMVM - 2964510000ps | [i] = 601
+		- Golden = -3916245
+		- DUT    = 16064240
+
+[FAILED] -> DMVM - 2964660000ps | [i] = 602
+		- Golden = -3916245
+		- DUT    = 16715508
+
+[FAILED] -> DMVM - 2964820000ps | [i] = 603
+		- Golden = -3916245
+		- DUT    = 15939338
+
+[FAILED] -> DMVM - 2964980000ps | [i] = 604
+		- Golden = -3916245
+		- DUT    = 16577105
+
+[FAILED] -> DMVM - 2965140000ps | [i] = 605
+		- Golden = -3907068
+		- DUT    = 16075896
+
+[FAILED] -> DMVM - 2965300000ps | [i] = 606
+		- Golden = -3892976
+		- DUT    = 16332375
+
+[FAILED] -> DMVM - 2965460000ps | [i] = 607
+		- Golden = -2019504
+		- DUT    = 16003343
+
+[FAILED] -> DMVM - 2965620000ps | [i] = 608
+		- Golden = -3916245
+		- DUT    = 219684
+
+[FAILED] -> DMVM - 2965780000ps | [i] = 609
+		- Golden = -3916245
+		- DUT    = 16603436
+
+[FAILED] -> DMVM - 2965940000ps | [i] = 610
+		- Golden = -3916245
+		- DUT    = 57099
+
+[FAILED] -> DMVM - 2966100000ps | [i] = 611
+		- Golden = -3916245
+		- DUT    = 16747763
+
+[FAILED] -> DMVM - 2966260000ps | [i] = 612
+		- Golden = -3916245
+		- DUT    = 16051407
+
+[FAILED] -> DMVM - 2966420000ps | [i] = 613
+		- Golden = -3916245
+		- DUT    = 16166737
+
+[FAILED] -> DMVM - 2966580000ps | [i] = 614
+		- Golden = -3916245
+		- DUT    = 16129743
+
+[FAILED] -> DMVM - 2966740000ps | [i] = 615
+		- Golden = -3916245
+		- DUT    = 16197576
+
+[FAILED] -> DMVM - 2966900000ps | [i] = 616
+		- Golden = -3892976
+		- DUT    = 16486929
+
+[FAILED] -> DMVM - 2967060000ps | [i] = 617
+		- Golden = -3916245
+		- DUT    = 15750434
+
+[FAILED] -> DMVM - 2967220000ps | [i] = 618
+		- Golden = -3916245
+		- DUT    = 10864
+
+[FAILED] -> DMVM - 2967380000ps | [i] = 619
+		- Golden = -3892976
+		- DUT    = 16689696
+
+[FAILED] -> DMVM - 2967540000ps | [i] = 620
+		- Golden = -3916245
+		- DUT    = 22701
+
+[FAILED] -> DMVM - 2967700000ps | [i] = 621
+		- Golden = -3916245
+		- DUT    = 16321993
+
+[FAILED] -> DMVM - 2967860000ps | [i] = 622
+		- Golden = -3916245
+		- DUT    = 16603436
+
+------------------------- Subgraph 96 -------------------------
+
+[FAILED] -> DMVM - 2968020000ps | [i] = 623
+		- Golden = 555455
+		- DUT    = 16257772
+
+[FAILED] -> DMVM - 2968030000ps | [i] = 624
+		- Golden = 218507
+		- DUT    = 16348251
+
+[FAILED] -> DMVM - 2968180000ps | [i] = 625
+		- Golden = 6523
+		- DUT    = 39856
+
+------------------------- Subgraph 97 -------------------------
+
+[FAILED] -> DMVM - 2968340000ps | [i] = 626
+		- Golden = -42806
+		- DUT    = 16414154
+
+[FAILED] -> DMVM - 2968350000ps | [i] = 627
+		- Golden = -1088731
+		- DUT    = 16590394
+
+[FAILED] -> DMVM - 2968500000ps | [i] = 628
+		- Golden = -1529117
+		- DUT    = 16384294
+
+[FAILED] -> DMVM - 2968660000ps | [i] = 629
+		- Golden = -1088731
+		- DUT    = 16037653
+
+------------------------- Subgraph 98 -------------------------
+
+[FAILED] -> DMVM - 2968820000ps | [i] = 630
+		- Golden = 240324
+		- DUT    = 16315100
+
+[FAILED] -> DMVM - 2968830000ps | [i] = 631
+		- Golden = -876366
+		- DUT    = 16499874
+
+[FAILED] -> DMVM - 2968980000ps | [i] = 632
+		- Golden = -876366
+		- DUT    = 16292969
+
+------------------------- Subgraph 99 -------------------------
+
+[FAILED] -> DMVM - 2969140000ps | [i] = 633
+		- Golden = 723147
+		- DUT    = 16315382
+
+[FAILED] -> DMVM - 2969150000ps | [i] = 634
+		- Golden = 35889
+		- DUT    = 16079744
+
+[FAILED] -> DMVM - 2969300000ps | [i] = 635
+		- Golden = 35889
+		- DUT    = 16141053
+
+[FAILED] -> DMVM - 2969460000ps | [i] = 636
+		- Golden = 35889
+		- DUT    = 16274264
+
+[FAILED] -> DMVM - 2969620000ps | [i] = 637
+		- Golden = 115711
+		- DUT    = 129194
+
+[FAILED] -> DMVM - 2969780000ps | [i] = 638
+		- Golden = 35889
+		- DUT    = 16487061
+
+[FAILED] -> DMVM - 2969940000ps | [i] = 639
+		- Golden = 35889
+		- DUT    = 16325007
+
+[FAILED] -> DMVM - 2970100000ps | [i] = 640
+		- Golden = 106739
+		- DUT    = 216343
+
+------------------------- Subgraph 100 -------------------------
+
+[FAILED] -> DMVM - 2970260000ps | [i] = 641
+		- Golden = 1417931
+		- DUT    = 26862
+
+[FAILED] -> DMVM - 2970270000ps | [i] = 642
+		- Golden = -3666200
+		- DUT    = 16664264
+
+[FAILED] -> DMVM - 2970420000ps | [i] = 643
+		- Golden = -3916245
+		- DUT    = 15854991
+
+[FAILED] -> DMVM - 2970580000ps | [i] = 644
+		- Golden = -1866088
+		- DUT    = 378662
+
+------------------------- Subgraph 101 -------------------------
+
+[FAILED] -> DMVM - 2970740000ps | [i] = 645
+		- Golden = -1139238
+		- DUT    = 16210320
+
+[FAILED] -> DMVM - 2970750000ps | [i] = 646
+		- Golden = -2607526
+		- DUT    = 16180644
+
+[FAILED] -> DMVM - 2970900000ps | [i] = 647
+		- Golden = -1110997
+		- DUT    = 16365054
+
+[FAILED] -> DMVM - 2971060000ps | [i] = 648
+		- Golden = -557506
+		- DUT    = 16520775
+
+[FAILED] -> DMVM - 2971220000ps | [i] = 649
+		- Golden = -1694049
+		- DUT    = 16563779
+
+------------------------- Subgraph 102 -------------------------
+
+[FAILED] -> DMVM - 2971380000ps | [i] = 650
+		- Golden = 14262
+		- DUT    = 279707
+
+[FAILED] -> DMVM - 2971390000ps | [i] = 651
+		- Golden = -264462
+		- DUT    = 175685
+
+[FAILED] -> DMVM - 2971540000ps | [i] = 652
+		- Golden = -736061
+		- DUT    = 15976544
+
+[FAILED] -> DMVM - 2971700000ps | [i] = 653
+		- Golden = -612375
+		- DUT    = 27717
+
+[FAILED] -> DMVM - 2971860000ps | [i] = 654
+		- Golden = -612375
+		- DUT    = 16345235
+
+[FAILED] -> DMVM - 2972020000ps | [i] = 655
+		- Golden = -419831
+		- DUT    = 19531
+
+[FAILED] -> DMVM - 2972180000ps | [i] = 656
+		- Golden = -788319
+		- DUT    = 23705
+
+[FAILED] -> DMVM - 2972340000ps | [i] = 657
+		- Golden = -419831
+		- DUT    = 15901919
+
+[FAILED] -> DMVM - 2972500000ps | [i] = 658
+		- Golden = -394985
+		- DUT    = 16319446
+
+[FAILED] -> DMVM - 2972660000ps | [i] = 659
+		- Golden = -419831
+		- DUT    = 16240183
+
+------------------------- Subgraph 103 -------------------------
+
+[FAILED] -> DMVM - 2972820000ps | [i] = 660
+		- Golden = 49585
+		- DUT    = 586993
+
+[FAILED] -> DMVM - 2972830000ps | [i] = 661
+		- Golden = -788178
+		- DUT    = 16611591
+
+[FAILED] -> DMVM - 2972980000ps | [i] = 662
+		- Golden = -788178
+		- DUT    = 15386907
+
+[FAILED] -> DMVM - 2973140000ps | [i] = 663
+		- Golden = -767016
+		- DUT    = 10766
+
+[FAILED] -> DMVM - 2973300000ps | [i] = 664
+		- Golden = -465200
+		- DUT    = 16641847
+
+[FAILED] -> DMVM - 2973460000ps | [i] = 665
+		- Golden = -484639
+		- DUT    = 15678254
+
+[FAILED] -> DMVM - 2973620000ps | [i] = 666
+		- Golden = -486880
+		- DUT    = 16160839
+
+[FAILED] -> DMVM - 2973780000ps | [i] = 667
+		- Golden = -484639
+		- DUT    = 16209500
+
+------------------------- Subgraph 104 -------------------------
+
+[FAILED] -> DMVM - 2973940000ps | [i] = 668
+		- Golden = 262716
+		- DUT    = 16287984
+
+[FAILED] -> DMVM - 2973950000ps | [i] = 669
+		- Golden = 117878
+		- DUT    = 16119790
+
+[FAILED] -> DMVM - 2974100000ps | [i] = 670
+		- Golden = -357283
+		- DUT    = 16603436
+
+[FAILED] -> DMVM - 2974260000ps | [i] = 671
+		- Golden = 117878
+		- DUT    = 100524
+
+[FAILED] -> DMVM - 2974420000ps | [i] = 672
+		- Golden = 117878
+		- DUT    = 16539363
+
+[FAILED] -> DMVM - 2974580000ps | [i] = 673
+		- Golden = 117878
+		- DUT    = 15670670
+
+------------------------- Subgraph 105 -------------------------
+
+[FAILED] -> DMVM - 2974740000ps | [i] = 674
+		- Golden = -718723
+		- DUT    = 16455055
+
+[FAILED] -> DMVM - 2974750000ps | [i] = 675
+		- Golden = -1360565
+		- DUT    = 16284114
+
+[FAILED] -> DMVM - 2974900000ps | [i] = 676
+		- Golden = -1205095
+		- DUT    = 16144176
+
+[FAILED] -> DMVM - 2975060000ps | [i] = 677
+		- Golden = -1317380
+		- DUT    = 16032123
+
+[FAILED] -> DMVM - 2975220000ps | [i] = 678
+		- Golden = -965237
+		- DUT    = 217347
+
+[FAILED] -> DMVM - 2975380000ps | [i] = 679
+		- Golden = -1245998
+		- DUT    = 16064240
+
+------------------------- Subgraph 106 -------------------------
+
+[FAILED] -> DMVM - 2975540000ps | [i] = 680
+		- Golden = 731601
+		- DUT    = 175537
+
+[FAILED] -> DMVM - 2975550000ps | [i] = 681
+		- Golden = -530798
+		- DUT    = 219684
+
+[FAILED] -> DMVM - 2975700000ps | [i] = 682
+		- Golden = -380857
+		- DUT    = 15916024
+
+------------------------- Subgraph 107 -------------------------
+
+[FAILED] -> DMVM - 2975860000ps | [i] = 683
+		- Golden = 9933
+		- DUT    = 16706133
+
+[FAILED] -> DMVM - 2975870000ps | [i] = 684
+		- Golden = -1980939
+		- DUT    = 183697
+
+[FAILED] -> DMVM - 2976020000ps | [i] = 685
+		- Golden = -1661985
+		- DUT    = 95867
+
+[FAILED] -> DMVM - 2976180000ps | [i] = 686
+		- Golden = -2004065
+		- DUT    = 16494215
+
+[FAILED] -> DMVM - 2976340000ps | [i] = 687
+		- Golden = -1456373
+		- DUT    = 15956911
+
+[FAILED] -> DMVM - 2976500000ps | [i] = 688
+		- Golden = -1637658
+		- DUT    = 16154353
+
+------------------------- Subgraph 108 -------------------------
+
+[FAILED] -> DMVM - 2976660000ps | [i] = 689
+		- Golden = 354690
+		- DUT    = 16231835
+
+[FAILED] -> DMVM - 2976670000ps | [i] = 690
+		- Golden = 65031
+		- DUT    = 16196893
+
+[FAILED] -> DMVM - 2976820000ps | [i] = 691
+		- Golden = 600194
+		- DUT    = 410878
+
+[FAILED] -> DMVM - 2976980000ps | [i] = 692
+		- Golden = 112361
+		- DUT    = 294162
+
+[FAILED] -> DMVM - 2977140000ps | [i] = 693
+		- Golden = 153795
+		- DUT    = 16764550
+
+------------------------- Subgraph 109 -------------------------
+
+[FAILED] -> DMVM - 2977300000ps | [i] = 694
+		- Golden = 509090
+		- DUT    = 16106824
+
+[FAILED] -> DMVM - 2977310000ps | [i] = 695
+		- Golden = -736061
+		- DUT    = 16256800
+
+[FAILED] -> DMVM - 2977460000ps | [i] = 696
+		- Golden = -264462
+		- DUT    = 16122983
+
+[FAILED] -> DMVM - 2977620000ps | [i] = 697
+		- Golden = -264017
+		- DUT    = 162940
+
+[FAILED] -> DMVM - 2977780000ps | [i] = 698
+		- Golden = -11310
+		- DUT    = 302332
+
+[FAILED] -> DMVM - 2977940000ps | [i] = 699
+		- Golden = 145389
+		- DUT    = 15465265
+
+[FAILED] -> DMVM - 2978100000ps | [i] = 700
+		- Golden = 200118
+		- DUT    = 181878
+
+[FAILED] -> DMVM - 2978260000ps | [i] = 701
+		- Golden = 145248
+		- DUT    = 16728179
+
+[FAILED] -> DMVM - 2978420000ps | [i] = 702
+		- Golden = 178430
+		- DUT    = 16487124
+
+[FAILED] -> DMVM - 2978580000ps | [i] = 703
+		- Golden = -767016
+		- DUT    = 15776268
+
+[FAILED] -> DMVM - 2978740000ps | [i] = 704
+		- Golden = -195519
+		- DUT    = 16457663
+
+[FAILED] -> DMVM - 2978900000ps | [i] = 705
+		- Golden = -245318
+		- DUT    = 15991321
+
+[FAILED] -> DMVM - 2979060000ps | [i] = 706
+		- Golden = 132044
+		- DUT    = 60430
+
+[FAILED] -> DMVM - 2979220000ps | [i] = 707
+		- Golden = -419560
+		- DUT    = 16692165
+
+[FAILED] -> DMVM - 2979380000ps | [i] = 708
+		- Golden = -195519
+		- DUT    = 16176950
+
+[FAILED] -> DMVM - 2979540000ps | [i] = 709
+		- Golden = -1114502
+		- DUT    = 15582938
+
+[FAILED] -> DMVM - 2979700000ps | [i] = 710
+		- Golden = 230636
+		- DUT    = 16743303
+
+[FAILED] -> DMVM - 2979860000ps | [i] = 711
+		- Golden = -195519
+		- DUT    = 16338221
+
+[FAILED] -> DMVM - 2980020000ps | [i] = 712
+		- Golden = -419560
+		- DUT    = 172784
+
+[FAILED] -> DMVM - 2980180000ps | [i] = 713
+		- Golden = -24213
+		- DUT    = 15693528
+
+[FAILED] -> DMVM - 2980340000ps | [i] = 714
+		- Golden = 189065
+		- DUT    = 446143
+
+[FAILED] -> DMVM - 2980500000ps | [i] = 715
+		- Golden = 17169
+		- DUT    = 16255209
+
+[FAILED] -> DMVM - 2980660000ps | [i] = 716
+		- Golden = -593011
+		- DUT    = 16560278
+
+[FAILED] -> DMVM - 2980820000ps | [i] = 717
+		- Golden = -612375
+		- DUT    = 16157186
+
+[FAILED] -> DMVM - 2980980000ps | [i] = 718
+		- Golden = -672273
+		- DUT    = 16156518
+
+[FAILED] -> DMVM - 2981140000ps | [i] = 719
+		- Golden = -672273
+		- DUT    = 16047664
+
+[FAILED] -> DMVM - 2981300000ps | [i] = 720
+		- Golden = -593011
+		- DUT    = 292325
+
+[FAILED] -> DMVM - 2981460000ps | [i] = 721
+		- Golden = -593011
+		- DUT    = 16600092
+
+[FAILED] -> DMVM - 2981620000ps | [i] = 722
+		- Golden = -419560
+		- DUT    = 45945
+
+[FAILED] -> DMVM - 2981780000ps | [i] = 723
+		- Golden = -788178
+		- DUT    = 15566840
+
+[FAILED] -> DMVM - 2981940000ps | [i] = 724
+		- Golden = 189065
+		- DUT    = 16495717
+
+[FAILED] -> DMVM - 2982100000ps | [i] = 725
+		- Golden = 228072
+		- DUT    = 103649
+
+[FAILED] -> DMVM - 2982260000ps | [i] = 726
+		- Golden = -281593
+		- DUT    = 15705974
+
+[FAILED] -> DMVM - 2982420000ps | [i] = 727
+		- Golden = -775749
+		- DUT    = 16666904
+
+------------------------- Subgraph 110 -------------------------
+
+[FAILED] -> DMVM - 2982580000ps | [i] = 728
+		- Golden = -854909
+		- DUT    = 15944300
+
+[FAILED] -> DMVM - 2982590000ps | [i] = 729
+		- Golden = -1115956
+		- DUT    = 16025442
+
+[FAILED] -> DMVM - 2982740000ps | [i] = 730
+		- Golden = -323376
+		- DUT    = 16067891
+
+[FAILED] -> DMVM - 2982900000ps | [i] = 731
+		- Golden = -1377677
+		- DUT    = 4228
+
+[FAILED] -> DMVM - 2983060000ps | [i] = 732
+		- Golden = -928813
+		- DUT    = 402287
+
+[FAILED] -> DMVM - 2983220000ps | [i] = 733
+		- Golden = -1412442
+		- DUT    = 15929323
+
+[FAILED] -> DMVM - 2983380000ps | [i] = 734
+		- Golden = -368445
+		- DUT    = 16690282
+
+------------------------- Subgraph 111 -------------------------
+
+[FAILED] -> DMVM - 2983540000ps | [i] = 735
+		- Golden = -664091
+		- DUT    = 15919393
+
+[FAILED] -> DMVM - 2983550000ps | [i] = 736
+		- Golden = -1155394
+		- DUT    = 15976684
+
+[FAILED] -> DMVM - 2983700000ps | [i] = 737
+		- Golden = -1309643
+		- DUT    = 15650154
+
+[FAILED] -> DMVM - 2983860000ps | [i] = 738
+		- Golden = -886997
+		- DUT    = 16151921
+
+[FAILED] -> DMVM - 2984020000ps | [i] = 739
+		- Golden = -557506
+		- DUT    = 133738
+
+[FAILED] -> DMVM - 2984180000ps | [i] = 740
+		- Golden = -1518353
+		- DUT    = 16736117
+
+[FAILED] -> DMVM - 2984340000ps | [i] = 741
+		- Golden = -887790
+		- DUT    = 16322093
+
+[FAILED] -> DMVM - 2984500000ps | [i] = 742
+		- Golden = -1170170
+		- DUT    = 166070
+
+------------------------- Subgraph 112 -------------------------
+
+[FAILED] -> DMVM - 2984660000ps | [i] = 743
+		- Golden = 258393
+		- DUT    = 438317
+
+[FAILED] -> DMVM - 2984670000ps | [i] = 744
+		- Golden = 57471
+		- DUT    = 222147
+
+[FAILED] -> DMVM - 2984820000ps | [i] = 745
+		- Golden = -767016
+		- DUT    = 16107189
+
+[FAILED] -> DMVM - 2984980000ps | [i] = 746
+		- Golden = -622043
+		- DUT    = 15674088
+
+[FAILED] -> DMVM - 2985140000ps | [i] = 747
+		- Golden = -788319
+		- DUT    = 16015258
+
+[FAILED] -> DMVM - 2985300000ps | [i] = 748
+		- Golden = -789130
+		- DUT    = 16332776
+
+------------------------- Subgraph 113 -------------------------
+
+[FAILED] -> DMVM - 2985460000ps | [i] = 749
+		- Golden = 22750
+		- DUT    = 16572464
+
+[FAILED] -> DMVM - 2985470000ps | [i] = 750
+		- Golden = -863892
+		- DUT    = 16503177
+
+[FAILED] -> DMVM - 2985620000ps | [i] = 751
+		- Golden = -863892
+		- DUT    = 16107074
+
+[FAILED] -> DMVM - 2985780000ps | [i] = 752
+		- Golden = -836911
+		- DUT    = 154780
+
+[FAILED] -> DMVM - 2985940000ps | [i] = 753
+		- Golden = -1385648
+		- DUT    = 15791922
+
+------------------------- Subgraph 114 -------------------------
+
+[FAILED] -> DMVM - 2986100000ps | [i] = 754
+		- Golden = -7712
+		- DUT    = 149907
+
+[FAILED] -> DMVM - 2986110000ps | [i] = 755
+		- Golden = -982179
+		- DUT    = 54246
+
+[FAILED] -> DMVM - 2986260000ps | [i] = 756
+		- Golden = -1114502
+		- DUT    = 16372034
+
+[FAILED] -> DMVM - 2986420000ps | [i] = 757
+		- Golden = -1114502
+		- DUT    = 86283
+
+[FAILED] -> DMVM - 2986580000ps | [i] = 758
+		- Golden = -1881040
+		- DUT    = 16666469
+
+------------------------- Subgraph 115 -------------------------
+
+[FAILED] -> DMVM - 2986740000ps | [i] = 759
+		- Golden = 789189
+		- DUT    = 151410
+
+[FAILED] -> DMVM - 2986750000ps | [i] = 760
+		- Golden = -899608
+		- DUT    = 16330003
+
+[FAILED] -> DMVM - 2986900000ps | [i] = 761
+		- Golden = -2968434
+		- DUT    = 16513412
+
+------------------------- Subgraph 116 -------------------------
+
+[FAILED] -> DMVM - 2987060000ps | [i] = 762
+		- Golden = 412369
+		- DUT    = 38411
+
+[FAILED] -> DMVM - 2987070000ps | [i] = 763
+		- Golden = -743771
+		- DUT    = 16772643
+
+[FAILED] -> DMVM - 2987220000ps | [i] = 764
+		- Golden = -762997
+		- DUT    = 16772117
+
+[FAILED] -> DMVM - 2987380000ps | [i] = 765
+		- Golden = -102221
+		- DUT    = 74097
+
+------------------------- Subgraph 117 -------------------------
+
+[FAILED] -> DMVM - 2987540000ps | [i] = 766
+		- Golden = 48542
+		- DUT    = 16362940
+
+[FAILED] -> DMVM - 2987550000ps | [i] = 767
+		- Golden = -1470307
+		- DUT    = 16441166
+
+[FAILED] -> DMVM - 2987700000ps | [i] = 768
+		- Golden = -1470307
+		- DUT    = 16190052
+
+[FAILED] -> DMVM - 2987860000ps | [i] = 769
+		- Golden = -1470307
+		- DUT    = 473262
+
+------------------------- Subgraph 118 -------------------------
+
+[FAILED] -> DMVM - 2988020000ps | [i] = 770
+		- Golden = 6282
+		- DUT    = 276414
+
+[FAILED] -> DMVM - 2988030000ps | [i] = 771
+		- Golden = -26799
+		- DUT    = 328465
+
+[FAILED] -> DMVM - 2988180000ps | [i] = 772
+		- Golden = 287033
+		- DUT    = 16476505
+
+[FAILED] -> DMVM - 2988340000ps | [i] = 773
+		- Golden = -662723
+		- DUT    = 237997
+
+[FAILED] -> DMVM - 2988500000ps | [i] = 774
+		- Golden = -489610
+		- DUT    = 16144595
+
+[FAILED] -> DMVM - 2988660000ps | [i] = 775
+		- Golden = -416759
+		- DUT    = 15818459
+
+[FAILED] -> DMVM - 2988820000ps | [i] = 776
+		- Golden = -378354
+		- DUT    = 16255480
+
+[FAILED] -> DMVM - 2988980000ps | [i] = 777
+		- Golden = -160716
+		- DUT    = 16309528
+
+[FAILED] -> DMVM - 2989140000ps | [i] = 778
+		- Golden = -395836
+		- DUT    = 16449422
+
+[FAILED] -> DMVM - 2989300000ps | [i] = 779
+		- Golden = -220499
+		- DUT    = 15831104
+
+[FAILED] -> DMVM - 2989460000ps | [i] = 780
+		- Golden = -386218
+		- DUT    = 16666542
+
+[FAILED] -> DMVM - 2989620000ps | [i] = 781
+		- Golden = 361577
+		- DUT    = 16281776
+
+[FAILED] -> DMVM - 2989780000ps | [i] = 782
+		- Golden = -1341447
+		- DUT    = 16457663
+
+[FAILED] -> DMVM - 2989940000ps | [i] = 783
+		- Golden = -785375
+		- DUT    = 15945244
+
+[FAILED] -> DMVM - 2990100000ps | [i] = 784
+		- Golden = 272941
+		- DUT    = 29641
+
+[FAILED] -> DMVM - 2990260000ps | [i] = 785
+		- Golden = -211841
+		- DUT    = 141203
+
+[FAILED] -> DMVM - 2990420000ps | [i] = 786
+		- Golden = -2685391
+		- DUT    = 16672557
+
+[FAILED] -> DMVM - 2990580000ps | [i] = 787
+		- Golden = 318581
+		- DUT    = 312794
+
+[FAILED] -> DMVM - 2990740000ps | [i] = 788
+		- Golden = 287033
+		- DUT    = 15987501
+
+[FAILED] -> DMVM - 2990900000ps | [i] = 789
+		- Golden = -1062510
+		- DUT    = 16516679
+
+[FAILED] -> DMVM - 2991060000ps | [i] = 790
+		- Golden = -220499
+		- DUT    = 141889
+
+------------------------- Subgraph 119 -------------------------
+
+[FAILED] -> DMVM - 2991220000ps | [i] = 791
+		- Golden = 223585
+		- DUT    = 16370532
+
+[FAILED] -> DMVM - 2991230000ps | [i] = 792
+		- Golden = -1876082
+		- DUT    = 16229998
+
+[FAILED] -> DMVM - 2991380000ps | [i] = 793
+		- Golden = -1922804
+		- DUT    = 100524
+
+[FAILED] -> DMVM - 2991540000ps | [i] = 794
+		- Golden = -2259958
+		- DUT    = 16729777
+
+[FAILED] -> DMVM - 2991700000ps | [i] = 795
+		- Golden = -2259958
+		- DUT    = 107315
+
+[FAILED] -> DMVM - 2991860000ps | [i] = 796
+		- Golden = -1876082
+		- DUT    = 326875
+
+[FAILED] -> DMVM - 2992020000ps | [i] = 797
+		- Golden = -1876082
+		- DUT    = 83008
+
+[FAILED] -> DMVM - 2992180000ps | [i] = 798
+		- Golden = -2373956
+		- DUT    = 16471761
+
+------------------------- Subgraph 120 -------------------------
+
+[FAILED] -> DMVM - 2992340000ps | [i] = 799
+		- Golden = 1342625
+		- DUT    = 16726155
+
+[FAILED] -> DMVM - 2992350000ps | [i] = 800
+		- Golden = -2081675
+		- DUT    = 16715940
+
+[FAILED] -> DMVM - 2992500000ps | [i] = 801
+		- Golden = -211841
+		- DUT    = 16649815
+
+[FAILED] -> DMVM - 2992660000ps | [i] = 802
+		- Golden = -1773229
+		- DUT    = 15887242
+
+[FAILED] -> DMVM - 2992820000ps | [i] = 803
+		- Golden = -211841
+		- DUT    = 178185
+
+[FAILED] -> DMVM - 2992980000ps | [i] = 804
+		- Golden = -211841
+		- DUT    = 16536836
+
+[FAILED] -> DMVM - 2993140000ps | [i] = 805
+		- Golden = -211841
+		- DUT    = 15580678
+
+------------------------- Subgraph 121 -------------------------
+
+[FAILED] -> DMVM - 2993300000ps | [i] = 806
+		- Golden = -102658
+		- DUT    = 15822013
+
+[FAILED] -> DMVM - 2993310000ps | [i] = 807
+		- Golden = -677523
+		- DUT    = 15809586
+
+[FAILED] -> DMVM - 2993460000ps | [i] = 808
+		- Golden = -677523
+		- DUT    = 15788131
+
+[FAILED] -> DMVM - 2993620000ps | [i] = 809
+		- Golden = -677523
+		- DUT    = 16603436
+
+[FAILED] -> DMVM - 2993780000ps | [i] = 810
+		- Golden = -677523
+		- DUT    = 173083
+
+[FAILED] -> DMVM - 2993940000ps | [i] = 811
+		- Golden = -677523
+		- DUT    = 16250959
+
+[FAILED] -> DMVM - 2994100000ps | [i] = 812
+		- Golden = -677523
+		- DUT    = 15978759
+
+[FAILED] -> DMVM - 2994260000ps | [i] = 813
+		- Golden = -677523
+		- DUT    = 16569786
+
+[FAILED] -> DMVM - 2994420000ps | [i] = 814
+		- Golden = -677523
+		- DUT    = 16026599
+
+------------------------- Subgraph 122 -------------------------
+
+[FAILED] -> DMVM - 2994580000ps | [i] = 815
+		- Golden = 723147
+		- DUT    = 16075211
+
+[FAILED] -> DMVM - 2994590000ps | [i] = 816
+		- Golden = 35889
+		- DUT    = 15915540
+
+[FAILED] -> DMVM - 2994740000ps | [i] = 817
+		- Golden = 35889
+		- DUT    = 16343227
+
+[FAILED] -> DMVM - 2994900000ps | [i] = 818
+		- Golden = 35889
+		- DUT    = 16687098
+
+[FAILED] -> DMVM - 2995060000ps | [i] = 819
+		- Golden = 35889
+		- DUT    = 16103197
+
+[FAILED] -> DMVM - 2995220000ps | [i] = 820
+		- Golden = 35889
+		- DUT    = 14659744
+
+------------------------- Subgraph 123 -------------------------
+
+[FAILED] -> DMVM - 2995380000ps | [i] = 821
+		- Golden = 997448
+		- DUT    = 127202
+
+[FAILED] -> DMVM - 2995390000ps | [i] = 822
+		- Golden = 115711
+		- DUT    = 302332
+
+[FAILED] -> DMVM - 2995540000ps | [i] = 823
+		- Golden = 35889
+		- DUT    = 15687120
+
+[FAILED] -> DMVM - 2995700000ps | [i] = 824
+		- Golden = 35889
+		- DUT    = 16210842
+
+[FAILED] -> DMVM - 2995860000ps | [i] = 825
+		- Golden = 35889
+		- DUT    = 81131
+
+[FAILED] -> DMVM - 2996020000ps | [i] = 826
+		- Golden = 106739
+		- DUT    = 16449377
+
+------------------------- Subgraph 124 -------------------------
+
+[FAILED] -> DMVM - 2996180000ps | [i] = 827
+		- Golden = 114138
+		- DUT    = 71070
+
+[FAILED] -> DMVM - 2996190000ps | [i] = 828
+		- Golden = -264017
+		- DUT    = 48241
+
+[FAILED] -> DMVM - 2996340000ps | [i] = 829
+		- Golden = -736061
+		- DUT    = 16170444
+
+[FAILED] -> DMVM - 2996500000ps | [i] = 830
+		- Golden = -767016
+		- DUT    = 16675141
+
+[FAILED] -> DMVM - 2996660000ps | [i] = 831
+		- Golden = 7745
+		- DUT    = 335080
+
+[FAILED] -> DMVM - 2996820000ps | [i] = 832
+		- Golden = -459271
+		- DUT    = 16349182
+
+[FAILED] -> DMVM - 2996980000ps | [i] = 833
+		- Golden = -264017
+		- DUT    = 15548984
+
+------------------------- Subgraph 125 -------------------------
+
+[FAILED] -> DMVM - 2997140000ps | [i] = 834
+		- Golden = -93454
+		- DUT    = 16334328
+
+[FAILED] -> DMVM - 2997150000ps | [i] = 835
+		- Golden = -1710825
+		- DUT    = 16435403
+
+[FAILED] -> DMVM - 2997300000ps | [i] = 836
+		- Golden = -2332679
+		- DUT    = 15935557
+
+[FAILED] -> DMVM - 2997460000ps | [i] = 837
+		- Golden = -1710825
+		- DUT    = 29965
+
+------------------------- Subgraph 126 -------------------------
+
+[FAILED] -> DMVM - 2997620000ps | [i] = 838
+		- Golden = 89018
+		- DUT    = 1002684
+
+[FAILED] -> DMVM - 2997630000ps | [i] = 839
+		- Golden = -68199
+		- DUT    = 280670
+
+[FAILED] -> DMVM - 2997780000ps | [i] = 840
+		- Golden = 145248
+		- DUT    = 16690318
+
+[FAILED] -> DMVM - 2997940000ps | [i] = 841
+		- Golden = -767016
+		- DUT    = 16432310
+
+[FAILED] -> DMVM - 2998100000ps | [i] = 842
+		- Golden = -59530
+		- DUT    = 50521
+
+[FAILED] -> DMVM - 2998260000ps | [i] = 843
+		- Golden = -788319
+		- DUT    = 15883036
+
+[FAILED] -> DMVM - 2998420000ps | [i] = 844
+		- Golden = -788178
+		- DUT    = 87691
+
+[FAILED] -> DMVM - 2998580000ps | [i] = 845
+		- Golden = -1920
+		- DUT    = 159182
+
+------------------------- Subgraph 127 -------------------------
+
+[FAILED] -> DMVM - 2998740000ps | [i] = 846
+		- Golden = 447283
+		- DUT    = 15627908
+
+[FAILED] -> DMVM - 2998750000ps | [i] = 847
+		- Golden = -114454
+		- DUT    = 15429044
+
+[FAILED] -> DMVM - 2998900000ps | [i] = 848
+		- Golden = 106739
+		- DUT    = 16726797
+
+------------------------- Subgraph 128 -------------------------
+
+[FAILED] -> DMVM - 2999060000ps | [i] = 849
+		- Golden = 376283
+		- DUT    = 104894
+
+[FAILED] -> DMVM - 2999070000ps | [i] = 850
+		- Golden = -2022690
+		- DUT    = 16729559
+
+[FAILED] -> DMVM - 2999220000ps | [i] = 851
+		- Golden = -178711
+		- DUT    = 16238507
+
+[FAILED] -> DMVM - 2999380000ps | [i] = 852
+		- Golden = -1966783
+		- DUT    = 16034524
+
+[FAILED] -> DMVM - 2999540000ps | [i] = 853
+		- Golden = -2020741
+		- DUT    = 73782
+
+[FAILED] -> DMVM - 2999700000ps | [i] = 854
+		- Golden = -1769520
+		- DUT    = 213870
+
+------------------------- Subgraph 129 -------------------------
+
+[FAILED] -> DMVM - 2999860000ps | [i] = 855
+		- Golden = 850980
+		- DUT    = 421272
+
+[FAILED] -> DMVM - 2999870000ps | [i] = 856
+		- Golden = -1196706
+		- DUT    = 373275
+

@@ -97,7 +97,9 @@ module gat_conv1 #(
   input                             rst_n                       ,
 
   input                             gat_layer                   ,
-  output  [7:0]                     gat_debug                   ,
+  output  [31:0]                    gat_debug_1                 ,
+  output  [31:0]                    gat_debug_2                 ,
+  output  [31:0]                    gat_debug_3                 ,
 
   input   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
   output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
@@ -438,7 +440,9 @@ module gat_conv1 #(
     .aggr_rdy_i       (aggr_rdy             ),
     .feat_bram_addra  (feat_bram_addra      ),
     .feat_bram_ena    (feat_bram_ena        ),
-    .debug            (gat_debug            )
+    .debug_1          (gat_debug_1          ),
+    .debug_2          (gat_debug_2          ),
+    .debug_3          (gat_debug_3          )
   );
   //* ==========================================================
 endmodule

@@ -168,7 +168,9 @@ module gat_top_tb #(
 
   logic                             gat_layer                   ;
   logic                             gat_ready                   ;
-  logic   [7:0]                     gat_debug                   ;
+  logic   [31:0]                    gat_debug_1                 ;
+  logic   [31:0]                    gat_debug_2                 ;
+  logic   [31:0]                    gat_debug_3                 ;
 
   logic                             h_data_bram_load_done       ;
   logic                             h_node_info_bram_load_done  ;

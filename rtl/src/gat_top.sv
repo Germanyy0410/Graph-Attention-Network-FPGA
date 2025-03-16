@@ -159,7 +159,9 @@ module gat_top #(
 
   input                             gat_layer                   ,
   output                            gat_ready                   ,
-  output  [7:0]                     gat_debug                   ,
+  output  [31:0]                    gat_debug_1                 ,
+  output  [31:0]                    gat_debug_2                 ,
+  output  [31:0]                    gat_debug_3                 ,
   input                             h_data_bram_load_done       ,
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
@@ -308,7 +310,9 @@ module gat_top #(
     .rst_n                      (rst_n                            ),
 
     .gat_layer                  (gat_layer                        ),
-    .gat_debug                  (gat_debug                        ),
+    .gat_debug_1                (gat_debug_1                      ),
+    .gat_debug_2                (gat_debug_2                      ),
+    .gat_debug_3                (gat_debug_3                      ),
 
     .h_data_bram_dout           (h_data_bram_dout                 ),
     .h_data_bram_addrb          (h_data_bram_addrb_conv1          ),

@@ -12,7 +12,9 @@ module debugger (
   input  [15:0] feat_bram_addra,
   input  feat_bram_ena,
 
-  output [7:0] debug
+  output [31:0] debug_1,
+  output [31:0] debug_2,
+  output [31:0] debug_3
 );
 
   logic spmm_rdy;
@@ -67,6 +69,22 @@ module debugger (
     end
   end
 
-  assign debug = { addr_flag, ena_flag_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
+  assign debug_1 = { addr_flag, ena_flag_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
+
+  assign debug_2 = feat_bram_addra;
+
+  logic [100:0] counter;
+  logic [100:0] counter_reg;
+
+  assign counter = (sm_vld_i) ? (counter_reg + 1) : counter_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      counter_reg <= '0;
+    end else begin
+      counter_reg <= counter;
+    end
+  end
+  assign debug_3 = counter_reg;
 
 endmodule

@@ -107,7 +107,9 @@ module gat_top_wrapper #(
   //* ===================== Register Bank ======================
   input                             gat_layer                   ,
   output                            gat_ready                   ,
-  output  [7:0]                     gat_debug                   ,
+  output  [31:0]                    gat_debug_1                 ,
+  output  [31:0]                    gat_debug_2                 ,
+  output  [31:0]                    gat_debug_3                 ,
   input                             h_data_bram_load_done       ,
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
@@ -160,7 +162,9 @@ module gat_top_wrapper #(
 
     .gat_layer                    (gat_layer                                    ),
     .gat_ready                    (gat_ready                                    ),
-    .gat_debug                    (gat_debug                                    ),
+    .gat_debug_1                  (gat_debug_1                                  ),
+    .gat_debug_2                  (gat_debug_2                                  ),
+    .gat_debug_3                  (gat_debug_3                                  ),
     .h_data_bram_load_done        (h_data_bram_load_done                        ),
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                   ),
     .wgt_bram_load_done           (wgt_bram_load_done                           ),
@@ -183,5 +187,5 @@ module gat_top_wrapper #(
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]      ),
     .feat_bram_dout               (feat_bram_dout[DATA_WIDTH-1:0]               )
   );
-  
+
 endmodule
