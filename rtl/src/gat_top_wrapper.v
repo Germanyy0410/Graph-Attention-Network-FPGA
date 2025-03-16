@@ -137,6 +137,8 @@ module gat_top_wrapper #(
   //* ==========================================================
 );
 
+  assign gat_ready = 1'b1;
+
   gat_top #(
     .DATA_WIDTH         (DATA_WIDTH         ),
 
@@ -161,7 +163,7 @@ module gat_top_wrapper #(
     .rst_n                        (rst_n                                        ),
 
     .gat_layer                    (gat_layer                                    ),
-    .gat_ready                    (gat_ready                                    ),
+    // .gat_ready                    (gat_ready                                    ),
     .gat_debug_1                  (gat_debug_1                                  ),
     .gat_debug_2                  (gat_debug_2                                  ),
     .gat_debug_3                  (gat_debug_3                                  ),
