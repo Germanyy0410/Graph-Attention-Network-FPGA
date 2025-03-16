@@ -297,12 +297,14 @@ module gat_top_tb #(
 
     end_section();
     // =========================================
+    $display("Here 0");
 
     wgt_bram_load_done          = 1'b0;
     h_data_bram_load_done       = 1'b0;
     h_node_info_bram_load_done  = 1'b0;
     c1;
     gat_layer = 1'b1;
+    $display("Here 00");
 
     // ================ Load IO ================
     fork
@@ -311,6 +313,7 @@ module gat_top_tb #(
     join
     // =========================================
 
+    $display("Here 000");
 
     // =========== Start Simulation ============
     c3;

@@ -86,12 +86,15 @@ module debugger (
   end
 
   // assign debug_1 = { addr_flag, ena_flag_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
-  assign debug_1 = 'd1000;
+  // assign debug_1 = 'd1000;
+  assign debug_1 = h_data_bram_addrb;
 
   // assign debug_2 = feat_bram_addra;
-  assign debug_2 = 'd2000;
+  // assign debug_2 = 'd2000;
+  assign debug_2 = wgt_bram_addrb;
 
   // assign debug_3 = counter_reg;
-  assign debug_3 = 'd3000;
+  // assign debug_3 = 'd3000;
+  assign debug_3 = h_node_info_bram_addrb;
 
 endmodule
