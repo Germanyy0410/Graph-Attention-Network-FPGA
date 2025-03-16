@@ -82,7 +82,11 @@ task input_loader();
 			end
 
 			for (int i = 0; i < h_data_depth; i++) begin
-				value_r = $fscanf(value_file, "%b\n", h_data_bram_din);
+				if (gat_layer == 1'b0) begin
+					value_r = $fscanf(value_file, "%b\n", h_data_bram_din);
+				end else if (gat_layer == 1'b1) begin
+					value_r = $fscanf(value_file, "%d\n", h_data_bram_din);
+				end
 				h_data_bram_addra = i;
 				c1;
 			end

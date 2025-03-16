@@ -426,17 +426,19 @@ module gat_conv1 #(
 
   //* ======================= Aggregator =======================
   debugger u_debugger (
-    .clk        (clk          ),
-    .rst_n      (rst_n        ),
-    .spmm_vld_i (spmm_vld     ),
-    .spmm_rdy_i (spmm_rdy     ),
-    .dmvm_vld_i (spmm_rdy     ),
-    .dmvm_rdy_i (dmvm_rdy     ),
-    .sm_vld_i   (dmvm_rdy     ),
-    .sm_rdy_i   (sm_rdy       ),
-    .aggr_vld_i (aggr_vld_reg ),
-    .aggr_rdy_i (aggr_rdy     ),
-    .debug      (gat_debug    )
+    .clk              (clk                  ),
+    .rst_n            (rst_n                ),
+    .spmm_vld_i       (spmm_vld             ),
+    .spmm_rdy_i       (spmm_rdy             ),
+    .dmvm_vld_i       (spmm_rdy             ),
+    .dmvm_rdy_i       (dmvm_rdy             ),
+    .sm_vld_i         (dmvm_rdy             ),
+    .sm_rdy_i         (sm_rdy               ),
+    .aggr_vld_i       (aggr_vld_reg         ),
+    .aggr_rdy_i       (aggr_rdy             ),
+    .feat_bram_addra  (feat_bram_addra      ),
+    .feat_bram_ena    (feat_bram_ena        ),
+    .debug            (gat_debug            )
   );
   //* ==========================================================
 endmodule
