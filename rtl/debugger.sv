@@ -67,6 +67,6 @@ module debugger (
     end
   end
 
-  assign debug = { addr_flag, ena_flag_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
+  assign debug = { addr_flag, ena_flag_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
 
 endmodule
