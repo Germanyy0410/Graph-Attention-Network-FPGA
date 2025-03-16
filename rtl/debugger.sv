@@ -42,7 +42,7 @@ module debugger (
   assign aggr_vld = (aggr_vld_i) ? 1'b1 : aggr_vld_reg;
   assign aggr_rdy = (aggr_rdy_i) ? 1'b1 : aggr_rdy_reg;
 
-  assign addr_flag = (feat_bram_addra >= 44328);
+  assign addr_flag = (feat_bram_addra >= 43328);
   assign ena_flag  = (feat_bram_ena) ? 1'b1 : ena_flag_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin

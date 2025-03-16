@@ -1,0 +1,5286 @@
+
+------------------------- Subgraph 0 -------------------------
+
+[PASSED] -> COEF - 2883710000ps | [i] = 0
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2883870000ps | [i] = 1
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884030000ps | [i] = 2
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884190000ps | [i] = 3
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 1 -------------------------
+
+[PASSED] -> COEF - 2884350000ps | [i] = 4
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884510000ps | [i] = 5
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884670000ps | [i] = 6
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884830000ps | [i] = 7
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 2 -------------------------
+
+[FAILED] -> COEF - 2884990000ps | [i] = 8
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> COEF - 2885150000ps | [i] = 9
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2885310000ps | [i] = 10
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2885470000ps | [i] = 11
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2885630000ps | [i] = 12
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2885790000ps | [i] = 13
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 3 -------------------------
+
+[FAILED] -> COEF - 2885950000ps | [i] = 14
+		- Golden = 7
+		- DUT    = 0
+
+[FAILED] -> COEF - 2886110000ps | [i] = 15
+		- Golden = 7
+		- DUT    = 0
+
+------------------------- Subgraph 4 -------------------------
+
+[PASSED] -> COEF - 2886270000ps | [i] = 16
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2886430000ps | [i] = 17
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2886590000ps | [i] = 18
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2886750000ps | [i] = 19
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2886910000ps | [i] = 20
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2887070000ps | [i] = 21
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 5 -------------------------
+
+[FAILED] -> COEF - 2887230000ps | [i] = 22
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2887390000ps | [i] = 23
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2887550000ps | [i] = 24
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2887710000ps | [i] = 25
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 6 -------------------------
+
+[FAILED] -> COEF - 2887870000ps | [i] = 26
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2888030000ps | [i] = 27
+		- Golden = 7
+		- DUT    = 0
+
+[FAILED] -> COEF - 2888190000ps | [i] = 28
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2888350000ps | [i] = 29
+		- Golden = 0
+		- DUT    = 14
+
+[PASSED] -> COEF - 2888510000ps | [i] = 30
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 7 -------------------------
+
+[PASSED] -> COEF - 2888670000ps | [i] = 31
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2888830000ps | [i] = 32
+		- Golden = 0
+		- DUT    = 8
+
+------------------------- Subgraph 8 -------------------------
+
+[FAILED] -> COEF - 2888990000ps | [i] = 33
+		- Golden = 0
+		- DUT    = 13
+
+[PASSED] -> COEF - 2889150000ps | [i] = 34
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2889310000ps | [i] = 35
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2889470000ps | [i] = 36
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 9 -------------------------
+
+[PASSED] -> COEF - 2889630000ps | [i] = 37
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2889790000ps | [i] = 38
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2889950000ps | [i] = 39
+		- Golden = 0
+		- DUT    = 9
+
+------------------------- Subgraph 10 -------------------------
+
+[PASSED] -> COEF - 2890110000ps | [i] = 40
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2890270000ps | [i] = 41
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2890430000ps | [i] = 42
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 11 -------------------------
+
+[FAILED] -> COEF - 2890590000ps | [i] = 43
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2890750000ps | [i] = 44
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2890910000ps | [i] = 45
+		- Golden = 0
+		- DUT    = 1
+
+------------------------- Subgraph 12 -------------------------
+
+[PASSED] -> COEF - 2891070000ps | [i] = 46
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2891230000ps | [i] = 47
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2891390000ps | [i] = 48
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2891550000ps | [i] = 49
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2891710000ps | [i] = 50
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 13 -------------------------
+
+[PASSED] -> COEF - 2891870000ps | [i] = 51
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2892030000ps | [i] = 52
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2892190000ps | [i] = 53
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 14 -------------------------
+
+[PASSED] -> COEF - 2892350000ps | [i] = 54
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2892510000ps | [i] = 55
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2892670000ps | [i] = 56
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2892830000ps | [i] = 57
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2892990000ps | [i] = 58
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893150000ps | [i] = 59
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 15 -------------------------
+
+[PASSED] -> COEF - 2893310000ps | [i] = 60
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893470000ps | [i] = 61
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893630000ps | [i] = 62
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893790000ps | [i] = 63
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893950000ps | [i] = 64
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 16 -------------------------
+
+[FAILED] -> COEF - 2894110000ps | [i] = 65
+		- Golden = 0
+		- DUT    = 1
+
+[FAILED] -> COEF - 2894270000ps | [i] = 66
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2894430000ps | [i] = 67
+		- Golden = 0
+		- DUT    = 4
+
+[PASSED] -> COEF - 2894590000ps | [i] = 68
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2894750000ps | [i] = 69
+		- Golden = 0
+		- DUT    = 3
+
+------------------------- Subgraph 17 -------------------------
+
+[PASSED] -> COEF - 2894910000ps | [i] = 70
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895070000ps | [i] = 71
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895230000ps | [i] = 72
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895390000ps | [i] = 73
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895550000ps | [i] = 74
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895710000ps | [i] = 75
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 18 -------------------------
+
+[FAILED] -> COEF - 2895870000ps | [i] = 76
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2896030000ps | [i] = 77
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2896190000ps | [i] = 78
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2896350000ps | [i] = 79
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2896510000ps | [i] = 80
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2896670000ps | [i] = 81
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 19 -------------------------
+
+[FAILED] -> COEF - 2896830000ps | [i] = 82
+		- Golden = 0
+		- DUT    = 6
+
+[PASSED] -> COEF - 2896990000ps | [i] = 83
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 20 -------------------------
+
+[FAILED] -> COEF - 2897150000ps | [i] = 84
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2897310000ps | [i] = 85
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2897470000ps | [i] = 86
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2897630000ps | [i] = 87
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2897790000ps | [i] = 88
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2897950000ps | [i] = 89
+		- Golden = 0
+		- DUT    = 7
+
+------------------------- Subgraph 21 -------------------------
+
+[PASSED] -> COEF - 2898110000ps | [i] = 90
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2898270000ps | [i] = 91
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2898430000ps | [i] = 92
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 22 -------------------------
+
+[FAILED] -> COEF - 2898590000ps | [i] = 93
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2898750000ps | [i] = 94
+		- Golden = 0
+		- DUT    = 18
+
+[PASSED] -> COEF - 2898910000ps | [i] = 95
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2899070000ps | [i] = 96
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2899230000ps | [i] = 97
+		- Golden = 0
+		- DUT    = 7
+
+[FAILED] -> COEF - 2899390000ps | [i] = 98
+		- Golden = 0
+		- DUT    = 2
+
+------------------------- Subgraph 23 -------------------------
+
+[FAILED] -> COEF - 2899550000ps | [i] = 99
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2899710000ps | [i] = 100
+		- Golden = 22
+		- DUT    = 0
+
+------------------------- Subgraph 24 -------------------------
+
+[PASSED] -> COEF - 2899870000ps | [i] = 101
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900030000ps | [i] = 102
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900190000ps | [i] = 103
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900350000ps | [i] = 104
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900510000ps | [i] = 105
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900670000ps | [i] = 106
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900830000ps | [i] = 107
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900990000ps | [i] = 108
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 25 -------------------------
+
+[PASSED] -> COEF - 2901150000ps | [i] = 109
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2901310000ps | [i] = 110
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2901470000ps | [i] = 111
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2901630000ps | [i] = 112
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2901790000ps | [i] = 113
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 26 -------------------------
+
+[FAILED] -> COEF - 2901950000ps | [i] = 114
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902110000ps | [i] = 115
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902270000ps | [i] = 116
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902430000ps | [i] = 117
+		- Golden = 25
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902590000ps | [i] = 118
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902750000ps | [i] = 119
+		- Golden = 23
+		- DUT    = 0
+
+------------------------- Subgraph 27 -------------------------
+
+[PASSED] -> COEF - 2902910000ps | [i] = 120
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2903070000ps | [i] = 121
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2903230000ps | [i] = 122
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2903390000ps | [i] = 123
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2903550000ps | [i] = 124
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 28 -------------------------
+
+[PASSED] -> COEF - 2903710000ps | [i] = 125
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2903870000ps | [i] = 126
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 29 -------------------------
+
+[FAILED] -> COEF - 2904030000ps | [i] = 127
+		- Golden = 2
+		- DUT    = 0
+
+[FAILED] -> COEF - 2904190000ps | [i] = 128
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2904350000ps | [i] = 129
+		- Golden = 0
+		- DUT    = 10
+
+------------------------- Subgraph 30 -------------------------
+
+[FAILED] -> COEF - 2904510000ps | [i] = 130
+		- Golden = 0
+		- DUT    = 5
+
+[PASSED] -> COEF - 2904670000ps | [i] = 131
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2904830000ps | [i] = 132
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2904990000ps | [i] = 133
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2905150000ps | [i] = 134
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2905310000ps | [i] = 135
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2905470000ps | [i] = 136
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 31 -------------------------
+
+[FAILED] -> COEF - 2905630000ps | [i] = 137
+		- Golden = 12
+		- DUT    = 0
+
+[FAILED] -> COEF - 2905790000ps | [i] = 138
+		- Golden = 12
+		- DUT    = 0
+
+------------------------- Subgraph 32 -------------------------
+
+[FAILED] -> COEF - 2905950000ps | [i] = 139
+		- Golden = 4
+		- DUT    = 0
+
+[PASSED] -> COEF - 2906110000ps | [i] = 140
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2906270000ps | [i] = 141
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2906430000ps | [i] = 142
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2906590000ps | [i] = 143
+		- Golden = 5
+		- DUT    = 0
+
+------------------------- Subgraph 33 -------------------------
+
+[FAILED] -> COEF - 2906750000ps | [i] = 144
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2906910000ps | [i] = 145
+		- Golden = 1
+		- DUT    = 0
+
+[FAILED] -> COEF - 2907070000ps | [i] = 146
+		- Golden = 1
+		- DUT    = 8
+
+[FAILED] -> COEF - 2907230000ps | [i] = 147
+		- Golden = 1
+		- DUT    = 0
+
+[FAILED] -> COEF - 2907390000ps | [i] = 148
+		- Golden = 1
+		- DUT    = 5
+
+[FAILED] -> COEF - 2907550000ps | [i] = 149
+		- Golden = 1
+		- DUT    = 4
+
+[FAILED] -> COEF - 2907710000ps | [i] = 150
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2907870000ps | [i] = 151
+		- Golden = 1
+		- DUT    = 3
+
+[FAILED] -> COEF - 2908030000ps | [i] = 152
+		- Golden = 21
+		- DUT    = 3
+
+[FAILED] -> COEF - 2908190000ps | [i] = 153
+		- Golden = 1
+		- DUT    = 0
+
+------------------------- Subgraph 34 -------------------------
+
+[PASSED] -> COEF - 2908350000ps | [i] = 154
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2908510000ps | [i] = 155
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 35 -------------------------
+
+[FAILED] -> COEF - 2908670000ps | [i] = 156
+		- Golden = 3
+		- DUT    = 0
+
+[FAILED] -> COEF - 2908830000ps | [i] = 157
+		- Golden = 3
+		- DUT    = 0
+
+[FAILED] -> COEF - 2908990000ps | [i] = 158
+		- Golden = 3
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909150000ps | [i] = 159
+		- Golden = 3
+		- DUT    = 0
+
+------------------------- Subgraph 36 -------------------------
+
+[FAILED] -> COEF - 2909310000ps | [i] = 160
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909470000ps | [i] = 161
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909630000ps | [i] = 162
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909790000ps | [i] = 163
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909950000ps | [i] = 164
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2910110000ps | [i] = 165
+		- Golden = 7
+		- DUT    = 0
+
+[PASSED] -> COEF - 2910270000ps | [i] = 166
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2910430000ps | [i] = 167
+		- Golden = 7
+		- DUT    = 0
+
+[FAILED] -> COEF - 2910590000ps | [i] = 168
+		- Golden = 6
+		- DUT    = 0
+
+------------------------- Subgraph 37 -------------------------
+
+[PASSED] -> COEF - 2910750000ps | [i] = 169
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2910910000ps | [i] = 170
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911070000ps | [i] = 171
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911230000ps | [i] = 172
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 38 -------------------------
+
+[PASSED] -> COEF - 2911390000ps | [i] = 173
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911550000ps | [i] = 174
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911710000ps | [i] = 175
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911870000ps | [i] = 176
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912030000ps | [i] = 177
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 39 -------------------------
+
+[PASSED] -> COEF - 2912190000ps | [i] = 178
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912350000ps | [i] = 179
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912510000ps | [i] = 180
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912670000ps | [i] = 181
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912830000ps | [i] = 182
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912990000ps | [i] = 183
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913150000ps | [i] = 184
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913310000ps | [i] = 185
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 40 -------------------------
+
+[PASSED] -> COEF - 2913470000ps | [i] = 186
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913630000ps | [i] = 187
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913790000ps | [i] = 188
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913950000ps | [i] = 189
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 41 -------------------------
+
+[FAILED] -> COEF - 2914110000ps | [i] = 190
+		- Golden = 0
+		- DUT    = 21
+
+[FAILED] -> COEF - 2914270000ps | [i] = 191
+		- Golden = 0
+		- DUT    = 8
+
+[FAILED] -> COEF - 2914430000ps | [i] = 192
+		- Golden = 0
+		- DUT    = 12
+
+[FAILED] -> COEF - 2914590000ps | [i] = 193
+		- Golden = 7
+		- DUT    = 14
+
+[FAILED] -> COEF - 2914750000ps | [i] = 194
+		- Golden = 0
+		- DUT    = 17
+
+------------------------- Subgraph 42 -------------------------
+
+[FAILED] -> COEF - 2914910000ps | [i] = 195
+		- Golden = 21
+		- DUT    = 1
+
+[FAILED] -> COEF - 2915070000ps | [i] = 196
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2915230000ps | [i] = 197
+		- Golden = 21
+		- DUT    = 0
+
+------------------------- Subgraph 43 -------------------------
+
+[FAILED] -> COEF - 2915390000ps | [i] = 198
+		- Golden = 1
+		- DUT    = 13
+
+[FAILED] -> COEF - 2915550000ps | [i] = 199
+		- Golden = 2
+		- DUT    = 9
+
+[PASSED] -> COEF - 2915710000ps | [i] = 200
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2915870000ps | [i] = 201
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2916030000ps | [i] = 202
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2916190000ps | [i] = 203
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2916350000ps | [i] = 204
+		- Golden = 1
+		- DUT    = 0
+
+------------------------- Subgraph 44 -------------------------
+
+[PASSED] -> COEF - 2916510000ps | [i] = 205
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2916670000ps | [i] = 206
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2916830000ps | [i] = 207
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2916990000ps | [i] = 208
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 45 -------------------------
+
+[FAILED] -> COEF - 2917150000ps | [i] = 209
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2917310000ps | [i] = 210
+		- Golden = 0
+		- DUT    = 11
+
+[PASSED] -> COEF - 2917470000ps | [i] = 211
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2917630000ps | [i] = 212
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2917790000ps | [i] = 213
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2917950000ps | [i] = 214
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2918110000ps | [i] = 215
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 46 -------------------------
+
+[PASSED] -> COEF - 2918270000ps | [i] = 216
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2918430000ps | [i] = 217
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2918590000ps | [i] = 218
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 47 -------------------------
+
+[PASSED] -> COEF - 2918750000ps | [i] = 219
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2918910000ps | [i] = 220
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919070000ps | [i] = 221
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 48 -------------------------
+
+[PASSED] -> COEF - 2919230000ps | [i] = 222
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919390000ps | [i] = 223
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919550000ps | [i] = 224
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919710000ps | [i] = 225
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919870000ps | [i] = 226
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920030000ps | [i] = 227
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920190000ps | [i] = 228
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920350000ps | [i] = 229
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920510000ps | [i] = 230
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920670000ps | [i] = 231
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 49 -------------------------
+
+[PASSED] -> COEF - 2920830000ps | [i] = 232
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920990000ps | [i] = 233
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2921150000ps | [i] = 234
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 50 -------------------------
+
+[PASSED] -> COEF - 2921310000ps | [i] = 235
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2921470000ps | [i] = 236
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 51 -------------------------
+
+[PASSED] -> COEF - 2921630000ps | [i] = 237
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2921790000ps | [i] = 238
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2921950000ps | [i] = 239
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2922110000ps | [i] = 240
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2922270000ps | [i] = 241
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2922430000ps | [i] = 242
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2922590000ps | [i] = 243
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 52 -------------------------
+
+[PASSED] -> COEF - 2922750000ps | [i] = 244
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2922910000ps | [i] = 245
+		- Golden = 0
+		- DUT    = 1
+
+[FAILED] -> COEF - 2923070000ps | [i] = 246
+		- Golden = 2
+		- DUT    = 0
+
+[PASSED] -> COEF - 2923230000ps | [i] = 247
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2923390000ps | [i] = 248
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2923550000ps | [i] = 249
+		- Golden = 0
+		- DUT    = 5
+
+------------------------- Subgraph 53 -------------------------
+
+[PASSED] -> COEF - 2923710000ps | [i] = 250
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2923870000ps | [i] = 251
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2924030000ps | [i] = 252
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2924190000ps | [i] = 253
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 54 -------------------------
+
+[FAILED] -> COEF - 2924350000ps | [i] = 254
+		- Golden = 3
+		- DUT    = 0
+
+[PASSED] -> COEF - 2924510000ps | [i] = 255
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2924670000ps | [i] = 256
+		- Golden = 3
+		- DUT    = 0
+
+------------------------- Subgraph 55 -------------------------
+
+[PASSED] -> COEF - 2924830000ps | [i] = 257
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2924990000ps | [i] = 258
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925150000ps | [i] = 259
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925310000ps | [i] = 260
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925470000ps | [i] = 261
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925630000ps | [i] = 262
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925790000ps | [i] = 263
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2925950000ps | [i] = 264
+		- Golden = 4
+		- DUT    = 0
+
+[PASSED] -> COEF - 2926110000ps | [i] = 265
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2926270000ps | [i] = 266
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2926430000ps | [i] = 267
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2926590000ps | [i] = 268
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2926750000ps | [i] = 269
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 56 -------------------------
+
+[FAILED] -> COEF - 2926910000ps | [i] = 270
+		- Golden = 10
+		- DUT    = 6
+
+[FAILED] -> COEF - 2927070000ps | [i] = 271
+		- Golden = 7
+		- DUT    = 6
+
+[FAILED] -> COEF - 2927230000ps | [i] = 272
+		- Golden = 10
+		- DUT    = 1
+
+[FAILED] -> COEF - 2927390000ps | [i] = 273
+		- Golden = 11
+		- DUT    = 0
+
+[FAILED] -> COEF - 2927550000ps | [i] = 274
+		- Golden = 32
+		- DUT    = 4
+
+------------------------- Subgraph 57 -------------------------
+
+[PASSED] -> COEF - 2927710000ps | [i] = 275
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2927870000ps | [i] = 276
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 58 -------------------------
+
+[FAILED] -> COEF - 2928030000ps | [i] = 277
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2928190000ps | [i] = 278
+		- Golden = 0
+		- DUT    = 5
+
+------------------------- Subgraph 59 -------------------------
+
+[FAILED] -> COEF - 2928350000ps | [i] = 279
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2928510000ps | [i] = 280
+		- Golden = 0
+		- DUT    = 12
+
+[PASSED] -> COEF - 2928670000ps | [i] = 281
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2928830000ps | [i] = 282
+		- Golden = 0
+		- DUT    = 10
+
+[PASSED] -> COEF - 2928990000ps | [i] = 283
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2929150000ps | [i] = 284
+		- Golden = 0
+		- DUT    = 9
+
+[PASSED] -> COEF - 2929310000ps | [i] = 285
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2929470000ps | [i] = 286
+		- Golden = 0
+		- DUT    = 8
+
+[PASSED] -> COEF - 2929630000ps | [i] = 287
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2929790000ps | [i] = 288
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2929950000ps | [i] = 289
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 60 -------------------------
+
+[PASSED] -> COEF - 2930110000ps | [i] = 290
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2930270000ps | [i] = 291
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2930430000ps | [i] = 292
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2930590000ps | [i] = 293
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 61 -------------------------
+
+[PASSED] -> COEF - 2930750000ps | [i] = 294
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2930910000ps | [i] = 295
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931070000ps | [i] = 296
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931230000ps | [i] = 297
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931390000ps | [i] = 298
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931550000ps | [i] = 299
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 62 -------------------------
+
+[PASSED] -> COEF - 2931710000ps | [i] = 300
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931870000ps | [i] = 301
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 63 -------------------------
+
+[FAILED] -> COEF - 2932030000ps | [i] = 302
+		- Golden = 5
+		- DUT    = 0
+
+[FAILED] -> COEF - 2932190000ps | [i] = 303
+		- Golden = 4
+		- DUT    = 0
+
+------------------------- Subgraph 64 -------------------------
+
+[FAILED] -> COEF - 2932350000ps | [i] = 304
+		- Golden = 0
+		- DUT    = 20
+
+[FAILED] -> COEF - 2932510000ps | [i] = 305
+		- Golden = 0
+		- DUT    = 8
+
+[PASSED] -> COEF - 2932670000ps | [i] = 306
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2932830000ps | [i] = 307
+		- Golden = 0
+		- DUT    = 5
+
+------------------------- Subgraph 65 -------------------------
+
+[PASSED] -> COEF - 2932990000ps | [i] = 308
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933150000ps | [i] = 309
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933310000ps | [i] = 310
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933470000ps | [i] = 311
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933630000ps | [i] = 312
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933790000ps | [i] = 313
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933950000ps | [i] = 314
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934110000ps | [i] = 315
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934270000ps | [i] = 316
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934430000ps | [i] = 317
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934590000ps | [i] = 318
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 66 -------------------------
+
+[PASSED] -> COEF - 2934750000ps | [i] = 319
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934910000ps | [i] = 320
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 67 -------------------------
+
+[PASSED] -> COEF - 2935070000ps | [i] = 321
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2935230000ps | [i] = 322
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2935390000ps | [i] = 323
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2935550000ps | [i] = 324
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 68 -------------------------
+
+[PASSED] -> COEF - 2935710000ps | [i] = 325
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2935870000ps | [i] = 326
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2936030000ps | [i] = 327
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2936190000ps | [i] = 328
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 69 -------------------------
+
+[FAILED] -> COEF - 2936350000ps | [i] = 329
+		- Golden = 13
+		- DUT    = 0
+
+[PASSED] -> COEF - 2936510000ps | [i] = 330
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2936670000ps | [i] = 331
+		- Golden = 2
+		- DUT    = 1
+
+[FAILED] -> COEF - 2936830000ps | [i] = 332
+		- Golden = 45
+		- DUT    = 0
+
+[PASSED] -> COEF - 2936990000ps | [i] = 333
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2937150000ps | [i] = 334
+		- Golden = 24
+		- DUT    = 0
+
+[FAILED] -> COEF - 2937310000ps | [i] = 335
+		- Golden = 17
+		- DUT    = 0
+
+[FAILED] -> COEF - 2937470000ps | [i] = 336
+		- Golden = 29
+		- DUT    = 0
+
+------------------------- Subgraph 70 -------------------------
+
+[PASSED] -> COEF - 2937630000ps | [i] = 337
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2937790000ps | [i] = 338
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2937950000ps | [i] = 339
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 71 -------------------------
+
+[FAILED] -> COEF - 2938110000ps | [i] = 340
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2938270000ps | [i] = 341
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2938430000ps | [i] = 342
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2938590000ps | [i] = 343
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 72 -------------------------
+
+[FAILED] -> COEF - 2938750000ps | [i] = 344
+		- Golden = 0
+		- DUT    = 4
+
+[PASSED] -> COEF - 2938910000ps | [i] = 345
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939070000ps | [i] = 346
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 73 -------------------------
+
+[PASSED] -> COEF - 2939230000ps | [i] = 347
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939390000ps | [i] = 348
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939550000ps | [i] = 349
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939710000ps | [i] = 350
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939870000ps | [i] = 351
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940030000ps | [i] = 352
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940190000ps | [i] = 353
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940350000ps | [i] = 354
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940510000ps | [i] = 355
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940670000ps | [i] = 356
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940830000ps | [i] = 357
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940990000ps | [i] = 358
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2941150000ps | [i] = 359
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 74 -------------------------
+
+[PASSED] -> COEF - 2941310000ps | [i] = 360
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2941470000ps | [i] = 361
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2941630000ps | [i] = 362
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2941790000ps | [i] = 363
+		- Golden = 15
+		- DUT    = 0
+
+[PASSED] -> COEF - 2941950000ps | [i] = 364
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942110000ps | [i] = 365
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942270000ps | [i] = 366
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942430000ps | [i] = 367
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942590000ps | [i] = 368
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942750000ps | [i] = 369
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 75 -------------------------
+
+[PASSED] -> COEF - 2942910000ps | [i] = 370
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2943070000ps | [i] = 371
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2943230000ps | [i] = 372
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2943390000ps | [i] = 373
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2943550000ps | [i] = 374
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2943710000ps | [i] = 375
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2943870000ps | [i] = 376
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 76 -------------------------
+
+[PASSED] -> COEF - 2944030000ps | [i] = 377
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2944190000ps | [i] = 378
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2944350000ps | [i] = 379
+		- Golden = 2
+		- DUT    = 0
+
+[PASSED] -> COEF - 2944510000ps | [i] = 380
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 77 -------------------------
+
+[FAILED] -> COEF - 2944670000ps | [i] = 381
+		- Golden = 10
+		- DUT    = 4
+
+[FAILED] -> COEF - 2944830000ps | [i] = 382
+		- Golden = 17
+		- DUT    = 3
+
+[FAILED] -> COEF - 2944990000ps | [i] = 383
+		- Golden = 20
+		- DUT    = 1
+
+------------------------- Subgraph 78 -------------------------
+
+[PASSED] -> COEF - 2945150000ps | [i] = 384
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2945310000ps | [i] = 385
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2945470000ps | [i] = 386
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2945630000ps | [i] = 387
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 79 -------------------------
+
+[FAILED] -> COEF - 2945790000ps | [i] = 388
+		- Golden = 0
+		- DUT    = 15
+
+[FAILED] -> COEF - 2945950000ps | [i] = 389
+		- Golden = 0
+		- DUT    = 11
+
+[PASSED] -> COEF - 2946110000ps | [i] = 390
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 80 -------------------------
+
+[PASSED] -> COEF - 2946270000ps | [i] = 391
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2946430000ps | [i] = 392
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2946590000ps | [i] = 393
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2946750000ps | [i] = 394
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 81 -------------------------
+
+[PASSED] -> COEF - 2946910000ps | [i] = 395
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947070000ps | [i] = 396
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947230000ps | [i] = 397
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947390000ps | [i] = 398
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947550000ps | [i] = 399
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 82 -------------------------
+
+[PASSED] -> COEF - 2947710000ps | [i] = 400
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947870000ps | [i] = 401
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948030000ps | [i] = 402
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 83 -------------------------
+
+[PASSED] -> COEF - 2948190000ps | [i] = 403
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948350000ps | [i] = 404
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948510000ps | [i] = 405
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 84 -------------------------
+
+[PASSED] -> COEF - 2948670000ps | [i] = 406
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948830000ps | [i] = 407
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948990000ps | [i] = 408
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2949150000ps | [i] = 409
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2949310000ps | [i] = 410
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2949470000ps | [i] = 411
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 85 -------------------------
+
+[FAILED] -> COEF - 2949630000ps | [i] = 412
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2949790000ps | [i] = 413
+		- Golden = 0
+		- DUT    = 3
+
+[FAILED] -> COEF - 2949950000ps | [i] = 414
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2950110000ps | [i] = 415
+		- Golden = 0
+		- DUT    = 11
+
+------------------------- Subgraph 86 -------------------------
+
+[PASSED] -> COEF - 2950270000ps | [i] = 416
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2950430000ps | [i] = 417
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2950590000ps | [i] = 418
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2950750000ps | [i] = 419
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2950910000ps | [i] = 420
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 87 -------------------------
+
+[FAILED] -> COEF - 2951070000ps | [i] = 421
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2951230000ps | [i] = 422
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2951390000ps | [i] = 423
+		- Golden = 4
+		- DUT    = 0
+
+[FAILED] -> COEF - 2951550000ps | [i] = 424
+		- Golden = 16
+		- DUT    = 0
+
+------------------------- Subgraph 88 -------------------------
+
+[FAILED] -> COEF - 2951710000ps | [i] = 425
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2951870000ps | [i] = 426
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2952030000ps | [i] = 427
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2952190000ps | [i] = 428
+		- Golden = 6
+		- DUT    = 7
+
+[FAILED] -> COEF - 2952350000ps | [i] = 429
+		- Golden = 0
+		- DUT    = 2
+
+[PASSED] -> COEF - 2952510000ps | [i] = 430
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2952670000ps | [i] = 431
+		- Golden = 1
+		- DUT    = 5
+
+[PASSED] -> COEF - 2952830000ps | [i] = 432
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2952990000ps | [i] = 433
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2953150000ps | [i] = 434
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2953310000ps | [i] = 435
+		- Golden = 17
+		- DUT    = 0
+
+[FAILED] -> COEF - 2953470000ps | [i] = 436
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2953630000ps | [i] = 437
+		- Golden = 23
+		- DUT    = 5
+
+[PASSED] -> COEF - 2953790000ps | [i] = 438
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2953950000ps | [i] = 439
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2954110000ps | [i] = 440
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2954270000ps | [i] = 441
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2954430000ps | [i] = 442
+		- Golden = 10
+		- DUT    = 0
+
+[FAILED] -> COEF - 2954590000ps | [i] = 443
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2954750000ps | [i] = 444
+		- Golden = 23
+		- DUT    = 2
+
+[PASSED] -> COEF - 2954910000ps | [i] = 445
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2955070000ps | [i] = 446
+		- Golden = 0
+		- DUT    = 4
+
+[PASSED] -> COEF - 2955230000ps | [i] = 447
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2955390000ps | [i] = 448
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2955550000ps | [i] = 449
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2955710000ps | [i] = 450
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2955870000ps | [i] = 451
+		- Golden = 0
+		- DUT    = 5
+
+[PASSED] -> COEF - 2956030000ps | [i] = 452
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2956190000ps | [i] = 453
+		- Golden = 0
+		- DUT    = 3
+
+[FAILED] -> COEF - 2956350000ps | [i] = 454
+		- Golden = 0
+		- DUT    = 2
+
+[PASSED] -> COEF - 2956510000ps | [i] = 455
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2956670000ps | [i] = 456
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2956830000ps | [i] = 457
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2956990000ps | [i] = 458
+		- Golden = 0
+		- DUT    = 5
+
+[PASSED] -> COEF - 2957150000ps | [i] = 459
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2957310000ps | [i] = 460
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2957470000ps | [i] = 461
+		- Golden = 0
+		- DUT    = 5
+
+------------------------- Subgraph 89 -------------------------
+
+[PASSED] -> COEF - 2957630000ps | [i] = 462
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2957790000ps | [i] = 463
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2957950000ps | [i] = 464
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958110000ps | [i] = 465
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958270000ps | [i] = 466
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958430000ps | [i] = 467
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958590000ps | [i] = 468
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958750000ps | [i] = 469
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958910000ps | [i] = 470
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2959070000ps | [i] = 471
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2959230000ps | [i] = 472
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 90 -------------------------
+
+[FAILED] -> COEF - 2959390000ps | [i] = 473
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2959550000ps | [i] = 474
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2959710000ps | [i] = 475
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2959870000ps | [i] = 476
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2960030000ps | [i] = 477
+		- Golden = 0
+		- DUT    = 1
+
+------------------------- Subgraph 91 -------------------------
+
+[FAILED] -> COEF - 2960190000ps | [i] = 478
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2960350000ps | [i] = 479
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2960510000ps | [i] = 480
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2960670000ps | [i] = 481
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2960830000ps | [i] = 482
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+
+------------------------- Subgraph 0 -------------------------
+
+[PASSED] -> COEF - 2883710000ps | [i] = 0
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2883870000ps | [i] = 1
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884030000ps | [i] = 2
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884190000ps | [i] = 3
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 1 -------------------------
+
+[PASSED] -> COEF - 2884350000ps | [i] = 4
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884510000ps | [i] = 5
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884670000ps | [i] = 6
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2884830000ps | [i] = 7
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 2 -------------------------
+
+[FAILED] -> COEF - 2884990000ps | [i] = 8
+		- Golden = 1
+		- DUT    = 0
+
+[PASSED] -> COEF - 2885150000ps | [i] = 9
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2885310000ps | [i] = 10
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2885470000ps | [i] = 11
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2885630000ps | [i] = 12
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2885790000ps | [i] = 13
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 3 -------------------------
+
+[FAILED] -> COEF - 2885950000ps | [i] = 14
+		- Golden = 7
+		- DUT    = 0
+
+[FAILED] -> COEF - 2886110000ps | [i] = 15
+		- Golden = 7
+		- DUT    = 0
+
+------------------------- Subgraph 4 -------------------------
+
+[PASSED] -> COEF - 2886270000ps | [i] = 16
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2886430000ps | [i] = 17
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2886590000ps | [i] = 18
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2886750000ps | [i] = 19
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2886910000ps | [i] = 20
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2887070000ps | [i] = 21
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 5 -------------------------
+
+[FAILED] -> COEF - 2887230000ps | [i] = 22
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2887390000ps | [i] = 23
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2887550000ps | [i] = 24
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2887710000ps | [i] = 25
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 6 -------------------------
+
+[FAILED] -> COEF - 2887870000ps | [i] = 26
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2888030000ps | [i] = 27
+		- Golden = 7
+		- DUT    = 0
+
+[FAILED] -> COEF - 2888190000ps | [i] = 28
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2888350000ps | [i] = 29
+		- Golden = 0
+		- DUT    = 14
+
+[PASSED] -> COEF - 2888510000ps | [i] = 30
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 7 -------------------------
+
+[PASSED] -> COEF - 2888670000ps | [i] = 31
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2888830000ps | [i] = 32
+		- Golden = 0
+		- DUT    = 8
+
+------------------------- Subgraph 8 -------------------------
+
+[FAILED] -> COEF - 2888990000ps | [i] = 33
+		- Golden = 0
+		- DUT    = 13
+
+[PASSED] -> COEF - 2889150000ps | [i] = 34
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2889310000ps | [i] = 35
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2889470000ps | [i] = 36
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 9 -------------------------
+
+[PASSED] -> COEF - 2889630000ps | [i] = 37
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2889790000ps | [i] = 38
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2889950000ps | [i] = 39
+		- Golden = 0
+		- DUT    = 9
+
+------------------------- Subgraph 10 -------------------------
+
+[PASSED] -> COEF - 2890110000ps | [i] = 40
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2890270000ps | [i] = 41
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2890430000ps | [i] = 42
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 11 -------------------------
+
+[FAILED] -> COEF - 2890590000ps | [i] = 43
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2890750000ps | [i] = 44
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2890910000ps | [i] = 45
+		- Golden = 0
+		- DUT    = 1
+
+------------------------- Subgraph 12 -------------------------
+
+[PASSED] -> COEF - 2891070000ps | [i] = 46
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2891230000ps | [i] = 47
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2891390000ps | [i] = 48
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2891550000ps | [i] = 49
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2891710000ps | [i] = 50
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 13 -------------------------
+
+[PASSED] -> COEF - 2891870000ps | [i] = 51
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2892030000ps | [i] = 52
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2892190000ps | [i] = 53
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 14 -------------------------
+
+[PASSED] -> COEF - 2892350000ps | [i] = 54
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2892510000ps | [i] = 55
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2892670000ps | [i] = 56
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2892830000ps | [i] = 57
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2892990000ps | [i] = 58
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893150000ps | [i] = 59
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 15 -------------------------
+
+[PASSED] -> COEF - 2893310000ps | [i] = 60
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893470000ps | [i] = 61
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893630000ps | [i] = 62
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893790000ps | [i] = 63
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2893950000ps | [i] = 64
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 16 -------------------------
+
+[FAILED] -> COEF - 2894110000ps | [i] = 65
+		- Golden = 0
+		- DUT    = 1
+
+[FAILED] -> COEF - 2894270000ps | [i] = 66
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2894430000ps | [i] = 67
+		- Golden = 0
+		- DUT    = 4
+
+[PASSED] -> COEF - 2894590000ps | [i] = 68
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2894750000ps | [i] = 69
+		- Golden = 0
+		- DUT    = 3
+
+------------------------- Subgraph 17 -------------------------
+
+[PASSED] -> COEF - 2894910000ps | [i] = 70
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895070000ps | [i] = 71
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895230000ps | [i] = 72
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895390000ps | [i] = 73
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895550000ps | [i] = 74
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2895710000ps | [i] = 75
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 18 -------------------------
+
+[FAILED] -> COEF - 2895870000ps | [i] = 76
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2896030000ps | [i] = 77
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2896190000ps | [i] = 78
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2896350000ps | [i] = 79
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2896510000ps | [i] = 80
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2896670000ps | [i] = 81
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 19 -------------------------
+
+[FAILED] -> COEF - 2896830000ps | [i] = 82
+		- Golden = 0
+		- DUT    = 6
+
+[PASSED] -> COEF - 2896990000ps | [i] = 83
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 20 -------------------------
+
+[FAILED] -> COEF - 2897150000ps | [i] = 84
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2897310000ps | [i] = 85
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2897470000ps | [i] = 86
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2897630000ps | [i] = 87
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2897790000ps | [i] = 88
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2897950000ps | [i] = 89
+		- Golden = 0
+		- DUT    = 7
+
+------------------------- Subgraph 21 -------------------------
+
+[PASSED] -> COEF - 2898110000ps | [i] = 90
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2898270000ps | [i] = 91
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2898430000ps | [i] = 92
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 22 -------------------------
+
+[FAILED] -> COEF - 2898590000ps | [i] = 93
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2898750000ps | [i] = 94
+		- Golden = 0
+		- DUT    = 18
+
+[PASSED] -> COEF - 2898910000ps | [i] = 95
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2899070000ps | [i] = 96
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2899230000ps | [i] = 97
+		- Golden = 0
+		- DUT    = 7
+
+[FAILED] -> COEF - 2899390000ps | [i] = 98
+		- Golden = 0
+		- DUT    = 2
+
+------------------------- Subgraph 23 -------------------------
+
+[FAILED] -> COEF - 2899550000ps | [i] = 99
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2899710000ps | [i] = 100
+		- Golden = 22
+		- DUT    = 0
+
+------------------------- Subgraph 24 -------------------------
+
+[PASSED] -> COEF - 2899870000ps | [i] = 101
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900030000ps | [i] = 102
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900190000ps | [i] = 103
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900350000ps | [i] = 104
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900510000ps | [i] = 105
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900670000ps | [i] = 106
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900830000ps | [i] = 107
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2900990000ps | [i] = 108
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 25 -------------------------
+
+[PASSED] -> COEF - 2901150000ps | [i] = 109
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2901310000ps | [i] = 110
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2901470000ps | [i] = 111
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2901630000ps | [i] = 112
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2901790000ps | [i] = 113
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 26 -------------------------
+
+[FAILED] -> COEF - 2901950000ps | [i] = 114
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902110000ps | [i] = 115
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902270000ps | [i] = 116
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902430000ps | [i] = 117
+		- Golden = 25
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902590000ps | [i] = 118
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2902750000ps | [i] = 119
+		- Golden = 23
+		- DUT    = 0
+
+------------------------- Subgraph 27 -------------------------
+
+[PASSED] -> COEF - 2902910000ps | [i] = 120
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2903070000ps | [i] = 121
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2903230000ps | [i] = 122
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2903390000ps | [i] = 123
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2903550000ps | [i] = 124
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 28 -------------------------
+
+[PASSED] -> COEF - 2903710000ps | [i] = 125
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2903870000ps | [i] = 126
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 29 -------------------------
+
+[FAILED] -> COEF - 2904030000ps | [i] = 127
+		- Golden = 2
+		- DUT    = 0
+
+[FAILED] -> COEF - 2904190000ps | [i] = 128
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2904350000ps | [i] = 129
+		- Golden = 0
+		- DUT    = 10
+
+------------------------- Subgraph 30 -------------------------
+
+[FAILED] -> COEF - 2904510000ps | [i] = 130
+		- Golden = 0
+		- DUT    = 5
+
+[PASSED] -> COEF - 2904670000ps | [i] = 131
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2904830000ps | [i] = 132
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2904990000ps | [i] = 133
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2905150000ps | [i] = 134
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2905310000ps | [i] = 135
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2905470000ps | [i] = 136
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 31 -------------------------
+
+[FAILED] -> COEF - 2905630000ps | [i] = 137
+		- Golden = 12
+		- DUT    = 0
+
+[FAILED] -> COEF - 2905790000ps | [i] = 138
+		- Golden = 12
+		- DUT    = 0
+
+------------------------- Subgraph 32 -------------------------
+
+[FAILED] -> COEF - 2905950000ps | [i] = 139
+		- Golden = 4
+		- DUT    = 0
+
+[PASSED] -> COEF - 2906110000ps | [i] = 140
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2906270000ps | [i] = 141
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2906430000ps | [i] = 142
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2906590000ps | [i] = 143
+		- Golden = 5
+		- DUT    = 0
+
+------------------------- Subgraph 33 -------------------------
+
+[FAILED] -> COEF - 2906750000ps | [i] = 144
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2906910000ps | [i] = 145
+		- Golden = 1
+		- DUT    = 0
+
+[FAILED] -> COEF - 2907070000ps | [i] = 146
+		- Golden = 1
+		- DUT    = 8
+
+[FAILED] -> COEF - 2907230000ps | [i] = 147
+		- Golden = 1
+		- DUT    = 0
+
+[FAILED] -> COEF - 2907390000ps | [i] = 148
+		- Golden = 1
+		- DUT    = 5
+
+[FAILED] -> COEF - 2907550000ps | [i] = 149
+		- Golden = 1
+		- DUT    = 4
+
+[FAILED] -> COEF - 2907710000ps | [i] = 150
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2907870000ps | [i] = 151
+		- Golden = 1
+		- DUT    = 3
+
+[FAILED] -> COEF - 2908030000ps | [i] = 152
+		- Golden = 21
+		- DUT    = 3
+
+[FAILED] -> COEF - 2908190000ps | [i] = 153
+		- Golden = 1
+		- DUT    = 0
+
+------------------------- Subgraph 34 -------------------------
+
+[PASSED] -> COEF - 2908350000ps | [i] = 154
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2908510000ps | [i] = 155
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 35 -------------------------
+
+[FAILED] -> COEF - 2908670000ps | [i] = 156
+		- Golden = 3
+		- DUT    = 0
+
+[FAILED] -> COEF - 2908830000ps | [i] = 157
+		- Golden = 3
+		- DUT    = 0
+
+[FAILED] -> COEF - 2908990000ps | [i] = 158
+		- Golden = 3
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909150000ps | [i] = 159
+		- Golden = 3
+		- DUT    = 0
+
+------------------------- Subgraph 36 -------------------------
+
+[FAILED] -> COEF - 2909310000ps | [i] = 160
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909470000ps | [i] = 161
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909630000ps | [i] = 162
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909790000ps | [i] = 163
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2909950000ps | [i] = 164
+		- Golden = 6
+		- DUT    = 0
+
+[FAILED] -> COEF - 2910110000ps | [i] = 165
+		- Golden = 7
+		- DUT    = 0
+
+[PASSED] -> COEF - 2910270000ps | [i] = 166
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2910430000ps | [i] = 167
+		- Golden = 7
+		- DUT    = 0
+
+[FAILED] -> COEF - 2910590000ps | [i] = 168
+		- Golden = 6
+		- DUT    = 0
+
+------------------------- Subgraph 37 -------------------------
+
+[PASSED] -> COEF - 2910750000ps | [i] = 169
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2910910000ps | [i] = 170
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911070000ps | [i] = 171
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911230000ps | [i] = 172
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 38 -------------------------
+
+[PASSED] -> COEF - 2911390000ps | [i] = 173
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911550000ps | [i] = 174
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911710000ps | [i] = 175
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2911870000ps | [i] = 176
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912030000ps | [i] = 177
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 39 -------------------------
+
+[PASSED] -> COEF - 2912190000ps | [i] = 178
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912350000ps | [i] = 179
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912510000ps | [i] = 180
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912670000ps | [i] = 181
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912830000ps | [i] = 182
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2912990000ps | [i] = 183
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913150000ps | [i] = 184
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913310000ps | [i] = 185
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 40 -------------------------
+
+[PASSED] -> COEF - 2913470000ps | [i] = 186
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913630000ps | [i] = 187
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913790000ps | [i] = 188
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2913950000ps | [i] = 189
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 41 -------------------------
+
+[FAILED] -> COEF - 2914110000ps | [i] = 190
+		- Golden = 0
+		- DUT    = 21
+
+[FAILED] -> COEF - 2914270000ps | [i] = 191
+		- Golden = 0
+		- DUT    = 8
+
+[FAILED] -> COEF - 2914430000ps | [i] = 192
+		- Golden = 0
+		- DUT    = 12
+
+[FAILED] -> COEF - 2914590000ps | [i] = 193
+		- Golden = 7
+		- DUT    = 14
+
+[FAILED] -> COEF - 2914750000ps | [i] = 194
+		- Golden = 0
+		- DUT    = 17
+
+------------------------- Subgraph 42 -------------------------
+
+[FAILED] -> COEF - 2914910000ps | [i] = 195
+		- Golden = 21
+		- DUT    = 1
+
+[FAILED] -> COEF - 2915070000ps | [i] = 196
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2915230000ps | [i] = 197
+		- Golden = 21
+		- DUT    = 0
+
+------------------------- Subgraph 43 -------------------------
+
+[FAILED] -> COEF - 2915390000ps | [i] = 198
+		- Golden = 1
+		- DUT    = 13
+
+[FAILED] -> COEF - 2915550000ps | [i] = 199
+		- Golden = 2
+		- DUT    = 9
+
+[PASSED] -> COEF - 2915710000ps | [i] = 200
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2915870000ps | [i] = 201
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2916030000ps | [i] = 202
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2916190000ps | [i] = 203
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2916350000ps | [i] = 204
+		- Golden = 1
+		- DUT    = 0
+
+------------------------- Subgraph 44 -------------------------
+
+[PASSED] -> COEF - 2916510000ps | [i] = 205
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2916670000ps | [i] = 206
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2916830000ps | [i] = 207
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2916990000ps | [i] = 208
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 45 -------------------------
+
+[FAILED] -> COEF - 2917150000ps | [i] = 209
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2917310000ps | [i] = 210
+		- Golden = 0
+		- DUT    = 11
+
+[PASSED] -> COEF - 2917470000ps | [i] = 211
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2917630000ps | [i] = 212
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2917790000ps | [i] = 213
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2917950000ps | [i] = 214
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2918110000ps | [i] = 215
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 46 -------------------------
+
+[PASSED] -> COEF - 2918270000ps | [i] = 216
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2918430000ps | [i] = 217
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2918590000ps | [i] = 218
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 47 -------------------------
+
+[PASSED] -> COEF - 2918750000ps | [i] = 219
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2918910000ps | [i] = 220
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919070000ps | [i] = 221
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 48 -------------------------
+
+[PASSED] -> COEF - 2919230000ps | [i] = 222
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919390000ps | [i] = 223
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919550000ps | [i] = 224
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919710000ps | [i] = 225
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2919870000ps | [i] = 226
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920030000ps | [i] = 227
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920190000ps | [i] = 228
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920350000ps | [i] = 229
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920510000ps | [i] = 230
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920670000ps | [i] = 231
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 49 -------------------------
+
+[PASSED] -> COEF - 2920830000ps | [i] = 232
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2920990000ps | [i] = 233
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2921150000ps | [i] = 234
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 50 -------------------------
+
+[PASSED] -> COEF - 2921310000ps | [i] = 235
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2921470000ps | [i] = 236
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 51 -------------------------
+
+[PASSED] -> COEF - 2921630000ps | [i] = 237
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2921790000ps | [i] = 238
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2921950000ps | [i] = 239
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2922110000ps | [i] = 240
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2922270000ps | [i] = 241
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2922430000ps | [i] = 242
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2922590000ps | [i] = 243
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 52 -------------------------
+
+[PASSED] -> COEF - 2922750000ps | [i] = 244
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2922910000ps | [i] = 245
+		- Golden = 0
+		- DUT    = 1
+
+[FAILED] -> COEF - 2923070000ps | [i] = 246
+		- Golden = 2
+		- DUT    = 0
+
+[PASSED] -> COEF - 2923230000ps | [i] = 247
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2923390000ps | [i] = 248
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2923550000ps | [i] = 249
+		- Golden = 0
+		- DUT    = 5
+
+------------------------- Subgraph 53 -------------------------
+
+[PASSED] -> COEF - 2923710000ps | [i] = 250
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2923870000ps | [i] = 251
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2924030000ps | [i] = 252
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2924190000ps | [i] = 253
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 54 -------------------------
+
+[FAILED] -> COEF - 2924350000ps | [i] = 254
+		- Golden = 3
+		- DUT    = 0
+
+[PASSED] -> COEF - 2924510000ps | [i] = 255
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2924670000ps | [i] = 256
+		- Golden = 3
+		- DUT    = 0
+
+------------------------- Subgraph 55 -------------------------
+
+[PASSED] -> COEF - 2924830000ps | [i] = 257
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2924990000ps | [i] = 258
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925150000ps | [i] = 259
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925310000ps | [i] = 260
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925470000ps | [i] = 261
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925630000ps | [i] = 262
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2925790000ps | [i] = 263
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2925950000ps | [i] = 264
+		- Golden = 4
+		- DUT    = 0
+
+[PASSED] -> COEF - 2926110000ps | [i] = 265
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2926270000ps | [i] = 266
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2926430000ps | [i] = 267
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2926590000ps | [i] = 268
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2926750000ps | [i] = 269
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 56 -------------------------
+
+[FAILED] -> COEF - 2926910000ps | [i] = 270
+		- Golden = 10
+		- DUT    = 6
+
+[FAILED] -> COEF - 2927070000ps | [i] = 271
+		- Golden = 7
+		- DUT    = 6
+
+[FAILED] -> COEF - 2927230000ps | [i] = 272
+		- Golden = 10
+		- DUT    = 1
+
+[FAILED] -> COEF - 2927390000ps | [i] = 273
+		- Golden = 11
+		- DUT    = 0
+
+[FAILED] -> COEF - 2927550000ps | [i] = 274
+		- Golden = 32
+		- DUT    = 4
+
+------------------------- Subgraph 57 -------------------------
+
+[PASSED] -> COEF - 2927710000ps | [i] = 275
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2927870000ps | [i] = 276
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 58 -------------------------
+
+[FAILED] -> COEF - 2928030000ps | [i] = 277
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2928190000ps | [i] = 278
+		- Golden = 0
+		- DUT    = 5
+
+------------------------- Subgraph 59 -------------------------
+
+[FAILED] -> COEF - 2928350000ps | [i] = 279
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2928510000ps | [i] = 280
+		- Golden = 0
+		- DUT    = 12
+
+[PASSED] -> COEF - 2928670000ps | [i] = 281
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2928830000ps | [i] = 282
+		- Golden = 0
+		- DUT    = 10
+
+[PASSED] -> COEF - 2928990000ps | [i] = 283
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2929150000ps | [i] = 284
+		- Golden = 0
+		- DUT    = 9
+
+[PASSED] -> COEF - 2929310000ps | [i] = 285
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2929470000ps | [i] = 286
+		- Golden = 0
+		- DUT    = 8
+
+[PASSED] -> COEF - 2929630000ps | [i] = 287
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2929790000ps | [i] = 288
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2929950000ps | [i] = 289
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 60 -------------------------
+
+[PASSED] -> COEF - 2930110000ps | [i] = 290
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2930270000ps | [i] = 291
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2930430000ps | [i] = 292
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2930590000ps | [i] = 293
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 61 -------------------------
+
+[PASSED] -> COEF - 2930750000ps | [i] = 294
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2930910000ps | [i] = 295
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931070000ps | [i] = 296
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931230000ps | [i] = 297
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931390000ps | [i] = 298
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931550000ps | [i] = 299
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 62 -------------------------
+
+[PASSED] -> COEF - 2931710000ps | [i] = 300
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2931870000ps | [i] = 301
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 63 -------------------------
+
+[FAILED] -> COEF - 2932030000ps | [i] = 302
+		- Golden = 5
+		- DUT    = 0
+
+[FAILED] -> COEF - 2932190000ps | [i] = 303
+		- Golden = 4
+		- DUT    = 0
+
+------------------------- Subgraph 64 -------------------------
+
+[FAILED] -> COEF - 2932350000ps | [i] = 304
+		- Golden = 0
+		- DUT    = 20
+
+[FAILED] -> COEF - 2932510000ps | [i] = 305
+		- Golden = 0
+		- DUT    = 8
+
+[PASSED] -> COEF - 2932670000ps | [i] = 306
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2932830000ps | [i] = 307
+		- Golden = 0
+		- DUT    = 5
+
+------------------------- Subgraph 65 -------------------------
+
+[PASSED] -> COEF - 2932990000ps | [i] = 308
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933150000ps | [i] = 309
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933310000ps | [i] = 310
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933470000ps | [i] = 311
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933630000ps | [i] = 312
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933790000ps | [i] = 313
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2933950000ps | [i] = 314
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934110000ps | [i] = 315
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934270000ps | [i] = 316
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934430000ps | [i] = 317
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934590000ps | [i] = 318
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 66 -------------------------
+
+[PASSED] -> COEF - 2934750000ps | [i] = 319
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2934910000ps | [i] = 320
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 67 -------------------------
+
+[PASSED] -> COEF - 2935070000ps | [i] = 321
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2935230000ps | [i] = 322
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2935390000ps | [i] = 323
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2935550000ps | [i] = 324
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 68 -------------------------
+
+[PASSED] -> COEF - 2935710000ps | [i] = 325
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2935870000ps | [i] = 326
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2936030000ps | [i] = 327
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2936190000ps | [i] = 328
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 69 -------------------------
+
+[FAILED] -> COEF - 2936350000ps | [i] = 329
+		- Golden = 13
+		- DUT    = 0
+
+[PASSED] -> COEF - 2936510000ps | [i] = 330
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2936670000ps | [i] = 331
+		- Golden = 2
+		- DUT    = 1
+
+[FAILED] -> COEF - 2936830000ps | [i] = 332
+		- Golden = 45
+		- DUT    = 0
+
+[PASSED] -> COEF - 2936990000ps | [i] = 333
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2937150000ps | [i] = 334
+		- Golden = 24
+		- DUT    = 0
+
+[FAILED] -> COEF - 2937310000ps | [i] = 335
+		- Golden = 17
+		- DUT    = 0
+
+[FAILED] -> COEF - 2937470000ps | [i] = 336
+		- Golden = 29
+		- DUT    = 0
+
+------------------------- Subgraph 70 -------------------------
+
+[PASSED] -> COEF - 2937630000ps | [i] = 337
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2937790000ps | [i] = 338
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2937950000ps | [i] = 339
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 71 -------------------------
+
+[FAILED] -> COEF - 2938110000ps | [i] = 340
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2938270000ps | [i] = 341
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2938430000ps | [i] = 342
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2938590000ps | [i] = 343
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 72 -------------------------
+
+[FAILED] -> COEF - 2938750000ps | [i] = 344
+		- Golden = 0
+		- DUT    = 4
+
+[PASSED] -> COEF - 2938910000ps | [i] = 345
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939070000ps | [i] = 346
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 73 -------------------------
+
+[PASSED] -> COEF - 2939230000ps | [i] = 347
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939390000ps | [i] = 348
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939550000ps | [i] = 349
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939710000ps | [i] = 350
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2939870000ps | [i] = 351
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940030000ps | [i] = 352
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940190000ps | [i] = 353
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940350000ps | [i] = 354
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940510000ps | [i] = 355
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940670000ps | [i] = 356
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940830000ps | [i] = 357
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2940990000ps | [i] = 358
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2941150000ps | [i] = 359
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 74 -------------------------
+
+[PASSED] -> COEF - 2941310000ps | [i] = 360
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2941470000ps | [i] = 361
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2941630000ps | [i] = 362
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2941790000ps | [i] = 363
+		- Golden = 15
+		- DUT    = 0
+
+[PASSED] -> COEF - 2941950000ps | [i] = 364
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942110000ps | [i] = 365
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942270000ps | [i] = 366
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942430000ps | [i] = 367
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942590000ps | [i] = 368
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2942750000ps | [i] = 369
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 75 -------------------------
+
+[PASSED] -> COEF - 2942910000ps | [i] = 370
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2943070000ps | [i] = 371
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2943230000ps | [i] = 372
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2943390000ps | [i] = 373
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2943550000ps | [i] = 374
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2943710000ps | [i] = 375
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2943870000ps | [i] = 376
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 76 -------------------------
+
+[PASSED] -> COEF - 2944030000ps | [i] = 377
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2944190000ps | [i] = 378
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2944350000ps | [i] = 379
+		- Golden = 2
+		- DUT    = 0
+
+[PASSED] -> COEF - 2944510000ps | [i] = 380
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 77 -------------------------
+
+[FAILED] -> COEF - 2944670000ps | [i] = 381
+		- Golden = 10
+		- DUT    = 4
+
+[FAILED] -> COEF - 2944830000ps | [i] = 382
+		- Golden = 17
+		- DUT    = 3
+
+[FAILED] -> COEF - 2944990000ps | [i] = 383
+		- Golden = 20
+		- DUT    = 1
+
+------------------------- Subgraph 78 -------------------------
+
+[PASSED] -> COEF - 2945150000ps | [i] = 384
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2945310000ps | [i] = 385
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2945470000ps | [i] = 386
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2945630000ps | [i] = 387
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 79 -------------------------
+
+[FAILED] -> COEF - 2945790000ps | [i] = 388
+		- Golden = 0
+		- DUT    = 15
+
+[FAILED] -> COEF - 2945950000ps | [i] = 389
+		- Golden = 0
+		- DUT    = 11
+
+[PASSED] -> COEF - 2946110000ps | [i] = 390
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 80 -------------------------
+
+[PASSED] -> COEF - 2946270000ps | [i] = 391
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2946430000ps | [i] = 392
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2946590000ps | [i] = 393
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2946750000ps | [i] = 394
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 81 -------------------------
+
+[PASSED] -> COEF - 2946910000ps | [i] = 395
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947070000ps | [i] = 396
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947230000ps | [i] = 397
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947390000ps | [i] = 398
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947550000ps | [i] = 399
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 82 -------------------------
+
+[PASSED] -> COEF - 2947710000ps | [i] = 400
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2947870000ps | [i] = 401
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948030000ps | [i] = 402
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 83 -------------------------
+
+[PASSED] -> COEF - 2948190000ps | [i] = 403
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948350000ps | [i] = 404
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948510000ps | [i] = 405
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 84 -------------------------
+
+[PASSED] -> COEF - 2948670000ps | [i] = 406
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948830000ps | [i] = 407
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2948990000ps | [i] = 408
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2949150000ps | [i] = 409
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2949310000ps | [i] = 410
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2949470000ps | [i] = 411
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 85 -------------------------
+
+[FAILED] -> COEF - 2949630000ps | [i] = 412
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2949790000ps | [i] = 413
+		- Golden = 0
+		- DUT    = 3
+
+[FAILED] -> COEF - 2949950000ps | [i] = 414
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2950110000ps | [i] = 415
+		- Golden = 0
+		- DUT    = 11
+
+------------------------- Subgraph 86 -------------------------
+
+[PASSED] -> COEF - 2950270000ps | [i] = 416
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2950430000ps | [i] = 417
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2950590000ps | [i] = 418
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2950750000ps | [i] = 419
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2950910000ps | [i] = 420
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 87 -------------------------
+
+[FAILED] -> COEF - 2951070000ps | [i] = 421
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2951230000ps | [i] = 422
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2951390000ps | [i] = 423
+		- Golden = 4
+		- DUT    = 0
+
+[FAILED] -> COEF - 2951550000ps | [i] = 424
+		- Golden = 16
+		- DUT    = 0
+
+------------------------- Subgraph 88 -------------------------
+
+[FAILED] -> COEF - 2951710000ps | [i] = 425
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2951870000ps | [i] = 426
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2952030000ps | [i] = 427
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2952190000ps | [i] = 428
+		- Golden = 6
+		- DUT    = 7
+
+[FAILED] -> COEF - 2952350000ps | [i] = 429
+		- Golden = 0
+		- DUT    = 2
+
+[PASSED] -> COEF - 2952510000ps | [i] = 430
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2952670000ps | [i] = 431
+		- Golden = 1
+		- DUT    = 5
+
+[PASSED] -> COEF - 2952830000ps | [i] = 432
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2952990000ps | [i] = 433
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2953150000ps | [i] = 434
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2953310000ps | [i] = 435
+		- Golden = 17
+		- DUT    = 0
+
+[FAILED] -> COEF - 2953470000ps | [i] = 436
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2953630000ps | [i] = 437
+		- Golden = 23
+		- DUT    = 5
+
+[PASSED] -> COEF - 2953790000ps | [i] = 438
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2953950000ps | [i] = 439
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2954110000ps | [i] = 440
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2954270000ps | [i] = 441
+		- Golden = 0
+		- DUT    = 5
+
+[FAILED] -> COEF - 2954430000ps | [i] = 442
+		- Golden = 10
+		- DUT    = 0
+
+[FAILED] -> COEF - 2954590000ps | [i] = 443
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2954750000ps | [i] = 444
+		- Golden = 23
+		- DUT    = 2
+
+[PASSED] -> COEF - 2954910000ps | [i] = 445
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2955070000ps | [i] = 446
+		- Golden = 0
+		- DUT    = 4
+
+[PASSED] -> COEF - 2955230000ps | [i] = 447
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2955390000ps | [i] = 448
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2955550000ps | [i] = 449
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2955710000ps | [i] = 450
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2955870000ps | [i] = 451
+		- Golden = 0
+		- DUT    = 5
+
+[PASSED] -> COEF - 2956030000ps | [i] = 452
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2956190000ps | [i] = 453
+		- Golden = 0
+		- DUT    = 3
+
+[FAILED] -> COEF - 2956350000ps | [i] = 454
+		- Golden = 0
+		- DUT    = 2
+
+[PASSED] -> COEF - 2956510000ps | [i] = 455
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2956670000ps | [i] = 456
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2956830000ps | [i] = 457
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2956990000ps | [i] = 458
+		- Golden = 0
+		- DUT    = 5
+
+[PASSED] -> COEF - 2957150000ps | [i] = 459
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2957310000ps | [i] = 460
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2957470000ps | [i] = 461
+		- Golden = 0
+		- DUT    = 5
+
+------------------------- Subgraph 89 -------------------------
+
+[PASSED] -> COEF - 2957630000ps | [i] = 462
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2957790000ps | [i] = 463
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2957950000ps | [i] = 464
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958110000ps | [i] = 465
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958270000ps | [i] = 466
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958430000ps | [i] = 467
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958590000ps | [i] = 468
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958750000ps | [i] = 469
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2958910000ps | [i] = 470
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2959070000ps | [i] = 471
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2959230000ps | [i] = 472
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 90 -------------------------
+
+[FAILED] -> COEF - 2959390000ps | [i] = 473
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2959550000ps | [i] = 474
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2959710000ps | [i] = 475
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2959870000ps | [i] = 476
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2960030000ps | [i] = 477
+		- Golden = 0
+		- DUT    = 1
+
+------------------------- Subgraph 91 -------------------------
+
+[FAILED] -> COEF - 2960190000ps | [i] = 478
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2960350000ps | [i] = 479
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2960510000ps | [i] = 480
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2960670000ps | [i] = 481
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2960830000ps | [i] = 482
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2960990000ps | [i] = 483
+		- Golden = 0
+		- DUT    = 5
+
+[PASSED] -> COEF - 2961150000ps | [i] = 484
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 92 -------------------------
+
+[PASSED] -> COEF - 2961310000ps | [i] = 485
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2961470000ps | [i] = 486
+		- Golden = 12
+		- DUT    = 0
+
+[FAILED] -> COEF - 2961630000ps | [i] = 487
+		- Golden = 1
+		- DUT    = 0
+
+------------------------- Subgraph 93 -------------------------
+
+[FAILED] -> COEF - 2961790000ps | [i] = 488
+		- Golden = 14
+		- DUT    = 6
+
+[FAILED] -> COEF - 2961950000ps | [i] = 489
+		- Golden = 9
+		- DUT    = 0
+
+[PASSED] -> COEF - 2962110000ps | [i] = 490
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2962270000ps | [i] = 491
+		- Golden = 0
+		- DUT    = 10
+
+[FAILED] -> COEF - 2962430000ps | [i] = 492
+		- Golden = 13
+		- DUT    = 5
+
+------------------------- Subgraph 94 -------------------------
+
+[FAILED] -> COEF - 2962590000ps | [i] = 493
+		- Golden = 28
+		- DUT    = 0
+
+[FAILED] -> COEF - 2962750000ps | [i] = 494
+		- Golden = 27
+		- DUT    = 0
+
+[FAILED] -> COEF - 2962910000ps | [i] = 495
+		- Golden = 11
+		- DUT    = 0
+
+[PASSED] -> COEF - 2963070000ps | [i] = 496
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2963230000ps | [i] = 497
+		- Golden = 36
+		- DUT    = 0
+
+[PASSED] -> COEF - 2963390000ps | [i] = 498
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2963550000ps | [i] = 499
+		- Golden = 27
+		- DUT    = 0
+
+[FAILED] -> COEF - 2963710000ps | [i] = 500
+		- Golden = 34
+		- DUT    = 0
+
+[FAILED] -> COEF - 2963870000ps | [i] = 501
+		- Golden = 17
+		- DUT    = 0
+
+[PASSED] -> COEF - 2964030000ps | [i] = 502
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2964190000ps | [i] = 503
+		- Golden = 32
+		- DUT    = 0
+
+[FAILED] -> COEF - 2964350000ps | [i] = 504
+		- Golden = 17
+		- DUT    = 0
+
+------------------------- Subgraph 95 -------------------------
+
+[PASSED] -> COEF - 2964510000ps | [i] = 505
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2964670000ps | [i] = 506
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2964830000ps | [i] = 507
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2964990000ps | [i] = 508
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2965150000ps | [i] = 509
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2965310000ps | [i] = 510
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2965470000ps | [i] = 511
+		- Golden = 14
+		- DUT    = 0
+
+[PASSED] -> COEF - 2965630000ps | [i] = 512
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2965790000ps | [i] = 513
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2965950000ps | [i] = 514
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2966110000ps | [i] = 515
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2966270000ps | [i] = 516
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2966430000ps | [i] = 517
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2966590000ps | [i] = 518
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2966750000ps | [i] = 519
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2966910000ps | [i] = 520
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2967070000ps | [i] = 521
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2967230000ps | [i] = 522
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2967390000ps | [i] = 523
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2967550000ps | [i] = 524
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2967710000ps | [i] = 525
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2967870000ps | [i] = 526
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 96 -------------------------
+
+[FAILED] -> COEF - 2968030000ps | [i] = 527
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2968190000ps | [i] = 528
+		- Golden = 17
+		- DUT    = 0
+
+------------------------- Subgraph 97 -------------------------
+
+[PASSED] -> COEF - 2968350000ps | [i] = 529
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2968510000ps | [i] = 530
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2968670000ps | [i] = 531
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 98 -------------------------
+
+[PASSED] -> COEF - 2968830000ps | [i] = 532
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2968990000ps | [i] = 533
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 99 -------------------------
+
+[FAILED] -> COEF - 2969150000ps | [i] = 534
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2969310000ps | [i] = 535
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2969470000ps | [i] = 536
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2969630000ps | [i] = 537
+		- Golden = 25
+		- DUT    = 0
+
+[FAILED] -> COEF - 2969790000ps | [i] = 538
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2969950000ps | [i] = 539
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2970110000ps | [i] = 540
+		- Golden = 25
+		- DUT    = 0
+
+------------------------- Subgraph 100 -------------------------
+
+[PASSED] -> COEF - 2970270000ps | [i] = 541
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2970430000ps | [i] = 542
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2970590000ps | [i] = 543
+		- Golden = 0
+		- DUT    = 6
+
+------------------------- Subgraph 101 -------------------------
+
+[PASSED] -> COEF - 2970750000ps | [i] = 544
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2970910000ps | [i] = 545
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2971070000ps | [i] = 546
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2971230000ps | [i] = 547
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 102 -------------------------
+
+[FAILED] -> COEF - 2971390000ps | [i] = 548
+		- Golden = 0
+		- DUT    = 6
+
+[PASSED] -> COEF - 2971550000ps | [i] = 549
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2971710000ps | [i] = 550
+		- Golden = 0
+		- DUT    = 4
+
+[PASSED] -> COEF - 2971870000ps | [i] = 551
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2972030000ps | [i] = 552
+		- Golden = 0
+		- DUT    = 4
+
+[FAILED] -> COEF - 2972190000ps | [i] = 553
+		- Golden = 0
+		- DUT    = 4
+
+[PASSED] -> COEF - 2972350000ps | [i] = 554
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2972510000ps | [i] = 555
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2972670000ps | [i] = 556
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 103 -------------------------
+
+[FAILED] -> COEF - 2972830000ps | [i] = 557
+		- Golden = 0
+		- DUT    = 6
+
+[PASSED] -> COEF - 2972990000ps | [i] = 558
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2973150000ps | [i] = 559
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2973310000ps | [i] = 560
+		- Golden = 0
+		- DUT    = 6
+
+[PASSED] -> COEF - 2973470000ps | [i] = 561
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2973630000ps | [i] = 562
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2973790000ps | [i] = 563
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 104 -------------------------
+
+[FAILED] -> COEF - 2973950000ps | [i] = 564
+		- Golden = 11
+		- DUT    = 0
+
+[PASSED] -> COEF - 2974110000ps | [i] = 565
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2974270000ps | [i] = 566
+		- Golden = 11
+		- DUT    = 0
+
+[FAILED] -> COEF - 2974430000ps | [i] = 567
+		- Golden = 11
+		- DUT    = 0
+
+[FAILED] -> COEF - 2974590000ps | [i] = 568
+		- Golden = 11
+		- DUT    = 0
+
+------------------------- Subgraph 105 -------------------------
+
+[PASSED] -> COEF - 2974750000ps | [i] = 569
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2974910000ps | [i] = 570
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2975070000ps | [i] = 571
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2975230000ps | [i] = 572
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2975390000ps | [i] = 573
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 106 -------------------------
+
+[PASSED] -> COEF - 2975550000ps | [i] = 574
+		- Golden = 6.000000
+		- DUT    = 6.000000
+
+[FAILED] -> COEF - 2975710000ps | [i] = 575
+		- Golden = 10
+		- DUT    = 0
+
+------------------------- Subgraph 107 -------------------------
+
+[FAILED] -> COEF - 2975870000ps | [i] = 576
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2976030000ps | [i] = 577
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2976190000ps | [i] = 578
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2976350000ps | [i] = 579
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2976510000ps | [i] = 580
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 108 -------------------------
+
+[FAILED] -> COEF - 2976670000ps | [i] = 581
+		- Golden = 12
+		- DUT    = 0
+
+[FAILED] -> COEF - 2976830000ps | [i] = 582
+		- Golden = 29
+		- DUT    = 0
+
+[FAILED] -> COEF - 2976990000ps | [i] = 583
+		- Golden = 14
+		- DUT    = 0
+
+[FAILED] -> COEF - 2977150000ps | [i] = 584
+		- Golden = 15
+		- DUT    = 0
+
+------------------------- Subgraph 109 -------------------------
+
+[PASSED] -> COEF - 2977310000ps | [i] = 585
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2977470000ps | [i] = 586
+		- Golden = 7
+		- DUT    = 0
+
+[FAILED] -> COEF - 2977630000ps | [i] = 587
+		- Golden = 7
+		- DUT    = 0
+
+[FAILED] -> COEF - 2977790000ps | [i] = 588
+		- Golden = 15
+		- DUT    = 0
+
+[FAILED] -> COEF - 2977950000ps | [i] = 589
+		- Golden = 19
+		- DUT    = 0
+
+[FAILED] -> COEF - 2978110000ps | [i] = 590
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2978270000ps | [i] = 591
+		- Golden = 19
+		- DUT    = 0
+
+[FAILED] -> COEF - 2978430000ps | [i] = 592
+		- Golden = 20
+		- DUT    = 0
+
+[PASSED] -> COEF - 2978590000ps | [i] = 593
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2978750000ps | [i] = 594
+		- Golden = 9
+		- DUT    = 0
+
+[FAILED] -> COEF - 2978910000ps | [i] = 595
+		- Golden = 8
+		- DUT    = 0
+
+[FAILED] -> COEF - 2979070000ps | [i] = 596
+		- Golden = 19
+		- DUT    = 0
+
+[FAILED] -> COEF - 2979230000ps | [i] = 597
+		- Golden = 2
+		- DUT    = 0
+
+[FAILED] -> COEF - 2979390000ps | [i] = 598
+		- Golden = 9
+		- DUT    = 0
+
+[PASSED] -> COEF - 2979550000ps | [i] = 599
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2979710000ps | [i] = 600
+		- Golden = 22
+		- DUT    = 0
+
+[FAILED] -> COEF - 2979870000ps | [i] = 601
+		- Golden = 9
+		- DUT    = 0
+
+[FAILED] -> COEF - 2980030000ps | [i] = 602
+		- Golden = 2
+		- DUT    = 0
+
+[FAILED] -> COEF - 2980190000ps | [i] = 603
+		- Golden = 14
+		- DUT    = 0
+
+[FAILED] -> COEF - 2980350000ps | [i] = 604
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2980510000ps | [i] = 605
+		- Golden = 16
+		- DUT    = 0
+
+[PASSED] -> COEF - 2980670000ps | [i] = 606
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2980830000ps | [i] = 607
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2980990000ps | [i] = 608
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2981150000ps | [i] = 609
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2981310000ps | [i] = 610
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2981470000ps | [i] = 611
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2981630000ps | [i] = 612
+		- Golden = 2
+		- DUT    = 0
+
+[PASSED] -> COEF - 2981790000ps | [i] = 613
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2981950000ps | [i] = 614
+		- Golden = 21
+		- DUT    = 0
+
+[FAILED] -> COEF - 2982110000ps | [i] = 615
+		- Golden = 22
+		- DUT    = 0
+
+[FAILED] -> COEF - 2982270000ps | [i] = 616
+		- Golden = 6
+		- DUT    = 0
+
+[PASSED] -> COEF - 2982430000ps | [i] = 617
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 110 -------------------------
+
+[PASSED] -> COEF - 2982590000ps | [i] = 618
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2982750000ps | [i] = 619
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2982910000ps | [i] = 620
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2983070000ps | [i] = 621
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2983230000ps | [i] = 622
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2983390000ps | [i] = 623
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 111 -------------------------
+
+[PASSED] -> COEF - 2983550000ps | [i] = 624
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2983710000ps | [i] = 625
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2983870000ps | [i] = 626
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2984030000ps | [i] = 627
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2984190000ps | [i] = 628
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2984350000ps | [i] = 629
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2984510000ps | [i] = 630
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 112 -------------------------
+
+[FAILED] -> COEF - 2984670000ps | [i] = 631
+		- Golden = 9
+		- DUT    = 10
+
+[PASSED] -> COEF - 2984830000ps | [i] = 632
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2984990000ps | [i] = 633
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2985150000ps | [i] = 634
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2985310000ps | [i] = 635
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 113 -------------------------
+
+[PASSED] -> COEF - 2985470000ps | [i] = 636
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2985630000ps | [i] = 637
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2985790000ps | [i] = 638
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2985950000ps | [i] = 639
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 114 -------------------------
+
+[FAILED] -> COEF - 2986110000ps | [i] = 640
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2986270000ps | [i] = 641
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2986430000ps | [i] = 642
+		- Golden = 0
+		- DUT    = 3
+
+[PASSED] -> COEF - 2986590000ps | [i] = 643
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 115 -------------------------
+
+[PASSED] -> COEF - 2986750000ps | [i] = 644
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2986910000ps | [i] = 645
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 116 -------------------------
+
+[PASSED] -> COEF - 2987070000ps | [i] = 646
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2987230000ps | [i] = 647
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2987390000ps | [i] = 648
+		- Golden = 9
+		- DUT    = 1
+
+------------------------- Subgraph 117 -------------------------
+
+[PASSED] -> COEF - 2987550000ps | [i] = 649
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2987710000ps | [i] = 650
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2987870000ps | [i] = 651
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 118 -------------------------
+
+[FAILED] -> COEF - 2988030000ps | [i] = 652
+		- Golden = 0
+		- DUT    = 9
+
+[FAILED] -> COEF - 2988190000ps | [i] = 653
+		- Golden = 8
+		- DUT    = 0
+
+[FAILED] -> COEF - 2988350000ps | [i] = 654
+		- Golden = 0
+		- DUT    = 7
+
+[PASSED] -> COEF - 2988510000ps | [i] = 655
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2988670000ps | [i] = 656
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2988830000ps | [i] = 657
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2988990000ps | [i] = 658
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2989150000ps | [i] = 659
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2989310000ps | [i] = 660
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2989470000ps | [i] = 661
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2989630000ps | [i] = 662
+		- Golden = 11
+		- DUT    = 0
+
+[PASSED] -> COEF - 2989790000ps | [i] = 663
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2989950000ps | [i] = 664
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2990110000ps | [i] = 665
+		- Golden = 8
+		- DUT    = 4
+
+[FAILED] -> COEF - 2990270000ps | [i] = 666
+		- Golden = 0
+		- DUT    = 6
+
+[FAILED] -> COEF - 2990430000ps | [i] = 667
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2990590000ps | [i] = 668
+		- Golden = 9
+		- DUT    = 8
+
+[FAILED] -> COEF - 2990750000ps | [i] = 669
+		- Golden = 8
+		- DUT    = 0
+
+[PASSED] -> COEF - 2990910000ps | [i] = 670
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2991070000ps | [i] = 671
+		- Golden = 0
+		- DUT    = 6
+
+------------------------- Subgraph 119 -------------------------
+
+[PASSED] -> COEF - 2991230000ps | [i] = 672
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2991390000ps | [i] = 673
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2991550000ps | [i] = 674
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2991710000ps | [i] = 675
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2991870000ps | [i] = 676
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2992030000ps | [i] = 677
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2992190000ps | [i] = 678
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 120 -------------------------
+
+[PASSED] -> COEF - 2992350000ps | [i] = 679
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2992510000ps | [i] = 680
+		- Golden = 34
+		- DUT    = 0
+
+[PASSED] -> COEF - 2992670000ps | [i] = 681
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2992830000ps | [i] = 682
+		- Golden = 34
+		- DUT    = 1
+
+[FAILED] -> COEF - 2992990000ps | [i] = 683
+		- Golden = 34
+		- DUT    = 0
+
+[FAILED] -> COEF - 2993150000ps | [i] = 684
+		- Golden = 34
+		- DUT    = 0
+
+------------------------- Subgraph 121 -------------------------
+
+[PASSED] -> COEF - 2993310000ps | [i] = 685
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2993470000ps | [i] = 686
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2993630000ps | [i] = 687
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2993790000ps | [i] = 688
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2993950000ps | [i] = 689
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2994110000ps | [i] = 690
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2994270000ps | [i] = 691
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2994430000ps | [i] = 692
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 122 -------------------------
+
+[FAILED] -> COEF - 2994590000ps | [i] = 693
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2994750000ps | [i] = 694
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2994910000ps | [i] = 695
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2995070000ps | [i] = 696
+		- Golden = 23
+		- DUT    = 0
+
+[FAILED] -> COEF - 2995230000ps | [i] = 697
+		- Golden = 23
+		- DUT    = 0
+
+------------------------- Subgraph 123 -------------------------
+
+[FAILED] -> COEF - 2995390000ps | [i] = 698
+		- Golden = 33
+		- DUT    = 6
+
+[FAILED] -> COEF - 2995550000ps | [i] = 699
+		- Golden = 31
+		- DUT    = 0
+
+[FAILED] -> COEF - 2995710000ps | [i] = 700
+		- Golden = 31
+		- DUT    = 0
+
+[FAILED] -> COEF - 2995870000ps | [i] = 701
+		- Golden = 31
+		- DUT    = 3
+
+[FAILED] -> COEF - 2996030000ps | [i] = 702
+		- Golden = 33
+		- DUT    = 0
+
+------------------------- Subgraph 124 -------------------------
+
+[FAILED] -> COEF - 2996190000ps | [i] = 703
+		- Golden = 0
+		- DUT    = 1
+
+[PASSED] -> COEF - 2996350000ps | [i] = 704
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2996510000ps | [i] = 705
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2996670000ps | [i] = 706
+		- Golden = 3
+		- DUT    = 6
+
+[PASSED] -> COEF - 2996830000ps | [i] = 707
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2996990000ps | [i] = 708
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 125 -------------------------
+
+[PASSED] -> COEF - 2997150000ps | [i] = 709
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2997310000ps | [i] = 710
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[PASSED] -> COEF - 2997470000ps | [i] = 711
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+------------------------- Subgraph 126 -------------------------
+
+[FAILED] -> COEF - 2997630000ps | [i] = 712
+		- Golden = 0
+		- DUT    = 19
+
+[FAILED] -> COEF - 2997790000ps | [i] = 713
+		- Golden = 7
+		- DUT    = 13
+
+[FAILED] -> COEF - 2997950000ps | [i] = 714
+		- Golden = 0
+		- DUT    = 10
+
+[FAILED] -> COEF - 2998110000ps | [i] = 715
+		- Golden = 0
+		- DUT    = 16
+
+[FAILED] -> COEF - 2998270000ps | [i] = 716
+		- Golden = 0
+		- DUT    = 1
+
+[FAILED] -> COEF - 2998430000ps | [i] = 717
+		- Golden = 0
+		- DUT    = 16
+
+[FAILED] -> COEF - 2998590000ps | [i] = 718
+		- Golden = 2
+		- DUT    = 17
+
+------------------------- Subgraph 127 -------------------------
+
+[FAILED] -> COEF - 2998750000ps | [i] = 719
+		- Golden = 10
+		- DUT    = 0
+
+[FAILED] -> COEF - 2998910000ps | [i] = 720
+		- Golden = 16
+		- DUT    = 0
+
+------------------------- Subgraph 128 -------------------------
+
+[PASSED] -> COEF - 2999070000ps | [i] = 721
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2999230000ps | [i] = 722
+		- Golden = 6
+		- DUT    = 0
+
+[PASSED] -> COEF - 2999390000ps | [i] = 723
+		- Golden = 0.000000
+		- DUT    = 0.000000
+
+[FAILED] -> COEF - 2999550000ps | [i] = 724
+		- Golden = 0
+		- DUT    = 2
+
+[FAILED] -> COEF - 2999710000ps | [i] = 725
+		- Golden = 0
+		- DUT    = 4
+
+------------------------- Subgraph 129 -------------------------
+
+[FAILED] -> COEF - 2999870000ps | [i] = 726
+		- Golden = 0
+		- DUT    = 12
+
