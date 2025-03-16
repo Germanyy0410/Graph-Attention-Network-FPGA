@@ -27,7 +27,6 @@ task input_loader();
 
 			$display("NODE_INFO FINISH");
 
-
 			h_node_info_bram_ena        = 1'b0;
 			h_node_info_bram_wea        = 1'b0;
 			h_node_info_bram_load_done  = 1'b1;

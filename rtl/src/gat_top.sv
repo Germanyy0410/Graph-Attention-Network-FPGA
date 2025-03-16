@@ -204,7 +204,6 @@ module gat_top #(
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb                ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ;
-  logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ;
   logic [WGT_ADDR_W_CONV2-1:0]    wgt_bram_addrb_conv2_raw      ;
   logic [DATA_WIDTH-1:0]          wgt_bram_dout                 ;
 

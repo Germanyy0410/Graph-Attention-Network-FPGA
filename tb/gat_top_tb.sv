@@ -297,14 +297,7 @@ module gat_top_tb #(
 
     end_section();
     // =========================================
-  end
-  //* ===============================================================
 
-
-  //* =========================== Layer 2 ===========================
-  initial begin
-    c1;
-    wait(dut.gat_ready == 1'b1);
     wgt_bram_load_done          = 1'b0;
     h_data_bram_load_done       = 1'b0;
     h_node_info_bram_load_done  = 1'b0;
@@ -322,18 +315,21 @@ module gat_top_tb #(
     // =========== Start Simulation ============
     c3;
     wait(dut.u_gat_conv2.u_WH.wh_vld_i);
+    $display("Here 1");
     start_time      = $time;
     lat_start_time  = $time;
-
     // -- Latency
     c3;
     wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
+    $display("Here 2");
     lat_end_time = $time;
 
     // -- Total
     c3;
     wait(dut.gat_ready == 1'b1);
+    $display("Here 3");
     end_time = $time;
+
     // =========================================
 
     $finish();
@@ -354,5 +350,14 @@ module gat_top_tb #(
 
     $finish();
   end
+  //* ===============================================================
+
+
+  //* =========================== Layer 2 ===========================
+  // initial begin
+  //   c1;
+  //   wait(dut.gat_ready == 1'b1);
+
+  // end
   //* ===============================================================
 endmodule
