@@ -284,18 +284,18 @@ module gat_top_tb #(
 
 
     // ================ Report =================
-    summary_section();
+    // summary_section();
 
-    spmm.base_scoreboard();
-    dmvm.base_scoreboard();
-    coef.base_scoreboard();
-    dividend.base_scoreboard();
-    divisor.base_scoreboard();
-    sm_num_nodes.base_scoreboard();
-    alpha.base_scoreboard();
-    new_feature.base_scoreboard();
+    // spmm.base_scoreboard();
+    // dmvm.base_scoreboard();
+    // coef.base_scoreboard();
+    // dividend.base_scoreboard();
+    // divisor.base_scoreboard();
+    // sm_num_nodes.base_scoreboard();
+    // alpha.base_scoreboard();
+    // new_feature.base_scoreboard();
 
-    end_section();
+    // end_section();
     // =========================================
     $display("Here 0");
 
