@@ -9,8 +9,11 @@ module debugger (
   input  sm_rdy_i,
   input  aggr_vld_i,
   input  aggr_rdy_i,
-  input  [15:0] feat_bram_addra,
   input  feat_bram_ena,
+  input  [15:0] feat_bram_addra,
+  input  [17:0] h_data_bram_addrb,
+  input  [14:0] wgt_bram_addrb,
+  input  [13:0] h_node_info_bram_addrb,
 
   output [31:0] debug_1,
   output [31:0] debug_2,
