@@ -88,7 +88,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
         pass_checker++;
         msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d\n", pass, rm_spc(label), $time, i) };
         if (frac_bits == 0) begin
-          msg = { msg, $sformatf("\t\t- Golden = %0f\n\t\t- DUT    = %0f\n", golden_output[i], real_dut_output) };
+          msg = { msg, $sformatf("\t\t- Golden = %0f\n\t\t- DUT    = %0f, %0f, %0f\n", golden_output[i], real_dut_output, dut_output, $signed(dut_output)) };
         end else begin
           msg = { msg, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f\n", golden_output[i], real_dut_output) };
           msg = { msg, $sformatf("\t\t- Diff   = %0.15f\n", abs(real_dut_output - golden_output[i])) };
