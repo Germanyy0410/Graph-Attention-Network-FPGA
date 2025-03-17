@@ -115,7 +115,7 @@ module gat_top_wrapper #(
   input                             wgt_bram_load_done          ,
   //* ==========================================================
 
-  input   [WH_ADDR_W+4:0]           wh_bram_addrc               ,
+  input   [WH_ADDR_W+7:0]           wh_bram_addrc               ,
   output  [WH_WIDTH-1:0]            wh_bram_doutc               ,
 
   //* ===================== BRAM Interface =====================
@@ -171,7 +171,7 @@ module gat_top_wrapper #(
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                   ),
     .wgt_bram_load_done           (wgt_bram_load_done                           ),
 
-    .wh_bram_addrc                (wh_bram_addrc[WH_ADDR_W+4:5]                 ),
+    .wh_bram_addrc                (wh_bram_addrc[WH_ADDR_W+7:8]                 ),
     .wh_bram_doutc                (wh_bram_doutc                                ),
 
     .h_data_bram_din              (h_data_bram_din[H_DATA_WIDTH-1:0]            ),
