@@ -75,7 +75,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
       wait(dut_ready);
 
       // Compare DUT & Golden
-      if (error == 0) begin
+    if (error == 0) begin
         real_dut_output = (signed_bit) ? $signed(dut_output) : dut_output;
         comparator      = (signed_bit) ? ($signed(dut_output) == golden_output[i]) : (dut_output == golden_output[i]);
       end else begin
