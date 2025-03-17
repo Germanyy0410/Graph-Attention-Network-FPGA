@@ -194,8 +194,8 @@ module gat_top_tb #(
   logic                             wgt_bram_wea                ;
   logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ;
 
-  logic   [WH_ADDR_W-1:0]           wh_bram_addrc               ;
-  logic   [WH_WIDTH-1:0]            wh_bram_doutc               ;
+  logic   [13:0]                    wh_out_bram_addrb           ;
+  logic   [WH_DATA_WIDTH_CONV1-1:0] wh_out_bram_dout            ;
 
   logic   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ;
   logic   [DATA_WIDTH-1:0]          feat_bram_dout              ;

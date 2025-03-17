@@ -166,8 +166,8 @@ module gat_top #(
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
 
-  input   [WH_ADDR_W-1:0]           wh_bram_addrc               ,
-  output  [WH_WIDTH-1:0]            wh_bram_doutc               ,
+  input   [13:0]                    wh_out_bram_addrb           ,
+  output  [WH_DATA_WIDTH_CONV1-1:0] wh_out_bram_dout            ,
 
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
   input                             h_data_bram_ena             ,
@@ -315,6 +315,9 @@ module gat_top #(
     .gat_debug_1                (gat_debug_1                      ),
     .gat_debug_2                (gat_debug_2                      ),
     .gat_debug_3                (gat_debug_3                      ),
+
+    .wh_out_bram_addrb          (wh_out_bram_addrb                ),
+    .wh_out_bram_dout           (wh_out_bram_dout                 ),
 
     .h_data_bram_dout           (h_data_bram_dout                 ),
     .h_data_bram_addrb          (h_data_bram_addrb_conv1          ),

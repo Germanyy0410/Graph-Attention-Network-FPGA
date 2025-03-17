@@ -101,6 +101,9 @@ module gat_conv1 #(
   output  [31:0]                    gat_debug_2                 ,
   output  [31:0]                    gat_debug_3                 ,
 
+  input   [13:0]                    wh_out_bram_addrb           ,
+  output  [WH_DATA_WIDTH-1:0]       wh_out_bram_dout            ,
+
   input   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
   output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
   input                             h_data_bram_load_done       ,
@@ -233,8 +236,8 @@ module gat_conv1 #(
 
   logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0] sppe;
 
-
   assign spmm_vld = w_rdy && (gat_layer == 1'b0);
+  // assign spmm_vld = w_rdy && (gat_layer == 1'b0) && h_node_info_bram_load_done && h_data_bram_load_done;
 
   SPMM #(
     .DATA_WIDTH         (DATA_WIDTH         ),
@@ -431,7 +434,7 @@ module gat_conv1 #(
   //* ==========================================================
 
 
-  //* ======================= Aggregator =======================
+  //* ======================== Debugger ========================
   debugger #(
     .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  )
   )
@@ -465,4 +468,30 @@ module gat_conv1 #(
     .debug_3                  (gat_debug_3              )
   );
   //* ==========================================================
+
+
+  //* ======================== Debugger ========================
+  logic [WH_DATA_WIDTH-1:0]       wh_out_bram_din             ;
+  logic                           wh_out_bram_ena             ;
+  logic [13:0]                    wh_out_bram_addra           ;
+
+  assign wh_out_bram_ena    = wh_bram_ena;
+  assign wh_out_bram_din    = sppe[0];
+  assign wh_out_bram_addra  = wh_bram_addra;
+
+  BRAM #(
+    .DATA_WIDTH   (WH_DATA_WIDTH        ),
+    .DEPTH        (4800                 )
+  ) u_wh_out_bram (
+    .clk          (clk                  ),
+    .rst_n        (rst_n                ),
+    .din          (wh_out_bram_din      ),
+    .addra        (wh_out_bram_addra    ),
+    .ena          (wh_out_bram_ena      ),
+    .wea          (wh_out_bram_ena      ),
+    .addrb        (wh_out_bram_addrb    ),
+    .dout         (wh_out_bram_dout     )
+  );
+  //* ==========================================================
+
 endmodule
