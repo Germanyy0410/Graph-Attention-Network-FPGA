@@ -427,7 +427,10 @@ module gat_conv1 #(
 
 
   //* ======================= Aggregator =======================
-  debugger u_debugger (
+  debugger #(
+    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  )
+  )
+  u_debugger (
     .clk                      (clk                      ),
     .rst_n                    (rst_n                    ),
     .spmm_vld_i               (spmm_vld                 ),
