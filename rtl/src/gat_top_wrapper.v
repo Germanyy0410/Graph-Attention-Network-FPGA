@@ -116,6 +116,18 @@ module gat_top_wrapper #(
   //* ==========================================================
 
 
+  // -------------------------------------
+  input   [H_DATA_ADDR_W+1:0]       h_data_bram_addrc           ,
+  output  [H_DATA_WIDTH-1:0]        h_data_bram_doutc           ,
+
+  input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addrc      ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc      ,
+
+  input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addrc              ,
+  output  [DATA_WIDTH-1:0]          wgt_bram_doutc              ,
+  // -------------------------------------
+
+
   //* ===================== BRAM Interface =====================
   input   [31:0]                    h_data_bram_din             ,
   input                             h_data_bram_ena             ,
@@ -168,6 +180,13 @@ module gat_top_wrapper #(
     .h_data_bram_load_done        (h_data_bram_load_done                        ),
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                   ),
     .wgt_bram_load_done           (wgt_bram_load_done                           ),
+
+    .h_data_bram_addrc            (h_data_bram_addrc[H_DATA_ADDR_W-1:0]         ),
+    .h_data_bram_doutc            (h_data_bram_doutc                            ),
+    .h_node_info_bram_addrc       (h_node_info_bram_addrc[NODE_INFO_ADDR_W-1:0] ),
+    .h_node_info_bram_doutc       (h_node_info_bram_doutc                       ),
+    .wgt_bram_addrc               (wgt_bram_addrc[WEIGHT_ADDR_W-1:0]            ),
+    .wgt_bram_doutc               (wgt_bram_doutc                               ),
 
     .h_data_bram_din              (h_data_bram_din[H_DATA_WIDTH-1:0]            ),
     .h_data_bram_ena              (h_data_bram_ena                              ),

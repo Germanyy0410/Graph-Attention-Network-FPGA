@@ -139,6 +139,15 @@ module memory_controller #(
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ,
   output  [DATA_WIDTH-1:0]          wgt_bram_dout                 ,
+
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addrc             ,
+  output  [H_DATA_WIDTH-1:0]        h_data_bram_doutc             ,
+
+  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrc        ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc        ,
+
+  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrc                ,
+  output  [DATA_WIDTH-1:0]          wgt_bram_doutc                ,
   //* ==========================================================
 
 
@@ -227,7 +236,7 @@ module memory_controller #(
   assign feat_bram_addrb        = (gat_layer == 0) ? feat_bram_addrb_conv1        : feat_bram_addrb_conv2;
 
   //* ========================= MEMORY =========================
-  BRAM #(
+  dual_read_BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
     .DEPTH        (H_DATA_DEPTH         )
   ) u_h_data_bram (
@@ -238,10 +247,12 @@ module memory_controller #(
     .ena          (h_data_bram_ena      ),
     .wea          (h_data_bram_wea      ),
     .addrb        (h_data_bram_addrb    ),
-    .dout         (h_data_bram_dout     )
+    .doutb        (h_data_bram_dout     ),
+    .addrc        (h_data_bram_addrc    ),
+    .doutc        (h_data_bram_doutc    )
   );
 
-  BRAM #(
+  dual_read_BRAM #(
     .DATA_WIDTH   (NODE_INFO_WIDTH            ),
     .DEPTH        (NODE_INFO_DEPTH            )
   ) u_h_node_info_bram (
@@ -252,10 +263,12 @@ module memory_controller #(
     .ena          (h_node_info_bram_ena       ),
     .wea          (h_node_info_bram_wea       ),
     .addrb        (h_node_info_bram_addrb     ),
-    .dout         (h_node_info_bram_dout      )
+    .doutb        (h_node_info_bram_dout      ),
+    .addrc        (h_node_info_bram_addrc     ),
+    .doutc        (h_node_info_bram_doutc     )
   );
 
-  BRAM #(
+  dual_read_BRAM #(
     .DATA_WIDTH   (DATA_WIDTH           ),
     .DEPTH        (WEIGHT_DEPTH         )
   ) u_wgt_bram (
@@ -266,7 +279,9 @@ module memory_controller #(
     .ena          (wgt_bram_ena         ),
     .wea          (wgt_bram_wea         ),
     .addrb        (wgt_bram_addrb       ),
-    .dout         (wgt_bram_dout        )
+    .doutb        (wgt_bram_dout        ),
+    .addrc        (wgt_bram_addrb       ),
+    .doutc        (wgt_bram_dout        )
   );
 
   BRAM #(

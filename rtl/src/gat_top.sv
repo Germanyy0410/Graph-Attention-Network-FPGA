@@ -166,6 +166,17 @@ module gat_top #(
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
 
+  // -------------------------------------
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addrc           ,
+  output  [H_DATA_WIDTH-1:0]        h_data_bram_doutc           ,
+
+  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrc      ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc      ,
+
+  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrc              ,
+  output  [DATA_WIDTH-1:0]          wgt_bram_doutc              ,
+  // -------------------------------------
+
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
   input                             h_data_bram_ena             ,
   input                             h_data_bram_wea             ,
