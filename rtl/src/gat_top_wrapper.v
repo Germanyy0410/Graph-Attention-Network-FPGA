@@ -115,7 +115,7 @@ module gat_top_wrapper #(
   input                             wgt_bram_load_done          ,
   //* ==========================================================
 
-  input   [15:0]                    wh_out_bram_addrb           ,
+  input   [14:0]                    wh_out_bram_addrb           ,
   output  [WH_DATA_WIDTH-1:0]       wh_out_bram_dout            ,
 
   //* ===================== BRAM Interface =====================
@@ -192,5 +192,5 @@ module gat_top_wrapper #(
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]      ),
     .feat_bram_dout               (feat_bram_dout[DATA_WIDTH-1:0]               )
   );
-  
+
 endmodule
