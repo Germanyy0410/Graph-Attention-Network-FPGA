@@ -171,7 +171,7 @@ module gat_top_wrapper #(
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                   ),
     .wgt_bram_load_done           (wgt_bram_load_done                           ),
 
-    .wh_out_bram_addrb            (wh_out_bram_addrb[WH_ADDR_W+1:2]             ),
+    .wh_out_bram_addrb            (wh_out_bram_addrb[WH_ADDR_W+1:2]                      ),
     .wh_out_bram_dout             (wh_out_bram_dout                             ),
 
     .h_data_bram_din              (h_data_bram_din[H_DATA_WIDTH-1:0]            ),
@@ -192,4 +192,5 @@ module gat_top_wrapper #(
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]      ),
     .feat_bram_dout               (feat_bram_dout[DATA_WIDTH-1:0]               )
   );
+
 endmodule
