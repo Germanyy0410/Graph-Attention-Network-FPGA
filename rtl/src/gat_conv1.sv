@@ -440,6 +440,7 @@ module gat_conv1 #(
     .aggr_rdy_i               (aggr_rdy                 ),
     .feat_bram_addra          (feat_bram_addra          ),
     .feat_bram_ena            (feat_bram_ena            ),
+    .feat_bram_din            (feat_bram_din            ),
     .h_data_bram_addrb        (h_data_bram_addrb        ),
     .wgt_bram_addrb           (wgt_bram_addrb           ),
     .h_node_info_bram_addrb   (h_node_info_bram_addrb   ),
