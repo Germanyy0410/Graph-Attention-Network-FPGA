@@ -147,7 +147,6 @@ module SPMM #(
   logic                                           dense_row                 ;
   logic                                           dense_row_nxt             ;
 
-
   // -- Address for H_bram
   logic [H_DATA_ADDR_W-1:0]                       data_addr                 ;
   logic [H_DATA_ADDR_W-1:0]                       data_addr_reg             ;

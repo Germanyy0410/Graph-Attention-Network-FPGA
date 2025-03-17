@@ -152,6 +152,7 @@ module W_loader #(
 
 
   //* ===================== bram instance =====================
+  (* dont_touch = "yes" *)
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       BRAM #(

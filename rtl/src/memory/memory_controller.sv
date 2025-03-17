@@ -227,6 +227,7 @@ module memory_controller #(
   assign feat_bram_addrb        = (gat_layer == 0) ? feat_bram_addrb_conv1        : feat_bram_addrb_conv2;
 
   //* ========================= MEMORY =========================
+  (* dont_touch = "yes" *)
   BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
     .DEPTH        (H_DATA_DEPTH         )
@@ -241,6 +242,7 @@ module memory_controller #(
     .dout         (h_data_bram_dout     )
   );
 
+  (* dont_touch = "yes" *)
   BRAM #(
     .DATA_WIDTH   (NODE_INFO_WIDTH            ),
     .DEPTH        (NODE_INFO_DEPTH            )
@@ -255,6 +257,7 @@ module memory_controller #(
     .dout         (h_node_info_bram_dout      )
   );
 
+  (* dont_touch = "yes" *)
   BRAM #(
     .DATA_WIDTH   (DATA_WIDTH           ),
     .DEPTH        (WEIGHT_DEPTH         )
