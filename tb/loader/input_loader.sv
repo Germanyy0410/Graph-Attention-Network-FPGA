@@ -8,7 +8,6 @@ task input_loader();
 
 	INPUT_PATH = (gat_layer == 1'b0) ? $sformatf("%s/layer_1/input", ROOT_PATH) : $sformatf("%s/layer_2/input", ROOT_PATH);
 
-	fork
 		// -- Task 1: Node-Info
 		begin
 			c1;
@@ -98,7 +97,6 @@ task input_loader();
 
 			$fclose(value_file);
 		end
-	join
 
 	$display("DEBUG FINISH");
 endtask

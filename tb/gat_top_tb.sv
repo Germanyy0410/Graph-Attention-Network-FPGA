@@ -181,18 +181,24 @@ module gat_top_tb #(
   logic                             h_data_bram_ena             ;
   logic                             h_data_bram_wea             ;
   logic   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ;
+  logic   [H_DATA_ADDR_W-1:0]       h_data_bram_addrc           ;
+  logic   [H_DATA_WIDTH-1:0]        h_data_bram_doutc           ;
 
   logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ;
   logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_douta      ;
   logic                             h_node_info_bram_ena        ;
   logic                             h_node_info_bram_wea        ;
   logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ;
+  logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrc      ;
+  logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc      ;
 
   logic   [DATA_WIDTH-1:0]          wgt_bram_din                ;
   logic   [DATA_WIDTH-1:0]          wgt_bram_douta              ;
   logic                             wgt_bram_ena                ;
   logic                             wgt_bram_wea                ;
   logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ;
+  logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrc              ;
+  logic   [DATA_WIDTH-1:0]          wgt_bram_doutc              ;
 
   logic   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ;
   logic   [DATA_WIDTH-1:0]          feat_bram_dout              ;
@@ -287,18 +293,18 @@ module gat_top_tb #(
 
 
     // ================ Report =================
-    // summary_section();
+    summary_section();
 
-    // spmm.base_scoreboard();
-    // dmvm.base_scoreboard();
-    // coef.base_scoreboard();
-    // dividend.base_scoreboard();
-    // divisor.base_scoreboard();
-    // sm_num_nodes.base_scoreboard();
-    // alpha.base_scoreboard();
-    // new_feature.base_scoreboard();
+    spmm.base_scoreboard();
+    dmvm.base_scoreboard();
+    coef.base_scoreboard();
+    dividend.base_scoreboard();
+    divisor.base_scoreboard();
+    sm_num_nodes.base_scoreboard();
+    alpha.base_scoreboard();
+    new_feature.base_scoreboard();
 
-    // end_section();
+    end_section();
     // =========================================
     $display("Here 0");
 
