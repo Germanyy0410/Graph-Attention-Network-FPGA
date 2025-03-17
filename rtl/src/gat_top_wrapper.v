@@ -137,8 +137,6 @@ module gat_top_wrapper #(
   //* ==========================================================
 );
 
-  assign gat_ready = 1'b1;
-
   gat_top #(
     .DATA_WIDTH         (DATA_WIDTH         ),
 
@@ -163,7 +161,7 @@ module gat_top_wrapper #(
     .rst_n                        (rst_n                                        ),
 
     .gat_layer                    (gat_layer                                    ),
-    // .gat_ready                    (gat_ready                                    ),
+    .gat_ready                    (gat_ready                                    ),
     .gat_debug_1                  (gat_debug_1                                  ),
     .gat_debug_2                  (gat_debug_2                                  ),
     .gat_debug_3                  (gat_debug_3                                  ),
@@ -189,4 +187,5 @@ module gat_top_wrapper #(
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]      ),
     .feat_bram_dout               (feat_bram_dout[DATA_WIDTH-1:0]               )
   );
+  
 endmodule
