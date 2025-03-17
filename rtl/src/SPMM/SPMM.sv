@@ -110,6 +110,8 @@ module SPMM #(
   input                                                 spmm_vld_i                ,
   output                                                spmm_rdy_o                ,
 
+  output  [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0]       sppe                      ,
+
   // -- h_data BRAM
   input   [H_DATA_WIDTH-1:0]                            h_data_bram_dout          ,
   output  [H_DATA_ADDR_W-1:0]                           h_data_bram_addrb         ,
@@ -193,7 +195,6 @@ module SPMM #(
 
   // -- SP-PE results
   logic [WH_RESULT_WIDTH-1:0]                     sppe_cat                  ;
-  logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0]   sppe                      ;
   logic [WH_WIDTH-1:0]                            wh_data_i                 ;
   logic [WH_ADDR_W-1:0]                           wh_addr                   ;
   logic [WH_ADDR_W-1:0]                           wh_addr_reg               ;

@@ -231,6 +231,9 @@ module gat_conv1 #(
   logic                       spmm_rdy  ;
   logic [WH_WIDTH-1:0]        wh_data   ;
 
+  logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0] sppe;
+
+
   assign spmm_vld = w_rdy && (gat_layer == 1'b0);
 
   SPMM #(
@@ -268,6 +271,8 @@ module gat_conv1 #(
 
     .spmm_vld_i                 (spmm_vld                   ),
     .spmm_rdy_o                 (spmm_rdy                   ),
+
+    .sppe                       (sppe                       ),
 
     .wh_data_o                  (wh_data                    ),
 
@@ -451,6 +456,9 @@ module gat_conv1 #(
 
     .wgt_bram_addrb           (wgt_bram_addrb           ),
     .h_node_info_bram_addrb   (h_node_info_bram_addrb   ),
+
+    .sppe                     (sppe                     ),
+    .wh_bram_addra            (wh_bram_addra            ),
 
     .debug_1                  (gat_debug_1              ),
     .debug_2                  (gat_debug_2              ),

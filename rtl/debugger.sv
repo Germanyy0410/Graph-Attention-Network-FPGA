@@ -9,15 +9,20 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
   input  sm_rdy_i,
   input  aggr_vld_i,
   input  aggr_rdy_i,
-  input  [31:0] feat_bram_din,
-  input  feat_bram_ena,
-  input  [15:0] feat_bram_addra,
+
 
   input  [17:0] h_data_bram_addrb,
   input  [18:0] h_data_bram_dout,
 
   input  [14:0] wgt_bram_addrb,
   input  [13:0] h_node_info_bram_addrb,
+
+  input  [15:0] [11:0] sppe,
+  input  [13:0] wh_bram_addra,
+
+  input  [31:0] feat_bram_din,
+  input  feat_bram_ena,
+  input  [15:0] feat_bram_addra,
 
   output [31:0] debug_1,
   output [31:0] debug_2,
@@ -84,8 +89,8 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
   logic [31:0]  data_2_reg;
 
   assign counter = (sm_vld_i) ? (counter_reg + 1) : counter_reg;
-  assign data_1  = (feat_bram_addra == 1 && feat_bram_ena) ? feat_bram_din : data_1_reg;
-  assign data_2  = (feat_bram_addra == 2 && feat_bram_ena) ? feat_bram_din : data_2_reg;
+  assign data_1  = (wh_bram_addra == 10 && spmm_rdy_i) ? sppe[2] : data_1_reg;
+  assign data_2  = (wh_bram_addra == 20 && spmm_rdy_i) ? sppe[2] : data_2_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
