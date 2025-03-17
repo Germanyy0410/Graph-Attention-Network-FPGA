@@ -177,16 +177,19 @@ module gat_top_tb #(
   logic                             wgt_bram_load_done          ;
 
   logic   [H_DATA_WIDTH-1:0]        h_data_bram_din             ;
+  logic   [H_DATA_WIDTH-1:0]        h_data_bram_douta           ;
   logic                             h_data_bram_ena             ;
   logic                             h_data_bram_wea             ;
   logic   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ;
 
   logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ;
+  logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_douta      ;
   logic                             h_node_info_bram_ena        ;
   logic                             h_node_info_bram_wea        ;
   logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ;
 
   logic   [DATA_WIDTH-1:0]          wgt_bram_din                ;
+  logic   [DATA_WIDTH-1:0]          wgt_bram_douta              ;
   logic                             wgt_bram_ena                ;
   logic                             wgt_bram_wea                ;
   logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ;

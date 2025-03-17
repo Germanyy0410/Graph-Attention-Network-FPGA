@@ -12,7 +12,10 @@ module debugger (
   input  [31:0] feat_bram_din,
   input  feat_bram_ena,
   input  [15:0] feat_bram_addra,
+
   input  [17:0] h_data_bram_addrb,
+  input  [18:0] h_data_bram_dout,
+
   input  [14:0] wgt_bram_addrb,
   input  [13:0] h_node_info_bram_addrb,
 
@@ -81,8 +84,8 @@ module debugger (
   logic [31:0]  data_2_reg;
 
   assign counter = (sm_vld_i) ? (counter_reg + 1) : counter_reg;
-  assign data_1  = (feat_bram_addra == 1) ? feat_bram_din : data_1_reg;
-  assign data_2  = (feat_bram_addra == 2) ? feat_bram_din : data_2_reg;
+  assign data_1  = (h_data_bram_addrb == 10) ? h_data_bram_dout : data_1_reg;
+  assign data_2  = (h_data_bram_addrb == 20) ? h_data_bram_dout : data_2_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -96,8 +99,7 @@ module debugger (
     end
   end
 
-  // assign debug_1 = { addr_flag, ena_flag_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
-  assign debug_1 = feat_bram_addra;
+  assign debug_1 = { spmm_vld_i, spmm_rdy_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
 
   // assign debug_2 = feat_bram_addra;
   assign debug_2 = data_1_reg;
