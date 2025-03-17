@@ -187,7 +187,7 @@ module feature_controller #(
   end
 
   //* ================== push into bram ==================
-  assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+  assign feat_bram_din   = 50;
   assign feat_bram_addra = feat_addr_reg;
   assign feat_bram_ena   = push_feat_ena;
   //* ====================================================

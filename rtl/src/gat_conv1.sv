@@ -476,7 +476,7 @@ module gat_conv1 #(
   logic [WH_ADDR_W-1:0]           wh_out_bram_addra           ;
 
   assign wh_out_bram_ena    = wh_bram_ena;
-  assign wh_out_bram_din    = sppe[0];
+  assign wh_out_bram_din    = 100;
   assign wh_out_bram_addra  = wh_bram_addra;
 
   BRAM #(
