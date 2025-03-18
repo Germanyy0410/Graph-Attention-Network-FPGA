@@ -178,6 +178,8 @@ module gat_top #(
   input                             h_node_info_bram_ena        ,
   input                             h_node_info_bram_wea        ,
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ,
+  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrc      ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc      ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
   input                             wgt_bram_ena                ,

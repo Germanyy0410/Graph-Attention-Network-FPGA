@@ -128,6 +128,8 @@ module gat_top_wrapper #(
   input                             h_node_info_bram_ena        ,
   input                             h_node_info_bram_wea        ,
   input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addra      ,
+  input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addrc      ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc      ,
 
   input   [31:0]                    wgt_bram_din                ,
   input                             wgt_bram_ena                ,
@@ -171,7 +173,7 @@ module gat_top_wrapper #(
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                   ),
     .wgt_bram_load_done           (wgt_bram_load_done                           ),
 
-    .wh_out_bram_addrb            (wh_out_bram_addrb[WH_ADDR_W+1:2]                      ),
+    .wh_out_bram_addrb            (wh_out_bram_addrb[WH_ADDR_W+1:2]             ),
     .wh_out_bram_dout             (wh_out_bram_dout                             ),
 
     .h_data_bram_din              (h_data_bram_din[H_DATA_WIDTH-1:0]            ),
@@ -183,6 +185,8 @@ module gat_top_wrapper #(
     .h_node_info_bram_ena         (h_node_info_bram_ena                         ),
     .h_node_info_bram_wea         (h_node_info_bram_wea                         ),
     .h_node_info_bram_addra       (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2] ),
+    .h_node_info_bram_addrc       (h_node_info_bram_addrc[NODE_INFO_ADDR_W+1:2] ),
+    .h_node_info_bram_doutc       (h_node_info_bram_doutc                       ),
 
     .wgt_bram_din                 (wgt_bram_din[DATA_WIDTH-1:0]                 ),
     .wgt_bram_ena                 (wgt_bram_ena                                 ),

@@ -118,6 +118,8 @@ module memory_controller #(
   input                             h_node_info_bram_wea          ,
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra        ,
   input                             h_node_info_bram_load_done    ,
+  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrc        ,
+  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc        ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                  ,
   input                             wgt_bram_ena                  ,
@@ -243,7 +245,7 @@ module memory_controller #(
   );
 
   (* dont_touch = "yes" *)
-  BRAM #(
+  dual_read_BRAM #(
     .DATA_WIDTH   (NODE_INFO_WIDTH            ),
     .DEPTH        (NODE_INFO_DEPTH            )
   ) u_h_node_info_bram (
@@ -254,7 +256,9 @@ module memory_controller #(
     .ena          (h_node_info_bram_ena       ),
     .wea          (h_node_info_bram_wea       ),
     .addrb        (h_node_info_bram_addrb     ),
-    .dout         (h_node_info_bram_dout      )
+    .doutb        (h_node_info_bram_dout      ),
+    .addrc        (h_node_info_bram_addrc     ),
+    .doutc        (h_node_info_bram_doutc     )
   );
 
   (* dont_touch = "yes" *)
@@ -283,7 +287,7 @@ module memory_controller #(
     .ena          (wh_bram_ena          ),
     .wea          (wh_bram_ena          ),
     .addrb        (wh_bram_addrb        ),
-    .dout        (wh_bram_dout         )
+    .dout         (wh_bram_dout         )
   );
 
   dual_read_BRAM #(
