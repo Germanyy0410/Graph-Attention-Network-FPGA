@@ -187,6 +187,8 @@ module gat_top_tb #(
   logic                             h_node_info_bram_ena        ;
   logic                             h_node_info_bram_wea        ;
   logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ;
+  logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrc      ;
+  logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc      ;
 
   logic   [DATA_WIDTH-1:0]          wgt_bram_din                ;
   logic   [DATA_WIDTH-1:0]          wgt_bram_douta              ;

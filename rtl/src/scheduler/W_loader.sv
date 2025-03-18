@@ -158,7 +158,7 @@ module W_loader #(
       BRAM #(
         .DATA_WIDTH   (DATA_WIDTH     ),
         .DEPTH        (W_NUM_OF_ROWS  ),
-        .CLK_LATENCY  (0              )
+        .CLK_LATENCY  (1              )
       ) u_mult_wgt_bram (
         .clk          (clk               ),
         .rst_n        (rst_n             ),
