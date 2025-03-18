@@ -53,7 +53,7 @@ module gat_conv1 #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS*10),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
@@ -130,6 +130,8 @@ module gat_conv1 #(
   output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra         ,
   output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb         ,
   input   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb         ,
+  output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc         ,
+  input   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
 
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_din               ,
   output                            feat_bram_ena               ,
