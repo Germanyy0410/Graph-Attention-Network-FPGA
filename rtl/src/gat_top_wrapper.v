@@ -135,6 +135,8 @@ module gat_top_wrapper #(
   input                             wgt_bram_ena                ,
   input                             wgt_bram_wea                ,
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
+  input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addrc              ,
+  output  [DATA_WIDTH-1:0]          wgt_bram_doutc              ,
 
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
   output  [31:0]                    feat_bram_dout
@@ -185,16 +187,16 @@ module gat_top_wrapper #(
     .h_node_info_bram_ena         (h_node_info_bram_ena                         ),
     .h_node_info_bram_wea         (h_node_info_bram_wea                         ),
     .h_node_info_bram_addra       (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2] ),
-    .h_node_info_bram_addrc       (h_node_info_bram_addrc[NODE_INFO_ADDR_W+1:2] ),
-    .h_node_info_bram_doutc       (h_node_info_bram_doutc                       ),
 
     .wgt_bram_din                 (wgt_bram_din[DATA_WIDTH-1:0]                 ),
     .wgt_bram_ena                 (wgt_bram_ena                                 ),
     .wgt_bram_wea                 (wgt_bram_wea                                 ),
     .wgt_bram_addra               (wgt_bram_addra[WEIGHT_ADDR_W+1:2]            ),
+    .wgt_bram_addrc               (wgt_bram_addrc[WEIGHT_ADDR_W+1:2]            ),
+    .wgt_bram_doutc               (wgt_bram_doutc                               ),
 
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]      ),
     .feat_bram_dout               (feat_bram_dout[DATA_WIDTH-1:0]               )
   );
-  
+
 endmodule

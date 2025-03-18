@@ -118,14 +118,14 @@ module memory_controller #(
   input                             h_node_info_bram_wea          ,
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra        ,
   input                             h_node_info_bram_load_done    ,
-  input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrc        ,
-  output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc        ,
 
   input   [DATA_WIDTH-1:0]          wgt_bram_din                  ,
   input                             wgt_bram_ena                  ,
   input                             wgt_bram_wea                  ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra                ,
   input                             wgt_bram_load_done            ,
+  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrc                ,
+  output  [DATA_WIDTH-1:0]          wgt_bram_doutc                ,
   //* ==========================================================
 
 
@@ -245,7 +245,7 @@ module memory_controller #(
   );
 
   (* dont_touch = "yes" *)
-  dual_read_BRAM #(
+  BRAM #(
     .DATA_WIDTH   (NODE_INFO_WIDTH            ),
     .DEPTH        (NODE_INFO_DEPTH            )
   ) u_h_node_info_bram (
@@ -256,13 +256,11 @@ module memory_controller #(
     .ena          (h_node_info_bram_ena       ),
     .wea          (h_node_info_bram_wea       ),
     .addrb        (h_node_info_bram_addrb     ),
-    .doutb        (h_node_info_bram_dout      ),
-    .addrc        (h_node_info_bram_addrc     ),
-    .doutc        (h_node_info_bram_doutc     )
+    .dout         (h_node_info_bram_dout      )
   );
 
   (* dont_touch = "yes" *)
-  BRAM #(
+  dual_read_BRAM #(
     .DATA_WIDTH   (DATA_WIDTH           ),
     .DEPTH        (WEIGHT_DEPTH         )
   ) u_wgt_bram (
@@ -273,7 +271,9 @@ module memory_controller #(
     .ena          (wgt_bram_ena         ),
     .wea          (wgt_bram_wea         ),
     .addrb        (wgt_bram_addrb       ),
-    .dout         (wgt_bram_dout        )
+    .doutb        (wgt_bram_dout        ),
+    .addrc        (wgt_bram_addrc       ),
+    .doutc        (wgt_bram_doutc       )
   );
 
   BRAM #(
