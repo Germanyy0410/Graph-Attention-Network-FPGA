@@ -186,6 +186,8 @@ module gat_top #(
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrc              ,
   output  [DATA_WIDTH-1:0]          wgt_bram_doutc              ,
 
+  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1   ,
+  output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
@@ -216,7 +218,6 @@ module gat_top #(
   // -- Output
   logic [WH_WIDTH-1:0]            wh_bram_dout                  ;
   logic [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb           ;
-  logic [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc           ;
 
   // -- Conv1
   logic [WH_WIDTH-1:0]            wh_bram_din_conv1             ;
@@ -228,7 +229,6 @@ module gat_top #(
   logic                           num_node_bram_ena_conv1       ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra_conv1     ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv1     ;
-  logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1     ;
 
   logic [DATA_WIDTH-1:0]          feat_bram_din_conv1           ;
   logic                           feat_bram_ena_conv1           ;
@@ -345,8 +345,6 @@ module gat_top #(
     .num_node_bram_addra        (num_node_bram_addra_conv1        ),
     .num_node_bram_addrb        (num_node_bram_addrb_conv1        ),
     .num_node_bram_doutb        (num_node_bram_doutb              ),
-    .num_node_bram_addrc        (num_node_bram_addrc_conv1        ),
-    .num_node_bram_doutc        (num_node_bram_doutc              ),
 
     .feat_bram_din              (feat_bram_din_conv1              ),
     .feat_bram_ena              (feat_bram_ena_conv1              ),

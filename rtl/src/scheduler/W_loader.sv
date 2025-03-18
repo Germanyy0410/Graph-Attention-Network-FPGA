@@ -156,9 +156,8 @@ module W_loader #(
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       BRAM #(
-        .DATA_WIDTH   (DATA_WIDTH     ),
-        .DEPTH        (W_NUM_OF_ROWS  ),
-        .CLK_LATENCY  (1              )
+        .DATA_WIDTH   (DATA_WIDTH         ),
+        .DEPTH        (W_NUM_OF_ROWS*10   )
       ) u_mult_wgt_bram (
         .clk          (clk               ),
         .rst_n        (rst_n             ),
