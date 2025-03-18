@@ -136,6 +136,9 @@ module gat_top_wrapper #(
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addrc              ,
   output  [DATA_WIDTH-1:0]          wgt_bram_doutc              ,
 
+  input   [MULT_WEIGHT_ADDR_W+1:0]  wgt_col_addrb               ,
+  output  [DATA_WIDTH-1:0]          wgt_col_dout                ,
+
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
   output  [31:0]                    feat_bram_dout
   //* ==========================================================
@@ -193,7 +196,10 @@ module gat_top_wrapper #(
     .wgt_bram_addrc               (wgt_bram_addrc[WEIGHT_ADDR_W+1:2]            ),
     .wgt_bram_doutc               (wgt_bram_doutc                               ),
 
+    .wgt_col_addrb                (wgt_col_addrb[MULT_WEIGHT_ADDR_W+1:2]        ),
+    .wgt_col_dout                 (wgt_col_dout                                 ),
+
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]      ),
-    .feat_bram_dout               (feat_bram_dout[DATA_WIDTH-1:0]               )
+    .feat_bram_dout               (feat_bram_dout                               )
   );
 endmodule

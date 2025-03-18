@@ -60,7 +60,7 @@ module W_loader #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH) + $clog2(A_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS*10),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
@@ -111,6 +111,11 @@ module W_loader #(
 
   output  [W_NUM_OF_COLS*DATA_WIDTH-1:0]                mult_wgt_dout_flat      ,
   input   [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]        mult_wgt_addrb_flat     ,
+
+  output  [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_wgt_doutc          ,
+  input   [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_wgt_addrc          ,
+
+
   output  [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a_o
 );
 
@@ -155,9 +160,9 @@ module W_loader #(
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       (* dont_touch = "yes" *)
-      BRAM #(
+      dual_read_BRAM #(
         .DATA_WIDTH   (DATA_WIDTH         ),
-        .DEPTH        (W_NUM_OF_ROWS*10   )
+        .DEPTH        (W_NUM_OF_ROWS      )
       ) u_mult_wgt_bram (
         .clk          (clk               ),
         .rst_n        (rst_n             ),
@@ -166,7 +171,9 @@ module W_loader #(
         .ena          (mult_wgt_ena[i]   ),
         .wea          (mult_wgt_ena[i]   ),
         .addrb        (mult_wgt_addrb[i] ),
-        .dout         (mult_wgt_dout[i]  )
+        .doutb        (mult_wgt_dout[i]  ),
+        .addrc        (mult_wgt_addrc[i] ),
+        .doutc        (mult_wgt_doutc[i] )
       );
     end
   endgenerate

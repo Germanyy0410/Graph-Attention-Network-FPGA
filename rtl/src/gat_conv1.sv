@@ -53,7 +53,7 @@ module gat_conv1 #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS*10),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
@@ -115,6 +115,9 @@ module gat_conv1 #(
   input   [DATA_WIDTH-1:0]          wgt_bram_dout               ,
   output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
   input                             wgt_bram_load_done          ,
+
+  input   [MULT_WEIGHT_ADDR_W-1:0]  wgt_col_addrb               ,
+  output  [DATA_WIDTH-1:0]          wgt_col_dout                ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ,
@@ -216,6 +219,9 @@ module gat_conv1 #(
   ) u_scheduler (
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
+
+    .wgt_col_addrb              (wgt_col_addrb              ),
+    .wgt_col_dout               (wgt_col_dout               ),
 
     .wgt_bram_dout              (wgt_bram_dout              ),
     .wgt_bram_addrb             (wgt_bram_addrb             ),

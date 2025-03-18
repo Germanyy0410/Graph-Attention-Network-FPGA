@@ -116,7 +116,7 @@ module gat_top #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS*10),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
@@ -186,6 +186,8 @@ module gat_top #(
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrc              ,
   output  [DATA_WIDTH-1:0]          wgt_bram_doutc              ,
 
+  input   [MULT_WEIGHT_ADDR_W-1:0]  wgt_col_addrb               ,
+  output  [DATA_WIDTH-1:0]          wgt_col_dout                ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
@@ -333,6 +335,9 @@ module gat_top #(
     .wgt_bram_dout              (wgt_bram_dout                    ),
     .wgt_bram_addrb             (wgt_bram_addrb_conv1             ),
     .wgt_bram_load_done         (wgt_bram_load_done               ),
+
+    .wgt_col_addrb              (wgt_col_addrb                    ),
+    .wgt_col_dout               (wgt_col_dout                     ),
 
     .wh_bram_din                (wh_bram_din_conv1                ),
     .wh_bram_ena                (wh_bram_ena_conv1                ),
