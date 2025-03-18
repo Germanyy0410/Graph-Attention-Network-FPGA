@@ -64,7 +64,7 @@ module softmax #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS*10),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
