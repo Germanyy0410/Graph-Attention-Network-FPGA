@@ -222,6 +222,7 @@ module SPMM #(
   //* ===================== instantiation ======================
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
+      (* dont_touch = "yes" *)
       SP_PE #(
         .DATA_WIDTH         (DATA_WIDTH         ),
         .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
@@ -246,7 +247,7 @@ module SPMM #(
         .clk          (clk                      ),
         .rst_n        (rst_n                    ),
 
-        .spmm_vld_i   (spmm_vld_q1 && h_data_bram_addrb >= 1  ),
+        .spmm_vld_i   (spmm_vld_q1              ),
         .pe_vld_i     (pe_vld                   ),
         .pe_rdy_o     (pe_rdy_o[i]              ),
 
