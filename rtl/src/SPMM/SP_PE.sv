@@ -162,8 +162,8 @@ module SP_PE #(
     cnt   = cnt_reg;
 
     if (calc_ena_reg) begin
-      prod  = $signed(val_i) * $signed(wgt_dout);
-      res   = (cnt_reg != 0) ? ($signed(res_reg) + $signed(prod)) : prod;
+      prod  = wgt_dout;
+      res   = (cnt_reg != 0) ? (res_reg + prod) : prod;
       cnt   = (cnt_reg == row_len_reg - 1 || row_len_reg <= 1) ? 0 : (cnt_reg + 1);
     end
   end
