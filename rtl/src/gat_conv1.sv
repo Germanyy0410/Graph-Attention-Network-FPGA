@@ -102,7 +102,7 @@ module gat_conv1 #(
   output  [31:0]                    gat_debug_3                 ,
 
   input   [WH_ADDR_W-1:0]           wh_out_bram_addrb           ,
-  output  [WH_DATA_WIDTH-1:0]       wh_out_bram_dout            ,
+  output  [31:0]                    wh_out_bram_dout            ,
 
   input   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
   output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
@@ -475,7 +475,7 @@ module gat_conv1 #(
 
 
   //* ======================== Debugger ========================
-  logic [WH_DATA_WIDTH-1:0]       wh_out_bram_din             ;
+  logic [31:0]                    wh_out_bram_din             ;
   logic                           wh_out_bram_ena             ;
   logic [WH_ADDR_W-1:0]           wh_out_bram_addra           ;
 
@@ -497,7 +497,7 @@ module gat_conv1 #(
   end
 
   BRAM #(
-    .DATA_WIDTH   (WH_DATA_WIDTH        ),
+    .DATA_WIDTH   (32                   ),
     .DEPTH        (WH_DEPTH             )
   ) u_wh_out_bram (
     .clk          (clk                  ),

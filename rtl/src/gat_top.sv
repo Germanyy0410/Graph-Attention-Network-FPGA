@@ -167,7 +167,7 @@ module gat_top #(
   input                             wgt_bram_load_done          ,
 
   input   [WH_ADDR_W-1:0]           wh_out_bram_addrb           ,
-  output  [WH_DATA_WIDTH_CONV1-1:0] wh_out_bram_dout            ,
+  output  [31:0]                    wh_out_bram_dout            ,
 
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
   input                             h_data_bram_ena             ,

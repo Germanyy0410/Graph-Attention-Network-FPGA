@@ -116,7 +116,7 @@ module gat_top_wrapper #(
   //* ==========================================================
 
   input   [WH_ADDR_W+1:0]           wh_out_bram_addrb           ,
-  output  [WH_DATA_WIDTH-1:0]       wh_out_bram_dout            ,
+  output  [31:0]                    wh_out_bram_dout            ,
 
   //* ===================== BRAM Interface =====================
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
