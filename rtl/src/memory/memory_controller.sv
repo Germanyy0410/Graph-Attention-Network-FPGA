@@ -147,6 +147,7 @@ module memory_controller #(
   output  [WH_WIDTH-1:0]            wh_bram_dout                  ,
   output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb           ,
   output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc           ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb               ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout                ,
 
 
@@ -204,7 +205,6 @@ module memory_controller #(
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din           ;
   logic                           feat_bram_ena           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra         ;
-  logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb         ;
 
   assign h_data_bram_addrb      = (gat_layer == 0) ? h_data_bram_addrb_conv1      : h_data_bram_addrb_conv2;
   assign h_node_info_bram_addrb = (gat_layer == 0) ? h_node_info_bram_addrb_conv1 : h_node_info_bram_addrb_conv2;
