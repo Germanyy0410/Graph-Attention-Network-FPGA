@@ -208,7 +208,7 @@ module gat_top_tb #(
   logic   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ;
 
   logic   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ;
-  logic   [DATA_WIDTH-1:0]          feat_bram_dout              ;
+  logic   [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ;
 
   gat_top dut (.*);
   //* ==========================================================

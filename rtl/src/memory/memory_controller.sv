@@ -141,14 +141,15 @@ module memory_controller #(
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ,
   output  [DATA_WIDTH-1:0]          wgt_bram_dout                 ,
+  
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb               ,
+  output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout                ,
   //* ==========================================================
 
 
   output  [WH_WIDTH-1:0]            wh_bram_dout                  ,
   output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb           ,
   output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc           ,
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb               ,
-  output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout                ,
 
 
   //* ========================= Conv1 ==========================

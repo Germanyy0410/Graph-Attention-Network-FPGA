@@ -13,6 +13,7 @@ module gat_top_wrapper #(
   parameter SM_DATA_WIDTH         = 103,
   parameter SM_SUM_DATA_WIDTH     = 103,
   parameter ALPHA_DATA_WIDTH      = 32,
+  parameter NEW_FEATURE_WIDTH     = 32,
 
   parameter H_NUM_SPARSE_DATA     = 242101,
   parameter TOTAL_NODES           = 13264,
@@ -96,7 +97,6 @@ module gat_top_wrapper #(
   parameter AGGR_MULT_W           = WH_DATA_WIDTH + 32,
 
   // -- [NEW FEATURE]
-  parameter NEW_FEATURE_WIDTH     = DATA_WIDTH,
   parameter NEW_FEATURE_ADDR_W    = $clog2(NEW_FEATURE_DEPTH)
   //* ==========================================================
 )(
