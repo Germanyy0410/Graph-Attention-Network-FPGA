@@ -242,27 +242,27 @@ module gat_conv1 #(
   logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0] sppe;
   logic [W_NUM_OF_COLS-1:0] [ROW_LEN_WIDTH:0] cnt_reg;
 
-  // assign spmm_vld = w_rdy && (gat_layer == 1'b0) && (wh_bram_addra < TOTAL_NODES - 1);
+  assign spmm_vld = w_rdy && (gat_layer == 1'b0);
   // assign spmm_vld = w_rdy && (gat_layer == 1'b0) && h_node_info_bram_load_done && h_data_bram_load_done;
 
-  always_comb begin
-    spmm_vld = spmm_vld_reg;
-    if (wh_bram_addra == TOTAL_NODES - 1) begin
-      if (spmm_rdy) begin
-        spmm_vld = 1'b0;
-      end
-    end else if (w_rdy && (gat_layer == 1'b0)) begin
-      spmm_vld = 1'b1;
-    end
-  end
+  // always_comb begin
+  //   spmm_vld = spmm_vld_reg;
+  //   if (wh_bram_addra == TOTAL_NODES - 1) begin
+  //     if (spmm_rdy) begin
+  //       spmm_vld = 1'b0;
+  //     end
+  //   end else if (w_rdy && (gat_layer == 1'b0)) begin
+  //     spmm_vld = 1'b1;
+  //   end
+  // end
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      spmm_vld_reg <= 'b0;
-    end else begin
-      spmm_vld_reg <= spmm_vld;
-    end
-  end
+  // always_ff @(posedge clk or negedge rst_n) begin
+  //   if (!rst_n) begin
+  //     spmm_vld_reg <= 'b0;
+  //   end else begin
+  //     spmm_vld_reg <= spmm_vld;
+  //   end
+  // end
 
   SPMM #(
     .DATA_WIDTH         (DATA_WIDTH         ),

@@ -303,17 +303,24 @@ module SPMM #(
 
   // -- WH bram
   assign wh_bram_din    = { sppe_cat, pe_num_node[0], pe_src_flag[0] };
-  assign wh_bram_ena    = (&pe_rdy_o);
+  assign wh_bram_ena    = (&pe_rdy_o) && !spmm_done_reg;
   assign wh_bram_addra  = wh_addr_reg;
 
   // -- WH bram addr
   assign wh_addr = (&pe_rdy_o && wh_addr_reg < TOTAL_NODES - 1) ? (wh_addr_reg + 1) : wh_addr_reg;
 
+  logic spmm_done;
+  logic spmm_done_reg;
+
+  assign spmm_done = ((wh_addr_reg == TOTAL_NODES - 1) && (&pe_rdy_o)) ? 1'b1 : spmm_done_reg;
+
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      wh_addr_reg <= 0;
+      wh_addr_reg   <= 0;
+      spmm_done_reg <= 0;
     end else begin
-      wh_addr_reg <= wh_addr;
+      wh_addr_reg   <= wh_addr;
+      spmm_done_reg <= spmm_done;
     end
   end
   //* ==========================================================
