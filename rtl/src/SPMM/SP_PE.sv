@@ -113,7 +113,7 @@ module SP_PE #(
   input   [DATA_WIDTH-1:0]          wgt_dout                ,
   output  [MULT_WEIGHT_ADDR_W-1:0]  wgt_addrb               ,
 
-  output  [ROW_LEN_WIDTH:0]         cnt_reg                 ,
+  output reg [ROW_LEN_WIDTH:0]      cnt_reg                 ,
 
   output  [WH_DATA_WIDTH-1:0]       res_o
 );
