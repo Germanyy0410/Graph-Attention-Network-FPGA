@@ -161,13 +161,21 @@ module SP_PE #(
 
   always_comb begin
     prod  = prod_reg;
-    res   = res_reg;
     cnt   = cnt_reg;
 
     if (calc_ena_reg) begin
-      prod  = wgt_dout;
-      res   = (cnt_reg != 0) ? ($signed(res_reg) + $signed(wgt_dout)) : $signed(wgt_dout);
-      cnt   = (cnt_reg == row_len_reg - 1 || row_len_reg <= 1) ? 0 : (cnt_reg + 1);
+      cnt = (cnt_reg == row_len_reg - 1 || row_len_reg <= 1) ? 0 : (cnt_reg + 1);
+    end
+  end
+
+  always_comb begin
+    res = res_reg;
+    if (calc_ena_reg) begin
+      if (cnt_reg != 0) begin
+        res = $signed(res_reg) + $signed(wgt_dout);
+      end else begin
+        res = $signed(wgt_dout);
+      end
     end
   end
 
