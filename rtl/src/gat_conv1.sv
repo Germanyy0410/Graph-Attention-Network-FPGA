@@ -483,7 +483,7 @@ module gat_conv1 #(
   logic [WH_ADDR_W-1:0]           wh_addr_reg                 ;
 
   assign wh_out_bram_ena    = spmm_vld && (wh_addr_reg < 10000);
-  assign wh_out_bram_din    = sppe[0];
+  assign wh_out_bram_din    = { mult_wgt_addrb[0], mult_wgt_dout[0] };
   assign wh_out_bram_addra  = wh_addr_reg;
 
   assign wh_addr = (wh_addr_reg < 10000) ? (wh_addr_reg + 1) : wh_addr_reg;
