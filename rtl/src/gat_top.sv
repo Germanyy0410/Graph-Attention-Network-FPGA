@@ -235,7 +235,7 @@ module gat_top #(
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv1     ;
   // logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1     ;
 
-  logic [DATA_WIDTH-1:0]          feat_bram_din_conv1           ;
+  logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv1           ;
   logic                           feat_bram_ena_conv1           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv1         ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv1         ;
@@ -254,7 +254,7 @@ module gat_top #(
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv2     ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv2     ;
 
-  logic [DATA_WIDTH-1:0]          feat_bram_din_conv2           ;
+  logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv2           ;
   logic                           feat_bram_ena_conv2           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2         ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv2         ;

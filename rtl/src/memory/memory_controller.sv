@@ -147,7 +147,7 @@ module memory_controller #(
   output  [WH_WIDTH-1:0]            wh_bram_dout                  ,
   output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb           ,
   output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc           ,
-  output  [DATA_WIDTH-1:0]          feat_bram_dout                ,
+  output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout                ,
 
 
   //* ========================= Conv1 ==========================
@@ -162,7 +162,7 @@ module memory_controller #(
   input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv1     ,
   input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1     ,
 
-  input   [DATA_WIDTH-1:0]          feat_bram_din_conv1           ,
+  input   [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv1           ,
   input                             feat_bram_ena_conv1           ,
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv1         ,
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv1         ,
@@ -181,7 +181,7 @@ module memory_controller #(
   input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv2     ,
   input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv2     ,
 
-  input   [DATA_WIDTH-1:0]          feat_bram_din_conv2           ,
+  input   [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv2           ,
   input                             feat_bram_ena_conv2           ,
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2         ,
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv2
@@ -203,7 +203,7 @@ module memory_controller #(
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb     ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc     ;
 
-  logic [DATA_WIDTH-1:0]          feat_bram_din           ;
+  logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din           ;
   logic                           feat_bram_ena           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra         ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb         ;
