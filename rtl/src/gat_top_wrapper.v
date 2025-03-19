@@ -139,6 +139,9 @@ module gat_top_wrapper #(
   input   [MULT_WEIGHT_ADDR_W+1:0]  wgt_col_addrb               ,
   output  [DATA_WIDTH-1:0]          wgt_col_dout                ,
 
+  input   [NUM_NODE_ADDR_W+1:0]     num_node_bram_addrc_conv1   ,
+  output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
+
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
   output  [31:0]                    feat_bram_dout
   //* ==========================================================
@@ -164,42 +167,45 @@ module gat_top_wrapper #(
     .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
     .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
   ) u_gat_top (
-    .clk                          (clk                                          ),
-    .rst_n                        (rst_n                                        ),
+    .clk                          (clk                                            ),
+    .rst_n                        (rst_n                                          ),
 
-    .gat_layer                    (gat_layer                                    ),
-    .gat_ready                    (gat_ready                                    ),
-    .gat_debug_1                  (gat_debug_1                                  ),
-    .gat_debug_2                  (gat_debug_2                                  ),
-    .gat_debug_3                  (gat_debug_3                                  ),
-    .h_data_bram_load_done        (h_data_bram_load_done                        ),
-    .h_node_info_bram_load_done   (h_node_info_bram_load_done                   ),
-    .wgt_bram_load_done           (wgt_bram_load_done                           ),
+    .gat_layer                    (gat_layer                                      ),
+    .gat_ready                    (gat_ready                                      ),
+    .gat_debug_1                  (gat_debug_1                                    ),
+    .gat_debug_2                  (gat_debug_2                                    ),
+    .gat_debug_3                  (gat_debug_3                                    ),
+    .h_data_bram_load_done        (h_data_bram_load_done                          ),
+    .h_node_info_bram_load_done   (h_node_info_bram_load_done                     ),
+    .wgt_bram_load_done           (wgt_bram_load_done                             ),
 
-    .wh_out_bram_addrb            (wh_out_bram_addrb[WH_ADDR_W+1:2]             ),
-    .wh_out_bram_dout             (wh_out_bram_dout                             ),
+    .wh_out_bram_addrb            (wh_out_bram_addrb[WH_ADDR_W+1:2]               ),
+    .wh_out_bram_dout             (wh_out_bram_dout                               ),
 
-    .h_data_bram_din              (h_data_bram_din                              ),
-    .h_data_bram_ena              (h_data_bram_ena                              ),
-    .h_data_bram_wea              (h_data_bram_wea                              ),
-    .h_data_bram_addra            (h_data_bram_addra[H_DATA_ADDR_W+1:2]         ),
+    .h_data_bram_din              (h_data_bram_din                                ),
+    .h_data_bram_ena              (h_data_bram_ena                                ),
+    .h_data_bram_wea              (h_data_bram_wea                                ),
+    .h_data_bram_addra            (h_data_bram_addra[H_DATA_ADDR_W+1:2]           ),
 
-    .h_node_info_bram_din         (h_node_info_bram_din                         ),
-    .h_node_info_bram_ena         (h_node_info_bram_ena                         ),
-    .h_node_info_bram_wea         (h_node_info_bram_wea                         ),
-    .h_node_info_bram_addra       (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2] ),
+    .h_node_info_bram_din         (h_node_info_bram_din                           ),
+    .h_node_info_bram_ena         (h_node_info_bram_ena                           ),
+    .h_node_info_bram_wea         (h_node_info_bram_wea                           ),
+    .h_node_info_bram_addra       (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2]   ),
 
-    .wgt_bram_din                 (wgt_bram_din                                 ),
-    .wgt_bram_ena                 (wgt_bram_ena                                 ),
-    .wgt_bram_wea                 (wgt_bram_wea                                 ),
-    .wgt_bram_addra               (wgt_bram_addra[WEIGHT_ADDR_W+1:2]            ),
-    .wgt_bram_addrc               (wgt_bram_addrc[WEIGHT_ADDR_W+1:2]            ),
-    .wgt_bram_doutc               (wgt_bram_doutc                               ),
+    .wgt_bram_din                 (wgt_bram_din                                   ),
+    .wgt_bram_ena                 (wgt_bram_ena                                   ),
+    .wgt_bram_wea                 (wgt_bram_wea                                   ),
+    .wgt_bram_addra               (wgt_bram_addra[WEIGHT_ADDR_W+1:2]              ),
+    .wgt_bram_addrc               (wgt_bram_addrc[WEIGHT_ADDR_W+1:2]              ),
+    .wgt_bram_doutc               (wgt_bram_doutc                                 ),
 
-    .wgt_col_addrb                (wgt_col_addrb[MULT_WEIGHT_ADDR_W+1:2]        ),
-    .wgt_col_dout                 (wgt_col_dout                                 ),
+    .wgt_col_addrb                (wgt_col_addrb[MULT_WEIGHT_ADDR_W+1:2]          ),
+    .wgt_col_dout                 (wgt_col_dout                                   ),
 
-    .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]      ),
-    .feat_bram_dout               (feat_bram_dout                               )
+    .num_node_bram_addrc_conv1    (num_node_bram_addrc_conv1[NUM_NODE_ADDR_W+1:2] ),
+    .num_node_bram_doutc          (num_node_bram_doutc                            ),
+
+    .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]        ),
+    .feat_bram_dout               (feat_bram_dout                                 )
   );
 endmodule
