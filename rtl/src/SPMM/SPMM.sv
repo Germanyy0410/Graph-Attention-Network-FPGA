@@ -307,7 +307,7 @@ module SPMM #(
   assign wh_bram_addra  = wh_addr_reg;
 
   // -- WH bram addr
-  assign wh_addr = (&pe_rdy_o) ? (wh_addr_reg + 1) : wh_addr_reg;
+  assign wh_addr = (&pe_rdy_o && wh_addr_reg < TOTAL_NODES - 1) ? (wh_addr_reg + 1) : wh_addr_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin

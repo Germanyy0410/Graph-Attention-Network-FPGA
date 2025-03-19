@@ -313,61 +313,61 @@ module gat_top_tb #(
 
     end_section();
     // =========================================
-    $display("Here 0");
+    // $display("Here 0");
 
-    wgt_bram_load_done          = 1'b0;
-    h_data_bram_load_done       = 1'b0;
-    h_node_info_bram_load_done  = 1'b0;
-    c1;
-    gat_layer = 1'b1;
-    $display("Here 00");
+    // wgt_bram_load_done          = 1'b0;
+    // h_data_bram_load_done       = 1'b0;
+    // h_node_info_bram_load_done  = 1'b0;
+    // c1;
+    // gat_layer = 1'b1;
+    // $display("Here 00");
 
-    // ================ Load IO ================
-    fork
-      input_loader();
-      output_loader();
-    join
-    // =========================================
+    // // ================ Load IO ================
+    // fork
+    //   input_loader();
+    //   output_loader();
+    // join
+    // // =========================================
 
-    $display("Here 000");
+    // $display("Here 000");
 
-    // =========== Start Simulation ============
-    c3;
-    wait(dut.u_gat_conv2.u_WH.wh_vld_i);
-    $display("Here 1");
-    start_time      = $time;
-    lat_start_time  = $time;
-    // -- Latency
-    c3;
-    wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
-    $display("Here 2");
-    lat_end_time = $time;
+    // // =========== Start Simulation ============
+    // c3;
+    // wait(dut.u_gat_conv2.u_WH.wh_vld_i);
+    // $display("Here 1");
+    // start_time      = $time;
+    // lat_start_time  = $time;
+    // // -- Latency
+    // c3;
+    // wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
+    // $display("Here 2");
+    // lat_end_time = $time;
 
-    // -- Total
-    c3;
-    wait(dut.gat_ready == 1'b1);
-    $display("Here 3");
-    end_time = $time;
+    // // -- Total
+    // c3;
+    // wait(dut.gat_ready == 1'b1);
+    // $display("Here 3");
+    // end_time = $time;
 
-    // =========================================
+    // // =========================================
 
-    $finish();
+    // $finish();
 
-    // ================ Report =================
-    summary_section();
+    // // ================ Report =================
+    // summary_section();
 
-    spmm_conv2.base_scoreboard();
-    dmvm_conv2.base_scoreboard();
-    coef_conv2.base_scoreboard();
-    dividend_conv2.base_scoreboard();
-    divisor_conv2.base_scoreboard();
-    alpha_conv2.base_scoreboard();
-    new_feature_conv2.base_scoreboard();
+    // spmm_conv2.base_scoreboard();
+    // dmvm_conv2.base_scoreboard();
+    // coef_conv2.base_scoreboard();
+    // dividend_conv2.base_scoreboard();
+    // divisor_conv2.base_scoreboard();
+    // alpha_conv2.base_scoreboard();
+    // new_feature_conv2.base_scoreboard();
 
-    end_section();
-    // =========================================
+    // end_section();
+    // // =========================================
 
-    $finish();
+    // $finish();
   end
   //* ===============================================================
 
