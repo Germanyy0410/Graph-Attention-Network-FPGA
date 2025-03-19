@@ -113,10 +113,14 @@ module SP_PE #(
   input   [DATA_WIDTH-1:0]          wgt_dout                ,
   output  [MULT_WEIGHT_ADDR_W-1:0]  wgt_addrb               ,
 
+  output  [ROW_LEN_WIDTH:0]         cnt_reg                 ,
+
   output  [WH_DATA_WIDTH-1:0]       res_o
 );
 
   //* =================== logic declaration ===================
+  logic                               spmm_vld_q1         ;
+
   logic         [COL_IDX_WIDTH-1:0]   col_idx_reg         ;
   logic         [DATA_WIDTH-1:0]      val_reg             ;
   logic         [ROW_LEN_WIDTH-1:0]   row_len_reg         ;
@@ -131,7 +135,6 @@ module SP_PE #(
   logic signed  [WH_DATA_WIDTH-1:0]   prod_reg            ;
 
   logic         [ROW_LEN_WIDTH:0]     cnt                 ;
-  logic         [ROW_LEN_WIDTH:0]     cnt_reg             ;
 
   logic                               calc_ena            ;
   logic                               calc_ena_reg        ;
@@ -154,7 +157,7 @@ module SP_PE #(
 
   //* ====================== calculation ======================
   assign wgt_addrb  = col_idx_i;
-  assign calc_ena   = spmm_vld_i && ((cnt_reg == 0 && (pe_vld_i || row_len_reg == 1)) || (cnt_reg >= 0 && cnt_reg < row_len_reg && row_len_reg > 1));
+  assign calc_ena   = spmm_vld_q1;
 
   always_comb begin
     prod  = prod_reg;
@@ -185,8 +188,10 @@ module SP_PE #(
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       row_len_reg <= '0;
+      spmm_vld_q1 <= '0;
     end else begin
       row_len_reg <= row_len_i;
+      spmm_vld_q1 <= spmm_vld_i;
     end
   end
   //* =========================================================

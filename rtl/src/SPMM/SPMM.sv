@@ -111,6 +111,7 @@ module SPMM #(
   output                                                spmm_rdy_o                ,
 
   output  [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0]       sppe                      ,
+  output  [W_NUM_OF_COLS-1:0] [ROW_LEN_WIDTH:0]         cnt_reg                   ,
 
   // -- h_data BRAM
   input   [H_DATA_WIDTH-1:0]                            h_data_bram_dout          ,
@@ -262,6 +263,9 @@ module SPMM #(
 
         .wgt_addrb    (mult_wgt_addrb[i]        ),
         .wgt_dout     (mult_wgt_dout[i]         ),
+
+        .cnt_reg      (cnt_reg[i]               ),
+
         .res_o        (sppe[i]                  )
       );
     end

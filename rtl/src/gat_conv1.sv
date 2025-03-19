@@ -239,6 +239,7 @@ module gat_conv1 #(
   logic [WH_WIDTH-1:0]        wh_data   ;
 
   logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0] sppe;
+  logic [W_NUM_OF_COLS-1:0] [ROW_LEN_WIDTH:0] cnt_reg;
 
   assign spmm_vld = w_rdy && (gat_layer == 1'b0);
   // assign spmm_vld = w_rdy && (gat_layer == 1'b0) && h_node_info_bram_load_done && h_data_bram_load_done;
@@ -280,6 +281,7 @@ module gat_conv1 #(
     .spmm_rdy_o                 (spmm_rdy                   ),
 
     .sppe                       (sppe                       ),
+    .cnt_reg                    (cnt_reg                    ),
 
     .wh_data_o                  (wh_data                    ),
 
@@ -483,7 +485,7 @@ module gat_conv1 #(
   logic [WH_ADDR_W-1:0]           wh_addr_reg                 ;
 
   assign wh_out_bram_ena    = spmm_vld && (wh_addr_reg < 10000);
-  assign wh_out_bram_din    = sppe[0];
+  assign wh_out_bram_din    = cnt_reg[0];
   assign wh_out_bram_addra  = wh_addr_reg;
 
   assign wh_addr = (spmm_vld && wh_addr_reg < 10000) ? (wh_addr_reg + 1) : wh_addr_reg;
