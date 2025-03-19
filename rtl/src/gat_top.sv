@@ -359,8 +359,6 @@ module gat_top #(
     .feat_bram_din              (feat_bram_din_conv1              ),
     .feat_bram_ena              (feat_bram_ena_conv1              ),
     .feat_bram_addra            (feat_bram_addra_conv1            ),
-    .feat_bram_addrb            (feat_bram_addrb_conv1            ),
-    .feat_bram_dout             (feat_bram_dout                   ),
 
     .gat_ready                  (gat_ready_conv1                  )
   );
@@ -424,8 +422,6 @@ module gat_top #(
     .feat_bram_din              (feat_bram_din_conv2              ),
     .feat_bram_ena              (feat_bram_ena_conv2              ),
     .feat_bram_addra            (feat_bram_addra_conv2            ),
-    .feat_bram_addrb            (feat_bram_addrb_conv2            ),
-    .feat_bram_dout             (feat_bram_dout                   ),
 
     .gat_ready                  (gat_ready_conv2                  )
   );

@@ -312,6 +312,13 @@ module gat_top_tb #(
     new_feature.base_scoreboard();
 
     end_section();
+
+    c1;
+    c1;
+    for (int i = 0; i < 100; i++) begin
+      feat_bram_addrb = i;
+      c1;
+    end
     // =========================================
     // $display("Here 0");
 

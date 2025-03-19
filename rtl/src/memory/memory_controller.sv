@@ -165,7 +165,6 @@ module memory_controller #(
   input   [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv1           ,
   input                             feat_bram_ena_conv1           ,
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv1         ,
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv1         ,
   //* ==========================================================
 
 
@@ -183,8 +182,7 @@ module memory_controller #(
 
   input   [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv2           ,
   input                             feat_bram_ena_conv2           ,
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2         ,
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv2
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2
   //* ==========================================================
 );
 
@@ -226,7 +224,6 @@ module memory_controller #(
   assign feat_bram_din          = (gat_layer == 0) ? feat_bram_din_conv1          : feat_bram_din_conv2;
   assign feat_bram_ena          = (gat_layer == 0) ? feat_bram_ena_conv1          : feat_bram_ena_conv2;
   assign feat_bram_addra        = (gat_layer == 0) ? feat_bram_addra_conv1        : feat_bram_addra_conv2;
-  assign feat_bram_addrb        = (gat_layer == 0) ? feat_bram_addrb_conv1        : feat_bram_addrb_conv2;
 
   //* ========================= MEMORY =========================
   (* dont_touch = "yes" *)
