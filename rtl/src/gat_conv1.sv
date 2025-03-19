@@ -102,7 +102,7 @@ module gat_conv1 #(
   output  [31:0]                    gat_debug_3                 ,
 
   input   [WH_ADDR_W-1:0]           wh_out_bram_addrb           ,
-  output  [31:0]                    wh_out_bram_dout            ,
+  output  [WH_DATA_WIDTH-1:0]       wh_out_bram_dout            ,
 
   input   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
   output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
@@ -475,29 +475,16 @@ module gat_conv1 #(
 
 
   //* ======================== Debugger ========================
-  logic [31:0]                    wh_out_bram_din             ;
+  logic [WH_DATA_WIDTH-1:0]       wh_out_bram_din             ;
   logic                           wh_out_bram_ena             ;
   logic [WH_ADDR_W-1:0]           wh_out_bram_addra           ;
 
-  logic [WH_ADDR_W-1:0]           wh_addr                     ;
-  logic [WH_ADDR_W-1:0]           wh_addr_reg                 ;
-
-  assign wh_out_bram_ena    = spmm_vld && (wh_addr_reg < 10000);
-  assign wh_out_bram_din    = $signed(mult_wgt_dout[0]) + $signed(sppe[0]);
-  assign wh_out_bram_addra  = wh_addr_reg;
-
-  assign wh_addr = (spmm_vld && wh_addr_reg < 10000) ? (wh_addr_reg + 1) : wh_addr_reg;
-
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      wh_addr_reg <= '0;
-    end else begin
-      wh_addr_reg <= wh_addr;
-    end
-  end
+  assign wh_out_bram_ena    = wh_bram_ena;
+  assign wh_out_bram_din    = sppe[0];
+  assign wh_out_bram_addra  = wh_bram_addra;
 
   BRAM #(
-    .DATA_WIDTH   (32                   ),
+    .DATA_WIDTH   (WH_DATA_WIDTH        ),
     .DEPTH        (WH_DEPTH             )
   ) u_wh_out_bram (
     .clk          (clk                  ),
