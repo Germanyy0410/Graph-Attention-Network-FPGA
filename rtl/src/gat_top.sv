@@ -238,7 +238,6 @@ module gat_top #(
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv1           ;
   logic                           feat_bram_ena_conv1           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv1         ;
-  logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv1         ;
 
   logic                           gat_ready_conv1               ;
 
@@ -257,7 +256,6 @@ module gat_top #(
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv2           ;
   logic                           feat_bram_ena_conv2           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2         ;
-  logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv2         ;
 
   logic                           gat_ready_conv2               ;
   //* ==========================================================
