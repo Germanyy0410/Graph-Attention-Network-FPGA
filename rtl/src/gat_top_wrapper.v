@@ -143,7 +143,7 @@ module gat_top_wrapper #(
   output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
 
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
-  output  [30:0]                    feat_bram_dout
+  output  [31:0]                    feat_bram_dout
   //* ==========================================================
 );
 
@@ -208,4 +208,5 @@ module gat_top_wrapper #(
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]        ),
     .feat_bram_dout               (feat_bram_dout                                 )
   );
+  
 endmodule
