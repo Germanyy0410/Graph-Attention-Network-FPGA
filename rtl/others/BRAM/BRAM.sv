@@ -8,7 +8,7 @@
 module BRAM #(
   //* ========== parameter ===========
   parameter DATA_WIDTH      = 19,
-  parameter DEPTH           = 242101
+  parameter DEPTH           = 242101,
 
   //* ========= localparams ==========
   parameter DATA_ADDR_W     = $clog2(DEPTH)
