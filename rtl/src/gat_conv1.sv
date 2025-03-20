@@ -101,9 +101,6 @@ module gat_conv1 #(
   output  [31:0]                    gat_debug_2                 ,
   output  [31:0]                    gat_debug_3                 ,
 
-  input   [WH_ADDR_W-1:0]           wh_out_bram_addrb           ,
-  output  [WH_DATA_WIDTH-1:0]       wh_out_bram_dout            ,
-
   input   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
   output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
   input                             h_data_bram_load_done       ,
@@ -115,9 +112,6 @@ module gat_conv1 #(
   input   [DATA_WIDTH-1:0]          wgt_bram_dout               ,
   output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
   input                             wgt_bram_load_done          ,
-
-  input   [MULT_WEIGHT_ADDR_W-1:0]  wgt_col_addrb               ,
-  output  [DATA_WIDTH-1:0]          wgt_col_dout                ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ,
@@ -133,6 +127,8 @@ module gat_conv1 #(
   output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra         ,
   output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb         ,
   input   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb         ,
+  output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc         ,
+  input   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
 
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_din               ,
   output                            feat_bram_ena               ,
@@ -218,9 +214,6 @@ module gat_conv1 #(
     .clk                        (clk                        ),
     .rst_n                      (rst_n                      ),
 
-    .wgt_col_addrb              (wgt_col_addrb              ),
-    .wgt_col_dout               (wgt_col_dout               ),
-
     .wgt_bram_dout              (wgt_bram_dout              ),
     .wgt_bram_addrb             (wgt_bram_addrb             ),
     .wgt_bram_load_done         (wgt_bram_load_done         ),
@@ -234,35 +227,13 @@ module gat_conv1 #(
 
 
   //* ========================== SPMM ==========================
-  logic                       spmm_vld      ;
-  logic                       spmm_vld_reg  ;
-  logic                       spmm_rdy      ;
-  logic [WH_WIDTH-1:0]        wh_data       ;
-
-  logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0] sppe;
-  logic [W_NUM_OF_COLS-1:0] [ROW_LEN_WIDTH:0] cnt_reg;
+  logic                                         spmm_vld      ;
+  logic                                         spmm_vld_reg  ;
+  logic                                         spmm_rdy      ;
+  logic [WH_WIDTH-1:0]                          wh_data       ;
+  logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0] sppe          ;
 
   assign spmm_vld = w_rdy && (gat_layer == 1'b0) && (gat_ready == 1'b0);
-  // assign spmm_vld = w_rdy && (gat_layer == 1'b0) && h_node_info_bram_load_done && h_data_bram_load_done;
-
-  // always_comb begin
-  //   spmm_vld = spmm_vld_reg;
-  //   if (wh_bram_addra == TOTAL_NODES - 1) begin
-  //     if (spmm_rdy) begin
-  //       spmm_vld = 1'b0;
-  //     end
-  //   end else if (w_rdy && (gat_layer == 1'b0)) begin
-  //     spmm_vld = 1'b1;
-  //   end
-  // end
-
-  // always_ff @(posedge clk or negedge rst_n) begin
-  //   if (!rst_n) begin
-  //     spmm_vld_reg <= 'b0;
-  //   end else begin
-  //     spmm_vld_reg <= spmm_vld;
-  //   end
-  // end
 
   SPMM #(
     .DATA_WIDTH         (DATA_WIDTH         ),
@@ -301,7 +272,6 @@ module gat_conv1 #(
     .spmm_rdy_o                 (spmm_rdy                   ),
 
     .sppe                       (sppe                       ),
-    .cnt_reg                    (cnt_reg                    ),
 
     .wh_data_o                  (wh_data                    ),
 
@@ -494,43 +464,4 @@ module gat_conv1 #(
     .debug_3                  (gat_debug_3              )
   );
   //* ==========================================================
-
-
-  //* ======================== Debugger ========================
-  logic [WH_DATA_WIDTH-1:0]       wh_out_bram_din             ;
-  logic                           wh_out_bram_ena             ;
-  logic [WH_ADDR_W-1:0]           wh_out_bram_addra           ;
-
-  logic [WH_ADDR_W-1:0]           wh_addr                     ;
-  logic [WH_ADDR_W-1:0]           wh_addr_reg                 ;
-
-  assign wh_out_bram_ena    = wh_bram_ena;
-  assign wh_out_bram_din    = sppe[0];
-  assign wh_out_bram_addra  = wh_bram_addra;
-
-  assign wh_addr = (spmm_vld && wh_addr_reg < 10000) ? (wh_addr_reg + 1) : wh_addr_reg;
-
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      wh_addr_reg <= '0;
-    end else begin
-      wh_addr_reg <= wh_addr;
-    end
-  end
-
-  BRAM #(
-    .DATA_WIDTH   (WH_DATA_WIDTH        ),
-    .DEPTH        (WH_DEPTH             )
-  ) u_wh_out_bram (
-    .clk          (clk                  ),
-    .rst_n        (rst_n                ),
-    .din          (wh_out_bram_din      ),
-    .addra        (wh_out_bram_addra    ),
-    .ena          (wh_out_bram_ena      ),
-    .wea          (wh_out_bram_ena      ),
-    .addrb        (wh_out_bram_addrb    ),
-    .dout         (wh_out_bram_dout     )
-  );
-  //* ==========================================================
-
 endmodule

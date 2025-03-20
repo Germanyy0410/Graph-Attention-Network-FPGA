@@ -112,10 +112,6 @@ module W_loader #(
   output  [W_NUM_OF_COLS*DATA_WIDTH-1:0]                mult_wgt_dout_flat      ,
   input   [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]        mult_wgt_addrb_flat     ,
 
-  output  [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_wgt_doutc          ,
-  input   [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_wgt_addrc          ,
-
-
   output  [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a_o
 );
 
@@ -159,8 +155,7 @@ module W_loader #(
   //* ===================== bram instance =====================
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
-      (* dont_touch = "yes" *)
-      dual_read_BRAM #(
+      BRAM #(
         .DATA_WIDTH   (DATA_WIDTH         ),
         .DEPTH        (W_NUM_OF_ROWS      )
       ) u_mult_wgt_bram (
@@ -171,9 +166,7 @@ module W_loader #(
         .ena          (mult_wgt_ena[i]   ),
         .wea          (mult_wgt_ena[i]   ),
         .addrb        (mult_wgt_addrb[i] ),
-        .doutb        (mult_wgt_dout[i]  ),
-        .addrc        (mult_wgt_addrc[i] ),
-        .doutc        (mult_wgt_doutc[i] )
+        .dout         (mult_wgt_dout[i]  )
       );
     end
   endgenerate

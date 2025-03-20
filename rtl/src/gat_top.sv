@@ -157,6 +157,7 @@ module gat_top #(
   input                             clk                         ,
   input                             rst_n                       ,
 
+  //* ===================== Register Bank ======================
   input                             gat_layer                   ,
   output                            gat_ready                   ,
   output  [31:0]                    gat_debug_1                 ,
@@ -165,10 +166,10 @@ module gat_top #(
   input                             h_data_bram_load_done       ,
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
+  //* ==========================================================
 
-  input   [WH_ADDR_W-1:0]           wh_out_bram_addrb           ,
-  output  [WH_DATA_WIDTH_CONV1-1:0] wh_out_bram_dout            ,
 
+  //* ===================== BRAM Interface =====================
   input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
   input                             h_data_bram_ena             ,
   input                             h_data_bram_wea             ,
@@ -183,17 +184,10 @@ module gat_top #(
   input                             wgt_bram_ena                ,
   input                             wgt_bram_wea                ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ,
-  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrc              ,
-  output  [DATA_WIDTH-1:0]          wgt_bram_doutc              ,
-
-  input   [MULT_WEIGHT_ADDR_W-1:0]  wgt_col_addrb               ,
-  output  [DATA_WIDTH-1:0]          wgt_col_dout                ,
-
-  input   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1   ,
-  output  [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
+  //* ==========================================================
 );
 
   localparam WGT_ADDR_W_CONV1 = $clog2(NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2);
@@ -233,7 +227,7 @@ module gat_top #(
   logic                           num_node_bram_ena_conv1       ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra_conv1     ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv1     ;
-  // logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1     ;
+  logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1     ;
 
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv1           ;
   logic                           feat_bram_ena_conv1           ;
@@ -322,9 +316,6 @@ module gat_top #(
     .gat_debug_2                (gat_debug_2                      ),
     .gat_debug_3                (gat_debug_3                      ),
 
-    .wh_out_bram_addrb          (wh_out_bram_addrb                ),
-    .wh_out_bram_dout           (wh_out_bram_dout                 ),
-
     .h_data_bram_dout           (h_data_bram_dout                 ),
     .h_data_bram_addrb          (h_data_bram_addrb_conv1          ),
     .h_data_bram_load_done      (h_data_bram_load_done            ),
@@ -337,9 +328,6 @@ module gat_top #(
     .wgt_bram_addrb             (wgt_bram_addrb_conv1             ),
     .wgt_bram_load_done         (wgt_bram_load_done               ),
 
-    .wgt_col_addrb              (wgt_col_addrb                    ),
-    .wgt_col_dout               (wgt_col_dout                     ),
-
     .wh_bram_din                (wh_bram_din_conv1                ),
     .wh_bram_ena                (wh_bram_ena_conv1                ),
     .wh_bram_addra              (wh_bram_addra_conv1              ),
@@ -351,8 +339,8 @@ module gat_top #(
     .num_node_bram_addra        (num_node_bram_addra_conv1        ),
     .num_node_bram_addrb        (num_node_bram_addrb_conv1        ),
     .num_node_bram_doutb        (num_node_bram_doutb              ),
-    // .num_node_bram_addrc        (num_node_bram_addrc_conv1        ),
-    // .num_node_bram_doutc        (num_node_bram_doutc              ),
+    .num_node_bram_addrc        (num_node_bram_addrc_conv1        ),
+    .num_node_bram_doutc        (num_node_bram_doutc              ),
 
     .feat_bram_din              (feat_bram_din_conv1              ),
     .feat_bram_ena              (feat_bram_ena_conv1              ),

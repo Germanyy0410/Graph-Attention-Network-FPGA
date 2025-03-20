@@ -113,17 +113,8 @@ module scheduler #(
   output  [W_NUM_OF_COLS*DATA_WIDTH-1:0]                mult_wgt_dout         ,
   output                                                w_rdy_o               ,
 
-  input   [MULT_WEIGHT_ADDR_W-1:0]                      wgt_col_addrb         ,
-  output  [DATA_WIDTH-1:0]                              wgt_col_dout          ,
-
   output  [A_DEPTH*DATA_WIDTH-1:0]                      a
 );
-
-  logic [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_wgt_addrc          ;
-  logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_wgt_doutc          ;
-
-  assign mult_wgt_addrc[0] = wgt_col_addrb;
-  assign wgt_col_dout      = mult_wgt_doutc[0];
 
   //* ======================== W_loader ========================
   W_loader #(
@@ -158,10 +149,7 @@ module scheduler #(
 
     .mult_wgt_addrb_flat      (mult_wgt_addrb         ),
     .mult_wgt_dout_flat       (mult_wgt_dout          ),
-    .a_o                      (a                      ),
-
-    .mult_wgt_doutc           (mult_wgt_doutc          ),
-    .mult_wgt_addrc           (mult_wgt_addrc          )
+    .a_o                      (a                      )
   );
   //* ==========================================================
 endmodule
