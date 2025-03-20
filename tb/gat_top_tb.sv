@@ -270,20 +270,18 @@ module gat_top_tb #(
 
   `include "configuration.sv"
 
-  //* =========================== Layer 1 ===========================
   initial begin
+    //* =========================== Layer 1 ===========================
     gat_layer = 1'b0;
-
+    $display("Starting Layer 1...");
     // ================ Load IO ================
     fork
       input_loader();
       output_loader();
     join
     // =========================================
-
-
+    $display("Validating Layer 1...");
     // =========== Start Simulation ============
-    $display("Starting Simulation...");
     c3;
     wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
     start_time      = $time;
@@ -297,8 +295,7 @@ module gat_top_tb #(
     wait(dut.u_gat_conv1.gat_ready);
     end_time = $time;
     // =========================================
-
-
+    $display("Monitoring Layer 1...");
     // ================ Report =================
     summary_section();
 
@@ -312,78 +309,57 @@ module gat_top_tb #(
     new_feature.base_scoreboard();
 
     end_section();
-
-    c1;
-    c1;
-    for (int i = 0; i < 100; i++) begin
-      feat_bram_addrb = i;
-      c1;
-    end
     // =========================================
-    // $display("Here 0");
-
-    // wgt_bram_load_done          = 1'b0;
-    // h_data_bram_load_done       = 1'b0;
-    // h_node_info_bram_load_done  = 1'b0;
-    // c1;
-    // gat_layer = 1'b1;
-    // $display("Here 00");
-
-    // // ================ Load IO ================
-    // fork
-    //   input_loader();
-    //   output_loader();
-    // join
-    // // =========================================
-
-    // $display("Here 000");
-
-    // // =========== Start Simulation ============
-    // c3;
-    // wait(dut.u_gat_conv2.u_WH.wh_vld_i);
-    // $display("Here 1");
-    // start_time      = $time;
-    // lat_start_time  = $time;
-    // // -- Latency
-    // c3;
-    // wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
-    // $display("Here 2");
-    // lat_end_time = $time;
-
-    // // -- Total
-    // c3;
-    // wait(dut.gat_ready == 1'b1);
-    // $display("Here 3");
-    // end_time = $time;
-
-    // // =========================================
-
-    // $finish();
-
-    // // ================ Report =================
-    // summary_section();
-
-    // spmm_conv2.base_scoreboard();
-    // dmvm_conv2.base_scoreboard();
-    // coef_conv2.base_scoreboard();
-    // dividend_conv2.base_scoreboard();
-    // divisor_conv2.base_scoreboard();
-    // alpha_conv2.base_scoreboard();
-    // new_feature_conv2.base_scoreboard();
-
-    // end_section();
-    // // =========================================
-
-    // $finish();
-  end
+    $display("Completing Layer 1...");
   //* ===============================================================
 
+    wgt_bram_load_done          = 1'b0;
+    h_data_bram_load_done       = 1'b0;
+    h_node_info_bram_load_done  = 1'b0;
+    c1;
 
   //* =========================== Layer 2 ===========================
-  // initial begin
-  //   c1;
-  //   wait(dut.gat_ready == 1'b1);
+    gat_layer = 1'b1;
+    $display("Starting Layer 2...");
+    // ================ Load IO ================
+    fork
+      input_loader();
+      output_loader();
+    join
+    // =========================================
+    $display("Validating Layer 2...");
+    // =========== Start Simulation ============
+    c3;
+    wait(dut.u_gat_conv2.u_WH.wh_vld_i);
+    start_time      = $time;
+    lat_start_time  = $time;
+    // -- Latency
+    c3;
+    wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
+    lat_end_time = $time;
 
-  // end
+    // -- Total
+    c3;
+    wait(dut.gat_ready == 1'b1);
+    end_time = $time;
+
+    // =========================================
+    $display("Monitoring Layer 2...");
+    // ================ Report =================
+    summary_section();
+
+    spmm_conv2.base_scoreboard();
+    dmvm_conv2.base_scoreboard();
+    coef_conv2.base_scoreboard();
+    dividend_conv2.base_scoreboard();
+    divisor_conv2.base_scoreboard();
+    alpha_conv2.base_scoreboard();
+    new_feature_conv2.base_scoreboard();
+
+    end_section();
+    // =========================================
   //* ===============================================================
+
+    $finish();
+  end
 endmodule

@@ -134,291 +134,291 @@ module gat_conv2 #(
   output                            gat_ready
 );
 
-  genvar i;
+  // genvar i;
 
-  //* ===================== FIFO Controller ====================
-  logic   [DATA_WIDTH-1:0]          coef_ff_din                 ;
-  logic                             coef_ff_wr_vld              ;
-  logic   [DATA_WIDTH-1:0]          coef_ff_dout                ;
-  logic                             coef_ff_rd_vld              ;
-  logic                             coef_ff_empty               ;
-  logic                             coef_ff_full                ;
+  // //* ===================== FIFO Controller ====================
+  // logic   [DATA_WIDTH-1:0]          coef_ff_din                 ;
+  // logic                             coef_ff_wr_vld              ;
+  // logic   [DATA_WIDTH-1:0]          coef_ff_dout                ;
+  // logic                             coef_ff_rd_vld              ;
+  // logic                             coef_ff_empty               ;
+  // logic                             coef_ff_full                ;
 
-  logic   [ALPHA_DATA_WIDTH-1:0]    alpha_ff_din                ;
-  logic                             alpha_ff_wr_vld             ;
-  logic   [ALPHA_DATA_WIDTH-1:0]    alpha_ff_dout               ;
-  logic                             alpha_ff_rd_vld             ;
-  logic                             alpha_ff_empty              ;
-  logic                             alpha_ff_full               ;
+  // logic   [ALPHA_DATA_WIDTH-1:0]    alpha_ff_din                ;
+  // logic                             alpha_ff_wr_vld             ;
+  // logic   [ALPHA_DATA_WIDTH-1:0]    alpha_ff_dout               ;
+  // logic                             alpha_ff_rd_vld             ;
+  // logic                             alpha_ff_empty              ;
+  // logic                             alpha_ff_full               ;
 
-  FIFO #(
-    .DATA_WIDTH (DATA_WIDTH         ),
-    .FIFO_DEPTH (COEF_DEPTH         )
-  ) u_coef_fifo (
-    .clk        (clk                ),
-    .rst_n      (rst_n              ),
-    .din        (coef_ff_din        ),
-    .wr_vld     (coef_ff_wr_vld     ),
-    .full       (coef_ff_full       ),
-    .empty      (coef_ff_empty      ),
-    .dout       (coef_ff_dout       ),
-    .rd_vld     (coef_ff_rd_vld     )
-  );
+  // FIFO #(
+  //   .DATA_WIDTH (DATA_WIDTH         ),
+  //   .FIFO_DEPTH (COEF_DEPTH         )
+  // ) u_coef_fifo (
+  //   .clk        (clk                ),
+  //   .rst_n      (rst_n              ),
+  //   .din        (coef_ff_din        ),
+  //   .wr_vld     (coef_ff_wr_vld     ),
+  //   .full       (coef_ff_full       ),
+  //   .empty      (coef_ff_empty      ),
+  //   .dout       (coef_ff_dout       ),
+  //   .rd_vld     (coef_ff_rd_vld     )
+  // );
 
-  FIFO #(
-    .DATA_WIDTH (ALPHA_DATA_WIDTH       ),
-    .FIFO_DEPTH (ALPHA_DEPTH            )
-  ) u_alpha_fifo (
-    .clk        (clk                    ),
-    .rst_n      (rst_n                  ),
-    .din        (alpha_ff_din           ),
-    .dout       (alpha_ff_dout          ),
-    .wr_vld     (alpha_ff_wr_vld        ),
-    .rd_vld     (alpha_ff_rd_vld        ),
-    .empty      (alpha_ff_empty         ),
-    .full       (alpha_ff_full          )
-  );
-  //* ==========================================================
-
-
-  //* ======================= Scheduler ========================
-  logic [W_NUM_OF_COLS-1:0] [W_NUM_OF_ROWS-1:0] [DATA_WIDTH-1:0]  wgt     ;
-  logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                            a       ;
-  logic                                                           w_vld   ;
-  logic                                                           w_rdy   ;
-
-  assign w_vld = (gat_layer == 1'b1) && wgt_bram_load_done;
-
-  scheduler_conv2 #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
-
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
-    .TOTAL_NODES        (TOTAL_NODES        ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
-    .MAX_NODES          (MAX_NODES          ),
-
-    .COEF_DEPTH         (COEF_DEPTH         ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
-  ) u_scheduler (
-    .clk                        (clk                        ),
-    .rst_n                      (rst_n                      ),
-
-    .w_vld_i                    (w_vld                      ),
-    .wgt_bram_dout              (wgt_bram_dout              ),
-    .wgt_bram_addrb             (wgt_bram_addrb             ),
-    .wgt_bram_load_done         (w_vld                      ),
-
-    .wgt_o                      (wgt                        ),
-    .a_o                        (a                          ),
-    .w_rdy_o                    (w_rdy                      )
-
-  );
-  //* ==========================================================
+  // FIFO #(
+  //   .DATA_WIDTH (ALPHA_DATA_WIDTH       ),
+  //   .FIFO_DEPTH (ALPHA_DEPTH            )
+  // ) u_alpha_fifo (
+  //   .clk        (clk                    ),
+  //   .rst_n      (rst_n                  ),
+  //   .din        (alpha_ff_din           ),
+  //   .dout       (alpha_ff_dout          ),
+  //   .wr_vld     (alpha_ff_wr_vld        ),
+  //   .rd_vld     (alpha_ff_rd_vld        ),
+  //   .empty      (alpha_ff_empty         ),
+  //   .full       (alpha_ff_full          )
+  // );
+  // //* ==========================================================
 
 
-  //* ========================== SPMM ==========================
-  logic                       wh_vld    ;
-  logic                       wh_rdy    ;
+  // //* ======================= Scheduler ========================
+  // logic [W_NUM_OF_COLS-1:0] [W_NUM_OF_ROWS-1:0] [DATA_WIDTH-1:0]  wgt     ;
+  // logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                            a       ;
+  // logic                                                           w_vld   ;
+  // logic                                                           w_rdy   ;
 
-  logic [WH_WIDTH-1:0]        wh_data   ;
+  // assign w_vld = (gat_layer == 1'b1) && wgt_bram_load_done;
 
-  assign wh_vld = w_rdy && (gat_layer == 1'b1);
+  // scheduler_conv2 #(
+  //   .DATA_WIDTH         (DATA_WIDTH         ),
+  //   .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+  //   .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+  //   .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+  //   .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+  //   .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+  //   .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
 
-  WH #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+  //   .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+  //   .TOTAL_NODES        (TOTAL_NODES        ),
+  //   .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+  //   .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+  //   .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+  //   .MAX_NODES          (MAX_NODES          ),
 
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
-    .TOTAL_NODES        (TOTAL_NODES        ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
-    .MAX_NODES          (MAX_NODES          ),
+  //   .COEF_DEPTH         (COEF_DEPTH         ),
+  //   .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+  //   .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+  //   .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  // ) u_scheduler (
+  //   .clk                        (clk                        ),
+  //   .rst_n                      (rst_n                      ),
 
-    .COEF_DEPTH         (COEF_DEPTH         ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
-  ) u_WH (
-    .clk                  (clk                    ),
-    .rst_n                (rst_n                  ),
+  //   .w_vld_i                    (w_vld                      ),
+  //   .wgt_bram_dout              (wgt_bram_dout              ),
+  //   .wgt_bram_addrb             (wgt_bram_addrb             ),
+  //   .wgt_bram_load_done         (w_vld                      ),
 
-    .wh_vld_i             (wh_vld                 ),
-    .wh_rdy_o             (wh_rdy                 ),
+  //   .wgt_o                      (wgt                        ),
+  //   .a_o                        (a                          ),
+  //   .w_rdy_o                    (w_rdy                      )
 
-    .num_node_bram_dout   (num_node_bram_doutb    ),
-    .num_node_bram_addrb  (num_node_bram_addrb    ),
-
-    .h_data_bram_dout     (h_data_bram_dout       ),
-    .h_data_bram_addrb    (h_data_bram_addrb      ),
-
-    .wgt                  (wgt                    ),
-
-    .wh_data_o            (wh_data                ),
-    .wh_bram_din          (wh_bram_din            ),
-    .wh_bram_ena          (wh_bram_ena            ),
-    .wh_bram_addra        (wh_bram_addra          )
-  );
-  //* ==========================================================
+  // );
+  // //* ==========================================================
 
 
-  //* ========================== DMVM ==========================
-  logic dmvm_rdy;
+  // //* ========================== SPMM ==========================
+  // logic                       wh_vld    ;
+  // logic                       wh_rdy    ;
 
-  DMVM #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+  // logic [WH_WIDTH-1:0]        wh_data   ;
 
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
-    .TOTAL_NODES        (TOTAL_NODES        ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
-    .MAX_NODES          (MAX_NODES          ),
+  // assign wh_vld = w_rdy && (gat_layer == 1'b1);
 
-    .COEF_DEPTH         (COEF_DEPTH         ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      ),
+  // WH #(
+  //   .DATA_WIDTH         (DATA_WIDTH         ),
+  //   .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+  //   .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+  //   .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+  //   .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+  //   .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+  //   .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
 
-    .NUM_STAGES         (NUM_STAGES         )
-  ) u_DMVM (
-    .clk                (clk                  ),
-    .rst_n              (rst_n                ),
+  //   .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+  //   .TOTAL_NODES        (TOTAL_NODES        ),
+  //   .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+  //   .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+  //   .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+  //   .MAX_NODES          (MAX_NODES          ),
 
-    .dmvm_vld_i         (wh_rdy               ),
-    .dmvm_rdy_o         (dmvm_rdy             ),
+  //   .COEF_DEPTH         (COEF_DEPTH         ),
+  //   .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+  //   .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+  //   .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  // ) u_WH (
+  //   .clk                  (clk                    ),
+  //   .rst_n                (rst_n                  ),
 
-    .a_vld_i            (w_rdy                ),
-    .a_i                (a                    ),
+  //   .wh_vld_i             (wh_vld                 ),
+  //   .wh_rdy_o             (wh_rdy                 ),
 
-    .wh_data_i          (wh_data              ),
+  //   .num_node_bram_dout   (num_node_bram_doutb    ),
+  //   .num_node_bram_addrb  (num_node_bram_addrb    ),
 
-    .coef_ff_din        (coef_ff_din          ),
-    .coef_ff_wr_vld     (coef_ff_wr_vld       ),
-    .coef_ff_full       (coef_ff_full         )
-  );
-  //* ==========================================================
+  //   .h_data_bram_dout     (h_data_bram_dout       ),
+  //   .h_data_bram_addrb    (h_data_bram_addrb      ),
 
+  //   .wgt                  (wgt                    ),
 
-  //* ======================== Softmax =========================
-  logic sm_rdy;
-
-  softmax #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
-
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
-    .TOTAL_NODES        (TOTAL_NODES        ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
-    .MAX_NODES          (MAX_NODES          ),
-
-    .COEF_DEPTH         (COEF_DEPTH         ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
-  ) u_softmax (
-    .clk                  (clk                    ),
-    .rst_n                (rst_n                  ),
-
-    .sm_vld_i             (dmvm_rdy               ),
-    .sm_rdy_o             (sm_rdy                 ),
-
-    .coef_ff_dout         (coef_ff_dout           ),
-    .coef_ff_empty        (coef_ff_empty          ),
-    .coef_ff_rd_vld       (coef_ff_rd_vld         ),
-
-    .num_node_bram_dout   (num_node_bram_doutc    ),
-    .num_node_bram_addrb  (num_node_bram_addrc    ),
-
-    .alpha_ff_din         (alpha_ff_din           ),
-    .alpha_ff_full        (alpha_ff_full          ),
-    .alpha_ff_wr_vld      (alpha_ff_wr_vld        )
-  );
-  //* ==========================================================
+  //   .wh_data_o            (wh_data                ),
+  //   .wh_bram_din          (wh_bram_din            ),
+  //   .wh_bram_ena          (wh_bram_ena            ),
+  //   .wh_bram_addra        (wh_bram_addra          )
+  // );
+  // //* ==========================================================
 
 
-  //* ======================= Aggregator =======================
-  logic aggr_rdy;
-  logic aggr_vld;
-  logic aggr_vld_reg;
+  // //* ========================== DMVM ==========================
+  // logic dmvm_rdy;
 
-  assign aggr_vld = (sm_rdy == 1'b1) ? 1'b1 : aggr_vld_reg;
+  // DMVM #(
+  //   .DATA_WIDTH         (DATA_WIDTH         ),
+  //   .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+  //   .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+  //   .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+  //   .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+  //   .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+  //   .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      aggr_vld_reg <= 0;
-    end else begin
-      aggr_vld_reg <= aggr_vld;
-    end
-  end
+  //   .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+  //   .TOTAL_NODES        (TOTAL_NODES        ),
+  //   .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+  //   .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+  //   .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+  //   .MAX_NODES          (MAX_NODES          ),
 
-  aggregator #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+  //   .COEF_DEPTH         (COEF_DEPTH         ),
+  //   .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+  //   .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+  //   .DIVISOR_DEPTH      (DIVISOR_DEPTH      ),
 
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
-    .TOTAL_NODES        (TOTAL_NODES        ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
-    .MAX_NODES          (MAX_NODES          ),
+  //   .NUM_STAGES         (NUM_STAGES         )
+  // ) u_DMVM (
+  //   .clk                (clk                  ),
+  //   .rst_n              (rst_n                ),
 
-    .COEF_DEPTH         (COEF_DEPTH         ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
-  ) u_aggregator (
-    .clk                  (clk                      ),
-    .rst_n                (rst_n                    ),
+  //   .dmvm_vld_i         (wh_rdy               ),
+  //   .dmvm_rdy_o         (dmvm_rdy             ),
 
-    .aggr_vld_i           (aggr_vld_reg             ),
-    .aggr_rdy_o           (aggr_rdy                 ),
+  //   .a_vld_i            (w_rdy                ),
+  //   .a_i                (a                    ),
 
-    .wh_bram_dout         (wh_bram_dout             ),
-    .wh_bram_addrb        (wh_bram_addrb            ),
+  //   .wh_data_i          (wh_data              ),
 
-    .alpha_ff_dout        (alpha_ff_dout            ),
-    .alpha_ff_empty       (alpha_ff_empty           ),
-    .alpha_ff_rd_vld      (alpha_ff_rd_vld          ),
+  //   .coef_ff_din        (coef_ff_din          ),
+  //   .coef_ff_wr_vld     (coef_ff_wr_vld       ),
+  //   .coef_ff_full       (coef_ff_full         )
+  // );
+  // //* ==========================================================
 
-    .feat_bram_addra      (feat_bram_addra          ),
-    .feat_bram_din        (feat_bram_din            ),
-    .feat_bram_ena        (feat_bram_ena            ),
 
-    .gat_ready            (gat_ready                )
-  );
-  //* ==========================================================
+  // //* ======================== Softmax =========================
+  // logic sm_rdy;
+
+  // softmax #(
+  //   .DATA_WIDTH         (DATA_WIDTH         ),
+  //   .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+  //   .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+  //   .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+  //   .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+  //   .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+  //   .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+
+  //   .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+  //   .TOTAL_NODES        (TOTAL_NODES        ),
+  //   .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+  //   .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+  //   .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+  //   .MAX_NODES          (MAX_NODES          ),
+
+  //   .COEF_DEPTH         (COEF_DEPTH         ),
+  //   .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+  //   .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+  //   .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  // ) u_softmax (
+  //   .clk                  (clk                    ),
+  //   .rst_n                (rst_n                  ),
+
+  //   .sm_vld_i             (dmvm_rdy               ),
+  //   .sm_rdy_o             (sm_rdy                 ),
+
+  //   .coef_ff_dout         (coef_ff_dout           ),
+  //   .coef_ff_empty        (coef_ff_empty          ),
+  //   .coef_ff_rd_vld       (coef_ff_rd_vld         ),
+
+  //   .num_node_bram_dout   (num_node_bram_doutc    ),
+  //   .num_node_bram_addrb  (num_node_bram_addrc    ),
+
+  //   .alpha_ff_din         (alpha_ff_din           ),
+  //   .alpha_ff_full        (alpha_ff_full          ),
+  //   .alpha_ff_wr_vld      (alpha_ff_wr_vld        )
+  // );
+  // //* ==========================================================
+
+
+  // //* ======================= Aggregator =======================
+  // logic aggr_rdy;
+  // logic aggr_vld;
+  // logic aggr_vld_reg;
+
+  // assign aggr_vld = (sm_rdy == 1'b1) ? 1'b1 : aggr_vld_reg;
+
+  // always_ff @(posedge clk or negedge rst_n) begin
+  //   if (!rst_n) begin
+  //     aggr_vld_reg <= 0;
+  //   end else begin
+  //     aggr_vld_reg <= aggr_vld;
+  //   end
+  // end
+
+  // aggregator #(
+  //   .DATA_WIDTH         (DATA_WIDTH         ),
+  //   .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+  //   .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+  //   .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+  //   .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+  //   .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+  //   .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+
+  //   .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+  //   .TOTAL_NODES        (TOTAL_NODES        ),
+  //   .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+  //   .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+  //   .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+  //   .MAX_NODES          (MAX_NODES          ),
+
+  //   .COEF_DEPTH         (COEF_DEPTH         ),
+  //   .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+  //   .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+  //   .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  // ) u_aggregator (
+  //   .clk                  (clk                      ),
+  //   .rst_n                (rst_n                    ),
+
+  //   .aggr_vld_i           (aggr_vld_reg             ),
+  //   .aggr_rdy_o           (aggr_rdy                 ),
+
+  //   .wh_bram_dout         (wh_bram_dout             ),
+  //   .wh_bram_addrb        (wh_bram_addrb            ),
+
+  //   .alpha_ff_dout        (alpha_ff_dout            ),
+  //   .alpha_ff_empty       (alpha_ff_empty           ),
+  //   .alpha_ff_rd_vld      (alpha_ff_rd_vld          ),
+
+  //   .feat_bram_addra      (feat_bram_addra          ),
+  //   .feat_bram_din        (feat_bram_din            ),
+  //   .feat_bram_ena        (feat_bram_ena            ),
+
+  //   .gat_ready            (gat_ready                )
+  // );
+  // //* ==========================================================
 endmodule
