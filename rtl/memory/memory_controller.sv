@@ -225,7 +225,7 @@ module memory_controller #(
   assign feat_bram_addra        = (gat_layer == 0) ? feat_bram_addra_conv1        : feat_bram_addra_conv2;
 
   //* ========================= MEMORY =========================
-  URAM #(
+  BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
     .DEPTH        (H_DATA_DEPTH         )
   ) u_h_data_bram (
@@ -297,7 +297,7 @@ module memory_controller #(
     .doutc        (num_node_bram_doutc  )
   );
 
-  BRAM #(
+  URAM #(
     .DATA_WIDTH     (NEW_FEATURE_WIDTH    ),
     .DEPTH          (NEW_FEATURE_DEPTH    )
   ) u_feat_bram (
