@@ -358,64 +358,64 @@ module gat_top #(
 
 
   //* ======================== Layer 2 =========================
-  gat_conv2 #(
-    .DATA_WIDTH         (DATA_WIDTH             ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH          ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH      ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH       ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH      ),
+  // gat_conv2 #(
+  //   .DATA_WIDTH         (DATA_WIDTH             ),
+  //   .SM_DATA_WIDTH      (SM_DATA_WIDTH          ),
+  //   .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH      ),
+  //   .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH       ),
+  //   .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH      ),
 
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH_CONV2    ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH_CONV2  ),
+  //   .WH_DATA_WIDTH      (WH_DATA_WIDTH_CONV2    ),
+  //   .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH_CONV2  ),
 
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA      ),
-    .TOTAL_NODES        (TOTAL_NODES            ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_OUT        ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_FINAL      ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS          ),
-    .MAX_NODES          (MAX_NODES              ),
+  //   .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA      ),
+  //   .TOTAL_NODES        (TOTAL_NODES            ),
+  //   .NUM_FEATURE_IN     (NUM_FEATURE_OUT        ),
+  //   .NUM_FEATURE_OUT    (NUM_FEATURE_FINAL      ),
+  //   .NUM_SUBGRAPHS      (NUM_SUBGRAPHS          ),
+  //   .MAX_NODES          (MAX_NODES              ),
 
-    .COEF_DEPTH         (COEF_DEPTH             ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH            ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH         ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH          )
-  ) u_gat_conv2 (
-    .clk                        (clk                              ),
-    .rst_n                      (rst_n                            ),
+  //   .COEF_DEPTH         (COEF_DEPTH             ),
+  //   .ALPHA_DEPTH        (ALPHA_DEPTH            ),
+  //   .DIVIDEND_DEPTH     (DIVIDEND_DEPTH         ),
+  //   .DIVISOR_DEPTH      (DIVISOR_DEPTH          )
+  // ) u_gat_conv2 (
+  //   .clk                        (clk                              ),
+  //   .rst_n                      (rst_n                            ),
 
-    .gat_layer                  (gat_layer                        ),
+  //   .gat_layer                  (gat_layer                        ),
 
-    .h_data_bram_dout           (h_data_bram_dout                 ),
-    .h_data_bram_addrb          (h_data_bram_addrb_conv2          ),
-    .h_data_bram_load_done      (h_data_bram_load_done            ),
+  //   .h_data_bram_dout           (h_data_bram_dout                 ),
+  //   .h_data_bram_addrb          (h_data_bram_addrb_conv2          ),
+  //   .h_data_bram_load_done      (h_data_bram_load_done            ),
 
-    .h_node_info_bram_dout      (h_node_info_bram_dout            ),
-    .h_node_info_bram_addrb     (h_node_info_bram_addrb_conv2     ),
-    .h_node_info_bram_load_done (h_node_info_bram_load_done       ),
+  //   .h_node_info_bram_dout      (h_node_info_bram_dout            ),
+  //   .h_node_info_bram_addrb     (h_node_info_bram_addrb_conv2     ),
+  //   .h_node_info_bram_load_done (h_node_info_bram_load_done       ),
 
-    .wgt_bram_dout              (wgt_bram_dout                    ),
-    .wgt_bram_addrb             (wgt_bram_addrb_conv2_raw         ),
-    .wgt_bram_load_done         (wgt_bram_load_done               ),
+  //   .wgt_bram_dout              (wgt_bram_dout                    ),
+  //   .wgt_bram_addrb             (wgt_bram_addrb_conv2_raw         ),
+  //   .wgt_bram_load_done         (wgt_bram_load_done               ),
 
-    .wh_bram_din                (wh_bram_din_conv2                ),
-    .wh_bram_ena                (wh_bram_ena_conv2                ),
-    .wh_bram_addra              (wh_bram_addra_conv2              ),
-    .wh_bram_addrb              (wh_bram_addrb_conv2              ),
-    .wh_bram_dout               (wh_bram_dout                     ),
+  //   .wh_bram_din                (wh_bram_din_conv2                ),
+  //   .wh_bram_ena                (wh_bram_ena_conv2                ),
+  //   .wh_bram_addra              (wh_bram_addra_conv2              ),
+  //   .wh_bram_addrb              (wh_bram_addrb_conv2              ),
+  //   .wh_bram_dout               (wh_bram_dout                     ),
 
-    .num_node_bram_din          (num_node_bram_din_conv2          ),
-    .num_node_bram_ena          (num_node_bram_ena_conv2          ),
-    .num_node_bram_addra        (num_node_bram_addra_conv2        ),
-    .num_node_bram_addrb        (num_node_bram_addrb_conv2        ),
-    .num_node_bram_doutb        (num_node_bram_doutb              ),
-    .num_node_bram_addrc        (num_node_bram_addrc_conv2        ),
-    .num_node_bram_doutc        (num_node_bram_doutc              ),
+  //   .num_node_bram_din          (num_node_bram_din_conv2          ),
+  //   .num_node_bram_ena          (num_node_bram_ena_conv2          ),
+  //   .num_node_bram_addra        (num_node_bram_addra_conv2        ),
+  //   .num_node_bram_addrb        (num_node_bram_addrb_conv2        ),
+  //   .num_node_bram_doutb        (num_node_bram_doutb              ),
+  //   .num_node_bram_addrc        (num_node_bram_addrc_conv2        ),
+  //   .num_node_bram_doutc        (num_node_bram_doutc              ),
 
-    .feat_bram_din              (feat_bram_din_conv2              ),
-    .feat_bram_ena              (feat_bram_ena_conv2              ),
-    .feat_bram_addra            (feat_bram_addra_conv2            ),
+  //   .feat_bram_din              (feat_bram_din_conv2              ),
+  //   .feat_bram_ena              (feat_bram_ena_conv2              ),
+  //   .feat_bram_addra            (feat_bram_addra_conv2            ),
 
-    .gat_ready                  (gat_ready_conv2                  )
-  );
+  //   .gat_ready                  (gat_ready_conv2                  )
+  // );
   //* ==========================================================
 endmodule
