@@ -124,6 +124,7 @@ module SP_PE #(
   logic         [COL_IDX_WIDTH-1:0]   col_idx_reg         ;
   logic         [DATA_WIDTH-1:0]      val_reg             ;
   logic         [ROW_LEN_WIDTH-1:0]   row_len_reg         ;
+  logic         [ROW_LEN_WIDTH-1:0]   row_len_reg_q1      ;
   // -- [pe_rdy] logic
   logic                               pe_rdy              ;
   logic                               pe_rdy_reg          ;
@@ -138,6 +139,7 @@ module SP_PE #(
 
   logic                               calc_ena            ;
   logic                               calc_ena_reg        ;
+  logic                               calc_ena_reg_q1     ;
 
   logic         [NUM_NODE_WIDTH-1:0]  num_node            ;
   logic         [NUM_NODE_WIDTH-1:0]  num_node_reg        ;
@@ -156,21 +158,29 @@ module SP_PE #(
 
 
   //* ====================== calculation ======================
-  assign wgt_addrb  = col_idx_i;
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      col_idx_reg <= '0;
+    end else begin
+      col_idx_reg <= col_idx_i;
+    end
+  end
+
+  assign wgt_addrb  = col_idx_reg;
   assign calc_ena   = spmm_vld_q1;
 
   always_comb begin
     prod  = prod_reg;
     cnt   = cnt_reg;
 
-    if (calc_ena_reg) begin
-      cnt = (cnt_reg == row_len_reg - 1 || row_len_reg <= 1) ? 0 : (cnt_reg + 1);
+    if (calc_ena_reg_q1) begin
+      cnt = (cnt_reg == row_len_reg_q1 - 1 || row_len_reg_q1 <= 1) ? 0 : (cnt_reg + 1);
     end
   end
 
   always_comb begin
     res = res_reg;
-    if (calc_ena_reg) begin
+    if (calc_ena_reg_q1) begin
       if (cnt_reg != 0) begin
         res = $signed(res_reg) + $signed(wgt_dout);
       end else begin
@@ -181,25 +191,29 @@ module SP_PE #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      prod_reg      <= 'b0;
-      cnt_reg       <= 'b0;
-      res_reg       <= 'b0;
-      calc_ena_reg  <= 'b0;
+      prod_reg        <= 'b0;
+      cnt_reg         <= 'b0;
+      res_reg         <= 'b0;
+      calc_ena_reg    <= 'b0;
+      calc_ena_reg_q1 <= 'b0;
     end else begin
-      cnt_reg       <= cnt;
-      prod_reg      <= prod;
-      res_reg       <= res;
-      calc_ena_reg  <= calc_ena;
+      cnt_reg         <= cnt;
+      prod_reg        <= prod;
+      res_reg         <= res;
+      calc_ena_reg    <= calc_ena;
+      calc_ena_reg_q1 <= calc_ena_reg;
     end
   end
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      row_len_reg <= '0;
-      spmm_vld_q1 <= '0;
+      row_len_reg     <= '0;
+      spmm_vld_q1     <= '0;
+      row_len_reg_q1  <= '0;
     end else begin
-      row_len_reg <= row_len_i;
-      spmm_vld_q1 <= spmm_vld_i;
+      row_len_reg     <= row_len_i;
+      spmm_vld_q1     <= spmm_vld_i;
+      row_len_reg_q1  <= row_len_reg;
     end
   end
   //* =========================================================
@@ -208,9 +222,9 @@ module SP_PE #(
   //* ======================== pe_rdy =========================
   always_comb begin
     pe_rdy = pe_rdy_reg;
-    if (pe_rdy_reg && (row_len_reg > 1)) begin
+    if (pe_rdy_reg && (row_len_reg_q1 > 1)) begin
       pe_rdy = 1'b0;
-    end else if ((cnt_reg == row_len_reg - 1) || (row_len_reg == 1) && spmm_vld_i) begin
+    end else if ((cnt_reg == row_len_reg_q1 - 1) || (row_len_reg_q1 == 1) && spmm_vld_i) begin
       pe_rdy = 1'b1;
     end
   end
@@ -219,7 +233,7 @@ module SP_PE #(
     if (!rst_n) begin
       pe_rdy_reg <= 'b0;
     end else begin
-      if (row_len_reg == 1 && spmm_vld_i) begin
+      if (row_len_reg_q1 == 1 && spmm_vld_i) begin
         pe_rdy_reg <= 1'b1;
       end else begin
         pe_rdy_reg <= pe_rdy;
