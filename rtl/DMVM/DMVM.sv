@@ -9,7 +9,7 @@
 // Author     : @Germanyy0410
 // ======================================================================
 
-`include "./../../inc/gat_define.sv"
+`include "../others/define/gat_define.sv"
 
 module DMVM #(
   //* ======================= parameter ========================

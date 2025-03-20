@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-`include "../rtl/inc/gat_define.sv"
+`include "../rtl/others/define/gat_define.sv"
 
 `ifdef CORA
 	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/cora";

@@ -110,7 +110,7 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
   // assign debug_2 = data_1_reg;
   assign debug_2 = { spmm_vld_i, spmm_rdy_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
 
-  // assign debug_3 = counter_reg;
-  assign debug_3 = 20030;
+  // assign debug_3 = 11472003;
+  assign debug_3 = 11472003;
 
 endmodule
