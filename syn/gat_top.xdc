@@ -5,17 +5,17 @@
 # Author     : @Germanyy0410
 # ==================================================================
 
-# set clk_speed   250
-# set clk_period  [expr (1000.0 / $clk_speed)]
+set clk_speed   350
+set clk_period  [expr (1000.0 / $clk_speed)]
 
-# set max_delay   0.2
-# set min_delay   0.1
-# set signed      1
+set max_delay   0.2
+set min_delay   0.1
+set signed      1
 
 ######################## Clock Settings ########################
-# create_clock -name clk -period $clk_period -waveform "0.0 [expr ($clk_period / 2.0)]" [get_ports clk]
-# set_clock_latency 0.01 [get_ports clk]
-# set_clock_uncertainty [expr (1000.0 / $clk_speed)*0.01] [get_ports clk]
+create_clock -name clk -period $clk_period -waveform "0.0 [expr ($clk_period / 2.0)]" [get_ports clk]
+set_clock_latency 0.01 [get_ports clk]
+set_clock_uncertainty [expr (1000.0 / $clk_speed)*0.01] [get_ports clk]
 ################################################################
 
 
