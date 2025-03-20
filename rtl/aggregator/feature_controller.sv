@@ -114,7 +114,7 @@ module feature_controller #(
   output logic [NEW_FEATURE_WIDTH-1:0]                  feat_bram_din       ,
   output logic                                          feat_bram_ena       ,
 
-  output                                                gat_ready
+  output logic                                          gat_ready
 );
 
   localparam CNT_DATA_WIDTH = $clog2(NUM_FEATURE_OUT);
@@ -200,7 +200,13 @@ module feature_controller #(
     end
   end
 
-  //* ================== complete conv1 ==================
-  assign gat_ready = (feat_bram_addra >= (NUM_SUBGRAPHS * NUM_FEATURE_OUT - 1));
+  //* ================== complete conv ===================
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      gat_ready <= '0;
+    end else begin
+      gat_ready <= (feat_bram_addra >= (NUM_SUBGRAPHS * NUM_FEATURE_OUT - 1));
+    end
+  end
   //* ====================================================
 endmodule

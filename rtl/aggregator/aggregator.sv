@@ -130,10 +130,12 @@ module aggregator #(
 
   //* ============== logic declaration ==============
   logic [ALPHA_DATA_WIDTH-1:0]                        alpha               ;
+  logic [ALPHA_DATA_WIDTH-1:0]                        alpha_reg           ;
 
   logic [WH_ADDR_W-1:0]                               wh_addr             ;
   logic [WH_ADDR_W-1:0]                               wh_addr_reg         ;
   logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]     wh_dout             ;
+  logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]     wh_dout_reg         ;
   logic [NUM_NODE_WIDTH-1:0]                          wh_num_node         ;
   logic                                               src_flag            ;
 
@@ -143,6 +145,7 @@ module aggregator #(
   logic [NUM_NODE_WIDTH-1:0]                          cnt_reg             ;
 
   logic                                               mul_vld             ;
+  logic                                               mul_vld_reg         ;
   logic [NUM_FEATURE_OUT-1:0]                         mul_rdy             ;
   logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH:0]   prod                ;
   logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH:0]   res                 ;
@@ -167,9 +170,11 @@ module aggregator #(
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       wh_addr_reg   <= 'b0;
+      wh_dout_reg   <= 'b0;
       num_node_reg  <= 'b0;
     end else begin
       wh_addr_reg   <= wh_addr;
+      wh_dout_reg   <= wh_dout;
       num_node_reg  <= num_node;
     end
   end
@@ -181,9 +186,11 @@ module aggregator #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      alpha <= 'b0;
+      alpha     <= 'b0;
+      alpha_reg <= 'b0;
     end else begin
-      alpha <= alpha_ff_dout;
+      alpha     <= alpha_ff_dout;
+      alpha_reg <= alpha;
     end
   end
   //* ==============================================
@@ -203,12 +210,15 @@ module aggregator #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      mul_vld <= 'b0;
+      mul_vld     <= 'b0;
+      mul_vld_reg <= 'b0;
     end else begin
-      mul_vld <= alpha_ff_rd_vld;
+      mul_vld     <= alpha_ff_rd_vld;
+      mul_vld_reg <= mul_vld;
     end
   end
 
+  // -- Multiplication
   generate
     for (i = 0; i < NUM_FEATURE_OUT; i = i + 1) begin
       fxp_mul_pipe #(
@@ -222,15 +232,16 @@ module aggregator #(
       ) u_mul_pipe (
         .clk    (clk              ),
         .rstn   (rst_n            ),
-        .vld    (mul_vld          ),
+        .vld    (mul_vld_reg      ),
         .rdy    (mul_rdy[i]       ),
-        .ina    (wh_dout[i]       ),
-        .inb    (alpha            ),
+        .ina    (wh_dout_reg[i]   ),
+        .inb    (alpha_reg        ),
         .out    (prod[i]          )
       );
     end
   endgenerate
 
+  // -- Addition
   generate
     for (i = 0; i < NUM_FEATURE_OUT; i = i + 1) begin
       assign res[i] = (cnt_reg == 0) ? prod[i] : (prod[i] + res_reg[i]);

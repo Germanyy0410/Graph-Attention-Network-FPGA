@@ -413,7 +413,7 @@ module gat_top #(
 
   //   .feat_bram_din              (feat_bram_din_conv2              ),
   //   .feat_bram_ena              (feat_bram_ena_conv2              ),
-  //   .feat_bram_addra            (feat_bram_addra_conv2            ),
+  //   .feat_bram_addra            (feat_bram_addra_conv2_raw        ),
 
   //   .gat_ready                  (gat_ready_conv2                  )
   // );
