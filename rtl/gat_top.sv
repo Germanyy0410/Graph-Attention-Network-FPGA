@@ -194,6 +194,10 @@ module gat_top #(
   localparam WGT_ADDR_W_CONV2 = $clog2(NUM_FEATURE_OUT * NUM_FEATURE_FINAL + NUM_FEATURE_FINAL * 2);
   localparam WGT_ADDR_W_DIFF  = WGT_ADDR_W_CONV1 - WGT_ADDR_W_CONV2;
 
+  localparam FEAT_ADDR_W_CONV1 = $clog2(NUM_SUBGRAPHS*NUM_FEATURE_OUT);
+  localparam FEAT_ADDR_W_CONV2 = $clog2(NUM_SUBGRAPHS*NUM_FEATURE_FINAL);
+  localparam FEAT_ADDR_W_DIFF  = FEAT_ADDR_W_CONV1 - FEAT_ADDR_W_CONV2;
+
   //* ====================== Memory Logic ======================
   // -- PL
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb             ;
@@ -250,13 +254,15 @@ module gat_top #(
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv2           ;
   logic                           feat_bram_ena_conv2           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2         ;
+  logic [FEAT_ADDR_W_CONV2-1:0]   feat_bram_addra_conv2_raw     ;
 
   logic                           gat_ready_conv2               ;
   //* ==========================================================
 
 
   assign gat_ready = (gat_layer == 1'b0) ? gat_ready_conv1 : gat_ready_conv2;
-  assign wgt_bram_addrb_conv2 = { {WGT_ADDR_W_DIFF{1'b0}}, wgt_bram_addrb_conv2_raw };
+  assign wgt_bram_addrb_conv2  = { {WGT_ADDR_W_DIFF{1'b0}}, wgt_bram_addrb_conv2_raw };
+  assign feat_bram_addra_conv2 = { {FEAT_ADDR_W_DIFF{1'b0}}, feat_bram_addra_conv2_raw };
 
 
   //* ==================== Memory Controller ===================
