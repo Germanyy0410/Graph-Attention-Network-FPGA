@@ -191,6 +191,6 @@ module gat_top_wrapper #(
   );
 
   wire [31:0] current_time;
-  assign current_time = 19202003;
+  assign current_time = 21392003;
 
 endmodule

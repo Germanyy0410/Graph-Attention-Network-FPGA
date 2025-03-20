@@ -238,12 +238,7 @@ module softmax #(
       end else begin
         node_cnt  = node_cnt_reg + 1;
       end
-    end
-  end
 
-  always @(*) begin
-    sum = sum_reg;
-    if (coef_ff_rd_vld) begin
       if (node_cnt_reg == 0) begin
         sum = exp;
       end else begin
