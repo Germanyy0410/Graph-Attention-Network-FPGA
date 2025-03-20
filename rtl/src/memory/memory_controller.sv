@@ -141,7 +141,7 @@ module memory_controller #(
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ,
   output  [DATA_WIDTH-1:0]          wgt_bram_dout                 ,
-  
+
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb               ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout                ,
   //* ==========================================================
@@ -228,7 +228,7 @@ module memory_controller #(
 
   //* ========================= MEMORY =========================
   (* dont_touch = "yes" *)
-  BRAM #(
+  URAM #(
     .DATA_WIDTH   (H_DATA_WIDTH         ),
     .DEPTH        (H_DATA_DEPTH         )
   ) u_h_data_bram (
