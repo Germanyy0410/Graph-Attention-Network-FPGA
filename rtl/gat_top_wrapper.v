@@ -7,6 +7,7 @@
 
 module gat_top_wrapper #(
   //* ====================== parameter ======================
+  parameter TOP_WIDTH             = 32,
   parameter DATA_WIDTH            = 8,
   parameter WH_DATA_WIDTH         = 12,
   parameter DMVM_DATA_WIDTH       = 20,
@@ -107,9 +108,9 @@ module gat_top_wrapper #(
   //* ===================== Register Bank ======================
   input                             gat_layer                   ,
   output                            gat_ready                   ,
-  output  [31:0]                    gat_debug_1                 ,
-  output  [31:0]                    gat_debug_2                 ,
-  output  [31:0]                    gat_debug_3                 ,
+  output  [TOP_WIDTH-1:0]           gat_debug_1                 ,
+  output  [TOP_WIDTH-1:0]           gat_debug_2                 ,
+  output  [TOP_WIDTH-1:0]           gat_debug_3                 ,
   input                             h_data_bram_load_done       ,
   input                             h_node_info_bram_load_done  ,
   input                             wgt_bram_load_done          ,
@@ -117,17 +118,17 @@ module gat_top_wrapper #(
 
 
   //* ===================== BRAM Interface =====================
-  input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
+  input   [TOP_WIDTH-1:0]           h_data_bram_din             ,
   input                             h_data_bram_ena             ,
   input                             h_data_bram_wea             ,
   input   [H_DATA_ADDR_W+1:0]       h_data_bram_addra           ,
 
-  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
+  input   [TOP_WIDTH-1:0]           h_node_info_bram_din        ,
   input                             h_node_info_bram_ena        ,
   input                             h_node_info_bram_wea        ,
   input   [NODE_INFO_ADDR_W+1:0]    h_node_info_bram_addra      ,
 
-  input   [DATA_WIDTH-1:0]          wgt_bram_din                ,
+  input   [TOP_WIDTH-1:0]           wgt_bram_din                ,
   input                             wgt_bram_ena                ,
   input                             wgt_bram_wea                ,
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
@@ -169,17 +170,17 @@ module gat_top_wrapper #(
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                     ),
     .wgt_bram_load_done           (wgt_bram_load_done                             ),
 
-    .h_data_bram_din              (h_data_bram_din                                ),
+    .h_data_bram_din              (h_data_bram_din[H_DATA_WIDTH-1:0]              ),
     .h_data_bram_ena              (h_data_bram_ena                                ),
     .h_data_bram_wea              (h_data_bram_wea                                ),
     .h_data_bram_addra            (h_data_bram_addra[H_DATA_ADDR_W+1:2]           ),
 
-    .h_node_info_bram_din         (h_node_info_bram_din                           ),
+    .h_node_info_bram_din         (h_node_info_bram_din[NODE_INFO_WIDTH-1:0]      ),
     .h_node_info_bram_ena         (h_node_info_bram_ena                           ),
     .h_node_info_bram_wea         (h_node_info_bram_wea                           ),
     .h_node_info_bram_addra       (h_node_info_bram_addra[NODE_INFO_ADDR_W+1:2]   ),
 
-    .wgt_bram_din                 (wgt_bram_din                                   ),
+    .wgt_bram_din                 (wgt_bram_din[DATA_WIDTH-1:0]                   ),
     .wgt_bram_ena                 (wgt_bram_ena                                   ),
     .wgt_bram_wea                 (wgt_bram_wea                                   ),
     .wgt_bram_addra               (wgt_bram_addra[WEIGHT_ADDR_W+1:2]              ),
