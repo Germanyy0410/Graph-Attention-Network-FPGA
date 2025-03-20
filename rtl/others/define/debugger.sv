@@ -29,6 +29,8 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
   output [31:0] debug_3
 );
 
+  logic spmm_vld;
+  logic spmm_vld_reg;
   logic spmm_rdy;
   logic spmm_rdy_reg;
   logic dmvm_vld;
@@ -48,6 +50,7 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
   logic ena_flag;
   logic ena_flag_reg;
 
+  assign spmm_vld = (spmm_vld_i) ? 1'b1 : spmm_vld_reg;
   assign spmm_rdy = (spmm_rdy_i) ? 1'b1 : spmm_rdy_reg;
   assign dmvm_vld = (dmvm_vld_i) ? 1'b1 : dmvm_vld_reg;
   assign dmvm_rdy = (dmvm_rdy_i) ? 1'b1 : dmvm_rdy_reg;
@@ -61,6 +64,7 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
+      spmm_vld_reg <= '0;
       spmm_rdy_reg <= '0;
       dmvm_vld_reg <= '0;
       dmvm_rdy_reg <= '0;
@@ -70,6 +74,7 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
       aggr_rdy_reg <= '0;
       ena_flag_reg <= '0;
     end else begin
+      spmm_vld_reg <= spmm_vld;
       spmm_rdy_reg <= spmm_rdy;
       dmvm_vld_reg <= dmvm_vld;
       dmvm_rdy_reg <= dmvm_rdy;
@@ -108,9 +113,9 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
 
   // assign debug_2 = feat_bram_addra;
   // assign debug_2 = data_1_reg;
-  assign debug_2 = { spmm_vld_i, spmm_rdy_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
+  assign debug_2 = { spmm_vld_reg, spmm_rdy_reg, dmvm_vld_reg, dmvm_rdy_reg, sm_vld_reg, sm_rdy_reg, aggr_vld_reg, aggr_rdy_reg };
 
-  // assign debug_3 = 11472003;
-  assign debug_3 = 11472003;
+  // assign debug_3 = 11542003;
+  assign debug_3 = 11542003;
 
 endmodule
