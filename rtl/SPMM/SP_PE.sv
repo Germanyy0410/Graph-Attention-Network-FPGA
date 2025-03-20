@@ -144,9 +144,11 @@ module SP_PE #(
   logic         [NUM_NODE_WIDTH-1:0]  num_node            ;
   logic         [NUM_NODE_WIDTH-1:0]  num_node_reg        ;
   logic         [NUM_NODE_WIDTH-1:0]  num_node_reg_q1     ;
+  logic         [NUM_NODE_WIDTH-1:0]  num_node_reg_q2     ;
   logic                               src_flag            ;
   logic                               src_flag_reg        ;
   logic                               src_flag_reg_q1     ;
+  logic                               src_flag_reg_q2     ;
   //* =========================================================
 
   integer i;
@@ -244,8 +246,8 @@ module SP_PE #(
 
 
   //* ======================= node_info =======================
-  assign num_node_o = num_node_reg_q1;
-  assign src_flag_o = src_flag_reg_q1;
+  assign num_node_o = num_node_reg_q2;
+  assign src_flag_o = src_flag_reg_q2;
 
   assign num_node = (pe_vld_i) ? num_node_i : num_node_reg;
   assign src_flag = (pe_vld_i) ? src_flag_i : src_flag_reg;
@@ -254,13 +256,17 @@ module SP_PE #(
     if (!rst_n) begin
       num_node_reg    <= 'b0;
       num_node_reg_q1 <= 'b0;
+      num_node_reg_q2 <= 'b0;
       src_flag_reg    <= 'b0;
       src_flag_reg_q1 <= 'b0;
+      src_flag_reg_q2 <= 'b0;
     end else begin
       num_node_reg    <= num_node;
       num_node_reg_q1 <= num_node_reg;
+      num_node_reg_q2 <= num_node_reg_q1;
       src_flag_reg    <= src_flag;
       src_flag_reg_q1 <= src_flag_reg;
+      src_flag_reg_q2 <= src_flag_reg_q1;
     end
   end
   //* =========================================================
