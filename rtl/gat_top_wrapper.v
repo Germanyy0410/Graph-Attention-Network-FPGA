@@ -189,4 +189,8 @@ module gat_top_wrapper #(
     .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]        ),
     .feat_bram_dout               (feat_bram_dout                                 )
   );
+
+  wire [31:0] current_time;
+  assign current_time = 16032003;
+
 endmodule
