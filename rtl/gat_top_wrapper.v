@@ -134,6 +134,7 @@ module gat_top_wrapper #(
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
 
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
+  input abc,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
   //* ==========================================================
 );
