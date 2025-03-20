@@ -40,7 +40,7 @@ module gat_top #(
   parameter DMVM_DATA_WIDTH_CONV2   = 24,
 
 `elsif CITESEER
-  parameter H_NUM_SPARSE_DATA       = 399058,
+  parameter H_NUM_SPARSE_DATA       = 399089,
   parameter TOTAL_NODES             = 12383,
   parameter NUM_FEATURE_IN          = 3703,
   parameter NUM_FEATURE_OUT         = 16,
