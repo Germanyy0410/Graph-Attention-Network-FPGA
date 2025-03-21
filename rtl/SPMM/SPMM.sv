@@ -223,7 +223,6 @@ module SPMM #(
   //* ===================== instantiation ======================
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
-      (* dont_touch = "yes" *)
       SP_PE #(
         .DATA_WIDTH         (DATA_WIDTH         ),
         .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),

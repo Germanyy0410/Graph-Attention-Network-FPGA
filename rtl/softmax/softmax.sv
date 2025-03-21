@@ -316,7 +316,6 @@ module softmax #(
     end
   end
 
-  (* dont_touch = "yes" *)
   fxp_div_pipe #(
     .WIIA     (SM_DATA_WIDTH      ),
     .WIFA     (0                  ),
