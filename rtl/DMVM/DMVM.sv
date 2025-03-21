@@ -212,8 +212,28 @@ module DMVM #(
 
 
   //* ======== Pipeline calculation =========
-  assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
-  assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
+  always_comb begin
+    src_dmvm = src_dmvm_reg;
+    if (pipe_src_flag_reg[NUM_STAGES]) begin
+      if (NUM_FEATURE_OUT % 2 == 0) begin
+        src_dmvm = pipe_src_reg[NUM_STAGES][0];
+      end else begin
+        src_dmvm = $signed(pipe_src_reg[NUM_STAGES][0]) + $signed(pipe_src_reg[1][NUM_FEATURE_OUT-1]);
+      end
+    end
+  end
+
+  always_comb begin
+    nbr_dmvm = nbr_dmvm_reg;
+    if (NUM_FEATURE_OUT % 2 == 0) begin
+      nbr_dmvm = pipe_nbr_reg[NUM_STAGES][0];
+    end else begin
+      nbr_dmvm = $signed(pipe_nbr_reg[NUM_STAGES][0]) + $signed(pipe_nbr_reg[1][NUM_FEATURE_OUT-1]);
+    end
+  end
+
+  // assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
+  // assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
   assign pipe_coef  = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH);
 
   // -- src_flag
@@ -233,7 +253,7 @@ module DMVM #(
         end
       end else begin
         for (k = 0; k < HALF_A_SIZE / (1 << i); k = k + 1) begin
-          if (NUM_STAGES % 2 == 0) begin
+          if (NUM_FEATURE_OUT % 2 == 0) begin
             assign pipe_src[i][k] = $signed(pipe_src_reg[i][2*k]) + $signed(pipe_src_reg[i][2*k+1]);
             assign pipe_nbr[i][k] = $signed(pipe_nbr_reg[i][2*k]) + $signed(pipe_nbr_reg[i][2*k+1]);
           end else begin
