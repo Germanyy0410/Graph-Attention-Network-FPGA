@@ -161,7 +161,7 @@ module WH #(
   //* ==========================================================
 
 
-  assign new_row      = (idx_reg == W_NUM_OF_ROWS - 1);
+  assign new_row      = (idx_reg == 0);
   assign new_subgraph = (num_node_cnt_reg == num_node_bram_dout - 1) && new_row;
 
   always_ff @(posedge clk or negedge rst_n) begin
