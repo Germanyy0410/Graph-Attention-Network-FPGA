@@ -46,6 +46,7 @@ real    total_latency, total_time;
 string  content  = "";
 longint start_time, end_time, lat_start_time, lat_end_time;
 integer file;
+string  LOG_PATH = "D:/VLSI/Capstone/tb/log";
 
 task begin_section;
   $display("------------------------------------------------------------");
@@ -87,7 +88,6 @@ task end_section;
   $display(content);
 
   summary_log = { summary_log, content };
-
   file = $fopen($sformatf("%s/summary.log", LOG_PATH), "w");
   if (file == 0) $error("Summary: Failed to open summary file ");
   $fwrite(file, "%s\n", summary_log);

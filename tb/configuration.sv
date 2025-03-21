@@ -5,6 +5,15 @@
     dividend.header           = "SOFTMAX";
     new_feature.header        = "AGGREGATOR";
 
+    spmm.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv1";
+    dmvm.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv1";
+    coef.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv1";
+    dividend.LOG_PATH         = "D:/VLSI/Capstone/tb/log/conv1";
+    divisor.LOG_PATH          = "D:/VLSI/Capstone/tb/log/conv1";
+    sm_num_nodes.LOG_PATH     = "D:/VLSI/Capstone/tb/log/conv1";
+    alpha.LOG_PATH            = "D:/VLSI/Capstone/tb/log/conv1";
+    new_feature.LOG_PATH      = "D:/VLSI/Capstone/tb/log/conv1";
+
     spmm.log_file             = "SPMM/wh.log";
     dmvm.log_file             = "DMVM/dmvm.log";
     coef.log_file             = "DMVM/coef.log";
@@ -77,6 +86,14 @@
     dividend_conv2.header           = "SOFTMAX";
     new_feature_conv2.header        = "AGGREGATOR";
 
+    spmm_conv2.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv2";
+    dmvm_conv2.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv2";
+    coef_conv2.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv2";
+    dividend_conv2.LOG_PATH         = "D:/VLSI/Capstone/tb/log/conv2";
+    divisor_conv2.LOG_PATH          = "D:/VLSI/Capstone/tb/log/conv2";
+    alpha_conv2.LOG_PATH            = "D:/VLSI/Capstone/tb/log/conv2";
+    new_feature_conv2.LOG_PATH      = "D:/VLSI/Capstone/tb/log/conv2";
+
     spmm_conv2.log_file             = "SPMM/wh.log";
     dmvm_conv2.log_file             = "DMVM/dmvm.log";
     coef_conv2.log_file             = "DMVM/coef.log";
@@ -84,6 +101,7 @@
     divisor_conv2.log_file          = "softmax/divisor.log";
     alpha_conv2.log_file            = "softmax/alpha.log";
     new_feature_conv2.log_file      = "aggregator/new_feature.log";
+
   end
 
   always_comb begin

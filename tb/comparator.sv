@@ -28,6 +28,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
   string  label;
   string  header;
   string  log_file;
+  string  LOG_PATH;
 
   longint pass_checker;
   longint total_checker;

@@ -12,8 +12,6 @@
 	localparam string ROOT_PATH = "D:/VLSI/Capstone/tb";
 `endif
 
-string LOG_PATH;
-
 module gat_top_tb #(
   //* ======================= parameter ========================
 `ifdef TESTBENCH
@@ -221,15 +219,6 @@ module gat_top_tb #(
     rst_n     = 1'b0;
     #15.01;
     rst_n     = 1'b1;
-  end
-  //* ==========================================================
-
-
-  //* ==================== Update Log Path =====================
-  initial begin
-    LOG_PATH = "D:/VLSI/Capstone/tb/log/conv1";
-    wait(dut.gat_ready == 1'b1);
-    LOG_PATH = "D:/VLSI/Capstone/tb/log/conv2";
   end
   //* ==========================================================
 
