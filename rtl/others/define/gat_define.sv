@@ -16,5 +16,5 @@
 // `define CITESEER              1
 // `define PUBMED                13
 
-`define PASSED                1
+// `define PASSED                1
 `define FAILED                1

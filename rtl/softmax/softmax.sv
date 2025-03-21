@@ -290,7 +290,7 @@ module softmax #(
   // -- vld signal
   assign div_vld = sub_grph_div_ena;
 
-  // -- node counter
+// -- node counter
   always @(*) begin
     div_node_cnt = div_node_cnt_reg;
     if (sub_grph_div_ena) begin
