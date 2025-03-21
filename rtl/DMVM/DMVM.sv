@@ -233,8 +233,18 @@ module DMVM #(
         end
       end else begin
         for (k = 0; k < HALF_A_SIZE / (1 << i); k = k + 1) begin
-          assign pipe_src[i][k] = $signed(pipe_src_reg[i][2*k]) + $signed(pipe_src_reg[i][2*k+1]);
-          assign pipe_nbr[i][k] = $signed(pipe_nbr_reg[i][2*k]) + $signed(pipe_nbr_reg[i][2*k+1]);
+          if (NUM_STAGES % 2 == 0) begin
+            assign pipe_src[i][k] = $signed(pipe_src_reg[i][2*k]) + $signed(pipe_src_reg[i][2*k+1]);
+            assign pipe_nbr[i][k] = $signed(pipe_nbr_reg[i][2*k]) + $signed(pipe_nbr_reg[i][2*k+1]);
+          end else begin
+            if (i < NUM_STAGES - 1) begin
+              assign pipe_src[i][k] = $signed(pipe_src_reg[i][2*k]) + $signed(pipe_src_reg[i][2*k+1]);
+              assign pipe_nbr[i][k] = $signed(pipe_nbr_reg[i][2*k]) + $signed(pipe_nbr_reg[i][2*k+1]);
+            end else begin
+              assign pipe_src[i][k] = $signed(pipe_src_reg[i][0]) + $signed(pipe_src_reg[i][1]) + $signed(pipe_src_reg[i][2]);
+              assign pipe_nbr[i][k] = $signed(pipe_nbr_reg[i][0]) + $signed(pipe_nbr_reg[i][1]) + $signed(pipe_nbr_reg[i][2]);
+            end
+          end
         end
       end
     end
