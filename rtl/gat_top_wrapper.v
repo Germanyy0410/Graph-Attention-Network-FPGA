@@ -134,7 +134,6 @@ module gat_top_wrapper #(
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
 
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
-  input abc,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
   //* ==========================================================
 );
@@ -191,6 +190,6 @@ module gat_top_wrapper #(
   );
 
   wire [31:0] current_time;
-  assign current_time = 13042103;
+  assign current_time = 13062103;
 
 endmodule
