@@ -211,7 +211,7 @@ module WH #(
 
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
-      assign prod[i]  = $signed(wgt[i][idx_reg]);
+      assign prod[i]  = $signed(h_data_bram_dout) * $signed(wgt[i][idx_reg]);
       assign res[i]   = (idx_reg > 0) ? (prod[i] + res_reg[i]) : prod[i];
     end
   endgenerate
