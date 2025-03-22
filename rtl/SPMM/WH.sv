@@ -133,42 +133,61 @@ module WH #(
   genvar i;
 
   //* =================== logic declaration ====================
-  logic                                             new_row             ;
-  logic                                             new_subgraph        ;
+  logic [H_DATA_WIDTH-1:0]                          h_data_bram_dout_reg  ;
 
-  logic [NUM_NODE_ADDR_W-1:0]                       num_node_addr       ;
-  logic [NUM_NODE_ADDR_W-1:0]                       num_node_addr_reg   ;
+  logic                                             new_row               ;
+  logic                                             new_row_reg           ;
+  logic                                             new_subgraph          ;
 
-  logic [NUM_NODE_WIDTH-1:0]                        num_node            ;
-  logic                                             src_flag            ;
-  logic [NUM_NODE_WIDTH-1:0]                        num_node_cnt        ;
-  logic [NUM_NODE_WIDTH-1:0]                        num_node_cnt_reg    ;
+  logic [NUM_NODE_ADDR_W-1:0]                       num_node_addr         ;
+  logic [NUM_NODE_ADDR_W-1:0]                       num_node_addr_reg     ;
 
-  logic                                             wh_vld_q1           ;
+  logic [NUM_NODE_WIDTH-1:0]                        num_node              ;
+  logic                                             src_flag              ;
+  logic [NUM_NODE_WIDTH-1:0]                        num_node_cnt          ;
+  logic [NUM_NODE_WIDTH-1:0]                        num_node_cnt_reg      ;
 
-  logic [H_DATA_ADDR_W-1:0]                         h_addr              ;
-  logic [H_DATA_ADDR_W-1:0]                         h_addr_reg          ;
+  logic                                             wh_vld_q1             ;
+  logic                                             wh_vld_q2             ;
 
-  logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]   prod                ;
-  logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]   res                 ;
-  logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]   res_reg             ;
-  logic [IDX_WIDTH-1:0]                             idx                 ;
-  logic [IDX_WIDTH-1:0]                             idx_reg             ;
+  logic [H_DATA_ADDR_W-1:0]                         h_addr                ;
+  logic [H_DATA_ADDR_W-1:0]                         h_addr_reg            ;
 
-  logic [WH_RESULT_WIDTH-1:0]                       wh_cat              ;
-  logic [WH_ADDR_W-1:0]                             wh_addr             ;
-  logic [WH_ADDR_W-1:0]                             wh_addr_reg         ;
+  logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]   prod                  ;
+  logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]   res                   ;
+  logic [NUM_FEATURE_OUT-1:0] [WH_DATA_WIDTH-1:0]   res_reg               ;
+  logic [IDX_WIDTH-1:0]                             idx                   ;
+  logic [IDX_WIDTH-1:0]                             idx_reg               ;
+
+  logic [WH_RESULT_WIDTH-1:0]                       wh_cat                ;
+  logic [WH_ADDR_W-1:0]                             wh_addr               ;
+  logic [WH_ADDR_W-1:0]                             wh_addr_reg           ;
   //* ==========================================================
 
 
-  assign new_row      = (idx_reg == 0);
+  //* ==================== capture h_data ======================
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      h_data_bram_dout_reg <= 'b0;
+    end else begin
+      h_data_bram_dout_reg <= h_data_bram_dout;
+    end
+  end
+  //* ==========================================================
+
+
+  assign new_row      = (idx_reg == W_NUM_OF_ROWS - 1);
   assign new_subgraph = (num_node_cnt_reg == num_node_bram_dout - 1) && new_row;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      wh_vld_q1 <= '0;
+      new_row_reg <= '0;
+      wh_vld_q1   <= '0;
+      wh_vld_q2   <= '0;
     end else begin
-      wh_vld_q1 <= wh_vld_i;
+      new_row_reg <= new_row;
+      wh_vld_q1   <= wh_vld_i;
+      wh_vld_q2   <= wh_vld_q1;
     end
   end
 
@@ -207,12 +226,12 @@ module WH #(
   assign h_data_bram_addrb = h_addr_reg;
 
   assign h_addr = (wh_vld_i && h_addr_reg < {H_DATA_ADDR_W{1'b1}}) ? (h_addr_reg + 1) : h_addr_reg;
-  assign idx    = (wh_vld_q1 && h_addr_reg < {H_DATA_ADDR_W{1'b1}}) ? (idx_reg + 1) : idx_reg;
+  assign idx    = (wh_vld_q2 && h_addr_reg < {H_DATA_ADDR_W{1'b1}}) ? (idx_reg + 1) : idx_reg;
 
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
-      assign prod[i]  = $signed(h_data_bram_dout) * $signed(wgt[i][idx_reg]);
-      assign res[i]   = (idx_reg > 0) ? (prod[i] + res_reg[i]) : prod[i];
+      assign prod[i]  = $signed(h_data_bram_dout_reg) * $signed(wgt[i][idx_reg]);
+      assign res[i]   = (idx_reg > 0 && wh_vld_q1) ? (prod[i] + res_reg[i]) : prod[i];
     end
   endgenerate
 
@@ -239,14 +258,14 @@ module WH #(
 
   // Output
   assign wh_data_o  = { wh_cat, num_node, src_flag };
-  assign wh_rdy_o   = new_row;
+  assign wh_rdy_o   = new_row_reg;
 
   // BRAM
   assign wh_bram_din    = { wh_cat, num_node, src_flag };
-  assign wh_bram_ena    = new_row;
+  assign wh_bram_ena    = new_row_reg;
   assign wh_bram_addra  = wh_addr_reg;
 
-  assign wh_addr = (new_row) ? (wh_addr_reg + 1) : wh_addr_reg;
+  assign wh_addr = (new_row_reg) ? (wh_addr_reg + 1) : wh_addr_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin

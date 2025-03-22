@@ -76,7 +76,7 @@ task input_loader();
 			if (gat_layer == 1'b0) begin
 				h_data_depth = H_DATA_DEPTH;
 			end else if (gat_layer == 1'b1) begin
-				h_data_depth = H_NUM_OF_COLS * H_NUM_OF_ROWS;
+				h_data_depth = 212224;
 			end
 
 			for (int i = 0; i < h_data_depth; i++) begin
