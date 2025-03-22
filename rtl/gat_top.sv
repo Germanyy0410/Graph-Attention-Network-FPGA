@@ -24,6 +24,9 @@ module gat_top #(
   parameter DMVM_DATA_WIDTH_CONV1   = 19,
   parameter DMVM_DATA_WIDTH_CONV2   = 24,
 
+  parameter COEF_DATA_WIDTH_CONV1   = 19,
+  parameter COEF_DATA_WIDTH_CONV2   = 23,
+
 `elsif CORA
   parameter H_NUM_SPARSE_DATA       = 242101,
   parameter TOTAL_NODES             = 13264,
@@ -38,6 +41,9 @@ module gat_top #(
 
   parameter DMVM_DATA_WIDTH_CONV1   = 19,
   parameter DMVM_DATA_WIDTH_CONV2   = 24,
+
+  parameter COEF_DATA_WIDTH_CONV1   = 19,
+  parameter COEF_DATA_WIDTH_CONV2   = 24,
 
 `elsif CITESEER
   parameter H_NUM_SPARSE_DATA       = 399089,
@@ -55,6 +61,9 @@ module gat_top #(
   parameter DMVM_DATA_WIDTH_CONV1   = 20,
   parameter DMVM_DATA_WIDTH_CONV2   = 23,
 
+  parameter COEF_DATA_WIDTH_CONV1   = 19,
+  parameter COEF_DATA_WIDTH_CONV2   = 23,
+
 `elsif PUBMED
   parameter H_NUM_SPARSE_DATA       = 557,
   parameter TOTAL_NODES             = 100,
@@ -70,6 +79,10 @@ module gat_top #(
 
   parameter DMVM_DATA_WIDTH_CONV1   = 20,
   parameter DMVM_DATA_WIDTH_CONV2   = 23,
+
+  parameter COEF_DATA_WIDTH_CONV1   = 19,
+  parameter COEF_DATA_WIDTH_CONV2   = 23,
+
 `endif
 
   parameter DATA_WIDTH              = 8,
@@ -301,6 +314,7 @@ module gat_top #(
 
     .WH_DATA_WIDTH      (WH_DATA_WIDTH_CONV1    ),
     .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH_CONV1  ),
+    .COEF_DATA_WIDTH    (COEF_DATA_WIDTH_CONV1  ),
 
     .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA      ),
     .TOTAL_NODES        (TOTAL_NODES            ),
@@ -367,6 +381,7 @@ module gat_top #(
 
     .WH_DATA_WIDTH      (WH_DATA_WIDTH_CONV2    ),
     .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH_CONV2  ),
+    .COEF_DATA_WIDTH    (COEF_DATA_WIDTH_CONV2  ),
 
     .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA      ),
     .TOTAL_NODES        (TOTAL_NODES            ),

@@ -16,6 +16,7 @@ module DMVM #(
   parameter DATA_WIDTH            = 8,
   parameter WH_DATA_WIDTH         = 12,
   parameter DMVM_DATA_WIDTH       = 19,
+  parameter COEF_DATA_WIDTH       = 19,
   parameter SM_DATA_WIDTH         = 108,
   parameter SM_SUM_DATA_WIDTH     = 108,
   parameter ALPHA_DATA_WIDTH      = 32,
@@ -242,7 +243,7 @@ module DMVM #(
 
   // assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
   // assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
-  assign pipe_coef  = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH);
+  assign pipe_coef  = (src_dmvm + nbr_dmvm) >> (COEF_DATA_WIDTH - DATA_WIDTH);
 
   // -- src_flag
   generate
