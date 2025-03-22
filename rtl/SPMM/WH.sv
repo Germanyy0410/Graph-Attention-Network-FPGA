@@ -143,7 +143,9 @@ module WH #(
   logic [NUM_NODE_ADDR_W-1:0]                       num_node_addr_reg     ;
 
   logic [NUM_NODE_WIDTH-1:0]                        num_node              ;
+  logic [NUM_NODE_WIDTH-1:0]                        num_node_reg          ;
   logic                                             src_flag              ;
+  logic                                             src_flag_reg          ;
   logic [NUM_NODE_WIDTH-1:0]                        num_node_cnt          ;
   logic [NUM_NODE_WIDTH-1:0]                        num_node_cnt_reg      ;
 
@@ -256,12 +258,12 @@ module WH #(
     end
   endgenerate
 
-  // Output
-  assign wh_data_o  = { wh_cat, num_node, src_flag };
+  //-- Output
+  assign wh_data_o  = { wh_cat, num_node_reg, src_flag_reg };
   assign wh_rdy_o   = new_row_reg;
 
-  // BRAM
-  assign wh_bram_din    = { wh_cat, num_node, src_flag };
+  //-- BRAM
+  assign wh_bram_din    = { wh_cat, num_node_reg, src_flag_reg };
   assign wh_bram_ena    = new_row_reg;
   assign wh_bram_addra  = wh_addr_reg;
 
@@ -269,9 +271,13 @@ module WH #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      wh_addr_reg <= '0;
+      wh_addr_reg   <= 'b0;
+      num_node_reg  <= 'b0;
+      src_flag_reg  <= 'b0;
     end else begin
-      wh_addr_reg <= wh_addr;
+      wh_addr_reg   <= wh_addr;
+      num_node_reg  <= num_node;
+      src_flag_reg  <= src_flag;
     end
   end
   //* ==========================================================

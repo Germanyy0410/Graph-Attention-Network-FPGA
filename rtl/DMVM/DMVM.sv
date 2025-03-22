@@ -232,6 +232,14 @@ module DMVM #(
     end
   end
 
+  // always_comb begin
+  //   if (NUM_FEATURE_OUT % 2 == 0) begin
+  //     pipe_coef = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH);
+  //   end else begin
+  //     pipe_coef = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - 1 - DATA_WIDTH);
+  //   end
+  // end
+
   // assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
   // assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
   assign pipe_coef  = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH);
