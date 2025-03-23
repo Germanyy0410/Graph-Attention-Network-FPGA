@@ -49,6 +49,7 @@ integer file;
 string  LOG_PATH = "D:/VLSI/Capstone/tb/log";
 
 task begin_section;
+  content = "";
   $display("------------------------------------------------------------");
   $display("|                         %s                            |", begin_str);
   $display("------------------------------------------------------------");
@@ -79,7 +80,7 @@ task summary_section;
   $display(content);
 endtask
 
-task end_section;
+task end_section(string conv);
   content = "";
   content = { content, $sformatf("\n------------------------------------------------------------") };
   content = { content, $sformatf("\n|                          %s                             |", end_str) };
@@ -88,7 +89,7 @@ task end_section;
   $display(content);
 
   summary_log = { summary_log, content };
-  file = $fopen($sformatf("%s/summary.log", LOG_PATH), "w");
+  file = $fopen($sformatf("%s/%s/summary.log", LOG_PATH, conv), "w");
   if (file == 0) $error("Summary: Failed to open summary file ");
   $fwrite(file, "%s\n", summary_log);
   $fclose(file);

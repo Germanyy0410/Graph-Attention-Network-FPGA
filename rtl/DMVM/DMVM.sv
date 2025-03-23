@@ -243,7 +243,7 @@ module DMVM #(
 
   // assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
   // assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
-  assign pipe_coef  = (src_dmvm + nbr_dmvm) >> (COEF_DATA_WIDTH - DATA_WIDTH);
+  assign pipe_coef  = ($signed(src_dmvm) + $signed(nbr_dmvm)) >> (COEF_DATA_WIDTH - DATA_WIDTH);
 
   // -- src_flag
   generate
@@ -307,7 +307,7 @@ module DMVM #(
   //* =======================================
 
 
-  //* ========== Write [e] to ff ==========
+  //* =========== Write [e] to ff ===========
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       pipe_coef_reg <= 'b0;

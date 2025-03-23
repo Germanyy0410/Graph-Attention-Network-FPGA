@@ -297,7 +297,7 @@ module gat_top_tb #(
     alpha.base_scoreboard();
     new_feature.base_scoreboard();
 
-    end_section();
+    end_section("conv1");
     // =========================================
     $display("Completing Layer 1...");
   //* ===============================================================
@@ -345,7 +345,7 @@ module gat_top_tb #(
     alpha_conv2.base_scoreboard();
     new_feature_conv2.base_scoreboard();
 
-    end_section();
+    end_section("conv2");
     // =========================================
   //* ===============================================================
 

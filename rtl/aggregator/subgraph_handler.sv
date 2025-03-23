@@ -101,22 +101,214 @@ module subgraph_handler #(
   input                                                   clk                 ,
   input                                                   rst_n               ,
 
-  input   [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   feat_ff_dout        ,
-  input                                                   feat_ff_empty       ,
-  output                                                  feat_ff_rd_vld      ,
+  // -- New Feature
+  input   [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   new_feat            ,
+  input                                                   new_feat_vld        ,
+  output                                                  new_feat_rdy        ,
 
+  // -- Subgraph Index
   output  [SUBGRAPH_IDX_ADDR_W-1:0]                       subgraph_bram_addrb ,
   input   [SUBGRAPH_IDX_WIDTH-1:0]                        subgraph_bram_dout  ,
 
-  output  [NEW_FEATURE_ADDR_W-1:0]                        feat_bram_addra     ,
-  output  [NEW_FEATURE_WIDTH-1:0]                         feat_bram_din       ,
-  output                                                  feat_bram_ena       ,
+  // -- H Data
+  output  [H_DATA_ADDR_W-1:0]                             h_data_bram_addra   ,
+  output  [H_DATA_WIDTH-1:0]                              h_data_bram_din     ,
+  output logic                                            h_data_bram_ena     ,
 
-  output                                                  gat_ready
+  output logic                                            gat_ready
 );
 
-  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0] feat;
+  localparam CNT_DATA_WIDTH           = $clog2(NUM_FEATURE_OUT);
+  localparam SUBGRAPH_IDX_DATA_WIDTH  = $clog2(TOTAL_NODES);
+
+  //* =================== logic declaration ====================
+  logic                                                 h_data_rdy            ;
+  logic                                                 h_data_rdy_reg        ;
+
+  logic                                                 start_feat            ;
+  logic                                                 start_feat_reg        ;
+  logic                                                 start_feat_reg_q1     ;
+
+  logic                                                 new_position          ;
+  logic                                                 push_feat_en          ;
+  logic                                                 push_feat_en_reg      ;
+
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   feat                  ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   feat_reg              ;
+
+  // -- FIFO
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   feat_ff_din           ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   feat_ff_dout          ;
+  logic                                                 feat_ff_wr_vld        ;
+  logic                                                 feat_ff_rd_vld        ;
+  logic                                                 feat_ff_empty         ;
+  logic                                                 feat_ff_full          ;
+
+  // -- Counter
+  logic [CNT_DATA_WIDTH-1:0]                            cnt                   ;
+  logic [CNT_DATA_WIDTH-1:0]                            cnt_reg               ;
+
+  // -- Subgraph index
+  logic [SUBGRAPH_IDX_WIDTH-1:0]                        subgraph_data         ;
+  logic [SUBGRAPH_IDX_WIDTH-1:0]                        subgraph_data_reg     ;
+  logic                                                 sog                   ;
+  logic                                                 sog_reg               ;
+  logic [SUBGRAPH_IDX_DATA_WIDTH-1:0]                   subgraph_idx          ;
+  logic [SUBGRAPH_IDX_DATA_WIDTH-1:0]                   subgraph_idx_reg      ;
+  logic                                                 eog                   ;
+  logic                                                 eog_reg               ;
+  logic [SUBGRAPH_IDX_ADDR_W-1:0]                       subgraph_addr         ;
+  logic [SUBGRAPH_IDX_ADDR_W-1:0]                       subgraph_addr_reg     ;
+
+  // -- H Data
+  logic [H_DATA_ADDR_W-1:0]                             h_data_addr           ;
+  logic [H_DATA_ADDR_W-1:0]                             h_data_addr_reg       ;
+  logic [CNT_DATA_WIDTH-1:0]                            h_data_addr_cnt       ;
+  logic [CNT_DATA_WIDTH-1:0]                            h_data_addr_cnt_reg   ;
+  logic                                                 h_data_bram_ena_reg   ;
+  //* ==========================================================
+
+  FIFO #(
+    .DATA_WIDTH (NUM_FEATURE_OUT*NEW_FEATURE_WIDTH  ),
+    .FIFO_DEPTH (NUM_FEATURE_OUT                    )
+  ) u_new_feat_fifo (
+    .clk        (clk                    ),
+    .rst_n      (rst_n                  ),
+    .din        (feat_ff_din            ),
+    .dout       (feat_ff_dout           ),
+    .wr_vld     (feat_ff_wr_vld         ),
+    .rd_vld     (feat_ff_rd_vld         ),
+    .empty      (feat_ff_empty          ),
+    .full       (feat_ff_full           )
+  );
+
+  assign start_feat = (new_feat_vld) ? 1'b0 : start_feat_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      start_feat_reg    <= 'b1;
+      start_feat_reg_q1 <= 'b1;
+    end else begin
+      start_feat_reg    <= start_feat;
+      start_feat_reg_q1 <= start_feat_reg;
+    end
+  end
+
+  //* ====================== push into FF ======================
+  assign feat_ff_wr_vld = new_feat_vld;
+  assign feat_ff_din    = new_feat;
+  //* ==========================================================
 
 
+  //* ====================== pop from FF =======================
+  assign feat_ff_rd_vld = ((cnt_reg == NUM_FEATURE_OUT - 1) && (!feat_ff_empty) && eog_reg) || start_feat_reg_q1;
+  assign feat = feat_ff_rd_vld ? feat_ff_dout : feat_reg;
+
+  assign push_feat_en = ((eog && (!feat_ff_empty)) || (!start_feat_reg && start_feat_reg_q1)) ? 1'b1 : push_feat_en_reg;
+  assign cnt = (push_feat_en && !start_feat_reg_q1) ? (cnt_reg + 1) : cnt_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      cnt_reg           <= 'b0;
+      feat_reg          <= 'b0;
+      push_feat_en_reg  <= 'b0;
+    end else begin
+      cnt_reg           <= cnt;
+      feat_reg          <= feat;
+      push_feat_en_reg  <= push_feat_en;
+    end
+  end
+  //* ==========================================================
+
+
+  //* ==================== Subgraph Index ======================
+  assign new_position = (cnt_reg == NUM_FEATURE_OUT - 2) || (new_feat_vld && start_feat_reg);
+
+  // -- Read from BRAM
+  assign subgraph_bram_addrb        = subgraph_addr_reg;
+  assign subgraph_data              = new_position ? subgraph_bram_dout : subgraph_data_reg;
+  assign { sog, subgraph_idx, eog } = subgraph_data_reg;
+
+  assign subgraph_addr = (new_position && subgraph_addr_reg < TOTAL_NODES - 1) ? (subgraph_addr_reg + 1) : subgraph_addr_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      subgraph_addr_reg <= 'b0;
+      subgraph_data_reg <= 'b0;
+    end else begin
+      subgraph_addr_reg <= subgraph_addr;
+      subgraph_data_reg <= subgraph_data;
+    end
+  end
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      sog_reg <= 'b0;
+      eog_reg <= 'b0;
+      subgraph_idx_reg <= 'b0;
+    end else begin
+      sog_reg <= sog;
+      eog_reg <= eog;
+      subgraph_idx_reg <= subgraph_idx;
+    end
+  end
+  //* ==========================================================
+
+
+  //* ==================== Push to H DATA ======================
+  // -- Write to BRAM
+  assign h_data_bram_addra = h_data_addr_reg;
+  assign h_data_bram_din   = feat_reg[cnt_reg];
+
+  always_comb begin
+    h_data_bram_ena = h_data_bram_ena_reg;
+    if (subgraph_addr_reg < TOTAL_NODES - 1) begin
+      h_data_bram_ena = push_feat_en_reg;
+    end else begin
+      if (cnt_reg == NUM_FEATURE_OUT - 1) begin
+        h_data_bram_ena = 1'b0;
+      end
+    end
+  end
+
+  assign h_data_addr = (!start_feat && push_feat_en) ? ((subgraph_idx * NUM_FEATURE_OUT) + h_data_addr_cnt_reg) : h_data_addr_reg;
+
+  always_comb begin
+    h_data_addr_cnt = h_data_addr_cnt_reg;
+    if (!start_feat && push_feat_en) begin
+      if (new_position) begin
+        h_data_addr_cnt = 0;
+      end else begin
+        h_data_addr_cnt = h_data_addr_cnt_reg + 1;
+      end
+    end
+  end
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      h_data_bram_ena_reg <= 'b0;
+      h_data_addr_reg     <= 'b0;
+      h_data_addr_cnt_reg <= 'b0;
+    end else begin
+      h_data_bram_ena_reg <= h_data_bram_ena;
+      h_data_addr_reg     <= h_data_addr;
+      h_data_addr_cnt_reg <= h_data_addr_cnt;
+    end
+  end
+  //* ==========================================================
+
+
+  //* ======================= gat ready ========================
+  assign gat_ready = h_data_rdy_reg;
+  assign h_data_rdy = ((cnt_reg == NUM_FEATURE_OUT - 1) && (subgraph_addr_reg == TOTAL_NODES - 1)) ? 1'b1 : h_data_rdy_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      h_data_rdy_reg <= 'b0;
+    end else begin
+      h_data_rdy_reg <= h_data_rdy;
+    end
+  end
+  //* ==========================================================
 
 endmodule
