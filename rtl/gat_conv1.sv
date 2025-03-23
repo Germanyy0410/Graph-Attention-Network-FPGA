@@ -32,6 +32,11 @@ module gat_conv1 #(
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
+  // -- [Subgraph]
+  localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
+  localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
+  localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
+
   // -- [H]
   localparam H_NUM_OF_ROWS        = TOTAL_NODES,
   localparam H_NUM_OF_COLS        = NUM_FEATURE_IN,
@@ -114,9 +119,6 @@ module gat_conv1 #(
   output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
   input                             wgt_bram_load_done          ,
 
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
-  output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ,
-
   output  [WH_WIDTH-1:0]            wh_bram_din                 ,
   output                            wh_bram_ena                 ,
   output  [WH_ADDR_W-1:0]           wh_bram_addra               ,
@@ -131,9 +133,19 @@ module gat_conv1 #(
   output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc         ,
   input   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
 
+  output  [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_din               ,
   output                            feat_bram_ena               ,
-  output  [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra             ,
+  output  [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
+  input   [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ,
+
+  output  [SUBGRAPH_IDX_ADDR_W-1:0] subgraph_bram_addrb         ,
+  input   [SUBGRAPH_IDX_WIDTH-1:0]  subgraph_bram_dout          ,
+
+  output  [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
+  output  [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
+  output                            h_data_bram_ena             ,
+  output                            h_data_bram_wea             ,
 
   output                            gat_ready
 );
@@ -428,6 +440,51 @@ module gat_conv1 #(
     .feat_bram_ena        (feat_bram_ena            ),
 
     .gat_ready            (gat_ready                )
+  );
+  //* ==========================================================
+
+
+  //* ==================== Subgraph Handler ====================
+  logic subgraph_vld;
+  logic subgraph_rdy;
+
+  subgraph_handler #(
+    .DATA_WIDTH         (DATA_WIDTH         ),
+    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
+    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
+    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
+    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
+    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
+    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
+
+    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
+    .TOTAL_NODES        (TOTAL_NODES        ),
+    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
+    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
+    .MAX_NODES          (MAX_NODES          ),
+
+    .COEF_DEPTH         (COEF_DEPTH         ),
+    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
+    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
+    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
+  ) u_subgraph_handler (
+    .clk                  (clk                      ),
+    .rst_n                (rst_n                    ),
+
+    .subgraph_vld_i       (subgraph_vld             ),
+    .subgraph_rdy_o       (subgraph_rdy             ),
+
+    .feat_bram_addrb      (feat_bram_addrb          ),
+    .feat_bram_dout       (feat_bram_dout           ),
+
+    .subgraph_bram_addrb  (subgraph_bram_addrb      ),
+    .subgraph_bram_dout   (subgraph_bram_dout       ),
+
+    .h_data_bram_addra    (h_data_bram_addra        ),
+    .h_data_bram_din      (h_data_bram_din          ),
+    .h_data_bram_ena      (h_data_bram_ena          ),
+    .h_data_bram_wea      (h_data_bram_wea          )
   );
   //* ==========================================================
 

@@ -39,6 +39,11 @@ module gat_top_wrapper #(
   parameter NUM_NODES_DEPTH       = NUM_SUBGRAPHS,
   parameter NEW_FEATURE_DEPTH     = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
+  // -- [Subgraph]
+  localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
+  localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
+  localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
+
   // -- [H]
   parameter H_NUM_OF_ROWS         = TOTAL_NODES,
   parameter H_NUM_OF_COLS         = NUM_FEATURE_IN,
@@ -133,6 +138,11 @@ module gat_top_wrapper #(
   input                             wgt_bram_wea                ,
   input   [WEIGHT_ADDR_W+1:0]       wgt_bram_addra              ,
 
+  input   [TOP_WIDTH-1:0]           subgraph_bram_din           ,
+  input                             subgraph_bram_ena           ,
+  input                             subgraph_bram_wea           ,
+  input   [SUBGRAPH_IDX_ADDR_W+1:0] subgraph_bram_addra         ,
+
   input   [NEW_FEATURE_ADDR_W+1:0]  feat_bram_addrb             ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
   //* ==========================================================
@@ -170,10 +180,10 @@ module gat_top_wrapper #(
     .h_node_info_bram_load_done   (h_node_info_bram_load_done                     ),
     .wgt_bram_load_done           (wgt_bram_load_done                             ),
 
-    .h_data_bram_din              (h_data_bram_din[H_DATA_WIDTH-1:0]              ),
-    .h_data_bram_ena              (h_data_bram_ena                                ),
-    .h_data_bram_wea              (h_data_bram_wea                                ),
-    .h_data_bram_addra            (h_data_bram_addra[H_DATA_ADDR_W+1:2]           ),
+    .h_data_bram_din_conv1        (h_data_bram_din[H_DATA_WIDTH-1:0]              ),
+    .h_data_bram_ena_conv1        (h_data_bram_ena                                ),
+    .h_data_bram_wea_conv1        (h_data_bram_wea                                ),
+    .h_data_bram_addra_conv1      (h_data_bram_addra[H_DATA_ADDR_W+1:2]           ),
 
     .h_node_info_bram_din         (h_node_info_bram_din[NODE_INFO_WIDTH-1:0]      ),
     .h_node_info_bram_ena         (h_node_info_bram_ena                           ),
@@ -185,7 +195,12 @@ module gat_top_wrapper #(
     .wgt_bram_wea                 (wgt_bram_wea                                   ),
     .wgt_bram_addra               (wgt_bram_addra[WEIGHT_ADDR_W+1:2]              ),
 
-    .feat_bram_addrb              (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]        ),
+    .subgraph_bram_din            (subgraph_bram_din[SUBGRAPH_IDX_WIDTH-1:0]      ),
+    .subgraph_bram_ena            (subgraph_bram_ena                              ),
+    .subgraph_bram_wea            (subgraph_bram_wea                              ),
+    .subgraph_bram_addra          (subgraph_bram_addra[SUBGRAPH_IDX_ADDR_W+1:2]   ),
+
+    .feat_bram_addrb_conv2        (feat_bram_addrb[NEW_FEATURE_ADDR_W+1:2]        ),
     .feat_bram_dout               (feat_bram_dout                                 )
   );
 

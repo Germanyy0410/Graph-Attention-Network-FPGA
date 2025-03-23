@@ -107,6 +107,11 @@ module gat_top #(
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
+  // -- [Subgraph]
+  localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
+  localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
+  localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
+
   // -- [H]
   localparam H_NUM_OF_ROWS        = TOTAL_NODES,
   localparam H_NUM_OF_COLS        = NUM_FEATURE_IN,
@@ -183,10 +188,10 @@ module gat_top #(
 
 
   //* ===================== BRAM Interface =====================
-  input   [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
-  input                             h_data_bram_ena             ,
-  input                             h_data_bram_wea             ,
-  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
+  input   [H_DATA_WIDTH-1:0]        h_data_bram_din_conv1       ,
+  input                             h_data_bram_ena_conv1       ,
+  input                             h_data_bram_wea_conv1       ,
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra_conv1     ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ,
   input                             h_node_info_bram_ena        ,
@@ -198,7 +203,12 @@ module gat_top #(
   input                             wgt_bram_wea                ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ,
 
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
+  input   [SUBGRAPH_IDX_WIDTH-1:0]  subgraph_bram_din           ,
+  input                             subgraph_bram_ena           ,
+  input                             subgraph_bram_wea           ,
+  input   [SUBGRAPH_IDX_ADDR_W-1:0] subgraph_bram_addra         ,
+
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv2       ,
   output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout
   //* ==========================================================
 );
@@ -235,6 +245,9 @@ module gat_top #(
   logic [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc           ;
 
   // -- Conv1
+  logic [SUBGRAPH_IDX_ADDR_W-1:0] subgraph_bram_addrb           ;
+  logic [SUBGRAPH_IDX_WIDTH-1:0]  subgraph_bram_dout            ;
+
   logic [WH_WIDTH-1:0]            wh_bram_din_conv1             ;
   logic                           wh_bram_ena_conv1             ;
   logic [WH_ADDR_W-1:0]           wh_bram_addra_conv1           ;
@@ -249,6 +262,12 @@ module gat_top #(
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv1           ;
   logic                           feat_bram_ena_conv1           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv1         ;
+  logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv1         ;
+
+  logic [H_DATA_WIDTH-1:0]        h_data_bram_din_conv2         ;
+  logic                           h_data_bram_ena_conv2         ;
+  logic                           h_data_bram_wea_conv2         ;
+  logic [H_DATA_ADDR_W-1:0]       h_data_bram_addra_conv2       ;
 
   logic                           gat_ready_conv1               ;
 
@@ -365,6 +384,16 @@ module gat_top #(
     .feat_bram_din              (feat_bram_din_conv1              ),
     .feat_bram_ena              (feat_bram_ena_conv1              ),
     .feat_bram_addra            (feat_bram_addra_conv1            ),
+    .feat_bram_addrb            (feat_bram_addrb_conv1            ),
+    .feat_bram_dout             (feat_bram_dout                   ),
+
+    .subgraph_bram_addrb        (subgraph_bram_addrb              ),
+    .subgraph_bram_dout         (subgraph_bram_dout               ),
+
+    .h_data_bram_addra          (h_data_bram_addra_conv2          ),
+    .h_data_bram_din            (h_data_bram_din_conv2            ),
+    .h_data_bram_ena            (h_data_bram_ena_conv2            ),
+    .h_data_bram_wea            (h_data_bram_wea_conv2            ),
 
     .gat_ready                  (gat_ready_conv1                  )
   );

@@ -40,6 +40,11 @@ module memory_controller #(
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
+  // -- [Subgraph]
+  localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
+  localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
+  localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
+
   // -- [H]
   localparam H_NUM_OF_ROWS        = TOTAL_NODES,
   localparam H_NUM_OF_COLS        = NUM_FEATURE_IN,
@@ -105,13 +110,20 @@ module memory_controller #(
   input                             clk                           ,
   input                             rst_n                         ,
   input                             gat_layer                     ,
+  input                             gat_ready                     ,
 
   //* =========================== PS ===========================
-  input   [H_DATA_WIDTH-1:0]        h_data_bram_din               ,
-  input                             h_data_bram_ena               ,
-  input                             h_data_bram_wea               ,
-  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra             ,
+  input   [H_DATA_WIDTH-1:0]        h_data_bram_din_conv1         ,
+  input                             h_data_bram_ena_conv1         ,
+  input                             h_data_bram_wea_conv1         ,
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra_conv1       ,
+
   input                             h_data_bram_load_done         ,
+
+  input   [H_DATA_WIDTH-1:0]        h_data_bram_din_conv2         ,
+  input                             h_data_bram_ena_conv2         ,
+  input                             h_data_bram_wea_conv2         ,
+  input   [H_DATA_ADDR_W-1:0]       h_data_bram_addra_conv2       ,
 
   input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din          ,
   input                             h_node_info_bram_ena          ,
@@ -124,6 +136,9 @@ module memory_controller #(
   input                             wgt_bram_wea                  ,
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra                ,
   input                             wgt_bram_load_done            ,
+
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv2         ,
+  output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout                ,
   //* ==========================================================
 
 
@@ -140,8 +155,14 @@ module memory_controller #(
   input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ,
   output  [DATA_WIDTH-1:0]          wgt_bram_dout                 ,
 
-  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb               ,
-  output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout                ,
+  input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv1         ,
+
+  input   [SUBGRAPH_IDX_WIDTH-1:0]  subgraph_bram_din             ,
+  input                             subgraph_bram_ena             ,
+  input                             subgraph_bram_wea             ,
+  input   [SUBGRAPH_IDX_ADDR_W-1:0] subgraph_bram_addra           ,
+  input   [SUBGRAPH_IDX_ADDR_W-1:0] subgraph_bram_addrb           ,
+  output  [SUBGRAPH_IDX_WIDTH-1:0]  subgraph_bram_dout            ,
   //* ==========================================================
 
 
@@ -186,6 +207,11 @@ module memory_controller #(
   //* ==========================================================
 );
 
+  logic [H_DATA_WIDTH-1:0]        h_data_bram_din         ;
+  logic                           h_data_bram_ena         ;
+  logic                           h_data_bram_wea         ;
+  logic [H_DATA_ADDR_W-1:0]       h_data_bram_addra       ;
+
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb       ;
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb  ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb          ;
@@ -223,6 +249,13 @@ module memory_controller #(
   assign feat_bram_din          = (gat_layer == 0) ? feat_bram_din_conv1          : feat_bram_din_conv2;
   assign feat_bram_ena          = (gat_layer == 0) ? feat_bram_ena_conv1          : feat_bram_ena_conv2;
   assign feat_bram_addra        = (gat_layer == 0) ? feat_bram_addra_conv1        : feat_bram_addra_conv2;
+  assign feat_bram_addrb        = (gat_layer == 0) ? feat_bram_addrb_conv1        : feat_bram_addrb_conv2;
+
+  assign h_data_bram_din        = (gat_ready == 1) ? h_data_bram_din_conv2        : h_data_bram_din_conv1;
+  assign h_data_bram_ena        = (gat_ready == 1) ? h_data_bram_ena_conv2        : h_data_bram_ena_conv1;
+  assign h_data_bram_wea        = (gat_ready == 1) ? h_data_bram_wea_conv2        : h_data_bram_wea_conv1;
+  assign h_data_bram_addra      = (gat_ready == 1) ? h_data_bram_addra_conv2      : h_data_bram_addra_conv1;
+
 
   //* ========================= MEMORY =========================
   BRAM #(
@@ -265,6 +298,20 @@ module memory_controller #(
     .wea          (wgt_bram_wea         ),
     .addrb        (wgt_bram_addrb       ),
     .dout         (wgt_bram_dout        )
+  );
+
+  BRAM #(
+    .DATA_WIDTH   (SUBGRAPH_IDX_WIDTH   ),
+    .DEPTH        (SUBGRAPH_IDX_DEPTH   )
+  ) u_subgraph_bram (
+    .clk          (clk                  ),
+    .rst_n        (rst_n                ),
+    .din          (subgraph_bram_din    ),
+    .addra        (subgraph_bram_addra  ),
+    .ena          (subgraph_bram_ena    ),
+    .wea          (subgraph_bram_wea    ),
+    .addrb        (subgraph_bram_addrb  ),
+    .dout         (subgraph_bram_dout   )
   );
 
   BRAM #(
