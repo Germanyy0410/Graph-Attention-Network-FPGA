@@ -176,7 +176,6 @@ module gat_top #(
   input                             rst_n                       ,
 
   //* ===================== Register Bank ======================
-  input                             gat_layer                   ,
   output                            gat_ready                   ,
   output  [31:0]                    gat_debug_1                 ,
   output  [31:0]                    gat_debug_2                 ,
@@ -269,6 +268,7 @@ module gat_top #(
   logic                           h_data_bram_wea_conv2         ;
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addra_conv2       ;
 
+  logic                           new_feat_rdy                  ;
   logic                           gat_ready_conv1               ;
 
   // -- Conv2
@@ -291,6 +291,19 @@ module gat_top #(
   logic                           gat_ready_conv2               ;
   //* ==========================================================
 
+
+  logic gat_layer;
+  logic gat_layer_reg;
+
+  assign gat_layer = (gat_layer_reg == 1'b0 && gat_ready_conv1 == 1'b1) ? 1'b1 : gat_layer_reg;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      gat_layer_reg <= 'b0;
+    end else begin
+      gat_layer_reg <= gat_layer;
+    end
+  end
 
   assign gat_ready = (gat_layer == 1'b0) ? gat_ready_conv1 : gat_ready_conv2;
   assign wgt_bram_addrb_conv2  = { {WGT_ADDR_W_DIFF{1'b0}}, wgt_bram_addrb_conv2_raw };
@@ -350,7 +363,7 @@ module gat_top #(
     .clk                        (clk                              ),
     .rst_n                      (rst_n                            ),
 
-    .gat_layer                  (gat_layer                        ),
+    .gat_layer                  (gat_layer_reg                    ),
     .gat_debug_1                (gat_debug_1                      ),
     .gat_debug_2                (gat_debug_2                      ),
     .gat_debug_3                (gat_debug_3                      ),
@@ -395,6 +408,7 @@ module gat_top #(
     .h_data_bram_ena            (h_data_bram_ena_conv2            ),
     .h_data_bram_wea            (h_data_bram_wea_conv2            ),
 
+    .new_feat_rdy               (new_feat_rdy                     ),
     .gat_ready                  (gat_ready_conv1                  )
   );
   //* ==========================================================
@@ -427,7 +441,7 @@ module gat_top #(
     .clk                        (clk                              ),
     .rst_n                      (rst_n                            ),
 
-    .gat_layer                  (gat_layer                        ),
+    .gat_layer                  (gat_layer_reg                    ),
 
     .h_data_bram_dout           (h_data_bram_dout                 ),
     .h_data_bram_addrb          (h_data_bram_addrb_conv2          ),

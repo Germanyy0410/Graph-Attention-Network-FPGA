@@ -99,6 +99,11 @@ module gat_top_tb #(
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
+  // -- [Subgraph]
+  localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
+  localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
+  localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
+
   // -- [H]
   localparam H_NUM_OF_ROWS        = TOTAL_NODES,
   localparam H_NUM_OF_COLS        = NUM_FEATURE_IN,
@@ -160,57 +165,46 @@ module gat_top_tb #(
   //* ==========================================================
 ) ();
 
-  //* =================== DUT Initialization ===================
   logic                             clk                         ;
   logic                             rst_n                       ;
 
-  logic                             gat_layer                   ;
+  //* ===================== Register Bank ======================
   logic                             gat_ready                   ;
   logic   [31:0]                    gat_debug_1                 ;
   logic   [31:0]                    gat_debug_2                 ;
   logic   [31:0]                    gat_debug_3                 ;
-
   logic                             h_data_bram_load_done       ;
   logic                             h_node_info_bram_load_done  ;
   logic                             wgt_bram_load_done          ;
+  //* ==========================================================
 
-  logic   [H_DATA_WIDTH-1:0]        h_data_bram_din             ;
-  logic   [H_DATA_WIDTH-1:0]        h_data_bram_douta           ;
-  logic                             h_data_bram_ena             ;
-  logic                             h_data_bram_wea             ;
-  logic   [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ;
+
+  //* ===================== BRAM Interface =====================
+  logic   [H_DATA_WIDTH-1:0]        h_data_bram_din_conv1       ;
+  logic                             h_data_bram_ena_conv1       ;
+  logic                             h_data_bram_wea_conv1       ;
+  logic   [H_DATA_ADDR_W-1:0]       h_data_bram_addra_conv1     ;
 
   logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_din        ;
-  logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_douta      ;
   logic                             h_node_info_bram_ena        ;
   logic                             h_node_info_bram_wea        ;
   logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addra      ;
-  logic   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrc      ;
-  logic   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_doutc      ;
 
   logic   [DATA_WIDTH-1:0]          wgt_bram_din                ;
-  logic   [DATA_WIDTH-1:0]          wgt_bram_douta              ;
   logic                             wgt_bram_ena                ;
   logic                             wgt_bram_wea                ;
   logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addra              ;
-  logic   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrc              ;
-  logic   [DATA_WIDTH-1:0]          wgt_bram_doutc              ;
 
-  logic   [MULT_WEIGHT_ADDR_W-1:0]  wgt_col_addrb               ;
-  logic   [DATA_WIDTH-1:0]          wgt_col_dout                ;
+  logic   [SUBGRAPH_IDX_WIDTH-1:0]  subgraph_bram_din           ;
+  logic                             subgraph_bram_ena           ;
+  logic                             subgraph_bram_wea           ;
+  logic   [SUBGRAPH_IDX_ADDR_W-1:0] subgraph_bram_addra         ;
 
-  logic   [13:0]                    wh_out_bram_addrb           ;
-  logic   [WH_DATA_WIDTH_CONV1-1:0] wh_out_bram_dout            ;
-
-  logic   [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1   ;
-  logic   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ;
-
-  logic   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ;
+  logic   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv2       ;
   logic   [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ;
-
-  gat_top dut (.*);
   //* ==========================================================
 
+  gat_top dut (.*);
 
   //* =================== CLK Initialization ===================
   always #5 clk = ~clk;
@@ -261,7 +255,6 @@ module gat_top_tb #(
 
   initial begin
     //* =========================== Layer 1 ===========================
-    gat_layer = 1'b0;
     $display("Starting Layer 1...");
     // ================ Load IO ================
     fork
@@ -308,13 +301,12 @@ module gat_top_tb #(
     c1;
 
   //* =========================== Layer 2 ===========================
-    gat_layer = 1'b1;
     $display("Starting Layer 2...");
     // ================ Load IO ================
-    fork
-      input_loader();
-      output_loader();
-    join
+    // fork
+    //   input_loader();
+    //   output_loader();
+    // join
     // =========================================
     $display("Validating Layer 2...");
     // =========== Start Simulation ============

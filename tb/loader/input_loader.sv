@@ -1,8 +1,8 @@
 task input_loader();
   string INPUT_PATH;
 
-	integer node_info_file, weight_file, value_file;
-  integer nd_r, w_r, value_r;
+	integer node_info_file, weight_file, value_file, subgraph_idx_file;
+  integer nd_r, w_r, value_r, idx_r;
   string  file_path;
 	integer weight_depth, h_data_depth;
 
@@ -66,8 +66,8 @@ task input_loader();
 		// -- Task 3: H Data
 		begin
 			c1;
-			h_data_bram_ena       = 1'b1;
-			h_data_bram_wea       = 1'b1;
+			h_data_bram_ena_conv1 = 1'b1;
+			h_data_bram_wea_conv1	= 1'b1;
 			h_data_bram_load_done = 1'b0;
 
 			file_path   = $sformatf("%s/h_data.txt", INPUT_PATH);
@@ -81,21 +81,44 @@ task input_loader();
 
 			for (int i = 0; i < h_data_depth; i++) begin
 				if (gat_layer == 1'b0) begin
-					value_r = $fscanf(value_file, "%b\n", h_data_bram_din);
+					value_r = $fscanf(value_file, "%b\n", h_data_bram_din_conv1);
 				end else if (gat_layer == 1'b1) begin
-					value_r = $fscanf(value_file, "%b\n", h_data_bram_din);
+					value_r = $fscanf(value_file, "%b\n", h_data_bram_din_conv1);
 				end
-				h_data_bram_addra = i;
+				h_data_bram_addra_conv1 = i;
 				c1;
 			end
 
 			$display("H_DATA FINISH");
 
-			h_data_bram_ena       = 1'b0;
-			h_data_bram_wea       = 1'b0;
+			h_data_bram_ena_conv1 = 1'b0;
+			h_data_bram_wea_conv1	= 1'b0;
 			h_data_bram_load_done = 1'b1;
 
 			$fclose(value_file);
+		end
+
+		// -- Task 4: Subgraph Index
+		begin
+			c1;
+			subgraph_bram_ena = 1'b1;
+			subgraph_bram_wea	= 1'b1;
+
+			file_path = $sformatf("%s/graph_index.txt", INPUT_PATH);
+			subgraph_idx_file = $fopen(file_path, "r");
+
+			for (int i = 0; i < TOTAL_NODES; i++) begin
+				idx_r = $fscanf(subgraph_idx_file, "%b\n", subgraph_bram_din);
+				subgraph_bram_addra = i;
+				c1;
+			end
+
+			$display("SUBGRAPH INDEX FINISH");
+
+			subgraph_bram_ena = 1'b0;
+			subgraph_bram_wea	= 1'b0;
+
+			$fclose(subgraph_idx_file);
 		end
 
 	$display("DEBUG FINISH");

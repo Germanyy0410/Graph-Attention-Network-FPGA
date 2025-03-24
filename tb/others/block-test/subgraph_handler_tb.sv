@@ -103,10 +103,16 @@ module subgraph_handler_tb #(
   logic                                                 clk                 ;
   logic                                                 rst_n               ;
 
+  logic                                                 subgraph_vld_i      ;
+  logic                                                 subgraph_rdy_o      ;
+  logic                                                 gat_ready           ;
+
   // -- New Feature
-  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   new_feat            ;
-  logic                                                 new_feat_vld        ;
-  logic                                                 new_feat_rdy        ;
+  logic [NEW_FEATURE_ADDR_W-1:0]                        feat_bram_addra     ;
+  logic [NEW_FEATURE_WIDTH-1:0]                         feat_bram_din       ;
+  logic                                                 feat_bram_ena       ;
+  logic [NEW_FEATURE_ADDR_W-1:0]                        feat_bram_addrb     ;
+  logic [NEW_FEATURE_WIDTH-1:0]                         feat_bram_dout      ;
 
   // -- Subgraph Index
   logic [SUBGRAPH_IDX_ADDR_W-1:0]                       subgraph_bram_addra ;
@@ -119,10 +125,9 @@ module subgraph_handler_tb #(
   logic [H_DATA_ADDR_W-1:0]                             h_data_bram_addra   ;
   logic [H_DATA_WIDTH-1:0]                              h_data_bram_din     ;
   logic                                                 h_data_bram_ena     ;
+  logic                                                 h_data_bram_wea     ;
   logic [H_DATA_ADDR_W-1:0]                             h_data_bram_addrb   ;
   logic [H_DATA_WIDTH-1:0]                              h_data_bram_dout    ;
-
-  logic                                                 gat_ready           ;
 
   subgraph_handler dut (.*);
 
@@ -149,6 +154,20 @@ module subgraph_handler_tb #(
   );
 
   BRAM #(
+    .DATA_WIDTH   (NEW_FEATURE_WIDTH      ),
+    .DEPTH        (160                    )
+  ) u_feat_bram (
+    .clk          (clk                    ),
+    .rst_n        (rst_n                  ),
+    .din          (feat_bram_din          ),
+    .addra        (feat_bram_addra        ),
+    .ena          (feat_bram_ena          ),
+    .wea          (feat_bram_ena          ),
+    .addrb        (feat_bram_addrb        ),
+    .dout         (feat_bram_dout         )
+  );
+
+  BRAM #(
     .DATA_WIDTH   (H_DATA_WIDTH           ),
     .DEPTH        (230                    )
   ) u_h_data_bram (
@@ -157,54 +176,72 @@ module subgraph_handler_tb #(
     .din          (h_data_bram_din        ),
     .addra        (h_data_bram_addra      ),
     .ena          (h_data_bram_ena        ),
-    .wea          (h_data_bram_ena        ),
+    .wea          (h_data_bram_wea        ),
     .addrb        (h_data_bram_addrb      ),
     .dout         (h_data_bram_dout       )
   );
 
   initial begin
-    new_feat_vld = 1'b0;
-    #20.1;
-    subgraph_bram_ena = 1'b1;
+    subgraph_vld_i = 1'b0;
 
+    //* ================= Feature ==================
+    feat_bram_ena = 1'b1;
+    for (int i = 0; i < NUM_FEATURE_OUT*5; i = i + 1) begin
+      feat_bram_din   = i + 1;
+      feat_bram_addra = i;
+      #10.01;
+    end
+    feat_bram_ena = 1'b0;
+    //* ============================================
+
+    #20.01;
+    subgraph_bram_ena = 1'b1;
     //* ================== Node 0 ==================
     subgraph_bram_addra = 0;
     subgraph_bram_din   = { 1'b1, 14'd2, 1'b0 };
-    #10.1;
+    #10.01;
     subgraph_bram_addra = 1;
     subgraph_bram_din   = { 1'b0, 14'd6, 1'b0 };
-    #10.1;
+    #10.01;
     subgraph_bram_addra = 2;
     subgraph_bram_din   = { 1'b0, 14'd8, 1'b0 };
-    #10.1;
+    #10.01;
     subgraph_bram_addra = 3;
     subgraph_bram_din   = { 1'b0, 14'd10, 1'b1 };
     //* ============================================
 
 
     //* ================== Node 1 ==================
-    #10.1;
+    #10.01;
     subgraph_bram_addra = 4;
     subgraph_bram_din   = { 1'b1, 14'd0, 1'b0 };
-    #10.1;
+    #10.01;
     subgraph_bram_addra = 5;
     subgraph_bram_din   = { 1'b0, 14'd4, 1'b1 };
     //* ============================================
 
-    #10.1;
+
+    //* ================== Node 2 ==================
+    #10.01;
+    subgraph_bram_addra = 6;
+    subgraph_bram_din   = { 1'b1, 14'd1, 1'b0 };
+    #10.01;
+    subgraph_bram_addra = 7;
+    subgraph_bram_din   = { 1'b0, 14'd3, 1'b0 };
+    #10.01;
+    subgraph_bram_addra = 8;
+    subgraph_bram_din   = { 1'b0, 14'd5, 1'b0 };
+    #10.01;
+    subgraph_bram_addra = 9;
+    subgraph_bram_din   = { 1'b0, 14'd7, 1'b1 };
+    //* ============================================
+
+    #10.01;
     subgraph_bram_ena = 1'b0;
 
-    #40.1;
-    new_feat_vld = 1'b1;
-    for (int i = 0; i < NUM_FEATURE_OUT; i++) begin
-      new_feat[i] = i + 1;
-    end
-    #10.1;
-    for (int i = 0; i < NUM_FEATURE_OUT; i++) begin
-      new_feat[i] = i + 10;
-    end
-    #10.1;
-    new_feat_vld = 1'b0;
+
+    #20.01;
+    subgraph_vld_i = 1'b1;
 
     #2000;
     $finish();

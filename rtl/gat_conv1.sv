@@ -147,6 +147,7 @@ module gat_conv1 #(
   output                            h_data_bram_ena             ,
   output                            h_data_bram_wea             ,
 
+  output                            new_feat_rdy                ,
   output                            gat_ready
 );
 
@@ -439,15 +440,12 @@ module gat_conv1 #(
     .feat_bram_din        (feat_bram_din            ),
     .feat_bram_ena        (feat_bram_ena            ),
 
-    .gat_ready            (gat_ready                )
+    .gat_ready            (new_feat_rdy             )
   );
   //* ==========================================================
 
 
   //* ==================== Subgraph Handler ====================
-  logic subgraph_vld;
-  logic subgraph_rdy;
-
   subgraph_handler #(
     .DATA_WIDTH         (DATA_WIDTH         ),
     .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
@@ -472,8 +470,8 @@ module gat_conv1 #(
     .clk                  (clk                      ),
     .rst_n                (rst_n                    ),
 
-    .subgraph_vld_i       (subgraph_vld             ),
-    .subgraph_rdy_o       (subgraph_rdy             ),
+    .subgraph_vld_i       (new_feat_rdy             ),
+    .gat_ready            (gat_ready                ),
 
     .feat_bram_addrb      (feat_bram_addrb          ),
     .feat_bram_dout       (feat_bram_dout           ),

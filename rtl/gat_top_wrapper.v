@@ -111,7 +111,6 @@ module gat_top_wrapper #(
 
 
   //* ===================== Register Bank ======================
-  input                             gat_layer                   ,
   output                            gat_ready                   ,
   output  [TOP_WIDTH-1:0]           gat_debug_1                 ,
   output  [TOP_WIDTH-1:0]           gat_debug_2                 ,
@@ -171,7 +170,6 @@ module gat_top_wrapper #(
     .clk                          (clk                                            ),
     .rst_n                        (rst_n                                          ),
 
-    .gat_layer                    (gat_layer                                      ),
     .gat_ready                    (gat_ready                                      ),
     .gat_debug_1                  (gat_debug_1                                    ),
     .gat_debug_2                  (gat_debug_2                                    ),
