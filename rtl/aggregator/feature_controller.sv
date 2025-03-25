@@ -130,11 +130,14 @@ module feature_controller #(
   logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   feat_reg            ;
   logic [CNT_DATA_WIDTH-1:0]                            cnt                 ;
   logic [CNT_DATA_WIDTH-1:0]                            cnt_reg             ;
+  logic [CNT_DATA_WIDTH-1:0]                            cnt_reg_q1          ;
 
   logic [NEW_FEATURE_ADDR_W-1:0]                        feat_addr           ;
   logic [NEW_FEATURE_ADDR_W-1:0]                        feat_addr_reg       ;
+  logic [NEW_FEATURE_ADDR_W-1:0]                        feat_addr_reg_q1    ;
 
   logic                                                 push_feat_ena       ;
+  logic                                                 push_feat_ena_reg   ;
 
   FIFO #(
     .DATA_WIDTH (NUM_FEATURE_OUT*NEW_FEATURE_WIDTH  ),
@@ -176,20 +179,30 @@ module feature_controller #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      feat_reg        <= 'b0;
-      cnt_reg         <= 'b0;
-      feat_addr_reg   <= 'b0;
+      feat_reg          <= 'b0;
+      cnt_reg           <= 'b0;
+      cnt_reg_q1        <= 'b0;
+      feat_addr_reg     <= 'b0;
+      feat_addr_reg_q1  <= 'b0;
+      push_feat_ena_reg <= 'b0;
     end else begin
-      feat_reg        <= feat;
-      cnt_reg         <= cnt;
-      feat_addr_reg   <= feat_addr;
+      feat_reg          <= feat;
+      cnt_reg           <= cnt;
+      cnt_reg_q1        <= cnt_reg;
+      feat_addr_reg     <= feat_addr;
+      feat_addr_reg_q1  <= feat_addr_reg;
+      push_feat_ena_reg <= push_feat_ena;
     end
   end
 
   //* ================== push into bram ==================
-  assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
-  assign feat_bram_addra = feat_addr_reg;
-  assign feat_bram_ena   = push_feat_ena;
+  // assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+  // assign feat_bram_addra = feat_addr_reg;
+  // assign feat_bram_ena   = push_feat_ena;
+
+  assign feat_bram_din   = feat_reg[NUM_FEATURE_OUT - 1 - cnt_reg_q1];
+  assign feat_bram_addra = feat_addr_reg_q1;
+  assign feat_bram_ena   = push_feat_ena_reg;
   //* ====================================================
 
   always_ff @(posedge clk or negedge rst_n) begin
