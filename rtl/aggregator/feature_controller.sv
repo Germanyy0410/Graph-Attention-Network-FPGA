@@ -206,7 +206,7 @@ module feature_controller #(
       feat_bram_addra <= 'b0;
       feat_bram_ena   <= 'b0;
     end else begin
-      feat_bram_addra <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+      feat_bram_din   <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
       feat_bram_addra <= feat_addr_reg;
       feat_bram_ena   <= push_feat_ena;
     end
