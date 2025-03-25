@@ -200,9 +200,21 @@ module feature_controller #(
   // assign feat_bram_addra = feat_addr_reg;
   // assign feat_bram_ena   = push_feat_ena;
 
-  assign feat_bram_din   = feat_reg[NUM_FEATURE_OUT - 1 - cnt_reg_q1];
-  assign feat_bram_addra = feat_addr_reg_q1;
-  assign feat_bram_ena   = push_feat_ena_reg;
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      feat_bram_din   <= 'b0;
+      feat_bram_addra <= 'b0;
+      feat_bram_ena   <= 'b0;
+    end else begin
+      feat_bram_addra <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+      feat_bram_addra <= feat_addr_reg;
+      feat_bram_ena   <= push_feat_ena;
+    end
+  end
+
+  // assign feat_bram_din   = feat_reg[NUM_FEATURE_OUT - 1 - cnt_reg_q1];
+  // assign feat_bram_addra = feat_addr_reg_q1;
+  // assign feat_bram_ena   = push_feat_ena_reg;
   //* ====================================================
 
   always_ff @(posedge clk or negedge rst_n) begin
