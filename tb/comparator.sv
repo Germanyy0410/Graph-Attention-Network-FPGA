@@ -36,7 +36,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
   longint int_bits;
   longint frac_bits;
 
-  longint comparator;
+  logic comparator;
 
   longint signed_bit;
   real    real_dut_output;
@@ -87,22 +87,22 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
       // Comparison result
       if (comparator) begin
         pass_checker++;
-        msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d\n", pass, rm_spc(label), $time, i) };
+        msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d | Error = %0f | Comparator = %0f\n", pass, rm_spc(label), $time, i, error, comparator) };
         if (frac_bits == 0) begin
           if (signed_bit) msg = { msg, $sformatf("\t\t- Golden = %0f\n\t\t- DUT    = %0f\n", golden_output[i], $signed(dut_output)) };
           else msg = { msg, $sformatf("\t\t- Golden = %0f\n\t\t- DUT    = %0f\n", golden_output[i], real_dut_output) };
         end else begin
           msg = { msg, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f\n", golden_output[i], real_dut_output) };
-          msg = { msg, $sformatf("\t\t- Diff   = %0.15f\n", abs(real_dut_output - golden_output[i])) };
+          msg = { msg, $sformatf("\t\t- Error  = %0.15f\n", abs(real_dut_output - golden_output[i])) };
         end
       end else begin
-        msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d\n", fail, rm_spc(label), $time, i) };
+        msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d | Error = %0f | Comparator = %0f\n", fail, rm_spc(label), $time, i, error, comparator) };
         if (frac_bits == 0) begin
           if (signed_bit) msg = { msg, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d\n", golden_output[i], $signed(dut_output)) };
           else msg = { msg, $sformatf("\t\t- Golden = %0d\n\t\t- DUT    = %0d\n", golden_output[i], real_dut_output) };
         end else begin
           msg = { msg, $sformatf("\t\t- Golden = %0.15f\n\t\t- DUT    = %0.15f\n", golden_output[i], real_dut_output) };
-          msg = { msg, $sformatf("\t\t- Diff   = %0.15f\n", abs(real_dut_output - golden_output[i])) };
+          msg = { msg, $sformatf("\t\t- Error  = %0.15f\n", abs(real_dut_output - golden_output[i])) };
         end
       end
       total_checker++;

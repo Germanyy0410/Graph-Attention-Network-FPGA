@@ -43,7 +43,7 @@ module gat_top #(
   parameter DMVM_DATA_WIDTH_CONV2   = 24,
 
   parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 23,
+  parameter COEF_DATA_WIDTH_CONV2   = 24,
 
 `elsif CITESEER
   parameter H_NUM_SPARSE_DATA       = 399089,
