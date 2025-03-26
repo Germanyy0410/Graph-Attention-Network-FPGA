@@ -64,7 +64,7 @@ module scheduler_v2_tb #(
   localparam ROW_WIDTH            = $clog2(W_NUM_OF_COLS),
   localparam W_COL_WIDTH          = $clog2(NUM_FEATURE_OUT),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(NUM_FEATURE_IN),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,

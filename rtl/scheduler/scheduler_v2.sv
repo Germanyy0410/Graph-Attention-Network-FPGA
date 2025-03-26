@@ -3,6 +3,7 @@ module scheduler_v2 #(
   parameter DATA_WIDTH            = 8,
   parameter WH_DATA_WIDTH         = 12,
   parameter DMVM_DATA_WIDTH       = 19,
+  parameter COEF_DATA_WIDTH       = 19,
   parameter SM_DATA_WIDTH         = 108,
   parameter SM_SUM_DATA_WIDTH     = 108,
   parameter ALPHA_DATA_WIDTH      = 32,
@@ -60,7 +61,7 @@ module scheduler_v2 #(
   localparam ROW_WIDTH            = $clog2(W_NUM_OF_COLS),
   localparam W_COL_WIDTH          = $clog2(NUM_FEATURE_OUT),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(NUM_FEATURE_IN),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
@@ -113,8 +114,8 @@ module scheduler_v2 #(
 
 
   //* ========================= Conv1 =========================
-  input   [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]                          mult_wgt_addrb      ,
-  output  [W_NUM_OF_COLS*DATA_WIDTH-1:0]                                  mult_wgt_dout       ,
+  input   [NUM_FEATURE_OUT-1:0] [MULT_WEIGHT_ADDR_W-1:0]                  mult_wgt_addrb      ,
+  output  [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]                          mult_wgt_dout       ,
 
   output  [NUM_FEATURE_OUT*2-1:0] [DATA_WIDTH-1:0]                        a_conv1_o           ,
   //* =========================================================

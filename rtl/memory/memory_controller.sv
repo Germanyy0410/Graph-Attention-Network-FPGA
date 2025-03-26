@@ -21,6 +21,7 @@ module memory_controller #(
   parameter TOTAL_NODES           = 13264,
   parameter NUM_FEATURE_IN        = 1433,
   parameter NUM_FEATURE_OUT       = 16,
+  parameter NUM_FEATURE_FINAL     = 7,
   parameter NUM_SUBGRAPHS         = 2708,
   parameter MAX_NODES             = 168,
 
@@ -67,7 +68,7 @@ module memory_controller #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(NUM_FEATURE_IN),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
@@ -152,8 +153,7 @@ module memory_controller #(
   input   [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv2  ,
   output  [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout         ,
 
-  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ,
-  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ,
+  input   [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb                ,
   output  [DATA_WIDTH-1:0]          wgt_bram_dout                 ,
 
   input   [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb_conv1         ,
@@ -215,7 +215,6 @@ module memory_controller #(
 
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb       ;
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb  ;
-  logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb          ;
 
   logic [WH_WIDTH-1:0]            wh_bram_din             ;
   logic                           wh_bram_ena             ;
@@ -234,7 +233,6 @@ module memory_controller #(
 
   assign h_data_bram_addrb      = (gat_layer_reg == 0) ? h_data_bram_addrb_conv1      : h_data_bram_addrb_conv2;
   assign h_node_info_bram_addrb = (gat_layer_reg == 0) ? h_node_info_bram_addrb_conv1 : h_node_info_bram_addrb_conv2;
-  assign wgt_bram_addrb         = (gat_layer_reg == 0) ? wgt_bram_addrb_conv1         : wgt_bram_addrb_conv2;
 
   assign wh_bram_din            = (gat_layer_reg == 0) ? wh_bram_din_conv1            : wh_bram_din_conv2;
   assign wh_bram_ena            = (gat_layer_reg == 0) ? wh_bram_ena_conv1            : wh_bram_ena_conv2;
@@ -345,7 +343,7 @@ module memory_controller #(
     .doutc        (num_node_bram_doutc  )
   );
 
-  URAM #(
+  BRAM #(
     .DATA_WIDTH     (NEW_FEATURE_WIDTH    ),
     .DEPTH          (NEW_FEATURE_DEPTH    )
   ) u_feat_bram (

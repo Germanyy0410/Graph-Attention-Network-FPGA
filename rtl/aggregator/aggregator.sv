@@ -23,6 +23,7 @@ module aggregator #(
   parameter TOTAL_NODES           = 13264,
   parameter NUM_FEATURE_IN        = 1433,
   parameter NUM_FEATURE_OUT       = 16,
+  parameter NUM_FEATURE_FINAL     = 7,
   parameter NUM_SUBGRAPHS         = 2708,
   parameter MAX_NODES             = 168,
 
@@ -69,7 +70,7 @@ module aggregator #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(NUM_FEATURE_IN),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,

@@ -13,6 +13,7 @@ module gat_conv1 #(
   parameter TOTAL_NODES           = 13264,
   parameter NUM_FEATURE_IN        = 1433,
   parameter NUM_FEATURE_OUT       = 16,
+  parameter NUM_FEATURE_FINAL     = 7,
   parameter NUM_SUBGRAPHS         = 2708,
   parameter MAX_NODES             = 168,
 
@@ -59,7 +60,7 @@ module gat_conv1 #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(NUM_FEATURE_IN),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
@@ -99,56 +100,59 @@ module gat_conv1 #(
   localparam NEW_FEATURE_ADDR_W   = $clog2(NEW_FEATURE_DEPTH)
   //* ==========================================================
 )(
-  input                             clk                         ,
-  input                             rst_n                       ,
+  input                                                     clk                         ,
+  input                                                     rst_n                       ,
 
-  input                             gat_layer                   ,
-  output  [31:0]                    gat_debug_1                 ,
-  output  [31:0]                    gat_debug_2                 ,
-  output  [31:0]                    gat_debug_3                 ,
+  input                                                     gat_layer                   ,
+  output  [31:0]                                            gat_debug_1                 ,
+  output  [31:0]                                            gat_debug_2                 ,
+  output  [31:0]                                            gat_debug_3                 ,
 
-  input   [H_DATA_WIDTH-1:0]        h_data_bram_dout            ,
-  output  [H_DATA_ADDR_W-1:0]       h_data_bram_addrb           ,
-  input                             h_data_bram_load_done       ,
+  input                                                     gat_conv1_vld               ,
 
-  input   [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout       ,
-  output  [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb      ,
-  input                             h_node_info_bram_load_done  ,
+  input   [H_DATA_WIDTH-1:0]                                h_data_bram_dout            ,
+  output  [H_DATA_ADDR_W-1:0]                               h_data_bram_addrb           ,
+  input                                                     h_data_bram_load_done       ,
 
-  input   [DATA_WIDTH-1:0]          wgt_bram_dout               ,
-  output  [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb              ,
-  input                             wgt_bram_load_done          ,
+  input   [NODE_INFO_WIDTH-1:0]                             h_node_info_bram_dout       ,
+  output  [NODE_INFO_ADDR_W-1:0]                            h_node_info_bram_addrb      ,
+  input                                                     h_node_info_bram_load_done  ,
 
-  output  [WH_WIDTH-1:0]            wh_bram_din                 ,
-  output                            wh_bram_ena                 ,
-  output  [WH_ADDR_W-1:0]           wh_bram_addra               ,
-  output  [WH_ADDR_W-1:0]           wh_bram_addrb               ,
-  input   [WH_WIDTH-1:0]            wh_bram_dout                ,
+  input   [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]            mult_wgt_dout               ,
+  output  [NUM_FEATURE_OUT-1:0] [MULT_WEIGHT_ADDR_W-1:0]    mult_wgt_addrb              ,
 
-  output  [NUM_NODE_WIDTH-1:0]      num_node_bram_din           ,
-  output                            num_node_bram_ena           ,
-  output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra         ,
-  output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb         ,
-  input   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb         ,
-  output  [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc         ,
-  input   [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc         ,
+  input   [A_DEPTH-1:0] [DATA_WIDTH-1:0]                    a_i                         ,
 
-  output  [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra             ,
-  output  [NEW_FEATURE_WIDTH-1:0]   feat_bram_din               ,
-  output                            feat_bram_ena               ,
-  output  [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb             ,
-  input   [NEW_FEATURE_WIDTH-1:0]   feat_bram_dout              ,
+  output  [WH_WIDTH-1:0]                                    wh_bram_din                 ,
+  output                                                    wh_bram_ena                 ,
+  output  [WH_ADDR_W-1:0]                                   wh_bram_addra               ,
+  output  [WH_ADDR_W-1:0]                                   wh_bram_addrb               ,
+  input   [WH_WIDTH-1:0]                                    wh_bram_dout                ,
 
-  output  [SUBGRAPH_IDX_ADDR_W-1:0] subgraph_bram_addrb         ,
-  input   [SUBGRAPH_IDX_WIDTH-1:0]  subgraph_bram_dout          ,
+  output  [NUM_NODE_WIDTH-1:0]                              num_node_bram_din           ,
+  output                                                    num_node_bram_ena           ,
+  output  [NUM_NODE_ADDR_W-1:0]                             num_node_bram_addra         ,
+  output  [NUM_NODE_ADDR_W-1:0]                             num_node_bram_addrb         ,
+  input   [NUM_NODE_WIDTH-1:0]                              num_node_bram_doutb         ,
+  output  [NUM_NODE_ADDR_W-1:0]                             num_node_bram_addrc         ,
+  input   [NUM_NODE_WIDTH-1:0]                              num_node_bram_doutc         ,
 
-  output  [H_DATA_WIDTH-1:0]        h_data_bram_din             ,
-  output  [H_DATA_ADDR_W-1:0]       h_data_bram_addra           ,
-  output                            h_data_bram_ena             ,
-  output                            h_data_bram_wea             ,
+  output  [NEW_FEATURE_ADDR_W-1:0]                          feat_bram_addra             ,
+  output  [NEW_FEATURE_WIDTH-1:0]                           feat_bram_din               ,
+  output                                                    feat_bram_ena               ,
+  output  [NEW_FEATURE_ADDR_W-1:0]                          feat_bram_addrb             ,
+  input   [NEW_FEATURE_WIDTH-1:0]                           feat_bram_dout              ,
 
-  output                            new_feat_rdy                ,
-  output                            gat_ready
+  output  [SUBGRAPH_IDX_ADDR_W-1:0]                         subgraph_bram_addrb         ,
+  input   [SUBGRAPH_IDX_WIDTH-1:0]                          subgraph_bram_dout          ,
+
+  output  [H_DATA_WIDTH-1:0]                                h_data_bram_din             ,
+  output  [H_DATA_ADDR_W-1:0]                               h_data_bram_addra           ,
+  output                                                    h_data_bram_ena             ,
+  output                                                    h_data_bram_wea             ,
+
+  output                                                    new_feat_rdy                ,
+  output                                                    gat_ready
 );
 
   genvar i;
@@ -198,56 +202,14 @@ module gat_conv1 #(
   //* ==========================================================
 
 
-  //* ======================= Scheduler ========================
-  logic [W_NUM_OF_COLS-1:0] [MULT_WEIGHT_ADDR_W-1:0]  mult_wgt_addrb      ;
-  logic [W_NUM_OF_COLS-1:0] [DATA_WIDTH-1:0]          mult_wgt_dout       ;
-  logic                                               w_rdy               ;
-  logic [A_DEPTH-1:0] [DATA_WIDTH-1:0]                a                   ;
-
-  scheduler #(
-    .DATA_WIDTH         (DATA_WIDTH         ),
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH  ),
-
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA  ),
-    .TOTAL_NODES        (TOTAL_NODES        ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
-    .MAX_NODES          (MAX_NODES          ),
-
-    .COEF_DEPTH         (COEF_DEPTH         ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH        ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH     ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH      )
-  ) u_scheduler (
-    .clk                        (clk                        ),
-    .rst_n                      (rst_n                      ),
-
-    .wgt_bram_dout              (wgt_bram_dout              ),
-    .wgt_bram_addrb             (wgt_bram_addrb             ),
-    .wgt_bram_load_done         (wgt_bram_load_done         ),
-    .mult_wgt_addrb             (mult_wgt_addrb             ),
-    .mult_wgt_dout              (mult_wgt_dout              ),
-    .w_rdy_o                    (w_rdy                      ),
-
-    .a                          (a                          )
-  );
-  //* ==========================================================
-
-
   //* ========================== SPMM ==========================
-  logic                                         spmm_vld      ;
-  logic                                         spmm_vld_reg  ;
-  logic                                         spmm_rdy      ;
-  logic [WH_WIDTH-1:0]                          wh_data       ;
-  logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0] sppe          ;
+  logic                                           spmm_vld      ;
+  logic                                           spmm_vld_reg  ;
+  logic                                           spmm_rdy      ;
+  logic [WH_WIDTH-1:0]                            wh_data       ;
+  logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0]   sppe          ;
 
-  assign spmm_vld = w_rdy && (gat_layer == 1'b0) && (gat_ready == 1'b0);
+  assign spmm_vld = gat_conv1_vld && (gat_layer == 1'b0) && (gat_ready == 1'b0);
 
   SPMM #(
     .DATA_WIDTH         (DATA_WIDTH         ),
@@ -332,7 +294,7 @@ module gat_conv1 #(
     .dmvm_rdy_o         (dmvm_rdy             ),
 
     .a_vld_i            (w_rdy                ),
-    .a_i                (a                    ),
+    .a_i                (a_i                  ),
 
     .wh_data_i          (wh_data              ),
 

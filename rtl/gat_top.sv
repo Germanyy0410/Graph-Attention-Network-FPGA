@@ -134,7 +134,7 @@ module gat_top #(
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
   localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
-  localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
+  localparam MULT_WEIGHT_ADDR_W   = $clog2(NUM_FEATURE_IN),
 
   // -- [WH]
   localparam DOT_PRODUCT_SIZE     = H_NUM_OF_COLS,
@@ -212,10 +212,6 @@ module gat_top #(
   //* ==========================================================
 );
 
-  localparam WGT_ADDR_W_CONV1 = $clog2(NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2);
-  localparam WGT_ADDR_W_CONV2 = $clog2(NUM_FEATURE_OUT * NUM_FEATURE_FINAL + NUM_FEATURE_FINAL * 2);
-  localparam WGT_ADDR_W_DIFF  = WGT_ADDR_W_CONV1 - WGT_ADDR_W_CONV2;
-
   localparam FEAT_ADDR_W_CONV1 = $clog2(NUM_SUBGRAPHS*NUM_FEATURE_OUT);
   localparam FEAT_ADDR_W_CONV2 = $clog2(NUM_SUBGRAPHS*NUM_FEATURE_FINAL);
   localparam FEAT_ADDR_W_DIFF  = FEAT_ADDR_W_CONV1 - FEAT_ADDR_W_CONV2;
@@ -233,9 +229,6 @@ module gat_top #(
   logic [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout         ;
 
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb                ;
-  logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ;
-  logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ;
-  logic [WGT_ADDR_W_CONV2-1:0]    wgt_bram_addrb_conv2_raw      ;
   logic [DATA_WIDTH-1:0]          wgt_bram_dout                 ;
 
   // -- Output
@@ -292,8 +285,9 @@ module gat_top #(
   //* ==========================================================
 
 
-  logic gat_layer;
-  logic gat_layer_reg;
+  //* ====================== Layer Logic =======================
+  logic gat_layer     ;
+  logic gat_layer_reg ;
 
   assign gat_layer = (gat_layer_reg == 1'b0 && gat_ready_conv1 == 1'b1) ? 1'b1 : gat_layer_reg;
 
@@ -306,11 +300,12 @@ module gat_top #(
   end
 
   assign gat_ready = (gat_layer == 1'b0) ? gat_ready_conv1 : gat_ready_conv2;
-  assign wgt_bram_addrb_conv2  = { {WGT_ADDR_W_DIFF{1'b0}}, wgt_bram_addrb_conv2_raw };
-  assign feat_bram_addra_conv2 = { {FEAT_ADDR_W_DIFF{1'b0}}, feat_bram_addra_conv2_raw };
+  //* ==========================================================
 
 
   //* ==================== Memory Controller ===================
+  assign feat_bram_addra_conv2 = { { FEAT_ADDR_W_DIFF{1'b0} } , feat_bram_addra_conv2_raw };
+
   memory_controller #(
     .DATA_WIDTH         (DATA_WIDTH             ),
     .SM_DATA_WIDTH      (SM_DATA_WIDTH          ),
@@ -325,6 +320,7 @@ module gat_top #(
     .TOTAL_NODES        (TOTAL_NODES            ),
     .NUM_FEATURE_IN     (NUM_FEATURE_IN         ),
     .NUM_FEATURE_OUT    (NUM_FEATURE_OUT        ),
+    .NUM_FEATURE_FINAL  (NUM_FEATURE_FINAL      ),
     .NUM_SUBGRAPHS      (NUM_SUBGRAPHS          ),
     .MAX_NODES          (MAX_NODES              ),
 
@@ -333,6 +329,57 @@ module gat_top #(
     .DIVIDEND_DEPTH     (DIVIDEND_DEPTH         ),
     .DIVISOR_DEPTH      (DIVISOR_DEPTH          )
   ) u_memory_controller (.*);
+  //* ==========================================================
+
+
+  //* ======================= Scheduler ========================
+  logic                                                                 sched_rdy       ;
+  logic [NUM_FEATURE_OUT-1:0] [MULT_WEIGHT_ADDR_W-1:0]                  mult_wgt_addrb  ;
+  logic [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]                          mult_wgt_dout   ;
+  logic [NUM_FEATURE_OUT*2-1:0] [DATA_WIDTH-1:0]                        a_conv1         ;
+  logic [NUM_FEATURE_FINAL-1:0] [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]  wgt             ;
+  logic [NUM_FEATURE_FINAL*2-1:0] [DATA_WIDTH-1:0]                      a_conv2         ;
+
+  scheduler_v2 #(
+    .DATA_WIDTH         (DATA_WIDTH             ),
+    .SM_DATA_WIDTH      (SM_DATA_WIDTH          ),
+    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH      ),
+    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH       ),
+    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH      ),
+
+    .WH_DATA_WIDTH      (WH_DATA_WIDTH_CONV1    ),
+    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH_CONV1  ),
+    .COEF_DATA_WIDTH    (COEF_DATA_WIDTH_CONV1  ),
+
+    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA      ),
+    .TOTAL_NODES        (TOTAL_NODES            ),
+    .NUM_FEATURE_IN     (NUM_FEATURE_IN         ),
+    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT        ),
+    .NUM_FEATURE_FINAL  (NUM_FEATURE_FINAL      ),
+    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS          ),
+    .MAX_NODES          (MAX_NODES              ),
+
+    .COEF_DEPTH         (COEF_DEPTH             ),
+    .ALPHA_DEPTH        (ALPHA_DEPTH            ),
+    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH         ),
+    .DIVISOR_DEPTH      (DIVISOR_DEPTH          )
+  ) u_scheduler_v2 (
+    .clk                (clk                    ),
+    .rst_n              (rst_n                  ),
+
+    .sched_vld_i        (wgt_bram_load_done     ),
+    .sched_rdy_o        (sched_rdy              ),
+
+    .wgt_bram_dout      (wgt_bram_dout          ),
+    .wgt_bram_addrb     (wgt_bram_addrb         ),
+
+    .mult_wgt_addrb     (mult_wgt_addrb         ),
+    .mult_wgt_dout      (mult_wgt_dout          ),
+    .a_conv1_o          (a_conv1                ),
+
+    .wgt_o              (wgt                    ),
+    .a_conv2_o          (a_conv2                )
+  );
   //* ==========================================================
 
 
@@ -352,6 +399,7 @@ module gat_top #(
     .TOTAL_NODES        (TOTAL_NODES            ),
     .NUM_FEATURE_IN     (NUM_FEATURE_IN         ),
     .NUM_FEATURE_OUT    (NUM_FEATURE_OUT        ),
+    .NUM_FEATURE_FINAL  (NUM_FEATURE_FINAL      ),
     .NUM_SUBGRAPHS      (NUM_SUBGRAPHS          ),
     .MAX_NODES          (MAX_NODES              ),
 
@@ -362,6 +410,8 @@ module gat_top #(
   ) u_gat_conv1 (
     .clk                        (clk                              ),
     .rst_n                      (rst_n                            ),
+
+    .gat_conv1_vld              (gat_conv1_vld                    ),
 
     .gat_layer                  (gat_layer_reg                    ),
     .gat_debug_1                (gat_debug_1                      ),
@@ -376,9 +426,10 @@ module gat_top #(
     .h_node_info_bram_addrb     (h_node_info_bram_addrb_conv1     ),
     .h_node_info_bram_load_done (h_node_info_bram_load_done       ),
 
-    .wgt_bram_dout              (wgt_bram_dout                    ),
-    .wgt_bram_addrb             (wgt_bram_addrb_conv1             ),
-    .wgt_bram_load_done         (wgt_bram_load_done               ),
+    .a_i                        (a_conv1                          ),
+
+    .mult_wgt_addrb             (mult_wgt_addrb                   ),
+    .mult_wgt_dout              (mult_wgt_dout                    ),
 
     .wh_bram_din                (wh_bram_din_conv1                ),
     .wh_bram_ena                (wh_bram_ena_conv1                ),
@@ -430,6 +481,7 @@ module gat_top #(
     .TOTAL_NODES        (TOTAL_NODES            ),
     .NUM_FEATURE_IN     (NUM_FEATURE_OUT        ),
     .NUM_FEATURE_OUT    (NUM_FEATURE_FINAL      ),
+    .NUM_FEATURE_FINAL  (NUM_FEATURE_FINAL      ),
     .NUM_SUBGRAPHS      (NUM_SUBGRAPHS          ),
     .MAX_NODES          (MAX_NODES              ),
 
@@ -451,9 +503,9 @@ module gat_top #(
     .h_node_info_bram_addrb     (h_node_info_bram_addrb_conv2     ),
     .h_node_info_bram_load_done (h_node_info_bram_load_done       ),
 
-    .wgt_bram_dout              (wgt_bram_dout                    ),
-    .wgt_bram_addrb             (wgt_bram_addrb_conv2_raw         ),
-    .wgt_bram_load_done         (wgt_bram_load_done               ),
+    .wgt_i                      (wgt                              ),
+    .a_i                        (a_conv2                          ),
+    .w_vld_i                    (sched_rdy                        ),
 
     .wh_bram_din                (wh_bram_din_conv2                ),
     .wh_bram_ena                (wh_bram_ena_conv2                ),
