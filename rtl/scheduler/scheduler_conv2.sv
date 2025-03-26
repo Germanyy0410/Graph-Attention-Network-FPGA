@@ -197,7 +197,7 @@ module scheduler_conv2 #(
   generate
     for (i = 0; i < W_NUM_OF_COLS; i = i + 1) begin
       for (k = 0; k < W_NUM_OF_ROWS; k = k + 1) begin
-        assign wgt[i][k] = ((row_idx_reg == k) && (col_idx_reg == i) && (addr_reg < W_NUM_OF_COLS * W_NUM_OF_ROWS)) ? wgt_bram_dout : wgt_reg[i][k];
+        assign wgt[i][k] = ((row_idx_reg == k) && (col_idx_reg == i) && (addr_reg <= W_NUM_OF_COLS * W_NUM_OF_ROWS)) ? wgt_bram_dout : wgt_reg[i][k];
       end
     end
   endgenerate
