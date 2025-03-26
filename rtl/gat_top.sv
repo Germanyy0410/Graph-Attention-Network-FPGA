@@ -286,8 +286,8 @@ module gat_top #(
 
 
   //* ====================== Layer Logic =======================
-  logic gat_layer     ;
-  logic gat_layer_reg ;
+  logic gat_layer;
+  logic gat_layer_reg;
 
   assign gat_layer = (gat_layer_reg == 1'b0 && gat_ready_conv1 == 1'b1) ? 1'b1 : gat_layer_reg;
 
@@ -340,7 +340,7 @@ module gat_top #(
   logic [NUM_FEATURE_FINAL-1:0] [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]  wgt             ;
   logic [NUM_FEATURE_FINAL*2-1:0] [DATA_WIDTH-1:0]                      a_conv2         ;
 
-  scheduler_v2 #(
+  scheduler #(
     .DATA_WIDTH         (DATA_WIDTH             ),
     .SM_DATA_WIDTH      (SM_DATA_WIDTH          ),
     .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH      ),
@@ -363,7 +363,7 @@ module gat_top #(
     .ALPHA_DEPTH        (ALPHA_DEPTH            ),
     .DIVIDEND_DEPTH     (DIVIDEND_DEPTH         ),
     .DIVISOR_DEPTH      (DIVISOR_DEPTH          )
-  ) u_scheduler_v2 (
+  ) u_scheduler (
     .clk                (clk                    ),
     .rst_n              (rst_n                  ),
 
@@ -411,7 +411,7 @@ module gat_top #(
     .clk                        (clk                              ),
     .rst_n                      (rst_n                            ),
 
-    .gat_conv1_vld              (gat_conv1_vld                    ),
+    .gat_conv1_vld              (sched_rdy                        ),
 
     .gat_layer                  (gat_layer_reg                    ),
     .gat_debug_1                (gat_debug_1                      ),

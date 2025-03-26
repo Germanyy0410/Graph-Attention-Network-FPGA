@@ -188,7 +188,6 @@ module gat_conv2 #(
   //* ========================== SPMM ==========================
   logic                       wh_vld    ;
   logic                       wh_rdy    ;
-
   logic [WH_WIDTH-1:0]        wh_data   ;
 
   assign wh_vld = w_vld_i && (gat_layer == 1'b1);
