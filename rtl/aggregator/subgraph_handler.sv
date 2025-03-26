@@ -25,13 +25,13 @@ module subgraph_handler #(
   // -- [BRAM]
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * (NUM_FEATURE_IN + 2) + NUM_FEATURE_FINAL * (NUM_FEATURE_OUT + 2),
   localparam WH_DEPTH             = 128,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
-  // -- [Subgraph]
+  // -- [SUBGRAPH]
   localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
   localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
   localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
@@ -305,7 +305,7 @@ module subgraph_handler #(
   assign h_data_addr_cnt = (subgraph_vld_i && start_handle) ? (h_data_addr_cnt_reg + 1) : h_data_addr_cnt_reg;
 
   // -- Data
-  assign h_data_bram_din = feat_reg[cnt_reg];
+  assign h_data_bram_din = feat_reg[cnt_reg][DATA_WIDTH-1:0];
 
   // -- Ena
   assign h_data_bram_ena = (subgraph_vld_i && start_handle_reg && subgraph_addr_reg < TOTAL_NODES - 1) ? 1'b1 : (cnt_reg == NUM_FEATURE_OUT - 1) ? 1'b0 : h_data_bram_ena_reg;

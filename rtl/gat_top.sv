@@ -43,7 +43,7 @@ module gat_top #(
   parameter DMVM_DATA_WIDTH_CONV2   = 24,
 
   parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 23,
+  parameter COEF_DATA_WIDTH_CONV2   = 24,
 
 `elsif CITESEER
   parameter H_NUM_SPARSE_DATA       = 399089,
@@ -101,13 +101,13 @@ module gat_top #(
   // -- [BRAM]
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * (NUM_FEATURE_IN + 2) + NUM_FEATURE_FINAL * (NUM_FEATURE_OUT + 2),
   localparam WH_DEPTH             = 128,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
-  // -- [Subgraph]
+  // -- [SUBGRAPH]
   localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
   localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
   localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),

@@ -1,11 +1,8 @@
-// ==================================================================
-// File name  : num_node_controller.sv
-// Project    : Acceleration of Graph Attention Networks on FPGA
-// Function   : Store number of nodes of each subgraph into BRAM
-// Author     : @Germanyy0410
-// ==================================================================
+`timescale 1ns / 1ps
 
-module num_node_controller #(
+`include "../../../rtl/others/define/gat_define.sv"
+
+module scheduler_v2_tb #(
   //* ======================= parameter ========================
   parameter DATA_WIDTH            = 8,
   parameter WH_DATA_WIDTH         = 12,
@@ -19,6 +16,7 @@ module num_node_controller #(
   parameter TOTAL_NODES           = 13264,
   parameter NUM_FEATURE_IN        = 1433,
   parameter NUM_FEATURE_OUT       = 16,
+  parameter NUM_FEATURE_FINAL     = 7,
   parameter NUM_SUBGRAPHS         = 2708,
   parameter MAX_NODES             = 168,
 
@@ -33,7 +31,7 @@ module num_node_controller #(
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * (NUM_FEATURE_IN + 2) + NUM_FEATURE_FINAL * (NUM_FEATURE_OUT + 2),
-  localparam WH_DEPTH             = TOTAL_NODES,
+  localparam WH_DEPTH             = 128,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
@@ -63,7 +61,8 @@ module num_node_controller #(
   localparam W_NUM_OF_ROWS        = NUM_FEATURE_IN,
   localparam W_NUM_OF_COLS        = NUM_FEATURE_OUT,
   localparam W_ROW_WIDTH          = $clog2(W_NUM_OF_ROWS),
-  localparam W_COL_WIDTH          = $clog2(W_NUM_OF_COLS),
+  localparam ROW_WIDTH            = $clog2(W_NUM_OF_COLS),
+  localparam W_COL_WIDTH          = $clog2(NUM_FEATURE_OUT),
   localparam WEIGHT_ADDR_W        = $clog2(WEIGHT_DEPTH),
   localparam MULT_WEIGHT_ADDR_W   = $clog2(W_NUM_OF_ROWS),
 
@@ -104,66 +103,88 @@ module num_node_controller #(
   // -- [NEW FEATURE]
   localparam NEW_FEATURE_ADDR_W   = $clog2(NEW_FEATURE_DEPTH)
   //* ==========================================================
-)(
-  input                                                 clk                       ,
-  input                                                 rst_n                     ,
+)();
 
-  input                                                 spmm_vld_i                ,
+  logic                                                                 clk                 ;
+  logic                                                                 rst_n               ;
 
-  input                                                 src_flag                  ,
-  input   [NUM_NODE_WIDTH-1:0]                          num_node                  ,
+  logic                                                                 sched_vld_i         ;
+  logic                                                                 sched_rdy_o         ;
 
-  // -- num_node
-  output  [NUM_NODE_WIDTH-1:0]                          num_node_bram_din         ,
-  output                                                num_node_bram_ena         ,
-  output  [NUM_NODE_ADDR_W-1:0]                         num_node_bram_addra
-);
-  //* ======================= localparam =======================
-  localparam IDLE = 2'b00;
-  localparam RUN  = 2'b01;
-  localparam DONE = 2'b10;
-  localparam DUMP = 2'b11;
-  //* ==========================================================
+  //* ======================== wgt BRAM =======================
+  logic [WEIGHT_ADDR_W-1:0]                                             wgt_bram_addra      ;
+  logic [DATA_WIDTH-1:0]                                                wgt_bram_din        ;
+  logic                                                                 wgt_bram_ena        ;
+  logic [DATA_WIDTH-1:0]                                                wgt_bram_dout       ;
+  logic [WEIGHT_ADDR_W-1:0]                                             wgt_bram_addrb      ;
+  //* =========================================================
 
 
-  //* =================== logic declaration ====================
-  logic [NUM_NODE_ADDR_W-1:0] addr                  ;
-  logic [NUM_NODE_ADDR_W-1:0] addr_reg              ;
-  logic [1:0]                 num_node_status       ;
-  logic [1:0]                 num_node_status_reg   ;
-  //* ==========================================================
+  //* ========================= Conv1 =========================
+  logic [W_NUM_OF_COLS*MULT_WEIGHT_ADDR_W-1:0]                          mult_wgt_addrb      ;
+  logic [W_NUM_OF_COLS*DATA_WIDTH-1:0]                                  mult_wgt_dout       ;
+
+  logic [NUM_FEATURE_OUT*2-1:0] [DATA_WIDTH-1:0]                        a_conv1_o           ;
+  //* =========================================================
 
 
-  //* ===================== Write to BRAM ======================
-  assign num_node_bram_din   = num_node;
-  assign num_node_bram_ena   = (num_node_status_reg == RUN);
-  assign num_node_bram_addra = addr_reg;
-  //* ==========================================================
+  //* ========================= Conv2 =========================
+  logic [NUM_FEATURE_FINAL-1:0] [NUM_FEATURE_OUT-1:0] [DATA_WIDTH-1:0]  wgt_o               ;
+  logic [NUM_FEATURE_FINAL*2-1:0] [DATA_WIDTH-1:0]                      a_conv2_o           ;
+  //* =========================================================
 
+  scheduler_v2 dut (.*);
 
-  //* ===================== state machine ======================
-  always_comb begin
-    num_node_status = num_node_status_reg;
+  BRAM #(
+    .DATA_WIDTH (DATA_WIDTH     ),
+    .DEPTH      (WEIGHT_DEPTH   )
+  ) u_wgt_bram (
+    .clk        (clk            ),
+    .rst_n      (rst_n          ),
+    .addra      (wgt_bram_addra ),
+    .din        (wgt_bram_din   ),
+    .ena        (wgt_bram_ena   ),
+    .wea        (wgt_bram_ena   ),
+    .dout       (wgt_bram_dout  ),
+    .addrb      (wgt_bram_addrb )
+  );
 
-    case (num_node_status_reg)
-      IDLE    : if (src_flag && spmm_vld_i)  num_node_status = RUN;
-      RUN     : num_node_status = DONE;
-      DONE    : if (!src_flag && spmm_vld_i) num_node_status = IDLE;
-      default : num_node_status = num_node_status_reg;
-    endcase
+  always #5 clk = ~clk;
+  initial begin
+    clk       = 1'b1;
+    rst_n     = 1'b0;
+    #15.01;
+    rst_n     = 1'b1;
   end
 
-  assign addr = (num_node_status_reg == RUN && spmm_vld_i) ? (addr_reg + 1) : addr_reg;
+  integer weight_file;
+  integer w_r;
+  string  file_path;
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      addr_reg            <= '0;
-      num_node_status_reg <= '0;
+  initial begin
+    sched_vld_i  = 1'b0;
+    wgt_bram_ena = 1'b1;
 
-    end else begin
-      addr_reg            <= addr;
-      num_node_status_reg <= num_node_status;
+    file_path   = "D:/VLSI/Capstone/data/cora/layer_1/input/weight_demo.txt";
+    weight_file = $fopen(file_path, "r");
+
+    for (int i = 0; i < WEIGHT_DEPTH; i++) begin
+      w_r = $fscanf(weight_file, "%b\n", wgt_bram_din);
+      wgt_bram_addra = i;
+      #10.01;
     end
+
+    $display("WEIGHT FINISH");
+
+    wgt_bram_ena = 1'b0;
+
+    $fclose(weight_file);
+
+    #40.01;
+    sched_vld_i = 1'b1;
+    #400000;
+    $finish();
   end
-  //* ==========================================================
+
+
 endmodule

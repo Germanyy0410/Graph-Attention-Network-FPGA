@@ -34,7 +34,7 @@ module feature_controller #(
   // -- [BRAM]
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
-  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
+  localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * (NUM_FEATURE_IN + 2) + NUM_FEATURE_FINAL * (NUM_FEATURE_OUT + 2),
   localparam WH_DEPTH             = 128,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
@@ -187,9 +187,21 @@ module feature_controller #(
   end
 
   //* ================== push into bram ==================
-  assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
-  assign feat_bram_addra = feat_addr_reg;
-  assign feat_bram_ena   = push_feat_ena;
+  // assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+  // assign feat_bram_addra = feat_addr_reg;
+  // assign feat_bram_ena   = push_feat_ena;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      feat_bram_din   <= 'b0;
+      feat_bram_addra <= 'b0;
+      feat_bram_ena   <= '0;
+    end else begin
+      feat_bram_din   <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+      feat_bram_addra <= feat_addr_reg;
+      feat_bram_ena   <= push_feat_ena;
+    end
+  end
   //* ====================================================
 
   always_ff @(posedge clk or negedge rst_n) begin

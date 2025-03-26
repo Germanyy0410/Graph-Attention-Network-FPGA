@@ -36,7 +36,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
   longint int_bits;
   longint frac_bits;
 
-  longint comparator;
+  logic comparator;
 
   longint signed_bit;
   real    real_dut_output;

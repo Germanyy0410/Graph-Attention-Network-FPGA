@@ -39,7 +39,7 @@ module gat_top_wrapper #(
   parameter NUM_NODES_DEPTH       = NUM_SUBGRAPHS,
   parameter NEW_FEATURE_DEPTH     = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
-  // -- [Subgraph]
+  // -- [SUBGRAPH]
   localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
   localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
   localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
