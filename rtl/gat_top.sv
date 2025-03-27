@@ -36,14 +36,14 @@ module gat_top #(
   parameter NUM_SUBGRAPHS           = 2708,
   parameter MAX_NODES               = 169,
 
-  parameter WH_DATA_WIDTH_CONV1     = 12,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
+  parameter WH_DATA_WIDTH_CONV1     = 11,
+  parameter WH_DATA_WIDTH_CONV2     = 17,
 
-  parameter DMVM_DATA_WIDTH_CONV1   = 19,
-  parameter DMVM_DATA_WIDTH_CONV2   = 24,
+  parameter DMVM_DATA_WIDTH_CONV1   = 20,
+  parameter DMVM_DATA_WIDTH_CONV2   = 25,
 
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 24,
+  parameter COEF_DATA_WIDTH_CONV1   = 20,
+  parameter COEF_DATA_WIDTH_CONV2   = 22,
 
 `elsif CITESEER
   parameter H_NUM_SPARSE_DATA       = 399089,
@@ -86,8 +86,8 @@ module gat_top #(
 `endif
 
   parameter DATA_WIDTH              = 8,
-  parameter SM_DATA_WIDTH           = 108,
-  parameter SM_SUM_DATA_WIDTH       = 108,
+  parameter SM_DATA_WIDTH           = 120,
+  parameter SM_SUM_DATA_WIDTH       = 120,
   parameter ALPHA_DATA_WIDTH        = 32,
   parameter NEW_FEATURE_WIDTH       = 32,
 
@@ -102,7 +102,7 @@ module gat_top #(
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
-  localparam WH_DEPTH             = 128,
+  localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,

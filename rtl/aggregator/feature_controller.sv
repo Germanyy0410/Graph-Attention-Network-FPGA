@@ -35,7 +35,7 @@ module feature_controller #(
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
-  localparam WH_DEPTH             = 128,
+  localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
@@ -161,7 +161,7 @@ module feature_controller #(
   //* ====================================================
 
   assign push_feat_ena  = feat_ff_rd_vld || ((cnt_reg > 0) && (cnt_reg < NUM_FEATURE_OUT));
-  assign feat_addr      = push_feat_ena ? (feat_addr_reg + 1) : feat_addr_reg;
+  assign feat_addr      = (push_feat_ena && feat_addr_reg < NUM_SUBGRAPHS * NUM_FEATURE_OUT) ? (feat_addr_reg + 1) : feat_addr_reg;
 
   always_comb begin
     cnt = cnt_reg;
@@ -187,21 +187,21 @@ module feature_controller #(
   end
 
   //* ================== push into bram ==================
-  // assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
-  // assign feat_bram_addra = feat_addr_reg;
-  // assign feat_bram_ena   = push_feat_ena;
+  assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+  assign feat_bram_addra = feat_addr_reg;
+  assign feat_bram_ena   = push_feat_ena && (feat_addr_reg < NUM_SUBGRAPHS * NUM_FEATURE_OUT);
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      feat_bram_din   <= 'b0;
-      feat_bram_addra <= 'b0;
-      feat_bram_ena   <= 'b0;
-    end else begin
-      feat_bram_din   <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
-      feat_bram_addra <= feat_addr_reg;
-      feat_bram_ena   <= push_feat_ena;
-    end
-  end
+  // always_ff @(posedge clk or negedge rst_n) begin
+  //   if (!rst_n) begin
+  //     feat_bram_din   <= 'b0;
+  //     feat_bram_addra <= 'b0;
+  //     feat_bram_ena   <= 'b0;
+  //   end else begin
+  //     feat_bram_din   <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+  //     feat_bram_addra <= feat_addr_reg;
+  //     feat_bram_ena   <= push_feat_ena;
+  //   end
+  // end
   //* ====================================================
 
   always_ff @(posedge clk or negedge rst_n) begin

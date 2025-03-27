@@ -27,7 +27,7 @@ module gat_conv2 #(
   localparam H_DATA_DEPTH         = H_NUM_SPARSE_DATA,
   localparam NODE_INFO_DEPTH      = TOTAL_NODES,
   localparam WEIGHT_DEPTH         = NUM_FEATURE_OUT * NUM_FEATURE_IN + NUM_FEATURE_OUT * 2,
-  localparam WH_DEPTH             = 128,
+  localparam WH_DEPTH             = TOTAL_NODES,
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
@@ -233,7 +233,7 @@ module gat_conv2 #(
 
   logic [WH_WIDTH-1:0]        wh_data   ;
 
-  assign wh_vld = w_rdy && (gat_layer == 1'b1);
+  assign wh_vld = w_rdy && (gat_layer == 1'b1) && (~gat_ready);
 
   WH #(
     .DATA_WIDTH         (DATA_WIDTH         ),
