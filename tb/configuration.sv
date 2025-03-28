@@ -91,6 +91,7 @@
     coef_conv2.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv2";
     dividend_conv2.LOG_PATH         = "D:/VLSI/Capstone/tb/log/conv2";
     divisor_conv2.LOG_PATH          = "D:/VLSI/Capstone/tb/log/conv2";
+    sm_num_nodes_conv2.LOG_PATH     = "D:/VLSI/Capstone/tb/log/conv2";
     alpha_conv2.LOG_PATH            = "D:/VLSI/Capstone/tb/log/conv2";
     new_feature_conv2.LOG_PATH      = "D:/VLSI/Capstone/tb/log/conv2";
 
@@ -99,6 +100,7 @@
     coef_conv2.log_file             = "DMVM/coef.log";
     dividend_conv2.log_file         = "softmax/dividend.log";
     divisor_conv2.log_file          = "softmax/divisor.log";
+    sm_num_nodes_conv2.log_file     = "softmax/num_nodes.log";
     alpha_conv2.log_file            = "softmax/alpha.log";
     new_feature_conv2.log_file      = "aggregator/new_feature.log";
 
@@ -129,6 +131,10 @@
     divisor_conv2.dut_output          = dut.u_gat_conv2.u_softmax.sum_reg;
     divisor_conv2.golden_output       = golden_divisor_conv2;
 
+    sm_num_nodes_conv2.dut_ready      = dut.u_gat_conv2.u_softmax.dvsr_ff_wr_vld;
+    sm_num_nodes_conv2.dut_output     = dut.u_gat_conv2.u_softmax.num_node_reg;
+    sm_num_nodes_conv2.golden_output  = golden_sm_num_node_conv2;
+
     alpha_conv2.dut_ready             = dut.u_gat_conv2.u_softmax.sm_rdy_o;
     alpha_conv2.dut_output            = dut.u_gat_conv2.u_softmax.alpha_ff_din;
     alpha_conv2.golden_output         = golden_alpha_conv2;
@@ -147,6 +153,7 @@
       coef_conv2.output_checker();
       dividend_conv2.output_checker();
       divisor_conv2.output_checker();
+      sm_num_nodes_conv2.output_checker();
       alpha_conv2.output_checker(0.0001);
       new_feature_conv2.output_checker(0.01);
     join

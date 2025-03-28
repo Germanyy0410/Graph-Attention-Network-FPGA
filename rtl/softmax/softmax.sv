@@ -226,7 +226,7 @@ module softmax #(
   end
 
   // -- compute 2^x
-  assign exp = (coef_ff_dout == ZERO) ? 1 : (1 << coef_ff_dout);
+  assign exp = 1 << coef_ff_dout;
 
   always @(*) begin
     sum       = sum_reg;

@@ -233,7 +233,7 @@ module gat_conv2 #(
 
   logic [WH_WIDTH-1:0]        wh_data   ;
 
-  assign wh_vld = w_rdy && (gat_layer == 1'b1) && (~gat_ready);
+  assign wh_vld = w_rdy && (gat_layer == 1'b1);
 
   WH #(
     .DATA_WIDTH         (DATA_WIDTH         ),

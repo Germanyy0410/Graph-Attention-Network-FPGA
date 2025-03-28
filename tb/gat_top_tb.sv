@@ -255,6 +255,7 @@ module gat_top_tb #(
 
   OutputComparator #(real, SM_DATA_WIDTH, TOTAL_NODES)                              dividend_conv2      = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
   OutputComparator #(real, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)                        divisor_conv2       = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
+  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                        sm_num_nodes_conv2  = new("Num Node   ", NUM_NODE_WIDTH, 0, 0);
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                           alpha_conv2         = new("Alpha      ", WOI, WOF, 0);
 
   OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS * NUM_FEATURE_FINAL)    new_feature_conv2   = new("New Feature", 16, 16, 0);
@@ -345,6 +346,7 @@ module gat_top_tb #(
     coef_conv2.base_scoreboard();
     dividend_conv2.base_scoreboard();
     divisor_conv2.base_scoreboard();
+    sm_num_nodes_conv2.base_scoreboard();
     alpha_conv2.base_scoreboard();
     new_feature_conv2.base_scoreboard();
 

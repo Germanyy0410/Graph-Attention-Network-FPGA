@@ -86,8 +86,8 @@ module gat_top #(
 `endif
 
   parameter DATA_WIDTH              = 8,
-  parameter SM_DATA_WIDTH           = 120,
-  parameter SM_SUM_DATA_WIDTH       = 120,
+  parameter SM_DATA_WIDTH           = 128,
+  parameter SM_SUM_DATA_WIDTH       = 150,
   parameter ALPHA_DATA_WIDTH        = 32,
   parameter NEW_FEATURE_WIDTH       = 32,
 
