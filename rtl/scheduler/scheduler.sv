@@ -272,7 +272,7 @@ module scheduler #(
     col_idx_conv1 = col_idx_conv1_reg;
     row_idx_conv1 = row_idx_conv1_reg;
 
-    if (sched_vld_reg_q1) begin
+    if (sched_vld_reg) begin
       if (col_idx_conv1_reg == NUM_FEATURE_OUT - 1) begin
         col_idx_conv1 = 0;
       end else begin
@@ -280,7 +280,7 @@ module scheduler #(
       end
     end
 
-    if (sched_vld_reg_q1 && col_idx_conv1_reg == NUM_FEATURE_OUT - 1) begin
+    if (sched_vld_reg && col_idx_conv1_reg == NUM_FEATURE_OUT - 1) begin
       if (row_idx_conv1_reg == NUM_FEATURE_IN - 1) begin
         row_idx_conv1 = 0;
       end else begin
