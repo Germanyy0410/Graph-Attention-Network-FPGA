@@ -158,7 +158,7 @@ module DMVM #(
   logic [DMVM_DATA_WIDTH-1:0]                                     nbr_dmvm_reg        ;
 
   logic [DATA_WIDTH-1:0]                                          pipe_coef           ;
-  logic [DATA_WIDTH:0]                                            coef_calc           ;
+  logic [COEF_DATA_WIDTH-1:0]                                     coef_calc           ;
   logic [DATA_WIDTH-1:0]                                          pipe_coef_reg       ;
 
   // -- output
@@ -244,8 +244,8 @@ module DMVM #(
 
   // assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
   // assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
-  assign coef_calc  = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH);
-  assign pipe_coef  = (coef_calc >= 0) ? coef_calc : 'b0;
+  assign coef_calc  = $signed(src_dmvm) + $signed(nbr_dmvm);
+  assign pipe_coef  = ($signed(src_dmvm) + $signed(nbr_dmvm) >= 0) ? ($signed(src_dmvm) + $signed(nbr_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH)) : 'b0;
 
   // -- src_flag
   generate
