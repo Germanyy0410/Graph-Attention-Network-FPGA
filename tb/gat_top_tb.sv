@@ -258,25 +258,30 @@ module gat_top_tb #(
     //* =========================== Layer 1 ===========================
     $display("[Layer 1] - Starting...");
     // ================ Load IO ================
+    output_loader();
+
     fork
       input_loader();
-      output_loader();
+
+      begin
+        // =========================================
+        $display("[Layer 1] - Validating...");
+        // =========== Start Simulation ============
+        c3;
+        wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
+        start_time      = $time;
+        lat_start_time  = $time;
+
+        // -- Latency
+        wait(dut.u_gat_conv1.u_aggregator.u_feature_controller.feat_bram_ena);
+        lat_end_time = $time;
+
+        // -- Total
+        wait(dut.u_gat_conv1.gat_ready);
+        end_time = $time;
+      end
     join
-    // =========================================
-    $display("[Layer 1] - Validating...");
-    // =========== Start Simulation ============
-    c3;
-    wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
-    start_time      = $time;
-    lat_start_time  = $time;
 
-    // -- Latency
-    wait(dut.u_gat_conv1.u_aggregator.u_feature_controller.feat_bram_ena);
-    lat_end_time = $time;
-
-    // -- Total
-    wait(dut.u_gat_conv1.gat_ready);
-    end_time = $time;
     // =========================================
     $display("[Layer 1] - Monitoring...");
     // ================ Report =================
@@ -316,7 +321,7 @@ module gat_top_tb #(
 
     // -- Total
     c3;
-    wait(dut.gat_ready == 1'b1);
+    wait(dut.u_gat_conv1.new_feat_rdy == 1'b1);
     end_time = $time;
 
     // =========================================

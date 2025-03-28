@@ -23,7 +23,7 @@ task input_loader();
 				c1;
 			end
 
-			$display("[Input  ] - Weight Compeleted...");
+			$display("[ Input ] - Weight Compeleted...");
 
 			wgt_bram_ena       = 1'b0;
 			wgt_bram_wea       = 1'b0;
@@ -48,7 +48,7 @@ task input_loader();
 				c1;
 			end
 
-			$display("[Input  ] - Node Info Compeleted...");
+			$display("[ Input ] - Node Info Compeleted...");
 
 			h_node_info_bram_ena        = 1'b0;
 			h_node_info_bram_wea        = 1'b0;
@@ -73,7 +73,7 @@ task input_loader();
 				c1;
 			end
 
-			$display("[Input  ] - H Data Compeleted...");
+			$display("[ Input ] - H Data Compeleted...");
 
 			h_data_bram_ena_conv1 = 1'b0;
 			h_data_bram_wea_conv1	= 1'b0;
@@ -97,7 +97,7 @@ task input_loader();
 				c1;
 			end
 
-			$display("[Input  ] - Subgraph Index Compeleted...");
+			$display("[ Input ] - Subgraph Index Compeleted...");
 
 			subgraph_bram_ena = 1'b0;
 			subgraph_bram_wea	= 1'b0;
@@ -105,5 +105,5 @@ task input_loader();
 			$fclose(subgraph_idx_file);
 		end
 
-	$display("[Input  ] - Loading completed...");
+	$display("[ Input ] - Loading completed...");
 endtask
