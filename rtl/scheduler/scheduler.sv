@@ -357,7 +357,7 @@ module scheduler #(
   generate
     for (i = 0; i < NUM_FEATURE_FINAL; i = i + 1) begin
       for (k = 0; k < NUM_FEATURE_OUT; k = k + 1) begin
-        assign wgt[i][k] = ((row_idx_conv2_reg == k) && (col_idx_conv2_reg == i) && (addr_reg < WGT_DEPTH_CONV1 + A_DEPTH_CONV1 + WGT_DEPTH_CONV2)) ? wgt_bram_dout : wgt_reg[i][k];
+        assign wgt[i][k] = ((row_idx_conv2_reg == k) && (col_idx_conv2_reg == i) && (addr_reg <= WGT_DEPTH_CONV1 + A_DEPTH_CONV1 + WGT_DEPTH_CONV2)) ? wgt_bram_dout : wgt_reg[i][k];
       end
     end
   endgenerate
