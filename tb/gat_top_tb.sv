@@ -246,6 +246,7 @@ module gat_top_tb #(
 
   OutputComparator #(real, SM_DATA_WIDTH, TOTAL_NODES)                              dividend_conv2      = new("Dividend   ", SM_DATA_WIDTH, 0, 0);
   OutputComparator #(real, SM_SUM_DATA_WIDTH, NUM_SUBGRAPHS)                        divisor_conv2       = new("Divisor    ", SM_SUM_DATA_WIDTH, 0, 0);
+  OutputComparator #(longint, NUM_NODE_WIDTH, NUM_SUBGRAPHS)                        sm_num_nodes_conv2  = new("Num Node   ", NUM_NODE_WIDTH, 0, 0);
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                           alpha_conv2         = new("Alpha      ", WOI, WOF, 0);
 
   OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS * NUM_FEATURE_FINAL)    new_feature_conv2   = new("New Feature", 16, 16, 0);
@@ -255,14 +256,14 @@ module gat_top_tb #(
 
   initial begin
     //* =========================== Layer 1 ===========================
-    $display("Starting Layer 1...");
+    $display("[Layer 1] - Starting...");
     // ================ Load IO ================
     fork
       input_loader();
       output_loader();
     join
     // =========================================
-    $display("Validating Layer 1...");
+    $display("[Layer 1] - Validating...");
     // =========== Start Simulation ============
     c3;
     wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
@@ -277,7 +278,7 @@ module gat_top_tb #(
     wait(dut.u_gat_conv1.gat_ready);
     end_time = $time;
     // =========================================
-    $display("Monitoring Layer 1...");
+    $display("[Layer 1] - Monitoring...");
     // ================ Report =================
     summary_section();
 
@@ -292,7 +293,7 @@ module gat_top_tb #(
 
     end_section("conv1");
     // =========================================
-    $display("Completing Layer 1...");
+    $display("[Layer 1] - Completing...");
   //* ===============================================================
 
     wgt_bram_load_done          = 1'b0;
@@ -301,14 +302,8 @@ module gat_top_tb #(
     c1;
 
   //* =========================== Layer 2 ===========================
-    $display("Starting Layer 2...");
-    // ================ Load IO ================
-    // fork
-    //   input_loader();
-    //   output_loader();
-    // join
-    // =========================================
-    $display("Validating Layer 2...");
+    $display("[Layer 2] - Starting...");
+    $display("[Layer 2] - Validating...");
     // =========== Start Simulation ============
     c3;
     wait(dut.u_gat_conv2.u_WH.wh_vld_i);
@@ -325,7 +320,7 @@ module gat_top_tb #(
     end_time = $time;
 
     // =========================================
-    $display("Monitoring Layer 2...");
+    $display("[Layer 2] - Monitoring...");
     // ================ Report =================
     summary_section();
 
@@ -334,11 +329,13 @@ module gat_top_tb #(
     coef_conv2.base_scoreboard();
     dividend_conv2.base_scoreboard();
     divisor_conv2.base_scoreboard();
+    sm_num_nodes_conv2.base_scoreboard();
     alpha_conv2.base_scoreboard();
     new_feature_conv2.base_scoreboard();
 
     end_section("conv2");
     // =========================================
+    $display("[Layer 2] - Completing...");
   //* ===============================================================
 
     $finish();

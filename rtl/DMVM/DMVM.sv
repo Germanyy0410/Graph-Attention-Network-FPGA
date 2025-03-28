@@ -26,6 +26,7 @@ module DMVM #(
   parameter TOTAL_NODES           = 13264,
   parameter NUM_FEATURE_IN        = 1433,
   parameter NUM_FEATURE_OUT       = 16,
+  parameter NUM_FEATURE_FINAL     = 7,
   parameter NUM_SUBGRAPHS         = 2708,
   parameter MAX_NODES             = 168,
 
