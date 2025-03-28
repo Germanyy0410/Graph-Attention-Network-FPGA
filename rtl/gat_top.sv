@@ -39,11 +39,11 @@ module gat_top #(
   parameter WH_DATA_WIDTH_CONV1     = 12,
   parameter WH_DATA_WIDTH_CONV2     = 16,
 
-  parameter DMVM_DATA_WIDTH_CONV1   = 19,
-  parameter DMVM_DATA_WIDTH_CONV2   = 24,
+  parameter DMVM_DATA_WIDTH_CONV1   = 20,
+  parameter DMVM_DATA_WIDTH_CONV2   = 25,
 
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 24,
+  parameter COEF_DATA_WIDTH_CONV1   = 20,
+  parameter COEF_DATA_WIDTH_CONV2   = 22,
 
 `elsif CITESEER
   parameter H_NUM_SPARSE_DATA       = 399089,
@@ -86,8 +86,8 @@ module gat_top #(
 `endif
 
   parameter DATA_WIDTH              = 8,
-  parameter SM_DATA_WIDTH           = 108,
-  parameter SM_SUM_DATA_WIDTH       = 108,
+  parameter SM_DATA_WIDTH           = 128,
+  parameter SM_SUM_DATA_WIDTH       = 150,
   parameter ALPHA_DATA_WIDTH        = 32,
   parameter NEW_FEATURE_WIDTH       = 32,
 

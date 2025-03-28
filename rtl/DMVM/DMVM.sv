@@ -26,7 +26,6 @@ module DMVM #(
   parameter TOTAL_NODES           = 13264,
   parameter NUM_FEATURE_IN        = 1433,
   parameter NUM_FEATURE_OUT       = 16,
-  parameter NUM_FEATURE_FINAL     = 7,
   parameter NUM_SUBGRAPHS         = 2708,
   parameter MAX_NODES             = 168,
 
@@ -47,11 +46,6 @@ module DMVM #(
   localparam A_DEPTH              = NUM_FEATURE_OUT * 2,
   localparam NUM_NODES_DEPTH      = NUM_SUBGRAPHS,
   localparam NEW_FEATURE_DEPTH    = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
-
-  // -- [SUBGRAPH]
-  localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
-  localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
-  localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
 
   // -- [H]
   localparam H_NUM_OF_ROWS        = TOTAL_NODES,
@@ -249,7 +243,7 @@ module DMVM #(
 
   // assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
   // assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
-  assign pipe_coef  = ($signed(src_dmvm) + $signed(nbr_dmvm)) >> (COEF_DATA_WIDTH - DATA_WIDTH);
+  assign pipe_coef  = ($signed(src_dmvm) + $signed(nbr_dmvm) >= 0) ? ($signed(src_dmvm) + $signed(nbr_dmvm) >> (COEF_DATA_WIDTH - DATA_WIDTH)) : 'b0;
 
   // -- src_flag
   generate
@@ -322,7 +316,7 @@ module DMVM #(
     end
   end
 
-  assign coef_ff_din      = (pipe_coef_reg[DATA_WIDTH-1] == 1'b0) ? pipe_coef_reg : 'b0;
+  assign coef_ff_din      = pipe_coef_reg;
   assign coef_ff_wr_vld   = dmvm_rdy_reg && !coef_ff_full;
   //* =======================================
 

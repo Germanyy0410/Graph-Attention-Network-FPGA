@@ -188,21 +188,21 @@ module feature_controller #(
   end
 
   //* ================== push into bram ==================
-  // assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
-  // assign feat_bram_addra = feat_addr_reg;
-  // assign feat_bram_ena   = push_feat_ena;
+  assign feat_bram_din   = feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+  assign feat_bram_addra = feat_addr_reg;
+  assign feat_bram_ena   = push_feat_ena;
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      feat_bram_din   <= 'b0;
-      feat_bram_addra <= 'b0;
-      feat_bram_ena   <= '0;
-    end else begin
-      feat_bram_din   <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
-      feat_bram_addra <= feat_addr_reg;
-      feat_bram_ena   <= push_feat_ena;
-    end
-  end
+  // always_ff @(posedge clk or negedge rst_n) begin
+  //   if (!rst_n) begin
+  //     feat_bram_din   <= 'b0;
+  //     feat_bram_addra <= 'b0;
+  //     feat_bram_ena   <= '0;
+  //   end else begin
+  //     feat_bram_din   <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+  //     feat_bram_addra <= feat_addr_reg;
+  //     feat_bram_ena   <= push_feat_ena;
+  //   end
+  // end
   //* ====================================================
 
   always_ff @(posedge clk or negedge rst_n) begin
