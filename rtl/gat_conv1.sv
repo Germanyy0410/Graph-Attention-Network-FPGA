@@ -209,7 +209,7 @@ module gat_conv1 #(
   logic [WH_WIDTH-1:0]                            wh_data       ;
   logic [W_NUM_OF_COLS-1:0] [WH_DATA_WIDTH-1:0]   sppe          ;
 
-  assign spmm_vld = gat_conv1_vld && (gat_layer == 1'b0) && (gat_ready == 1'b0);
+  assign spmm_vld = gat_conv1_vld && (gat_layer == 1'b0) && (new_feat_rdy == 1'b0);
 
   SPMM #(
     .DATA_WIDTH         (DATA_WIDTH         ),
