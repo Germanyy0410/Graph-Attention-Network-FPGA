@@ -277,7 +277,7 @@ module gat_top_tb #(
         lat_end_time = $time;
 
         // -- Total
-        wait(dut.u_gat_conv1.gat_ready);
+        wait(dut.u_gat_conv1.new_feat_rdy);
         end_time = $time;
       end
     join
@@ -301,10 +301,7 @@ module gat_top_tb #(
     $display("[Layer 1] - Completing...");
   //* ===============================================================
 
-    wgt_bram_load_done          = 1'b0;
-    h_data_bram_load_done       = 1'b0;
-    h_node_info_bram_load_done  = 1'b0;
-    c1;
+    wait(dut.u_gat_conv1.gat_ready == 1'b1);
 
   //* =========================== Layer 2 ===========================
     $display("[Layer 2] - Starting...");
@@ -321,7 +318,7 @@ module gat_top_tb #(
 
     // -- Total
     c3;
-    wait(dut.u_gat_conv1.new_feat_rdy == 1'b1);
+    wait(dut.u_gat_conv2.gat_ready == 1'b1);
     end_time = $time;
 
     // =========================================
