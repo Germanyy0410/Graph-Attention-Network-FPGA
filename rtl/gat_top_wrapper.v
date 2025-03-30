@@ -41,9 +41,9 @@ module gat_top_wrapper #(
   parameter NEW_FEATURE_DEPTH     = NUM_SUBGRAPHS * NUM_FEATURE_OUT,
 
   // -- [SUBGRAPH]
-  localparam SUBGRAPH_IDX_DEPTH   = TOTAL_NODES,
-  localparam SUBGRAPH_IDX_WIDTH   = $clog2(TOTAL_NODES) + 2,
-  localparam SUBGRAPH_IDX_ADDR_W  = $clog2(SUBGRAPH_IDX_DEPTH),
+  parameter SUBGRAPH_IDX_DEPTH    = TOTAL_NODES,
+  parameter SUBGRAPH_IDX_WIDTH    = $clog2(TOTAL_NODES) + 2,
+  parameter SUBGRAPH_IDX_ADDR_W   = $clog2(SUBGRAPH_IDX_DEPTH),
 
   // -- [H]
   parameter H_NUM_OF_ROWS         = TOTAL_NODES,
@@ -204,6 +204,6 @@ module gat_top_wrapper #(
   );
 
   wire [31:0] current_time;
-  assign current_time = 14573003;
+  assign current_time = 15113003;
 
 endmodule
