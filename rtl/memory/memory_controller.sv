@@ -230,6 +230,7 @@ module memory_controller #(
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din           ;
   logic                           feat_bram_ena           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra         ;
+  logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addrb         ;
 
   assign h_data_bram_addrb      = (gat_layer_reg == 0) ? h_data_bram_addrb_conv1      : h_data_bram_addrb_conv2;
   assign h_node_info_bram_addrb = (gat_layer_reg == 0) ? h_node_info_bram_addrb_conv1 : h_node_info_bram_addrb_conv2;

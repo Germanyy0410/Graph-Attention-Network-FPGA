@@ -31,6 +31,7 @@ module gat_top_tb #(
 
 `elsif CORA
   parameter H_NUM_SPARSE_DATA       = 242101,
+  parameter H_DATA_DEPTH_CONV2      = 212224,
   parameter TOTAL_NODES             = 13264,
   parameter NUM_FEATURE_IN          = 1433,
   parameter NUM_FEATURE_OUT         = 16,
@@ -207,11 +208,11 @@ module gat_top_tb #(
   gat_top dut (.*);
 
   //* =================== CLK Initialization ===================
-  always #5 clk = ~clk;
+  always #2 clk = ~clk;
   initial begin
     clk       = 1'b1;
     rst_n     = 1'b0;
-    #15.01;
+    #6.01;
     rst_n     = 1'b1;
   end
   //* ==========================================================
@@ -235,6 +236,7 @@ module gat_top_tb #(
   OutputComparator #(real, ALPHA_DATA_WIDTH, TOTAL_NODES)                           alpha         = new("Alpha      ", WOI, WOF, 0);
 
   OutputComparator #(real, NEW_FEATURE_WIDTH, NUM_SUBGRAPHS * NUM_FEATURE_OUT)      new_feature   = new("New Feature", 16, 16, 0);
+  OutputComparator #(longint, DATA_WIDTH, H_DATA_DEPTH_CONV2)                       h_data_conv2  = new("H Data Conv2", DATA_WIDTH, 0, 0);
   //* ===============================================================
 
 
@@ -318,7 +320,7 @@ module gat_top_tb #(
 
     // -- Total
     c3;
-    wait(dut.u_gat_conv2.gat_ready == 1'b1);
+    wait(dut.gat_ready == 1'b1);
     end_time = $time;
 
     // =========================================

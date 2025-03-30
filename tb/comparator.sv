@@ -17,6 +17,9 @@ string summary_log = "";
 string log_divider = "-------------------------";
 
 class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter DEPTH = 256, parameter SPMM_DEPTH = 16);
+  parameter ADDR_W = $clog2(DEPTH);
+  logic [ADDR_W-1:0] dut_addr;
+
   logic dut_ready;
 
   logic [DATA_WIDTH-1:0] dut_output;
@@ -54,6 +57,76 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
     this.frac_bits      = frac_bits;
     this.signed_bit     = signed_bit;
   endfunction
+
+
+  //=========================================================================
+  // Task Name        : subgraph_checker
+  // Description      : Compares the DUT output with the golden output and logs results.
+  // Notes            : Supports both integer and floating-point comparisons, handles subgraph logic.
+  //=========================================================================
+  task subgraph_checker();
+    longint final_dut [DEPTH];
+    longint final_pass_checker, final_total_checker;
+    string  final_msg;
+
+    log_checker("", "clear");
+    subgraph_count = 0;
+    final_pass_checker  = 0;
+    final_total_checker = 0;
+
+    for (int i = 0; i < 13264; i = i + 1) begin
+      string  msg;
+      longint dut_arr     [16];
+      longint golden_arr  [16];
+      longint addr_arr    [16];
+      longint pass_feat, total_feat;
+
+      pass_feat   = 0;
+      total_feat  = 0;
+
+      for (int j = 0; j < 16; j = j + 1) begin
+        wait(dut_ready);
+
+        dut_arr[j]    = dut_output;
+        addr_arr[j]   = dut_addr;
+        golden_arr[j] = golden_output[dut_addr];
+        final_dut[dut_addr] = dut_output;
+
+        if (dut_output == golden_output[dut_addr] >= -1 && dut_output == golden_output[dut_addr] <= 1) begin
+          pass_feat++;
+        end
+        total_feat++;
+
+        if (j == 15) begin
+          msg = $sformatf("\n%s Feature Node %0d %s\n\n", log_divider, i, log_divider);
+
+          if (pass_feat == total_feat) begin
+            pass_checker++;
+            msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d | [Idx] = %0d\n", pass, rm_spc(label), $time, i, (dut_addr / 16)) };
+            msg = { msg, $sformatf("\t\t- Golden = %p\n\t\t- DUT    = %p\n\t\t- Addr   = %p\n", golden_arr, dut_arr, addr_arr) };
+          end else begin
+            msg = { msg, $sformatf("%s -> %s - %0tps | [i] = %0d | [Idx] = %0d\n", fail, rm_spc(label), $time, i, (dut_addr / 16)) };
+            msg = { msg, $sformatf("\t\t- Golden = %p\n\t\t- DUT    = %p\n\t\t- Addr   = %p", golden_arr, dut_arr, addr_arr) };
+          end
+          log_checker(msg);
+        end
+
+        c1;
+      end
+    end
+
+    for (int i = 0; i < DEPTH; i = i + 1) begin
+      if (final_dut[i] - golden_output[i] >= -1 && final_dut[i] - golden_output[i] <= 1) begin
+        final_pass_checker++;
+      end
+      final_total_checker++;
+    end
+
+    $display($sformatf("\n%s SUMMARY %s\n\n", log_divider, log_divider));
+    $display($sformatf("\t\t- Accuracy = %0f\t\t(%0d / %0d)\n", (final_pass_checker/final_total_checker)*100, final_pass_checker, final_total_checker));
+
+  endtask
+
 
   //=========================================================================
   // Task Name        : output_checker
@@ -237,6 +310,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
     summary_log = { summary_log, $sformatf("%s\n", result) };
     $display(result);
   endtask
+
 
   //=========================================================================
   // Task Name        : log_checker

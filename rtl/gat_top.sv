@@ -280,8 +280,6 @@ module gat_top #(
   logic                           feat_bram_ena_conv2           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2         ;
   logic [FEAT_ADDR_W_CONV2-1:0]   feat_bram_addra_conv2_raw     ;
-
-  logic                           gat_ready_conv2               ;
   //* ==========================================================
 
 
@@ -298,8 +296,6 @@ module gat_top #(
       gat_layer_reg <= gat_layer;
     end
   end
-
-  assign gat_ready = (gat_layer == 1'b0) ? gat_ready_conv1 : gat_ready_conv2;
   //* ==========================================================
 
 
@@ -525,7 +521,7 @@ module gat_top #(
     .feat_bram_ena              (feat_bram_ena_conv2              ),
     .feat_bram_addra            (feat_bram_addra_conv2_raw        ),
 
-    .gat_ready                  (gat_ready_conv2                  )
+    .gat_ready                  (gat_ready                        )
   );
   //* ==========================================================
 endmodule

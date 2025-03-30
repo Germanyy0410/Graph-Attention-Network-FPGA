@@ -8,6 +8,7 @@ longint   golden_sm_num_node_conv1  [NUM_SUBGRAPHS];
 real      golden_alpha_conv1        [TOTAL_NODES];
 real      golden_exp_alpha_conv1    [TOTAL_NODES];
 real      golden_new_feature_conv1  [NUM_SUBGRAPHS*NUM_FEATURE_OUT];
+longint   golden_h_data_conv2       [H_DATA_DEPTH_CONV2];
 
 // -- Conv2
 longint   golden_spmm_conv2         [TOTAL_NODES*NUM_FEATURE_FINAL];
@@ -25,8 +26,8 @@ task output_loader();
   integer num_feature_out;
 
   longint status;
-  longint spmm_file, dmvm_file, coef_file, alpha_file, dividend_file, divisor_file, sm_num_node_file, exp_alpha_file, new_feature_file;
-  longint spmm_value, dmvm_value, coef_value, sm_num_node_value;
+  longint spmm_file, dmvm_file, coef_file, alpha_file, dividend_file, divisor_file, sm_num_node_file, exp_alpha_file, new_feature_file, h_data_file;
+  longint spmm_value, dmvm_value, coef_value, sm_num_node_value, h_data_value;
   real    dividend_value, divisor_value, alpha_value, exp_alpha_value, new_feature_value;
   string  golden_file_path;
 
@@ -144,6 +145,13 @@ task output_loader();
     golden_new_feature_conv2[i] = new_feature_value;
   end
   $fclose(new_feature_file);
+
+  // -- Task 9: H_DATA CONV2
+  h_data_file = $fopen("D:/VLSI/Capstone/data/cora/layer_2/input/h_data.txt", "r");
+  for (longint i = 0; i < H_DATA_DEPTH_CONV2; i++) begin
+    status = $fscanf(h_data_file, "%b\n", h_data_value);
+    golden_h_data_conv2[i] = h_data_value;
+  end
 	$display("[Output ] - Loading completed...");
 
 endtask

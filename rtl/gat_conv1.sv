@@ -433,7 +433,7 @@ module gat_conv1 #(
     .rst_n                (rst_n                    ),
 
     .subgraph_vld_i       (new_feat_rdy             ),
-    .gat_ready            (gat_ready                ),
+    .subgraph_rdy_o       (gat_ready                ),
 
     .feat_bram_addrb      (feat_bram_addrb          ),
     .feat_bram_dout       (feat_bram_dout           ),

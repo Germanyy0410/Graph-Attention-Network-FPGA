@@ -4,6 +4,7 @@
     dmvm.header               = "DMVM";
     dividend.header           = "SOFTMAX";
     new_feature.header        = "AGGREGATOR";
+    h_data_conv2.header       = "H_DATA_CONV2";
 
     spmm.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv1";
     dmvm.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv1";
@@ -13,6 +14,7 @@
     sm_num_nodes.LOG_PATH     = "D:/VLSI/Capstone/tb/log/conv1";
     alpha.LOG_PATH            = "D:/VLSI/Capstone/tb/log/conv1";
     new_feature.LOG_PATH      = "D:/VLSI/Capstone/tb/log/conv1";
+    h_data_conv2.LOG_PATH     = "D:/VLSI/Capstone/tb/log/subgraph_handler";
 
     spmm.log_file             = "SPMM/wh.log";
     dmvm.log_file             = "DMVM/dmvm.log";
@@ -22,6 +24,7 @@
     sm_num_nodes.log_file     = "softmax/num_nodes.log";
     alpha.log_file            = "softmax/alpha.log";
     new_feature.log_file      = "aggregator/new_feature.log";
+    h_data_conv2.log_file     = "h_data.log";
   end
 
   always_comb begin
@@ -64,6 +67,13 @@
     new_feature.golden_output   = golden_new_feature_conv1;
   end
 
+  always_comb begin
+    h_data_conv2.dut_ready      = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_ena;
+    h_data_conv2.dut_output     = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_din;
+    h_data_conv2.dut_addr       = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_addra;
+    h_data_conv2.golden_output  = golden_h_data_conv2;
+  end
+
   initial begin
     fork
       spmm.packed_checker();
@@ -74,6 +84,7 @@
       sm_num_nodes.output_checker();
       alpha.output_checker(0.0001);
       new_feature.output_checker(0.01);
+      h_data_conv2.subgraph_checker();
     join
   end
   //* =================================================================
@@ -103,7 +114,6 @@
     sm_num_nodes_conv2.log_file     = "softmax/num_nodes.log";
     alpha_conv2.log_file            = "softmax/alpha.log";
     new_feature_conv2.log_file      = "aggregator/new_feature.log";
-
   end
 
   always_comb begin

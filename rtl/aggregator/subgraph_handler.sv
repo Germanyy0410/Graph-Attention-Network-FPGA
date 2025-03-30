@@ -103,6 +103,7 @@ module subgraph_handler #(
   input                                                   rst_n               ,
 
   input                                                   subgraph_vld_i      ,
+  output                                                  subgraph_rdy_o      ,
 
   // -- New Feature
   output  [NEW_FEATURE_ADDR_W-1:0]                        feat_bram_addrb     ,
@@ -116,17 +117,18 @@ module subgraph_handler #(
   output  [H_DATA_ADDR_W-1:0]                             h_data_bram_addra   ,
   output  [H_DATA_WIDTH-1:0]                              h_data_bram_din     ,
   output logic                                            h_data_bram_ena     ,
-  output logic                                            h_data_bram_wea     ,
-
-  output logic                                            gat_ready
+  output logic                                            h_data_bram_wea
 );
 
   localparam CNT_DATA_WIDTH           = $clog2(NUM_FEATURE_OUT);
   localparam SUBGRAPH_IDX_DATA_WIDTH  = $clog2(TOTAL_NODES);
 
   //* =================== logic declaration ====================
-  logic                                                 h_data_rdy            ;
-  logic                                                 h_data_rdy_reg        ;
+  logic                                                 subgraph_rdy          ;
+  logic [31:0]                                          subgraph_rdy_reg      ;
+
+  logic [31:0]                                          h_data_rdy            ;
+  logic [31:0]                                          h_data_rdy_reg        ;
 
   logic                                                 subgraph_vld_reg      ;
 
@@ -300,16 +302,16 @@ module subgraph_handler #(
   //* ================ Push to Feature Layer 2 =================
   // -- Addr
   assign h_data_bram_addra  = h_data_addr_reg;
-  assign h_data_addr        = (!h_data_rdy_reg && start_handle) ? ((subgraph_idx * NUM_FEATURE_OUT) + h_data_addr_cnt_reg) : h_data_addr_reg;
+  assign h_data_addr        = (!subgraph_rdy_o && start_handle) ? ((subgraph_idx * NUM_FEATURE_OUT) + h_data_addr_cnt_reg) : h_data_addr_reg;
 
   // -- Addr count
   assign h_data_addr_cnt = (subgraph_vld_i && start_handle) ? (h_data_addr_cnt_reg + 1) : h_data_addr_cnt_reg;
 
   // -- Data
-  assign h_data_bram_din = feat_reg[cnt_reg][DATA_WIDTH-1:0];
+  assign h_data_bram_din = feat_reg[cnt_reg][31:16] >> 2;
 
   // -- Ena
-  assign h_data_bram_ena = (subgraph_vld_i && start_handle_reg && subgraph_addr_reg < TOTAL_NODES - 1) ? 1'b1 : (cnt_reg == NUM_FEATURE_OUT - 1) ? 1'b0 : h_data_bram_ena_reg;
+  assign h_data_bram_ena = (subgraph_vld_i && start_handle_reg && !subgraph_rdy_o) ? 1'b1 : (cnt_reg == NUM_FEATURE_OUT - 1) ? 1'b0 : h_data_bram_ena_reg;
   assign h_data_bram_wea = h_data_bram_ena;
 
   always_ff @(posedge clk or negedge rst_n) begin
@@ -327,14 +329,14 @@ module subgraph_handler #(
 
 
   //* ======================= gat ready ========================
-  assign gat_ready  = h_data_rdy_reg;
-  assign h_data_rdy = ((cnt_reg == NUM_FEATURE_OUT - 1) && (subgraph_addr_reg == TOTAL_NODES - 1)) ? 1'b1 : h_data_rdy_reg;
+  assign subgraph_rdy_o = subgraph_rdy_reg[31];
+  assign subgraph_rdy = ((cnt_reg == NUM_FEATURE_OUT - 1) && (subgraph_addr_reg == TOTAL_NODES - 1));
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      h_data_rdy_reg <= 'b0;
+      subgraph_rdy_reg <= 'b0;
     end else begin
-      h_data_rdy_reg <= h_data_rdy;
+      subgraph_rdy_reg <= { subgraph_rdy_reg[30:0], subgraph_rdy };
     end
   end
   //* ==========================================================
