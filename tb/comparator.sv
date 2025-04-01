@@ -92,7 +92,7 @@ class OutputComparator #(type T = longint, parameter DATA_WIDTH = 8, parameter D
         golden_arr[j] = golden_output[dut_addr];
         final_dut[dut_addr] = dut_output;
 
-        if (dut_output == golden_output[dut_addr] >= -1 && dut_output == golden_output[dut_addr] <= 1) begin
+        if (dut_output == golden_output[dut_addr]) begin
           pass_feat++;
         end
         total_feat++;

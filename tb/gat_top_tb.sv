@@ -208,11 +208,11 @@ module gat_top_tb #(
   gat_top dut (.*);
 
   //* =================== CLK Initialization ===================
-  always #2 clk = ~clk;
+  always #5 clk = ~clk;
   initial begin
     clk       = 1'b1;
     rst_n     = 1'b0;
-    #6.01;
+    #15.01;
     rst_n     = 1'b1;
   end
   //* ==========================================================

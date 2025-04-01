@@ -27,6 +27,9 @@ module gat_top #(
   parameter COEF_DATA_WIDTH_CONV1   = 19,
   parameter COEF_DATA_WIDTH_CONV2   = 23,
 
+  parameter NEW_FEATURE_WIDTH_CONV1 = 10,
+  parameter NEW_FEATURE_WIDTH_CONV2 = 17,
+
 `elsif CORA
   parameter H_NUM_SPARSE_DATA       = 242101,
   parameter TOTAL_NODES             = 13264,
@@ -37,13 +40,16 @@ module gat_top #(
   parameter MAX_NODES               = 169,
 
   parameter WH_DATA_WIDTH_CONV1     = 12,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
+  parameter WH_DATA_WIDTH_CONV2     = 18,
 
   parameter DMVM_DATA_WIDTH_CONV1   = 20,
-  parameter DMVM_DATA_WIDTH_CONV2   = 25,
+  parameter DMVM_DATA_WIDTH_CONV2   = 26,
 
   parameter COEF_DATA_WIDTH_CONV1   = 20,
   parameter COEF_DATA_WIDTH_CONV2   = 22,
+
+  parameter NEW_FEATURE_WIDTH_CONV1 = 10,
+  parameter NEW_FEATURE_WIDTH_CONV2 = 17,
 
 `elsif CITESEER
   parameter H_NUM_SPARSE_DATA       = 399089,
@@ -64,6 +70,9 @@ module gat_top #(
   parameter COEF_DATA_WIDTH_CONV1   = 19,
   parameter COEF_DATA_WIDTH_CONV2   = 23,
 
+  parameter NEW_FEATURE_WIDTH_CONV1 = 10,
+  parameter NEW_FEATURE_WIDTH_CONV2 = 17,
+
 `elsif PUBMED
   parameter H_NUM_SPARSE_DATA       = 557,
   parameter TOTAL_NODES             = 100,
@@ -82,6 +91,9 @@ module gat_top #(
 
   parameter COEF_DATA_WIDTH_CONV1   = 19,
   parameter COEF_DATA_WIDTH_CONV2   = 23,
+
+  parameter NEW_FEATURE_WIDTH_CONV1 = 10,
+  parameter NEW_FEATURE_WIDTH_CONV2 = 17,
 
 `endif
 

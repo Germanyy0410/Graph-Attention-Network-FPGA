@@ -125,10 +125,10 @@ module subgraph_handler #(
 
   //* =================== logic declaration ====================
   logic                                                 subgraph_rdy          ;
-  logic [31:0]                                          subgraph_rdy_reg      ;
+  logic [16:0]                                          subgraph_rdy_reg      ;
 
-  logic [31:0]                                          h_data_rdy            ;
-  logic [31:0]                                          h_data_rdy_reg        ;
+  logic [16:0]                                          h_data_rdy            ;
+  logic [16:0]                                          h_data_rdy_reg        ;
 
   logic                                                 subgraph_vld_reg      ;
 
@@ -273,7 +273,7 @@ module subgraph_handler #(
   assign { sog, subgraph_idx, eog } = subgraph_data_reg;
 
   // -- Data count
-  assign cnt = (subgraph_vld_i && start_handle_reg) ? (cnt_reg + 1) :cnt_reg;
+  assign cnt = (subgraph_vld_i && start_handle_reg && !subgraph_rdy_o) ? (cnt_reg + 1) :cnt_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -311,7 +311,17 @@ module subgraph_handler #(
   assign h_data_bram_din = feat_reg[cnt_reg][31:16] >> 2;
 
   // -- Ena
-  assign h_data_bram_ena = (subgraph_vld_i && start_handle_reg && !subgraph_rdy_o) ? 1'b1 : (cnt_reg == NUM_FEATURE_OUT - 1) ? 1'b0 : h_data_bram_ena_reg;
+  always_comb begin
+    h_data_bram_ena = h_data_bram_ena_reg;
+    if (subgraph_rdy_o) begin
+      h_data_bram_ena = 1'b0;
+    end else if (subgraph_vld_i && start_handle_reg) begin
+      h_data_bram_ena = 1'b1;
+    end else if (cnt_reg == NUM_FEATURE_OUT - 1) begin
+      h_data_bram_ena = 1'b0;
+    end
+  end
+
   assign h_data_bram_wea = h_data_bram_ena;
 
   always_ff @(posedge clk or negedge rst_n) begin
@@ -329,14 +339,14 @@ module subgraph_handler #(
 
 
   //* ======================= gat ready ========================
-  assign subgraph_rdy_o = subgraph_rdy_reg[31];
-  assign subgraph_rdy = ((cnt_reg == NUM_FEATURE_OUT - 1) && (subgraph_addr_reg == TOTAL_NODES - 1));
+  assign subgraph_rdy_o = subgraph_rdy_reg[16];
+  assign subgraph_rdy = ((cnt_reg == NUM_FEATURE_OUT - 1) && (subgraph_addr_reg == TOTAL_NODES - 1)) ? 1'b1 : subgraph_rdy_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       subgraph_rdy_reg <= 'b0;
     end else begin
-      subgraph_rdy_reg <= { subgraph_rdy_reg[30:0], subgraph_rdy };
+      subgraph_rdy_reg <= { subgraph_rdy_reg[15:0], subgraph_rdy };
     end
   end
   //* ==========================================================
