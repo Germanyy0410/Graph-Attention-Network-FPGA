@@ -271,7 +271,7 @@ module aggregator #(
   //* ========== push data to feature bram =========
   generate
     for (i = 0; i < NUM_FEATURE_OUT; i = i + 1) begin
-      assign new_feat[i] = (res_reg[i][NEW_FEATURE_WIDTH] == 1'b0) ? res_reg[i][NEW_FEATURE_WIDTH-1:0] : res_reg[i] >> 2;
+      assign new_feat[i] = (res_reg[i][NEW_FEATURE_WIDTH] == 1'b0) ? res_reg[i][NEW_FEATURE_WIDTH-1:0] : '0;
     end
   endgenerate
 
