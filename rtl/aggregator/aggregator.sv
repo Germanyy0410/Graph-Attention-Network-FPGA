@@ -113,6 +113,8 @@ module aggregator #(
   input                                               clk                 ,
   input                                               rst_n               ,
 
+  input                                               gat_layer           ,
+
   input                                               aggr_vld_i          ,
   output                                              aggr_rdy_o          ,
 
@@ -308,6 +310,8 @@ module aggregator #(
   ) u_feature_controller (
     .clk                (clk                ),
     .rst_n              (rst_n              ),
+
+    .gat_layer          (gat_layer          ),
 
     .new_feat           (new_feat           ),
     .new_feat_vld       (new_feat_ena       ),

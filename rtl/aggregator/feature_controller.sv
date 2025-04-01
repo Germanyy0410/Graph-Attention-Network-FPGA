@@ -106,6 +106,8 @@ module feature_controller #(
   input                                                 clk                 ,
   input                                                 rst_n               ,
 
+  input                                                 gat_layer           ,
+
   input [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0]   new_feat            ,
   input                                                 new_feat_vld        ,
   output logic                                          new_feat_rdy        ,
@@ -198,7 +200,7 @@ module feature_controller #(
       feat_bram_addra <= 'b0;
       feat_bram_ena   <= '0;
     end else begin
-      feat_bram_din   <= feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+      feat_bram_din   <= (gat_layer == 1'b1) ? (feat[NUM_FEATURE_OUT - 1 - cnt_reg] >> 1) : feat[NUM_FEATURE_OUT - 1 - cnt_reg];
       feat_bram_addra <= feat_addr_reg;
       feat_bram_ena   <= push_feat_ena;
     end

@@ -363,6 +363,8 @@ module gat_conv2 #(
     .clk                  (clk                      ),
     .rst_n                (rst_n                    ),
 
+    .gat_layer            (gat_layer                ),
+
     .aggr_vld_i           (aggr_vld_reg             ),
     .aggr_rdy_o           (aggr_rdy                 ),
 
