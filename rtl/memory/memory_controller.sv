@@ -344,7 +344,7 @@ module memory_controller #(
     .doutc        (num_node_bram_doutc  )
   );
 
-  BRAM #(
+  URAM #(
     .DATA_WIDTH     (NEW_FEATURE_WIDTH    ),
     .DEPTH          (NEW_FEATURE_DEPTH    )
   ) u_feat_bram (
