@@ -35,7 +35,6 @@ module gat_top_wrapper #(
   parameter NUM_FEATURE_FINAL     = 6,
   parameter NUM_SUBGRAPHS         = 3279,
   parameter MAX_NODES             = 100,
-
 `endif
 
   parameter COEF_DEPTH            = 200,
@@ -174,6 +173,7 @@ module gat_top_wrapper #(
     .TOTAL_NODES        (TOTAL_NODES        ),
     .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
     .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+    .NUM_FEATURE_FINAL  (NUM_FEATURE_FINAL  ),
     .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
     .MAX_NODES          (MAX_NODES          ),
 
@@ -218,6 +218,6 @@ module gat_top_wrapper #(
   );
 
   wire [31:0] current_time;
-  assign current_time = 19420204;
+  assign current_time = 19520204;
 
 endmodule
