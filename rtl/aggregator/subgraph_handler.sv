@@ -1,25 +1,26 @@
 module subgraph_handler #(
   //* ======================= parameter ========================
-  parameter DATA_WIDTH            = 8,
-  parameter WH_DATA_WIDTH         = 12,
-  parameter DMVM_DATA_WIDTH       = 19,
-  parameter SM_DATA_WIDTH         = 108,
-  parameter SM_SUM_DATA_WIDTH     = 108,
-  parameter ALPHA_DATA_WIDTH      = 32,
-  parameter NEW_FEATURE_WIDTH     = 32,
+  parameter DATA_WIDTH              = 8,
+  parameter WH_DATA_WIDTH           = 12,
+  parameter DMVM_DATA_WIDTH         = 19,
+  parameter SM_DATA_WIDTH           = 108,
+  parameter SM_SUM_DATA_WIDTH       = 108,
+  parameter ALPHA_DATA_WIDTH        = 32,
+  parameter NEW_FEATURE_WIDTH       = 32,
+  parameter NEW_FEATURE_WIDTH_CONV1 = 10,
 
-  parameter H_NUM_SPARSE_DATA     = 242101,
-  parameter TOTAL_NODES           = 13264,
-  parameter NUM_FEATURE_IN        = 1433,
-  parameter NUM_FEATURE_OUT       = 16,
-  parameter NUM_FEATURE_FINAL     = 7,
-  parameter NUM_SUBGRAPHS         = 2708,
-  parameter MAX_NODES             = 168,
+  parameter H_NUM_SPARSE_DATA       = 242101,
+  parameter TOTAL_NODES             = 13264,
+  parameter NUM_FEATURE_IN          = 1433,
+  parameter NUM_FEATURE_OUT         = 16,
+  parameter NUM_FEATURE_FINAL       = 7,
+  parameter NUM_SUBGRAPHS           = 2708,
+  parameter MAX_NODES               = 168,
 
-  parameter COEF_DEPTH            = 500,
-  parameter ALPHA_DEPTH           = 500,
-  parameter DIVIDEND_DEPTH        = 500,
-  parameter DIVISOR_DEPTH         = 500,
+  parameter COEF_DEPTH              = 500,
+  parameter ALPHA_DEPTH             = 500,
+  parameter DIVIDEND_DEPTH          = 500,
+  parameter DIVISOR_DEPTH           = 500,
   //* ==========================================================
 
   //* ======================= localparams ======================
@@ -308,7 +309,7 @@ module subgraph_handler #(
   assign h_data_addr_cnt = (subgraph_vld_i && start_handle) ? (h_data_addr_cnt_reg + 1) : h_data_addr_cnt_reg;
 
   // -- Data
-  assign h_data_bram_din = feat_reg[cnt_reg][31:16] >> 2;
+  assign h_data_bram_din = feat_reg[cnt_reg][31:16] >> (NEW_FEATURE_WIDTH_CONV1 - DATA_WIDTH);
 
   // -- Ena
   always_comb begin

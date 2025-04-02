@@ -9,28 +9,7 @@
 
 module gat_top #(
   //* ======================= parameter ========================
-`ifdef TESTBENCH
-  parameter H_NUM_SPARSE_DATA       = 555,
-  parameter TOTAL_NODES             = 100,
-  parameter NUM_FEATURE_IN          = 11,
-  parameter NUM_FEATURE_OUT         = 16,
-  parameter NUM_FEATURE_FINAL       = 7,
-  parameter NUM_SUBGRAPHS           = 25,
-  parameter MAX_NODES               = 6,
-
-  parameter WH_DATA_WIDTH_CONV1     = 11,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
-
-  parameter DMVM_DATA_WIDTH_CONV1   = 19,
-  parameter DMVM_DATA_WIDTH_CONV2   = 24,
-
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 23,
-
-  parameter NEW_FEATURE_WIDTH_CONV1 = 10,
-  parameter NEW_FEATURE_WIDTH_CONV2 = 17,
-
-`elsif CORA
+`ifdef CORA
   parameter H_NUM_SPARSE_DATA       = 242101,
   parameter TOTAL_NODES             = 13264,
   parameter NUM_FEATURE_IN          = 1433,
@@ -59,28 +38,6 @@ module gat_top #(
   parameter NUM_FEATURE_FINAL       = 6,
   parameter NUM_SUBGRAPHS           = 3279,
   parameter MAX_NODES               = 100,
-  parameter DMVM_DATA_WIDTH         = 20,
-
-  parameter WH_DATA_WIDTH_CONV1     = 10,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
-
-  parameter DMVM_DATA_WIDTH_CONV1   = 20,
-  parameter DMVM_DATA_WIDTH_CONV2   = 23,
-
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 23,
-
-  parameter NEW_FEATURE_WIDTH_CONV1 = 10,
-  parameter NEW_FEATURE_WIDTH_CONV2 = 17,
-
-`elsif PUBMED
-  parameter H_NUM_SPARSE_DATA       = 557,
-  parameter TOTAL_NODES             = 100,
-  parameter NUM_FEATURE_IN          = 11,
-  parameter NUM_FEATURE_OUT         = 16,
-  parameter NUM_FEATURE_FINAL       = 3,
-  parameter NUM_SUBGRAPHS           = 26,
-  parameter MAX_NODES               = 6,
   parameter DMVM_DATA_WIDTH         = 20,
 
   parameter WH_DATA_WIDTH_CONV1     = 10,
@@ -393,28 +350,29 @@ module gat_top #(
 
   //* ======================== Layer 1 =========================
   gat_conv1 #(
-    .DATA_WIDTH         (DATA_WIDTH             ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH          ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH      ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH       ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH      ),
+    .DATA_WIDTH               (DATA_WIDTH               ),
+    .SM_DATA_WIDTH            (SM_DATA_WIDTH            ),
+    .SM_SUM_DATA_WIDTH        (SM_SUM_DATA_WIDTH        ),
+    .ALPHA_DATA_WIDTH         (ALPHA_DATA_WIDTH         ),
+    .NEW_FEATURE_WIDTH        (NEW_FEATURE_WIDTH        ),
 
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH_CONV1    ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH_CONV1  ),
-    .COEF_DATA_WIDTH    (COEF_DATA_WIDTH_CONV1  ),
+    .WH_DATA_WIDTH            (WH_DATA_WIDTH_CONV1      ),
+    .DMVM_DATA_WIDTH          (DMVM_DATA_WIDTH_CONV1    ),
+    .COEF_DATA_WIDTH          (COEF_DATA_WIDTH_CONV1    ),
+    .NEW_FEATURE_WIDTH_CONV1  (NEW_FEATURE_WIDTH_CONV1  ),
 
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA      ),
-    .TOTAL_NODES        (TOTAL_NODES            ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_IN         ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_OUT        ),
-    .NUM_FEATURE_FINAL  (NUM_FEATURE_FINAL      ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS          ),
-    .MAX_NODES          (MAX_NODES              ),
+    .H_NUM_SPARSE_DATA        (H_NUM_SPARSE_DATA        ),
+    .TOTAL_NODES              (TOTAL_NODES              ),
+    .NUM_FEATURE_IN           (NUM_FEATURE_IN           ),
+    .NUM_FEATURE_OUT          (NUM_FEATURE_OUT          ),
+    .NUM_FEATURE_FINAL        (NUM_FEATURE_FINAL        ),
+    .NUM_SUBGRAPHS            (NUM_SUBGRAPHS            ),
+    .MAX_NODES                (MAX_NODES                ),
 
-    .COEF_DEPTH         (COEF_DEPTH             ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH            ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH         ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH          )
+    .COEF_DEPTH               (COEF_DEPTH               ),
+    .ALPHA_DEPTH              (ALPHA_DEPTH              ),
+    .DIVIDEND_DEPTH           (DIVIDEND_DEPTH           ),
+    .DIVISOR_DEPTH            (DIVISOR_DEPTH            )
   ) u_gat_conv1 (
     .clk                        (clk                              ),
     .rst_n                      (rst_n                            ),
