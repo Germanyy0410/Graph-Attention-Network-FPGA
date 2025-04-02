@@ -16,6 +16,7 @@ module gat_top_wrapper #(
   parameter ALPHA_DATA_WIDTH      = 32,
   parameter NEW_FEATURE_WIDTH     = 32,
 
+`ifdef CORA
   parameter H_NUM_SPARSE_DATA     = 242101,
   parameter TOTAL_NODES           = 13264,
   parameter NUM_FEATURE_IN        = 1433,
@@ -23,6 +24,18 @@ module gat_top_wrapper #(
   parameter NUM_FEATURE_FINAL     = 7,
   parameter NUM_SUBGRAPHS         = 2708,
   parameter MAX_NODES             = 168,
+
+`elsif CITESEER
+  parameter H_NUM_SPARSE_DATA       = 399089,
+  parameter TOTAL_NODES             = 12383,
+  parameter NUM_FEATURE_IN          = 3703,
+  parameter NUM_FEATURE_OUT         = 16,
+  parameter NUM_FEATURE_FINAL       = 6,
+  parameter NUM_SUBGRAPHS           = 3279,
+  parameter MAX_NODES               = 100,
+  parameter DMVM_DATA_WIDTH         = 20,
+
+`endif
 
   parameter COEF_DEPTH            = 200,
   parameter ALPHA_DEPTH           = 200,
