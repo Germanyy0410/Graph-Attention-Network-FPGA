@@ -9,25 +9,7 @@
 
 module gat_top #(
   //* ======================= parameter ========================
-`ifdef TESTBENCH
-  parameter H_NUM_SPARSE_DATA       = 555,
-  parameter TOTAL_NODES             = 100,
-  parameter NUM_FEATURE_IN          = 11,
-  parameter NUM_FEATURE_OUT         = 16,
-  parameter NUM_FEATURE_FINAL       = 7,
-  parameter NUM_SUBGRAPHS           = 25,
-  parameter MAX_NODES               = 6,
-
-  parameter WH_DATA_WIDTH_CONV1     = 11,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
-
-  parameter DMVM_DATA_WIDTH_CONV1   = 19,
-  parameter DMVM_DATA_WIDTH_CONV2   = 24,
-
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 23,
-
-`elsif CORA
+`ifdef CORA
   parameter H_NUM_SPARSE_DATA       = 242101,
   parameter TOTAL_NODES             = 13264,
   parameter NUM_FEATURE_IN          = 1433,
@@ -53,25 +35,6 @@ module gat_top #(
   parameter NUM_FEATURE_FINAL       = 6,
   parameter NUM_SUBGRAPHS           = 3279,
   parameter MAX_NODES               = 100,
-  parameter DMVM_DATA_WIDTH         = 20,
-
-  parameter WH_DATA_WIDTH_CONV1     = 10,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
-
-  parameter DMVM_DATA_WIDTH_CONV1   = 20,
-  parameter DMVM_DATA_WIDTH_CONV2   = 23,
-
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 23,
-
-`elsif PUBMED
-  parameter H_NUM_SPARSE_DATA       = 557,
-  parameter TOTAL_NODES             = 100,
-  parameter NUM_FEATURE_IN          = 11,
-  parameter NUM_FEATURE_OUT         = 16,
-  parameter NUM_FEATURE_FINAL       = 3,
-  parameter NUM_SUBGRAPHS           = 26,
-  parameter MAX_NODES               = 6,
   parameter DMVM_DATA_WIDTH         = 20,
 
   parameter WH_DATA_WIDTH_CONV1     = 10,
