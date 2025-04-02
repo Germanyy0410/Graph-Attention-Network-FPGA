@@ -164,6 +164,7 @@ module gat_top_wrapper #(
     .TOTAL_NODES        (TOTAL_NODES        ),
     .NUM_FEATURE_IN     (NUM_FEATURE_IN     ),
     .NUM_FEATURE_OUT    (NUM_FEATURE_OUT    ),
+    .NUM_FEATURE_FINAL  (NUM_FEATURE_FINAL  ),
     .NUM_SUBGRAPHS      (NUM_SUBGRAPHS      ),
     .MAX_NODES          (MAX_NODES          ),
 
@@ -204,6 +205,6 @@ module gat_top_wrapper #(
   );
 
   wire [31:0] current_time;
-  assign current_time = 19500204;
+  assign current_time = 19530204;
 
 endmodule
