@@ -26,14 +26,13 @@ module gat_top_wrapper #(
   parameter MAX_NODES             = 168,
 
 `elsif CITESEER
-  parameter H_NUM_SPARSE_DATA       = 399089,
-  parameter TOTAL_NODES             = 12383,
-  parameter NUM_FEATURE_IN          = 3703,
-  parameter NUM_FEATURE_OUT         = 16,
-  parameter NUM_FEATURE_FINAL       = 6,
-  parameter NUM_SUBGRAPHS           = 3279,
-  parameter MAX_NODES               = 100,
-  parameter DMVM_DATA_WIDTH         = 20,
+  parameter H_NUM_SPARSE_DATA     = 399089,
+  parameter TOTAL_NODES           = 12383,
+  parameter NUM_FEATURE_IN        = 3703,
+  parameter NUM_FEATURE_OUT       = 16,
+  parameter NUM_FEATURE_FINAL     = 6,
+  parameter NUM_SUBGRAPHS         = 3279,
+  parameter MAX_NODES             = 100,
 
 `endif
 
