@@ -5,6 +5,8 @@
 // Author     : @Germanyy0410
 // ==================================================================
 
+`include "others/define/gat_define.sv"
+
 module gat_top_wrapper #(
   //* ====================== parameter ======================
   parameter TOP_WIDTH             = 32,
@@ -216,6 +218,6 @@ module gat_top_wrapper #(
   );
 
   wire [31:0] current_time;
-  assign current_time = 19350204;
+  assign current_time = 19420204;
 
 endmodule
