@@ -340,7 +340,7 @@ module subgraph_handler #(
 
 
   //* ======================= gat ready ========================
-  assign subgraph_rdy_o = subgraph_rdy_reg[16]; 
+  assign subgraph_rdy_o = subgraph_rdy_reg[16];
   assign subgraph_rdy = ((cnt_reg == NUM_FEATURE_OUT - 1) && (subgraph_addr_reg == TOTAL_NODES - 1)) ? 1'b1 : subgraph_rdy_reg;
 
   always_ff @(posedge clk or negedge rst_n) begin

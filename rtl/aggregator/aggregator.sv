@@ -155,9 +155,9 @@ module aggregator #(
   logic                                               mul_vld             ;
   logic                                               mul_vld_reg         ;
   logic [NUM_FEATURE_OUT-1:0]                         mul_rdy             ;
-  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0] prod                ;
-  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0] res                 ;
-  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0] res_reg             ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH:0]   prod                ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH:0]   res                 ;
+  logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH:0]   res_reg             ;
 
   logic [NUM_FEATURE_OUT-1:0] [NEW_FEATURE_WIDTH-1:0] new_feat            ;
   logic [NUM_NODE_WIDTH-1:0]                          num_node_out        ;
@@ -234,7 +234,7 @@ module aggregator #(
         .WIFA   (0                ),
         .WIIB   (WOI              ),
         .WIFB   (WOF              ),
-        .WOI    (16               ),
+        .WOI    (17               ),
         .WOF    (16               ),
         .ROUND  (1                )
       ) u_mul_pipe (
@@ -271,7 +271,7 @@ module aggregator #(
   //* ========== push data to feature bram =========
   generate
     for (i = 0; i < NUM_FEATURE_OUT; i = i + 1) begin
-      assign new_feat[i] = (res_reg[i] >= 0) ? res_reg[i] : 'b0;
+      assign new_feat[i] = (res_reg[i][NEW_FEATURE_WIDTH] == 1'b0) ? res_reg[i][NEW_FEATURE_WIDTH-1:0] : '0;
     end
   endgenerate
 
