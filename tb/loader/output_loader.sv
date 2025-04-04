@@ -113,4 +113,7 @@ task output_loader();
     golden_new_feature_conv2[i] = new_feature_value;
   end
   $fclose(new_feature_file);
+
+  $display("[Output ] - Loading completed...");
+
 endtask

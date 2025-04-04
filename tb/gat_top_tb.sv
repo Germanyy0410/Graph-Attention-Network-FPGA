@@ -14,22 +14,7 @@
 
 module gat_top_tb #(
   //* ======================= parameter ========================
-`ifdef TESTBENCH
-  parameter H_NUM_SPARSE_DATA       = 555,
-  parameter TOTAL_NODES             = 100,
-  parameter NUM_FEATURE_IN          = 11,
-  parameter NUM_FEATURE_OUT         = 16,
-  parameter NUM_FEATURE_FINAL       = 7,
-  parameter NUM_SUBGRAPHS           = 25,
-  parameter MAX_NODES               = 6,
-
-  parameter WH_DATA_WIDTH_CONV1     = 11,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
-
-  parameter DMVM_DATA_WIDTH_CONV1   = 19,
-  parameter DMVM_DATA_WIDTH_CONV2   = 24,
-
-`elsif CORA
+`ifdef CORA
   parameter H_NUM_SPARSE_DATA       = 242101,
   parameter TOTAL_NODES             = 13264,
   parameter NUM_FEATURE_IN          = 1433,
@@ -48,36 +33,23 @@ module gat_top_tb #(
   parameter COEF_DATA_WIDTH_CONV2   = 22,
 
 `elsif CITESEER
-  parameter H_NUM_SPARSE_DATA       = 399058,
+  parameter H_NUM_SPARSE_DATA       = 399089,
   parameter TOTAL_NODES             = 12383,
   parameter NUM_FEATURE_IN          = 3703,
   parameter NUM_FEATURE_OUT         = 16,
-  parameter NUM_FEATURE_FINAL       = 7,
-  parameter NUM_SUBGRAPHS           = 3327,
+  parameter NUM_FEATURE_FINAL       = 6,
+  parameter NUM_SUBGRAPHS           = 3279,
   parameter MAX_NODES               = 100,
   parameter DMVM_DATA_WIDTH         = 20,
 
-  parameter WH_DATA_WIDTH_CONV1     = 10,
+  parameter WH_DATA_WIDTH_CONV1     = 11,
   parameter WH_DATA_WIDTH_CONV2     = 16,
 
   parameter DMVM_DATA_WIDTH_CONV1   = 20,
-  parameter DMVM_DATA_WIDTH_CONV2   = 23,
+  parameter DMVM_DATA_WIDTH_CONV2   = 24,
 
-`elsif PUBMED
-  parameter H_NUM_SPARSE_DATA       = 557,
-  parameter TOTAL_NODES             = 100,
-  parameter NUM_FEATURE_IN          = 11,
-  parameter NUM_FEATURE_OUT         = 16,
-  parameter NUM_FEATURE_FINAL       = 7,
-  parameter NUM_SUBGRAPHS           = 26,
-  parameter MAX_NODES               = 6,
-  parameter DMVM_DATA_WIDTH         = 20,
-
-  parameter WH_DATA_WIDTH_CONV1     = 10,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
-
-  parameter DMVM_DATA_WIDTH_CONV1   = 20,
-  parameter DMVM_DATA_WIDTH_CONV2   = 23,
+  parameter COEF_DATA_WIDTH_CONV1   = 20,
+  parameter COEF_DATA_WIDTH_CONV2   = 24,
 `endif
 
   parameter DATA_WIDTH              = 8,
@@ -266,29 +238,34 @@ module gat_top_tb #(
   initial begin
     //* =========================== Layer 1 ===========================
     gat_layer = 1'b0;
-    $display("Starting Layer 1...");
+    $display("[Layer 1] - Starting...");
     // ================ Load IO ================
+    output_loader();
+
     fork
       input_loader();
-      output_loader();
+
+      begin
+        // =========================================
+        $display("[Layer 1] - Validating...");
+        // =========== Start Simulation ============
+        c3;
+        wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
+        start_time      = $time;
+        lat_start_time  = $time;
+
+        // -- Latency
+        wait(dut.u_gat_conv1.u_aggregator.u_feature_controller.feat_bram_ena);
+        lat_end_time = $time;
+
+        // -- Total
+        wait(dut.u_gat_conv1.gat_ready);
+        end_time = $time;
+      end
     join
-    // =========================================
-    $display("Validating Layer 1...");
-    // =========== Start Simulation ============
-    c3;
-    wait(dut.u_gat_conv1.u_SPMM.spmm_vld_i);
-    start_time      = $time;
-    lat_start_time  = $time;
 
-    // -- Latency
-    wait(dut.u_gat_conv1.u_aggregator.u_feature_controller.feat_bram_ena);
-    lat_end_time = $time;
-
-    // -- Total
-    wait(dut.u_gat_conv1.gat_ready);
-    end_time = $time;
     // =========================================
-    $display("Monitoring Layer 1...");
+    $display("[Layer 1] - Monitoring...");
     // ================ Report =================
     summary_section();
 
@@ -303,7 +280,7 @@ module gat_top_tb #(
 
     end_section("conv1");
     // =========================================
-    $display("Completing Layer 1...");
+    $display("[Layer 1] - Completing...");
   //* ===============================================================
 
     wgt_bram_load_done          = 1'b0;
@@ -313,31 +290,35 @@ module gat_top_tb #(
 
   //* =========================== Layer 2 ===========================
     gat_layer = 1'b1;
-    $display("Starting Layer 2...");
+    $display("[Layer 2] - Starting...");
     // ================ Load IO ================
+
     fork
       input_loader();
       output_loader();
+
+      begin
+        // =========================================
+        $display("[Layer 2] - Validating...");
+        // =========== Start Simulation ============
+        c3;
+        wait(dut.u_gat_conv2.u_WH.wh_vld_i);
+        start_time      = $time;
+        lat_start_time  = $time;
+        // -- Latency
+        c3;
+        wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
+        lat_end_time = $time;
+
+        // -- Total
+        c3;
+        wait(dut.gat_ready == 1'b1);
+        end_time = $time;
+      end
     join
-    // =========================================
-    $display("Validating Layer 2...");
-    // =========== Start Simulation ============
-    c3;
-    wait(dut.u_gat_conv2.u_WH.wh_vld_i);
-    start_time      = $time;
-    lat_start_time  = $time;
-    // -- Latency
-    c3;
-    wait(dut.u_gat_conv2.u_aggregator.u_feature_controller.feat_bram_ena);
-    lat_end_time = $time;
-
-    // -- Total
-    c3;
-    wait(dut.gat_ready == 1'b1);
-    end_time = $time;
 
     // =========================================
-    $display("Monitoring Layer 2...");
+    $display("[Layer 2] - Monitoring...");
     // ================ Report =================
     summary_section();
 
@@ -352,6 +333,7 @@ module gat_top_tb #(
 
     end_section("conv2");
     // =========================================
+    $display("[Layer 2] - Completing...");
   //* ===============================================================
 
     $finish();
