@@ -263,7 +263,7 @@ module DMVM #(
         end
       end else begin
         for (k = 0; k < HALF_A_SIZE / (1 << i); k = k + 1) begin
-          if (NUM_FEATURE_OUT % 2 == 0) begin
+          if ((NUM_FEATURE_OUT & (NUM_FEATURE_OUT - 1)) == 0) begin
             assign pipe_src[i][k] = $signed(pipe_src_reg[i][2*k]) + $signed(pipe_src_reg[i][2*k+1]);
             assign pipe_nbr[i][k] = $signed(pipe_nbr_reg[i][2*k]) + $signed(pipe_nbr_reg[i][2*k+1]);
           end else begin
