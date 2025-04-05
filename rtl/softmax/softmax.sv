@@ -240,7 +240,7 @@ module softmax #(
 
     if (coef_ff_rd_vld) begin
       if (node_cnt_reg == num_node_reg - 1) begin
-        node_cnt  = '0;
+        node_cnt  = 'b0;
       end else begin
         node_cnt  = node_cnt_reg + 1;
       end
@@ -252,7 +252,7 @@ module softmax #(
       end
     end else begin
       if (node_cnt_reg == 0) begin
-        sum = '0;
+        sum = 'b0;
       end
     end
   end
@@ -301,12 +301,12 @@ module softmax #(
     div_node_cnt = div_node_cnt_reg;
     if (sub_grph_div_ena) begin
       if (div_node_cnt_reg == div_num_node_reg - 1) begin
-        div_node_cnt = '0;
+        div_node_cnt = 'b0;
       end else begin
         div_node_cnt = div_node_cnt_reg + 1;
       end
     end else begin
-      div_node_cnt = '0;
+      div_node_cnt = 'b0;
     end
   end
 

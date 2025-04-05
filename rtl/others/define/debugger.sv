@@ -64,15 +64,15 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      spmm_vld_reg <= '0;
-      spmm_rdy_reg <= '0;
-      dmvm_vld_reg <= '0;
-      dmvm_rdy_reg <= '0;
-      sm_vld_reg   <= '0;
-      sm_rdy_reg   <= '0;
-      aggr_vld_reg <= '0;
-      aggr_rdy_reg <= '0;
-      ena_flag_reg <= '0;
+      spmm_vld_reg <= 'b0;
+      spmm_rdy_reg <= 'b0;
+      dmvm_vld_reg <= 'b0;
+      dmvm_rdy_reg <= 'b0;
+      sm_vld_reg   <= 'b0;
+      sm_rdy_reg   <= 'b0;
+      aggr_vld_reg <= 'b0;
+      aggr_rdy_reg <= 'b0;
+      ena_flag_reg <= 'b0;
     end else begin
       spmm_vld_reg <= spmm_vld;
       spmm_rdy_reg <= spmm_rdy;
@@ -99,9 +99,9 @@ module debugger #(parameter H_NUM_SPARSE_DATA = 12)(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      counter_reg <= '0;
-      data_1_reg  <= '0;
-      data_2_reg  <= '0;
+      counter_reg <= 'b0;
+      data_1_reg  <= 'b0;
+      data_2_reg  <= 'b0;
     end else begin
       counter_reg <= counter;
       data_1_reg  <= data_1;

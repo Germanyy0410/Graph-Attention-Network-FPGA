@@ -404,11 +404,11 @@ module SPMM #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      ff_rd_vld_q1        <= '0;
-      addr_flag_reg       <= '0;
-      row_cnt_reg         <= '0;
-      data_addr_reg       <= '0;
-      node_info_addr_reg  <= '0;
+      ff_rd_vld_q1        <= 'b0;
+      addr_flag_reg       <= 'b0;
+      row_cnt_reg         <= 'b0;
+      data_addr_reg       <= 'b0;
+      node_info_addr_reg  <= 'b0;
     end else begin
       ff_rd_vld_q1        <= ff_rd_vld;
       addr_flag_reg       <= addr_flag;

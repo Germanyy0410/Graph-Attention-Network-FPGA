@@ -31,7 +31,7 @@ module fxp_div_pipe #(
 
 	always_ff @(posedge clk or negedge rstn) begin
 		if (!rstn) begin
-			vld_shft_reg 	<= '0;
+			vld_shft_reg 	<= 'b0;
 			rdy						<= 1'b0;
 		end else begin
 			vld_shft_reg 	<= {vld_shft_reg[DELAY_LENGTH-2:0], vld};

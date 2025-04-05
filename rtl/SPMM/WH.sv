@@ -189,9 +189,9 @@ module WH #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      new_row_reg <= '0;
-      wh_vld_q1   <= '0;
-      wh_vld_q2   <= '0;
+      new_row_reg <= 'b0;
+      wh_vld_q1   <= 'b0;
+      wh_vld_q2   <= 'b0;
     end else begin
       new_row_reg <= new_row;
       wh_vld_q1   <= wh_vld_i;
@@ -220,8 +220,8 @@ module WH #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      num_node_addr_reg <= '0;
-      num_node_cnt_reg  <= '0;
+      num_node_addr_reg <= 'b0;
+      num_node_cnt_reg  <= 'b0;
     end else begin
       num_node_addr_reg <= num_node_addr;
       num_node_cnt_reg  <= num_node_cnt;
@@ -245,9 +245,9 @@ module WH #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      idx_reg    <= '0;
-      res_reg    <= '0;
-      h_addr_reg <= '0;
+      idx_reg    <= 'b0;
+      res_reg    <= 'b0;
+      h_addr_reg <= 'b0;
     end else begin
       idx_reg    <= idx;
       res_reg    <= res;

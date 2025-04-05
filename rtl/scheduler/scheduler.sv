@@ -398,7 +398,7 @@ module scheduler #(
 
 
   //* ======================= sched_rdy =======================
-  assign sched_rdy    = &wgt_rdy_reg & &a_rdy_reg;
+  assign sched_rdy = (&wgt_rdy_reg) && (&a_rdy_reg);
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin

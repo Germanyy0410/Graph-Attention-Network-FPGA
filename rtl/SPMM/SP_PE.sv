@@ -168,7 +168,7 @@ module SP_PE #(
   //* ====================== calculation ======================
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      col_idx_reg <= '0;
+      col_idx_reg <= 'b0;
     end else begin
       col_idx_reg <= col_idx_i;
     end
@@ -215,9 +215,9 @@ module SP_PE #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      row_len_reg     <= '0;
-      spmm_vld_q1     <= '0;
-      row_len_reg_q1  <= '0;
+      row_len_reg     <= 'b0;
+      spmm_vld_q1     <= 'b0;
+      row_len_reg_q1  <= 'b0;
     end else begin
       row_len_reg     <= row_len_i;
       spmm_vld_q1     <= spmm_vld_i;

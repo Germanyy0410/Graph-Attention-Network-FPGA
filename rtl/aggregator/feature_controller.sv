@@ -198,7 +198,7 @@ module feature_controller #(
     if (!rst_n) begin
       feat_bram_din   <= 'b0;
       feat_bram_addra <= 'b0;
-      feat_bram_ena   <= '0;
+      feat_bram_ena   <= 'b0;
     end else begin
       feat_bram_din   <= (gat_layer == 1'b1) ? (feat[NUM_FEATURE_OUT - 1 - cnt_reg] >> 1) : feat[NUM_FEATURE_OUT - 1 - cnt_reg];
       feat_bram_addra <= feat_addr_reg;
@@ -218,7 +218,7 @@ module feature_controller #(
   //* ================== complete conv ===================
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      gat_ready <= '0;
+      gat_ready <= 'b0;
     end else begin
       gat_ready <= (feat_bram_addra >= (NUM_SUBGRAPHS * NUM_FEATURE_OUT - 1));
     end

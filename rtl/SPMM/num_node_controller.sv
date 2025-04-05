@@ -158,8 +158,8 @@ module num_node_controller #(
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      addr_reg            <= '0;
-      num_node_status_reg <= '0;
+      addr_reg            <= 'b0;
+      num_node_status_reg <= 'b0;
 
     end else begin
       addr_reg            <= addr;
