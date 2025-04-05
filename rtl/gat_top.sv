@@ -40,14 +40,14 @@ module gat_top #(
   parameter MAX_NODES               = 100,
   parameter DMVM_DATA_WIDTH         = 20,
 
-  parameter WH_DATA_WIDTH_CONV1     = 10,
-  parameter WH_DATA_WIDTH_CONV2     = 16,
+  parameter WH_DATA_WIDTH_CONV1     = 11,
+  parameter WH_DATA_WIDTH_CONV2     = 17,
 
   parameter DMVM_DATA_WIDTH_CONV1   = 20,
-  parameter DMVM_DATA_WIDTH_CONV2   = 23,
+  parameter DMVM_DATA_WIDTH_CONV2   = 24,
 
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 23,
+  parameter COEF_DATA_WIDTH_CONV1   = 20,
+  parameter COEF_DATA_WIDTH_CONV2   = 24,
 
   parameter NEW_FEATURE_WIDTH_CONV1 = 10,
   parameter NEW_FEATURE_WIDTH_CONV2 = 17,
