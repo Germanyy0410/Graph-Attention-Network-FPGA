@@ -205,24 +205,24 @@ module memory_controller #(
   logic                           feat_bram_ena           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra         ;
 
-  assign h_data_bram_addrb      = (gat_layer == 0) ? h_data_bram_addrb_conv1      : h_data_bram_addrb_conv2;
+  assign h_data_bram_addrb      = (gat_layer == 0) ? h_data_bram_addrb_conv1 : h_data_bram_addrb_conv2;
   assign h_node_info_bram_addrb = (gat_layer == 0) ? h_node_info_bram_addrb_conv1 : h_node_info_bram_addrb_conv2;
-  assign wgt_bram_addrb         = (gat_layer == 0) ? wgt_bram_addrb_conv1         : wgt_bram_addrb_conv2;
+  assign wgt_bram_addrb         = (gat_layer == 0) ? wgt_bram_addrb_conv1 : wgt_bram_addrb_conv2;
 
-  assign wh_bram_din            = (gat_layer == 0) ? wh_bram_din_conv1            : wh_bram_din_conv2;
-  assign wh_bram_ena            = (gat_layer == 0) ? wh_bram_ena_conv1            : wh_bram_ena_conv2;
-  assign wh_bram_addra          = (gat_layer == 0) ? wh_bram_addra_conv1          : wh_bram_addra_conv2;
-  assign wh_bram_addrb          = (gat_layer == 0) ? wh_bram_addrb_conv1          : wh_bram_addrb_conv2;
+  assign wh_bram_din            = (gat_layer == 0) ? wh_bram_din_conv1 : wh_bram_din_conv2;
+  assign wh_bram_ena            = (gat_layer == 0) ? wh_bram_ena_conv1 : wh_bram_ena_conv2;
+  assign wh_bram_addra          = (gat_layer == 0) ? wh_bram_addra_conv1 : wh_bram_addra_conv2;
+  assign wh_bram_addrb          = (gat_layer == 0) ? wh_bram_addrb_conv1 : wh_bram_addrb_conv2;
 
-  assign num_node_bram_din      = (gat_layer == 0) ? num_node_bram_din_conv1      : num_node_bram_din_conv2;
-  assign num_node_bram_ena      = (gat_layer == 0) ? num_node_bram_ena_conv1      : num_node_bram_ena_conv2;
-  assign num_node_bram_addra    = (gat_layer == 0) ? num_node_bram_addra_conv1    : num_node_bram_addra_conv2;
-  assign num_node_bram_addrb    = (gat_layer == 0) ? num_node_bram_addrb_conv1    : num_node_bram_addrb_conv2;
-  assign num_node_bram_addrc    = (gat_layer == 0) ? num_node_bram_addrc_conv1    : num_node_bram_addrc_conv2;
+  assign num_node_bram_din      = (gat_layer == 0) ? num_node_bram_din_conv1 : num_node_bram_din_conv2;
+  assign num_node_bram_ena      = (gat_layer == 0) ? num_node_bram_ena_conv1 : num_node_bram_ena_conv2;
+  assign num_node_bram_addra    = (gat_layer == 0) ? num_node_bram_addra_conv1 : num_node_bram_addra_conv2;
+  assign num_node_bram_addrb    = (gat_layer == 0) ? num_node_bram_addrb_conv1 : num_node_bram_addrb_conv2;
+  assign num_node_bram_addrc    = (gat_layer == 0) ? num_node_bram_addrc_conv1 : num_node_bram_addrc_conv2;
 
-  assign feat_bram_din          = (gat_layer == 0) ? feat_bram_din_conv1          : feat_bram_din_conv2;
-  assign feat_bram_ena          = (gat_layer == 0) ? feat_bram_ena_conv1          : feat_bram_ena_conv2;
-  assign feat_bram_addra        = (gat_layer == 0) ? feat_bram_addra_conv1        : feat_bram_addra_conv2;
+  assign feat_bram_din          = (gat_layer == 0) ? feat_bram_din_conv1 : feat_bram_din_conv2;
+  assign feat_bram_ena          = (gat_layer == 0) ? feat_bram_ena_conv1 : feat_bram_ena_conv2;
+  assign feat_bram_addra        = (gat_layer == 0) ? feat_bram_addra_conv1 : feat_bram_addra_conv2;
 
   //* ========================= MEMORY =========================
   BRAM #(

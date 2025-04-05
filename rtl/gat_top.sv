@@ -175,17 +175,19 @@ module gat_top #(
   localparam FEAT_ADDR_W_DIFF  = FEAT_ADDR_W_CONV1 - FEAT_ADDR_W_CONV2;
 
   //* ====================== Memory Logic ======================
-  // -- PL
+  // -- H Data
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb             ;
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb_conv1       ;
   logic [H_DATA_ADDR_W-1:0]       h_data_bram_addrb_conv2       ;
   logic [H_DATA_WIDTH-1:0]        h_data_bram_dout              ;
 
+  // -- Node Info
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb        ;
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv1  ;
   logic [NODE_INFO_ADDR_W-1:0]    h_node_info_bram_addrb_conv2  ;
   logic [NODE_INFO_WIDTH-1:0]     h_node_info_bram_dout         ;
 
+  // -- Weight
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb                ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv1          ;
   logic [WEIGHT_ADDR_W-1:0]       wgt_bram_addrb_conv2          ;
@@ -197,36 +199,40 @@ module gat_top #(
   logic [NUM_NODE_WIDTH-1:0]      num_node_bram_doutb           ;
   logic [NUM_NODE_WIDTH-1:0]      num_node_bram_doutc           ;
 
-  // -- Conv1
+  // -- WH - Conv1
   logic [WH_WIDTH-1:0]            wh_bram_din_conv1             ;
   logic                           wh_bram_ena_conv1             ;
   logic [WH_ADDR_W-1:0]           wh_bram_addra_conv1           ;
   logic [WH_ADDR_W-1:0]           wh_bram_addrb_conv1           ;
 
+  // -- Num Node - Conv1
   logic [NUM_NODE_WIDTH-1:0]      num_node_bram_din_conv1       ;
   logic                           num_node_bram_ena_conv1       ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra_conv1     ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv1     ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv1     ;
 
+  // -- Feature - Conv1
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv1           ;
   logic                           feat_bram_ena_conv1           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv1         ;
 
   logic                           gat_ready_conv1               ;
 
-  // -- Conv2
+  // -- WH - Conv2
   logic [WH_WIDTH-1:0]            wh_bram_din_conv2             ;
   logic                           wh_bram_ena_conv2             ;
   logic [WH_ADDR_W-1:0]           wh_bram_addra_conv2           ;
   logic [WH_ADDR_W-1:0]           wh_bram_addrb_conv2           ;
 
+  // -- Num Node - Conv2
   logic [NUM_NODE_WIDTH-1:0]      num_node_bram_din_conv2       ;
   logic                           num_node_bram_ena_conv2       ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addra_conv2     ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrb_conv2     ;
   logic [NUM_NODE_ADDR_W-1:0]     num_node_bram_addrc_conv2     ;
 
+  // -- Feature - Conv2
   logic [NEW_FEATURE_WIDTH-1:0]   feat_bram_din_conv2           ;
   logic                           feat_bram_ena_conv2           ;
   logic [NEW_FEATURE_ADDR_W-1:0]  feat_bram_addra_conv2         ;
