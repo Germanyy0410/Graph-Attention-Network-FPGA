@@ -50,7 +50,7 @@ module gat_top #(
   parameter COEF_DATA_WIDTH_CONV2   = 24,
 
   parameter NEW_FEATURE_WIDTH_CONV1 = 10,
-  parameter NEW_FEATURE_WIDTH_CONV2 = 17,
+  parameter NEW_FEATURE_WIDTH_CONV2 = 16,
 
 `endif
 
@@ -433,28 +433,29 @@ module gat_top #(
 
   //* ======================== Layer 2 =========================
   gat_conv2 #(
-    .DATA_WIDTH         (DATA_WIDTH             ),
-    .SM_DATA_WIDTH      (SM_DATA_WIDTH          ),
-    .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH      ),
-    .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH       ),
-    .NEW_FEATURE_WIDTH  (NEW_FEATURE_WIDTH      ),
+    .DATA_WIDTH               (DATA_WIDTH               ),
+    .SM_DATA_WIDTH            (SM_DATA_WIDTH            ),
+    .SM_SUM_DATA_WIDTH        (SM_SUM_DATA_WIDTH        ),
+    .ALPHA_DATA_WIDTH         (ALPHA_DATA_WIDTH         ),
+    .NEW_FEATURE_WIDTH        (NEW_FEATURE_WIDTH        ),
 
-    .WH_DATA_WIDTH      (WH_DATA_WIDTH_CONV2    ),
-    .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH_CONV2  ),
-    .COEF_DATA_WIDTH    (COEF_DATA_WIDTH_CONV2  ),
+    .WH_DATA_WIDTH            (WH_DATA_WIDTH_CONV2      ),
+    .DMVM_DATA_WIDTH          (DMVM_DATA_WIDTH_CONV2    ),
+    .COEF_DATA_WIDTH          (COEF_DATA_WIDTH_CONV2    ),
+    .NEW_FEATURE_WIDTH_CONV2  (NEW_FEATURE_WIDTH_CONV2  ),
 
-    .H_NUM_SPARSE_DATA  (H_NUM_SPARSE_DATA      ),
-    .TOTAL_NODES        (TOTAL_NODES            ),
-    .NUM_FEATURE_IN     (NUM_FEATURE_OUT        ),
-    .NUM_FEATURE_OUT    (NUM_FEATURE_FINAL      ),
-    .NUM_FEATURE_FINAL  (NUM_FEATURE_FINAL      ),
-    .NUM_SUBGRAPHS      (NUM_SUBGRAPHS          ),
-    .MAX_NODES          (MAX_NODES              ),
+    .H_NUM_SPARSE_DATA        (H_NUM_SPARSE_DATA        ),
+    .TOTAL_NODES              (TOTAL_NODES              ),
+    .NUM_FEATURE_IN           (NUM_FEATURE_OUT          ),
+    .NUM_FEATURE_OUT          (NUM_FEATURE_FINAL        ),
+    .NUM_FEATURE_FINAL        (NUM_FEATURE_FINAL        ),
+    .NUM_SUBGRAPHS            (NUM_SUBGRAPHS            ),
+    .MAX_NODES                (MAX_NODES                ),
 
-    .COEF_DEPTH         (COEF_DEPTH             ),
-    .ALPHA_DEPTH        (ALPHA_DEPTH            ),
-    .DIVIDEND_DEPTH     (DIVIDEND_DEPTH         ),
-    .DIVISOR_DEPTH      (DIVISOR_DEPTH          )
+    .COEF_DEPTH               (COEF_DEPTH               ),
+    .ALPHA_DEPTH              (ALPHA_DEPTH              ),
+    .DIVIDEND_DEPTH           (DIVIDEND_DEPTH           ),
+    .DIVISOR_DEPTH            (DIVISOR_DEPTH            )
   ) u_gat_conv2 (
     .clk                        (clk                              ),
     .rst_n                      (rst_n                            ),

@@ -9,26 +9,27 @@
 
 module feature_controller #(
   //* ======================= parameter ========================
-  parameter DATA_WIDTH            = 8,
-  parameter WH_DATA_WIDTH         = 12,
-  parameter DMVM_DATA_WIDTH       = 19,
-  parameter SM_DATA_WIDTH         = 108,
-  parameter SM_SUM_DATA_WIDTH     = 108,
-  parameter ALPHA_DATA_WIDTH      = 32,
-  parameter NEW_FEATURE_WIDTH     = 32,
+  parameter DATA_WIDTH              = 8,
+  parameter WH_DATA_WIDTH           = 12,
+  parameter DMVM_DATA_WIDTH         = 19,
+  parameter SM_DATA_WIDTH           = 108,
+  parameter SM_SUM_DATA_WIDTH       = 108,
+  parameter ALPHA_DATA_WIDTH        = 32,
+  parameter NEW_FEATURE_WIDTH       = 32,
+  parameter NEW_FEATURE_WIDTH_CONV2 = 16,
 
-  parameter H_NUM_SPARSE_DATA     = 242101,
-  parameter TOTAL_NODES           = 13264,
-  parameter NUM_FEATURE_IN        = 1433,
-  parameter NUM_FEATURE_OUT       = 16,
-  parameter NUM_FEATURE_FINAL     = 7,
-  parameter NUM_SUBGRAPHS         = 2708,
-  parameter MAX_NODES             = 168,
+  parameter H_NUM_SPARSE_DATA       = 242101,
+  parameter TOTAL_NODES             = 13264,
+  parameter NUM_FEATURE_IN          = 1433,
+  parameter NUM_FEATURE_OUT         = 16,
+  parameter NUM_FEATURE_FINAL       = 7,
+  parameter NUM_SUBGRAPHS           = 2708,
+  parameter MAX_NODES               = 168,
 
-  parameter COEF_DEPTH            = 500,
-  parameter ALPHA_DEPTH           = 500,
-  parameter DIVIDEND_DEPTH        = 500,
-  parameter DIVISOR_DEPTH         = 500,
+  parameter COEF_DEPTH              = 500,
+  parameter ALPHA_DEPTH             = 500,
+  parameter DIVIDEND_DEPTH          = 500,
+  parameter DIVISOR_DEPTH           = 500,
   //* ==========================================================
 
   //* ======================= localparams ======================
@@ -200,7 +201,7 @@ module feature_controller #(
       feat_bram_addra <= 'b0;
       feat_bram_ena   <= 'b0;
     end else begin
-      feat_bram_din   <= (gat_layer == 1'b1) ? (feat[NUM_FEATURE_OUT - 1 - cnt_reg] >> 1) : feat[NUM_FEATURE_OUT - 1 - cnt_reg];
+      feat_bram_din   <= (gat_layer == 1'b1) ? (feat[NUM_FEATURE_OUT - 1 - cnt_reg] >> (NEW_FEATURE_WIDTH_CONV2 - 16)) : feat[NUM_FEATURE_OUT - 1 - cnt_reg];
       feat_bram_addra <= feat_addr_reg;
       feat_bram_ena   <= push_feat_ena;
     end
