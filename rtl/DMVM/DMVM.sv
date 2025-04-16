@@ -244,7 +244,9 @@ module DMVM #(
 
   // assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
   // assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
-  assign pipe_coef  = ($signed(src_dmvm) + $signed(nbr_dmvm) >= 0) ? ($signed(src_dmvm) + $signed(nbr_dmvm))[7:0] : 'b0;
+  logic [COEF_DATA_WIDTH-1:0] temp;
+  assign temp = $signed(src_dmvm) + $signed(nbr_dmvm);
+  assign pipe_coef  = ($signed(src_dmvm) + $signed(nbr_dmvm) >= 0) ? temp[7:0] : 'b0;
 
   // -- src_flag
   generate
