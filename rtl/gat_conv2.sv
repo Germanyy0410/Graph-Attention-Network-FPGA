@@ -9,6 +9,8 @@ module gat_conv2 #(
   parameter ALPHA_DATA_WIDTH        = 32,
   parameter NEW_FEATURE_WIDTH       = 32,
   parameter NEW_FEATURE_WIDTH_CONV2 = 16,
+  parameter COEF_NUM_BITS           = 4,
+  parameter NEW_FEATURE_BITS        = 4,
 
   parameter H_NUM_SPARSE_DATA       = 242101,
   parameter TOTAL_NODES             = 13264,
@@ -244,6 +246,7 @@ module gat_conv2 #(
     .WH_DATA_WIDTH      (WH_DATA_WIDTH      ),
     .DMVM_DATA_WIDTH    (DMVM_DATA_WIDTH    ),
     .COEF_DATA_WIDTH    (COEF_DATA_WIDTH    ),
+    .COEF_NUM_BITS      (COEF_NUM_BITS      ),
     .SM_DATA_WIDTH      (SM_DATA_WIDTH      ),
     .SM_SUM_DATA_WIDTH  (SM_SUM_DATA_WIDTH  ),
     .ALPHA_DATA_WIDTH   (ALPHA_DATA_WIDTH   ),

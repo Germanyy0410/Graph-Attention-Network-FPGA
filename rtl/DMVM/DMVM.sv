@@ -17,6 +17,7 @@ module DMVM #(
   parameter WH_DATA_WIDTH         = 12,
   parameter DMVM_DATA_WIDTH       = 19,
   parameter COEF_DATA_WIDTH       = 19,
+  parameter COEF_NUM_BITS         = 4,
   parameter SM_DATA_WIDTH         = 108,
   parameter SM_SUM_DATA_WIDTH     = 108,
   parameter ALPHA_DATA_WIDTH      = 32,
@@ -161,6 +162,7 @@ module DMVM #(
   logic [DATA_WIDTH-1:0]                                          pipe_coef           ;
   logic [DATA_WIDTH-1:0]                                          pipe_coef_reg       ;
 
+  logic [COEF_DATA_WIDTH-1:0]                                     concat_dmvm         ;
   // -- output
   logic [COEF_DELAY_LENGTH-1:0]                                   vld_shft_reg        ;
   logic                                                           dmvm_rdy_reg        ;
@@ -234,19 +236,8 @@ module DMVM #(
     end
   end
 
-  // always_comb begin
-  //   if (NUM_FEATURE_OUT % 2 == 0) begin
-  //     pipe_coef = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - DATA_WIDTH);
-  //   end else begin
-  //     pipe_coef = (src_dmvm + nbr_dmvm) >> (DMVM_DATA_WIDTH - 1 - DATA_WIDTH);
-  //   end
-  // end
-
-  // assign src_dmvm   = (pipe_src_flag_reg[NUM_STAGES] == 1'b1) ? pipe_src_reg[NUM_STAGES][0] : src_dmvm_reg;
-  // assign nbr_dmvm   = pipe_nbr_reg[NUM_STAGES][0];
-  logic [COEF_DATA_WIDTH-1:0] temp;
-  assign temp = $signed(src_dmvm) + $signed(nbr_dmvm);
-  assign pipe_coef  = ($signed(src_dmvm) + $signed(nbr_dmvm) >= 0) ? temp[COEF_DATA_WIDTH-1:COEF_DATA_WIDTH-4] : 'b0;
+  assign concat_dmvm  = $signed(src_dmvm) + $signed(nbr_dmvm);
+  assign pipe_coef    = (concat_dmvm >= 0) ? concat_dmvm[COEF_DATA_WIDTH-1:COEF_DATA_WIDTH-COEF_NUM_BITS] : 'b0;
 
   // -- src_flag
   generate

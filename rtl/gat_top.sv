@@ -27,6 +27,9 @@ module gat_top #(
   parameter COEF_DATA_WIDTH_CONV1   = 20,
   parameter COEF_DATA_WIDTH_CONV2   = 22,
 
+  parameter COEF_NUM_BITS           = 4,
+  parameter NEW_FEATURE_BITS        = 4,
+
   parameter NEW_FEATURE_WIDTH_CONV1 = 10,
   parameter NEW_FEATURE_WIDTH_CONV2 = 17,
 
@@ -48,6 +51,9 @@ module gat_top #(
 
   parameter COEF_DATA_WIDTH_CONV1   = 20,
   parameter COEF_DATA_WIDTH_CONV2   = 24,
+
+  parameter COEF_NUM_BITS           = 5,
+  parameter NEW_FEATURE_BITS        = 4,
 
   parameter NEW_FEATURE_WIDTH_CONV1 = 10,
   parameter NEW_FEATURE_WIDTH_CONV2 = 16,
@@ -360,6 +366,8 @@ module gat_top #(
     .DMVM_DATA_WIDTH          (DMVM_DATA_WIDTH_CONV1    ),
     .COEF_DATA_WIDTH          (COEF_DATA_WIDTH_CONV1    ),
     .NEW_FEATURE_WIDTH_CONV1  (NEW_FEATURE_WIDTH_CONV1  ),
+    .COEF_NUM_BITS            (COEF_NUM_BITS            ),
+    .NEW_FEATURE_BITS         (NEW_FEATURE_BITS         ),
 
     .H_NUM_SPARSE_DATA        (H_NUM_SPARSE_DATA        ),
     .TOTAL_NODES              (TOTAL_NODES              ),
@@ -443,6 +451,8 @@ module gat_top #(
     .DMVM_DATA_WIDTH          (DMVM_DATA_WIDTH_CONV2    ),
     .COEF_DATA_WIDTH          (COEF_DATA_WIDTH_CONV2    ),
     .NEW_FEATURE_WIDTH_CONV2  (NEW_FEATURE_WIDTH_CONV2  ),
+    .COEF_NUM_BITS            (COEF_NUM_BITS            ),
+    .NEW_FEATURE_BITS         (NEW_FEATURE_BITS         ),
 
     .H_NUM_SPARSE_DATA        (H_NUM_SPARSE_DATA        ),
     .TOTAL_NODES              (TOTAL_NODES              ),
