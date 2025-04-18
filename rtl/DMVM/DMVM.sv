@@ -163,6 +163,7 @@ module DMVM #(
   logic [DATA_WIDTH-1:0]                                          pipe_coef_reg       ;
 
   logic [COEF_DATA_WIDTH-1:0]                                     concat_dmvm         ;
+
   // -- output
   logic [COEF_DELAY_LENGTH-1:0]                                   vld_shft_reg        ;
   logic                                                           dmvm_rdy_reg        ;
@@ -237,7 +238,7 @@ module DMVM #(
   end
 
   assign concat_dmvm  = $signed(src_dmvm) + $signed(nbr_dmvm);
-  assign pipe_coef    = (concat_dmvm >= 0) ? concat_dmvm[COEF_DATA_WIDTH-1:COEF_DATA_WIDTH-4] : 'b0;
+  assign pipe_coef    = ($signed(src_dmvm) + $signed(nbr_dmvm) >= 0) ? concat_dmvm[COEF_DATA_WIDTH-1:COEF_DATA_WIDTH-COEF_NUM_BITS] : 'b0;
 
   // -- src_flag
   generate
