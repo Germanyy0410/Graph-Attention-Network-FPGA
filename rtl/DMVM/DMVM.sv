@@ -238,7 +238,7 @@ module DMVM #(
   end
 
   assign concat_dmvm  = $signed(src_dmvm) + $signed(nbr_dmvm);
-  assign pipe_coef    = ($signed(src_dmvm) + $signed(nbr_dmvm) >= 0) ? concat_dmvm[COEF_DATA_WIDTH-1:COEF_DATA_WIDTH-COEF_NUM_BITS] : 'b0;
+  assign pipe_coef    = ($signed(concat_dmvm) >= 0) ? concat_dmvm[COEF_DATA_WIDTH-1:COEF_DATA_WIDTH-COEF_NUM_BITS] : 'b0;
 
   // -- src_flag
   generate
