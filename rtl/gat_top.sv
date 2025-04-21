@@ -44,15 +44,15 @@ module gat_top #(
   parameter DMVM_DATA_WIDTH         = 20,
 
   parameter WH_DATA_WIDTH_CONV1     = 11,
-  parameter WH_DATA_WIDTH_CONV2     = 17,
+  parameter WH_DATA_WIDTH_CONV2     = 16,
 
-  parameter DMVM_DATA_WIDTH_CONV1   = 20,
-  parameter DMVM_DATA_WIDTH_CONV2   = 24,
+  parameter DMVM_DATA_WIDTH_CONV1   = 16,
+  parameter DMVM_DATA_WIDTH_CONV2   = 23,
 
-  parameter COEF_DATA_WIDTH_CONV1   = 20,
+  parameter COEF_DATA_WIDTH_CONV1   = 16,
   parameter COEF_DATA_WIDTH_CONV2   = 24,
 
-  parameter COEF_NUM_BITS           = 5,
+  parameter COEF_NUM_BITS           = 2,
   parameter NEW_FEATURE_BITS        = 4,
 
   parameter NEW_FEATURE_WIDTH_CONV1 = 10,
