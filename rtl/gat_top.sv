@@ -24,8 +24,8 @@ module gat_top #(
   parameter DMVM_DATA_WIDTH_CONV1   = 20,
   parameter DMVM_DATA_WIDTH_CONV2   = 26,
 
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 21,
+  parameter COEF_DATA_WIDTH_CONV1   = 20,
+  parameter COEF_DATA_WIDTH_CONV2   = 22,
 
   parameter COEF_NUM_BITS           = 4,
   parameter NEW_FEATURE_BITS        = 8,
