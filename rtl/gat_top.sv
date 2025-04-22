@@ -28,7 +28,7 @@ module gat_top #(
   parameter COEF_DATA_WIDTH_CONV2   = 22,
 
   parameter COEF_NUM_BITS           = 4,
-  parameter NEW_FEATURE_BITS        = 4,
+  parameter NEW_FEATURE_BITS        = 8,
 
   parameter NEW_FEATURE_WIDTH_CONV1 = 10,
   parameter NEW_FEATURE_WIDTH_CONV2 = 17,
@@ -53,9 +53,9 @@ module gat_top #(
   parameter COEF_DATA_WIDTH_CONV2   = 24,
 
   parameter COEF_NUM_BITS           = 2,
-  parameter NEW_FEATURE_BITS        = 4,
+  parameter NEW_FEATURE_BITS        = 7,
 
-  parameter NEW_FEATURE_WIDTH_CONV1 = 10,
+  parameter NEW_FEATURE_WIDTH_CONV1 = 9,
   parameter NEW_FEATURE_WIDTH_CONV2 = 16,
 
 `endif

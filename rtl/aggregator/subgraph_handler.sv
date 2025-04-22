@@ -8,6 +8,7 @@ module subgraph_handler #(
   parameter ALPHA_DATA_WIDTH        = 32,
   parameter NEW_FEATURE_WIDTH       = 32,
   parameter NEW_FEATURE_WIDTH_CONV1 = 10,
+  parameter NEW_FEATURE_BITS        = 10,
 
   parameter H_NUM_SPARSE_DATA       = 242101,
   parameter TOTAL_NODES             = 13264,
@@ -309,7 +310,7 @@ module subgraph_handler #(
   assign h_data_addr_cnt = (subgraph_vld_i && start_handle) ? (h_data_addr_cnt_reg + 1) : h_data_addr_cnt_reg;
 
   // -- Data
-  assign h_data_bram_din = feat_reg[cnt_reg][31:16] >> (NEW_FEATURE_WIDTH_CONV1 - DATA_WIDTH);
+  assign h_data_bram_din = feat_reg[cnt_reg][31:16] >> (NEW_FEATURE_WIDTH_CONV1 - NEW_FEATURE_BITS);
 
   // -- Ena
   always_comb begin

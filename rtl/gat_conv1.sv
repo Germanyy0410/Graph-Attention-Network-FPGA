@@ -423,6 +423,7 @@ module gat_conv1 #(
     .ALPHA_DATA_WIDTH         (ALPHA_DATA_WIDTH         ),
     .NEW_FEATURE_WIDTH        (NEW_FEATURE_WIDTH        ),
     .NEW_FEATURE_WIDTH_CONV1  (NEW_FEATURE_WIDTH_CONV1  ),
+    .NEW_FEATURE_BITS         (NEW_FEATURE_BITS         ),
 
     .H_NUM_SPARSE_DATA        (H_NUM_SPARSE_DATA        ),
     .TOTAL_NODES              (TOTAL_NODES              ),
