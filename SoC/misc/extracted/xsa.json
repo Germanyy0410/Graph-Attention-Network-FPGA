@@ -1,0 +1,101 @@
+{
+    "versionMajor": "0",
+    "versionMinor": "0",
+    "usesPR": "false",
+    "platformState": "pre_synth",
+    "topModuleName": "design_gat_wrapper",
+    "acceleratorBinaryFormat": "xclbin2",
+    "acceleratorBinaryContent": "bitstream",
+    "validAcceleratorBinaryContentValues": "dcp,bitstream",
+    "dcpFunctionStripped": "false",
+    "dcpEncrypted": "false",
+    "defaultOutputType": "hw_export",
+    "designIntent": {
+        "dataCenter": {
+            "value": "false",
+            "explicit": "false"
+        },
+        "embedded": {
+            "value": "false",
+            "explicit": "false"
+        },
+        "externalHost": {
+            "value": "false",
+            "explicit": "false"
+        },
+        "serverManaged": {
+            "value": "false",
+            "explicit": "false"
+        }
+    },
+    "board": {
+        "name": "xilinx.com:zcu106:2.6",
+        "vendor": "xilinx.com",
+        "part": "xczu7ev-ffvc1156-2-e",
+        "boardPart": "xilinx.com:zcu106:part0:2.6",
+        "imageFileHdpi": "zcu106_board.jpeg"
+    },
+    "devices": [
+        {
+            "name": "fpga0",
+            "type": "8",
+            "fpgaPart": "zynquplus:xczu7ev:ffvc1156:-2:e",
+            "part": {
+                "name": "xczu7ev-ffvc1156-2-e",
+                "architecture": "zynquplus",
+                "device": "xczu7ev",
+                "package": "ffvc1156",
+                "speedGrade": "-2",
+                "tempGrade": "e"
+            },
+            "numSLRs": "1",
+            "core": {
+                "name": "OCL_REGION_0",
+                "type": "clc_region",
+                "numComputeUnits": "60",
+                "availableResources": {
+                    "bramCount": "171",
+                    "dspCount": "1728",
+                    "lutCount": "222866",
+                    "registerCount": "452320"
+                }
+            }
+        }
+    ],
+    "files": [
+        {
+            "name": "design_gat_wrapper.bit",
+            "type": "FULL_BIT"
+        }
+    ],
+    "vendor": "xilinx",
+    "boardId": "zcu106",
+    "description": "Vivado generated Hardware Platform",
+    "uniqueName": "xilinx:zcu106::0.0",
+    "fpgaPart": "zynquplus",
+    "fpgaDevice": "xczu7ev",
+    "unifiedPlatform": "true",
+    "expandablePlatform": "false",
+    "hardware": "true",
+    "softwareEmulation": "true",
+    "hardwareEmulation": "false",
+    "hardwareEmuPlatform": "false",
+    "usesNIFD": "false",
+    "generatedName": "Vivado",
+    "generatedVersion": "2024.1",
+    "generatedChangeList": "5076996",
+    "generatedIpChangeList": "5075265",
+    "generatedSharedDataChangeList": "5076995",
+    "generatedTimestamp": "Fri Feb 21 21:09:17 2025",
+    "idCode": "04a5a093",
+    "designIDs": {
+        "designID": "3783010802"
+    },
+    "resources": [
+        {
+            "type": "REG",
+            "count": "452320"
+        }
+    ]
+}
+
