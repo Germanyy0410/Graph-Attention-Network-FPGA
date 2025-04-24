@@ -36,7 +36,7 @@ This project explores hardware acceleration techniques for **Graph Attention Net
 
 ## Overall Architecture
 
-![Alt text](docs/images/overall.png)
+![Alt text](hardware/docs/images/overall.png)
 
 ## Contributors
 
