@@ -88,7 +88,7 @@ task input_loader();
 			subgraph_bram_ena = 1'b1;
 			subgraph_bram_wea	= 1'b1;
 
-			file_path = $sformatf("%s/graph_index.txt", INPUT_PATH);
+			file_path = $sformatf("%s/subgraph_index.txt", INPUT_PATH);
 			subgraph_idx_file = $fopen(file_path, "r");
 
 			for (int i = 0; i < TOTAL_NODES; i++) begin
