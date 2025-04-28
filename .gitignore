@@ -4,3 +4,4 @@ dvt_build.log
 sim/
 tb/others/logs/
 tb/log/
+benchmark/venv/
