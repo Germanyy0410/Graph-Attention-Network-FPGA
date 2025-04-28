@@ -68,9 +68,9 @@
   end
 
   always_comb begin
-    h_data_conv2.dut_ready      = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_ena;
-    h_data_conv2.dut_output     = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_din;
-    h_data_conv2.dut_addr       = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_addra;
+    h_data_conv2.dut_ready      = dut.u_gat_conv1.u_subgraph_dispatcher.h_data_bram_ena;
+    h_data_conv2.dut_output     = dut.u_gat_conv1.u_subgraph_dispatcher.h_data_bram_din;
+    h_data_conv2.dut_addr       = dut.u_gat_conv1.u_subgraph_dispatcher.h_data_bram_addra;
     h_data_conv2.golden_output  = golden_h_data_conv2;
   end
 
