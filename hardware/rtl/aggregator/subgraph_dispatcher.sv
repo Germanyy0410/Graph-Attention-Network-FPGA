@@ -1,4 +1,4 @@
-module subgraph_handler #(
+module subgraph_dispatcher #(
   //* ======================= parameter ========================
   parameter DATA_WIDTH              = 8,
   parameter WH_DATA_WIDTH           = 12,

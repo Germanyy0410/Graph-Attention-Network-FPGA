@@ -413,8 +413,8 @@ module gat_conv1 #(
   //* ==========================================================
 
 
-  //* ==================== Subgraph Handler ====================
-  subgraph_handler #(
+  //* ================== Subgraph Dispatcher ===================
+  subgraph_dispatcher #(
     .DATA_WIDTH               (DATA_WIDTH               ),
     .WH_DATA_WIDTH            (WH_DATA_WIDTH            ),
     .DMVM_DATA_WIDTH          (DMVM_DATA_WIDTH          ),
@@ -436,7 +436,7 @@ module gat_conv1 #(
     .ALPHA_DEPTH              (ALPHA_DEPTH              ),
     .DIVIDEND_DEPTH           (DIVIDEND_DEPTH           ),
     .DIVISOR_DEPTH            (DIVISOR_DEPTH            )
-  ) u_subgraph_handler (
+  ) u_subgraph_dispatcher (
     .clk                  (clk                      ),
     .rst_n                (rst_n                    ),
 
