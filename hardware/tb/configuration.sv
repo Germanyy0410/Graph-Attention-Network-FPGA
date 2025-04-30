@@ -6,15 +6,15 @@
     new_feature.header        = "AGGREGATOR";
     h_data_conv2.header       = "H_DATA_CONV2";
 
-    spmm.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv1";
-    dmvm.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv1";
-    coef.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv1";
-    dividend.LOG_PATH         = "D:/VLSI/Capstone/tb/log/conv1";
-    divisor.LOG_PATH          = "D:/VLSI/Capstone/tb/log/conv1";
-    sm_num_nodes.LOG_PATH     = "D:/VLSI/Capstone/tb/log/conv1";
-    alpha.LOG_PATH            = "D:/VLSI/Capstone/tb/log/conv1";
-    new_feature.LOG_PATH      = "D:/VLSI/Capstone/tb/log/conv1";
-    h_data_conv2.LOG_PATH     = "D:/VLSI/Capstone/tb/log/subgraph_handler";
+    spmm.LOG_PATH             = "D:/VLSI/Capstone/hardware/tb/log/conv1";
+    dmvm.LOG_PATH             = "D:/VLSI/Capstone/hardware/tb/log/conv1";
+    coef.LOG_PATH             = "D:/VLSI/Capstone/hardware/tb/log/conv1";
+    dividend.LOG_PATH         = "D:/VLSI/Capstone/hardware/tb/log/conv1";
+    divisor.LOG_PATH          = "D:/VLSI/Capstone/hardware/tb/log/conv1";
+    sm_num_nodes.LOG_PATH     = "D:/VLSI/Capstone/hardware/tb/log/conv1";
+    alpha.LOG_PATH            = "D:/VLSI/Capstone/hardware/tb/log/conv1";
+    new_feature.LOG_PATH      = "D:/VLSI/Capstone/hardware/tb/log/conv1";
+    h_data_conv2.LOG_PATH     = "D:/VLSI/Capstone/hardware/tb/log/subgraph_handler";
 
     spmm.log_file             = "SPMM/wh.log";
     dmvm.log_file             = "DMVM/dmvm.log";
@@ -68,9 +68,9 @@
   end
 
   always_comb begin
-    h_data_conv2.dut_ready      = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_ena;
-    h_data_conv2.dut_output     = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_din;
-    h_data_conv2.dut_addr       = dut.u_gat_conv1.u_subgraph_handler.h_data_bram_addra;
+    h_data_conv2.dut_ready      = dut.u_gat_conv1.u_subgraph_dispatcher.h_data_bram_ena;
+    h_data_conv2.dut_output     = dut.u_gat_conv1.u_subgraph_dispatcher.h_data_bram_din;
+    h_data_conv2.dut_addr       = dut.u_gat_conv1.u_subgraph_dispatcher.h_data_bram_addra;
     h_data_conv2.golden_output  = golden_h_data_conv2;
   end
 
@@ -97,14 +97,14 @@
     dividend_conv2.header           = "SOFTMAX";
     new_feature_conv2.header        = "AGGREGATOR";
 
-    spmm_conv2.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv2";
-    dmvm_conv2.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv2";
-    coef_conv2.LOG_PATH             = "D:/VLSI/Capstone/tb/log/conv2";
-    dividend_conv2.LOG_PATH         = "D:/VLSI/Capstone/tb/log/conv2";
-    divisor_conv2.LOG_PATH          = "D:/VLSI/Capstone/tb/log/conv2";
-    sm_num_nodes_conv2.LOG_PATH     = "D:/VLSI/Capstone/tb/log/conv2";
-    alpha_conv2.LOG_PATH            = "D:/VLSI/Capstone/tb/log/conv2";
-    new_feature_conv2.LOG_PATH      = "D:/VLSI/Capstone/tb/log/conv2";
+    spmm_conv2.LOG_PATH             = "D:/VLSI/Capstone/hardware/tb/log/conv2";
+    dmvm_conv2.LOG_PATH             = "D:/VLSI/Capstone/hardware/tb/log/conv2";
+    coef_conv2.LOG_PATH             = "D:/VLSI/Capstone/hardware/tb/log/conv2";
+    dividend_conv2.LOG_PATH         = "D:/VLSI/Capstone/hardware/tb/log/conv2";
+    divisor_conv2.LOG_PATH          = "D:/VLSI/Capstone/hardware/tb/log/conv2";
+    sm_num_nodes_conv2.LOG_PATH     = "D:/VLSI/Capstone/hardware/tb/log/conv2";
+    alpha_conv2.LOG_PATH            = "D:/VLSI/Capstone/hardware/tb/log/conv2";
+    new_feature_conv2.LOG_PATH      = "D:/VLSI/Capstone/hardware/tb/log/conv2";
 
     spmm_conv2.log_file             = "SPMM/wh.log";
     dmvm_conv2.log_file             = "DMVM/dmvm.log";

@@ -147,7 +147,7 @@ task output_loader();
   $fclose(new_feature_file);
 
   // -- Task 9: H_DATA CONV2
-  h_data_file = $fopen("D:/VLSI/Capstone/data/cora/layer_2/input/h_data.txt", "r");
+  h_data_file = $fopen("D:/VLSI/Capstone/hardware/data/cora/layer_2/input/h_data.txt", "r");
   for (longint i = 0; i < H_DATA_DEPTH_CONV2; i++) begin
     status = $fscanf(h_data_file, "%b\n", h_data_value);
     golden_h_data_conv2[i] = h_data_value;

@@ -3,13 +3,13 @@
 `include "../rtl/others/define/gat_define.sv"
 
 `ifdef CORA
-	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/cora";
+	localparam string ROOT_PATH = "D:/VLSI/Capstone/hardware/data/cora";
 `elsif CITESEER
-	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/citeseer";
+	localparam string ROOT_PATH = "D:/VLSI/Capstone/hardware/data/citeseer";
 `elsif PUBMED
-	localparam string ROOT_PATH = "D:/VLSI/Capstone/data/pubmed";
+	localparam string ROOT_PATH = "D:/VLSI/Capstone/hardware/data/pubmed";
 `else
-	localparam string ROOT_PATH = "D:/VLSI/Capstone/tb";
+	localparam string ROOT_PATH = "D:/VLSI/Capstone/hardware/tb";
 `endif
 
 module gat_top_tb #(
