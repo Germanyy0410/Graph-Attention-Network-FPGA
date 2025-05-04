@@ -28,7 +28,7 @@ module gat_top #(
   parameter COEF_DATA_WIDTH_CONV2   = 22,
 
   parameter COEF_NUM_BITS           = 4,
-  parameter NEW_FEATURE_BITS        = 7,
+  parameter NEW_FEATURE_BITS        = 8,
 
 `elsif CITESEER
   parameter H_NUM_SPARSE_DATA       = 399089,
