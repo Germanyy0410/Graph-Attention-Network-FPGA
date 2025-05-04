@@ -49,11 +49,11 @@ module gat_top #(
   parameter DMVM_DATA_WIDTH_CONV1   = 20,
   parameter DMVM_DATA_WIDTH_CONV2   = 23,
 
-  parameter COEF_DATA_WIDTH_CONV1   = 19,
-  parameter COEF_DATA_WIDTH_CONV2   = 23,
+  parameter COEF_DATA_WIDTH_CONV1   = 20,
+  parameter COEF_DATA_WIDTH_CONV2   = 24,
 
   parameter COEF_NUM_BITS           = 2,
-  parameter NEW_FEATURE_BITS        = 8,
+  parameter NEW_FEATURE_BITS        = 7,
 
   parameter NEW_FEATURE_WIDTH_CONV1 = 10,
   parameter NEW_FEATURE_WIDTH_CONV2 = 16,
