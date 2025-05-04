@@ -18,11 +18,11 @@ module gat_top #(
   parameter NUM_SUBGRAPHS           = 2708,
   parameter MAX_NODES               = 169,
 
-  parameter WH_DATA_WIDTH_CONV1     = 11,
-  parameter WH_DATA_WIDTH_CONV2     = 17,
+  parameter WH_DATA_WIDTH_CONV1     = 12,
+  parameter WH_DATA_WIDTH_CONV2     = 18,
 
   parameter DMVM_DATA_WIDTH_CONV1   = 20,
-  parameter DMVM_DATA_WIDTH_CONV2   = 25,
+  parameter DMVM_DATA_WIDTH_CONV2   = 26,
 
   parameter COEF_DATA_WIDTH_CONV1   = 20,
   parameter COEF_DATA_WIDTH_CONV2   = 22,
